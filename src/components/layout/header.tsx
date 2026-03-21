@@ -34,17 +34,18 @@ import {
 
 const ROUTE_TITLES: Record<string, string> = {
   "/dashboard": "Dashboard",
-  "/matters": "Matters",
+  "/matters": "Cases",
   "/clients": "Clients",
-  "/hearings": "Hearing Diary",
+  "/hearings": "Hearings",
   "/fees": "Fees",
   "/expenses": "Expenses",
   "/documents": "Documents",
   "/tasks": "Tasks",
   "/reminders": "Reminders",
   "/reports": "Reports",
-  "/settings": "Settings",
+  "/settings": "Office Settings",
   "/profile": "My Profile",
+  "/help": "Help & Support",
 };
 
 function getPageTitle(pathname: string): string {

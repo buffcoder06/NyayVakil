@@ -9,7 +9,7 @@ import { UpcomingHearingsWidget } from "./upcoming-hearings-widget";
 import { PendingFeesWidget } from "./pending-fees-widget";
 import { RecentMattersWidget } from "./recent-matters-widget";
 import { TasksWidget } from "./tasks-widget";
-import { IncomeExpenseChart } from "./income-expense-chart";
+import { OnboardingChecklist } from "./onboarding-checklist";
 
 export default async function DashboardContent() {
   // Fetch all data in parallel
@@ -33,35 +33,38 @@ export default async function DashboardContent() {
   const today = new Date().toISOString().split("T")[0];
   const todaysHearings = allHearings.filter((h) => h.date === today);
 
+  // Determine if this is a new user (fewer than 3 matters = onboarding)
+  const isNewUser = allMatters.length < 3;
+
   return (
     <div className="space-y-6">
-      {/* Row 1 — Stat Cards */}
+      {/* Onboarding checklist — shown only to new users */}
+      {isNewUser && <OnboardingChecklist />}
+
+      {/* Row 1 — Quick Actions (full width, prominent) */}
+      <QuickActions />
+
+      {/* Row 2 — Stats (4 key numbers) */}
       <StatsRow stats={stats} todayHearingsCount={todaysHearings.length} />
 
-      {/* Row 2 — Today's Court Diary (60%) + Quick Actions (40%) */}
+      {/* Row 3 — Today's Court Diary (3/5) + Pending Fees summary (2/5) */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
         <div className="lg:col-span-3">
           <TodaysDiary hearings={todaysHearings} today={today} />
         </div>
         <div className="lg:col-span-2">
-          <QuickActions />
+          <PendingFeesWidget fees={allFees} />
         </div>
       </div>
 
-      {/* Row 3 — Upcoming Hearings + Pending Fees */}
+      {/* Row 4 — My Tasks (1/2) + Recent Cases (1/2) */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <UpcomingHearingsWidget hearings={allHearings} />
-        <PendingFeesWidget fees={allFees} />
-      </div>
-
-      {/* Row 4 — Recent Matters + Tasks Due Today */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <RecentMattersWidget matters={allMatters} clients={allClients} />
         <TasksWidget tasks={allTasks} />
+        <RecentMattersWidget matters={allMatters} clients={allClients} />
       </div>
 
-      {/* Row 5 — Income vs Expense Chart */}
-      <IncomeExpenseChart />
+      {/* Row 5 — Upcoming hearings this week (full width) */}
+      <UpcomingHearingsWidget hearings={allHearings} />
     </div>
   );
 }

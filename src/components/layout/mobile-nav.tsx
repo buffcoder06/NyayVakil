@@ -20,6 +20,7 @@ import {
   Bell,
   BarChart3,
   Settings,
+  HelpCircle,
   X,
   Scale,
 } from "lucide-react";
@@ -36,19 +37,20 @@ interface TabItem {
 
 const MAIN_TABS: TabItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Matters", href: "/matters", icon: FolderOpen },
-  { label: "Diary", href: "/hearings", icon: CalendarDays },
-  { label: "Fees", href: "/fees", icon: DollarSign },
+  { label: "Cases",     href: "/matters",   icon: FolderOpen      },
+  { label: "Hearings",  href: "/hearings",  icon: CalendarDays    },
+  { label: "Fees",      href: "/fees",      icon: DollarSign      },
 ];
 
 const MORE_ITEMS: TabItem[] = [
-  { label: "Clients", href: "/clients", icon: Users },
-  { label: "Expenses", href: "/expenses", icon: Receipt },
-  { label: "Documents", href: "/documents", icon: FileText },
-  { label: "Tasks", href: "/tasks", icon: CheckSquare },
-  { label: "Reminders", href: "/reminders", icon: Bell },
-  { label: "Reports", href: "/reports", icon: BarChart3 },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Clients",         href: "/clients",   icon: Users       },
+  { label: "Tasks",           href: "/tasks",     icon: CheckSquare },
+  { label: "Documents",       href: "/documents", icon: FileText    },
+  { label: "Expenses",        href: "/expenses",  icon: Receipt     },
+  { label: "Reminders",       href: "/reminders", icon: Bell        },
+  { label: "Reports",         href: "/reports",   icon: BarChart3   },
+  { label: "Help",            href: "/help",      icon: HelpCircle  },
+  { label: "Office Settings", href: "/settings",  icon: Settings    },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

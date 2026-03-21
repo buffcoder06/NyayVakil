@@ -1,7 +1,88 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import type { LucideIcon } from "lucide-react";
-import { Inbox } from "lucide-react";
+import {
+  Inbox,
+  Briefcase,
+  Users,
+  CalendarDays,
+  Banknote,
+  CheckSquare,
+  FileText,
+  Bell,
+  Receipt,
+} from "lucide-react";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT PRESETS
+// ─────────────────────────────────────────────────────────────────────────────
+
+type EmptyStateVariant =
+  | "cases"
+  | "clients"
+  | "hearings"
+  | "fees"
+  | "tasks"
+  | "documents"
+  | "reminders"
+  | "expenses";
+
+interface VariantConfig {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+const VARIANT_CONFIG: Record<EmptyStateVariant, VariantConfig> = {
+  cases: {
+    icon: Briefcase,
+    title: "No cases added yet",
+    description:
+      "Add your first case to track hearings, fees, and documents. Cases help you stay organized and never miss a hearing.",
+  },
+  clients: {
+    icon: Users,
+    title: "No clients yet",
+    description:
+      "Add client details to connect them with cases and payment records.",
+  },
+  hearings: {
+    icon: CalendarDays,
+    title: "No hearings scheduled",
+    description:
+      "Add hearing dates for your cases to track court appearances and set reminders.",
+  },
+  fees: {
+    icon: Banknote,
+    title: "No fee records yet",
+    description:
+      "Track the fees agreed and payments received for each case. Never miss a pending payment.",
+  },
+  tasks: {
+    icon: CheckSquare,
+    title: "No tasks right now",
+    description:
+      "Create tasks for yourself, your junior, or clerk. Keep your team organized.",
+  },
+  documents: {
+    icon: FileText,
+    title: "No documents uploaded",
+    description:
+      "Upload vakalatnamas, affidavits, court orders, and other case documents.",
+  },
+  reminders: {
+    icon: Bell,
+    title: "No reminders set",
+    description:
+      "Set WhatsApp, SMS, or email reminders for hearings, payments, and follow-ups.",
+  },
+  expenses: {
+    icon: Receipt,
+    title: "No expenses recorded",
+    description:
+      "Record court fees, clerk charges, travel, and other case expenses.",
+  },
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -16,8 +97,10 @@ export interface EmptyStateAction {
 }
 
 export interface EmptyStateProps {
+  /** Use a preset variant to auto-fill icon, title and description. */
+  variant?: EmptyStateVariant;
   icon?: LucideIcon;
-  title: string;
+  title?: string;
   description?: string;
   action?: EmptyStateAction;
   secondaryAction?: EmptyStateAction;
@@ -98,14 +181,22 @@ function ActionButton({
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function EmptyState({
-  icon: Icon = Inbox,
-  title,
-  description,
+  variant,
+  icon: iconProp,
+  title: titleProp,
+  description: descriptionProp,
   action,
   secondaryAction,
   size = "md",
   className,
 }: EmptyStateProps) {
+  // Resolve values: explicit props override variant presets
+  const preset = variant ? VARIANT_CONFIG[variant] : undefined;
+
+  const Icon = iconProp ?? preset?.icon ?? Inbox;
+  const title = titleProp ?? preset?.title ?? "Nothing here yet";
+  const description = descriptionProp ?? preset?.description;
+
   const sizes = SIZE_CONFIG[size];
 
   return (

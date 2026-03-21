@@ -28,7 +28,7 @@ import {
   LogOut,
   ChevronLeft,
   Scale,
-  Shield,
+  HelpCircle,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -42,47 +42,33 @@ interface NavItem {
 }
 
 interface NavGroup {
+  /** Empty string means no visible group label */
   title: string;
   items: NavItem[];
 }
 
 const NAV_GROUPS: NavGroup[] = [
   {
-    title: "Main",
+    title: "",
     items: [
-      { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-      { label: "Matters", href: "/matters", icon: FolderOpen },
-      { label: "Clients", href: "/clients", icon: Users },
+      { label: "Dashboard",  href: "/dashboard", icon: LayoutDashboard },
+      { label: "Cases",      href: "/matters",   icon: FolderOpen      },
+      { label: "Clients",    href: "/clients",   icon: Users           },
+      { label: "Hearings",   href: "/hearings",  icon: CalendarDays    },
+      { label: "Fees",       href: "/fees",      icon: DollarSign      },
+      { label: "Tasks",      href: "/tasks",     icon: CheckSquare     },
+      { label: "Documents",  href: "/documents", icon: FileText        },
     ],
   },
   {
-    title: "Schedule",
+    title: "More",
     items: [
-      { label: "Hearing Diary", href: "/hearings", icon: CalendarDays },
+      { label: "Expenses",        href: "/expenses",  icon: Receipt     },
+      { label: "Reminders",       href: "/reminders", icon: Bell        },
+      { label: "Reports",         href: "/reports",   icon: BarChart3   },
+      { label: "Help",            href: "/help",      icon: HelpCircle  },
+      { label: "Office Settings", href: "/settings",  icon: Settings    },
     ],
-  },
-  {
-    title: "Finance",
-    items: [
-      { label: "Fees", href: "/fees", icon: DollarSign },
-      { label: "Expenses", href: "/expenses", icon: Receipt },
-    ],
-  },
-  {
-    title: "Workspace",
-    items: [
-      { label: "Documents", href: "/documents", icon: FileText },
-      { label: "Tasks", href: "/tasks", icon: CheckSquare },
-      { label: "Reminders", href: "/reminders", icon: Bell },
-    ],
-  },
-  {
-    title: "Analytics",
-    items: [{ label: "Reports", href: "/reports", icon: BarChart3 }],
-  },
-  {
-    title: "System",
-    items: [{ label: "Settings", href: "/settings", icon: Settings }],
   },
 ];
 
@@ -289,9 +275,10 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto overflow-x-hidden py-4 px-3 space-y-5 scrollbar-thin">
-          {NAV_GROUPS.map((group) => (
-            <div key={group.title}>
-              {!collapsed && (
+          {NAV_GROUPS.map((group, idx) => (
+            <div key={idx}>
+              {/* Only show group label when expanded and title is non-empty */}
+              {!collapsed && group.title && (
                 <p className="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
                   {group.title}
                 </p>

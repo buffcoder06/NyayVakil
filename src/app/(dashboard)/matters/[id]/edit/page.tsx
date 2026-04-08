@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { api } from "@/lib/api";
 import type { Matter, Client } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -75,11 +74,12 @@ export default function EditMatterPage() {
     const load = async () => {
       try {
         const [mRes, cRes] = await Promise.all([
-          api.matters.getById(id),
-          api.clients.list({}, { page: 1, pageSize: 200 }),
+          fetch(`/api/matters/${id}`).then((r) => r.json()),
+          fetch("/api/clients?pageSize=200").then((r) => r.json()),
         ]);
+        if (!mRes.success) throw new Error(mRes.message);
         const m = mRes.data;
-        setClients(cRes.data.data);
+        setClients(cRes.data?.data ?? []);
         reset({
           matterTitle: m.matterTitle,
           clientId: m.clientId,
@@ -114,28 +114,33 @@ export default function EditMatterPage() {
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
     try {
-      await api.matters.update(id, {
-        matterTitle: data.matterTitle,
-        clientId: data.clientId,
-        caseType: data.caseType,
-        courtName: data.courtName,
-        courtLevel: data.courtLevel as Matter["courtLevel"],
-        status: data.status as Matter["status"],
-        priority: data.priority as Matter["priority"],
-        caseNumber: data.caseNumber,
-        cnrNumber: data.cnrNumber,
-        caseStage: data.caseStage,
-        filingDate: data.filingDate,
-        nextHearingDate: data.nextHearingDate,
-        judgeName: data.judgeName,
-        oppositeParty: data.oppositeParty,
-        oppositeAdvocate: data.oppositeAdvocate,
-        advocateOnRecord: data.advocateOnRecord,
-        actSection: data.actSection,
-        policeStation: data.policeStation,
-        totalFeeAgreed: data.totalFeeAgreed,
-        notes: data.notes,
-      });
+      const res = await fetch(`/api/matters/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          matterTitle: data.matterTitle,
+          clientId: data.clientId,
+          caseType: data.caseType,
+          courtName: data.courtName,
+          courtLevel: data.courtLevel,
+          status: data.status,
+          priority: data.priority,
+          caseNumber: data.caseNumber || undefined,
+          cnrNumber: data.cnrNumber || undefined,
+          caseStage: data.caseStage || undefined,
+          filingDate: data.filingDate || undefined,
+          nextHearingDate: data.nextHearingDate || undefined,
+          judgeName: data.judgeName || undefined,
+          oppositeParty: data.oppositeParty || undefined,
+          oppositeAdvocate: data.oppositeAdvocate || undefined,
+          advocateOnRecord: data.advocateOnRecord || undefined,
+          actSection: data.actSection || undefined,
+          policeStation: data.policeStation || undefined,
+          totalFeeAgreed: data.totalFeeAgreed,
+          notes: data.notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       toast.success("Matter updated successfully.");
       router.push(`/matters/${id}`);
     } catch {

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { api } from "@/lib/api";
 import type { Matter, Client } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -161,11 +160,11 @@ export default function MattersPage() {
     const load = async () => {
       try {
         const [mRes, cRes] = await Promise.all([
-          api.matters.list({}, { page: 1, pageSize: 200 }),
-          api.clients.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
+          fetch("/api/clients?pageSize=200").then((r) => r.json()),
         ]);
-        setMatters(mRes.data.data);
-        setClients(cRes.data.data);
+        setMatters(mRes.data?.data ?? []);
+        setClients(cRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load matters.");
       } finally {

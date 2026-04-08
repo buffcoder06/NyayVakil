@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { api } from "@/lib/api";
 import type {
   Matter,
   Client,
@@ -147,26 +146,26 @@ export default function MatterDetailPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const mRes = await api.matters.getById(id);
+        const mRes = await fetch(`/api/matters/${id}`).then((r) => r.json());
+        if (!mRes.success) throw new Error(mRes.message);
         const m = mRes.data;
         setMatter(m);
 
-        const [cRes, hRes, fRes, eRes, dRes, tRes, tlRes] = await Promise.all([
-          api.clients.getById(m.clientId),
-          api.hearings.list({ matterId: id }, { page: 1, pageSize: 50 }),
-          api.fees.list(id),
-          api.expenses.list(id),
-          api.documents.list(id),
-          api.tasks.list(undefined, id),
-          api.timeline.getByEntityId(id),
+        const [cRes, hRes, fRes, eRes, dRes, tRes] = await Promise.all([
+          fetch(`/api/clients/${m.clientId}`).then((r) => r.json()),
+          fetch(`/api/hearings?matterId=${id}&pageSize=50`).then((r) => r.json()),
+          fetch(`/api/fees?matterId=${id}`).then((r) => r.json()),
+          fetch(`/api/expenses?matterId=${id}`).then((r) => r.json()),
+          fetch(`/api/documents?matterId=${id}`).then((r) => r.json()),
+          fetch(`/api/tasks?matterId=${id}`).then((r) => r.json()),
         ]);
-        setClient(cRes.data);
-        setHearings(hRes.data.data);
-        setFees(fRes.data);
-        setExpenses(eRes.data);
-        setDocuments(dRes.data);
-        setTasks(tRes.data);
-        setTimeline(tlRes.data);
+        setClient(cRes.data ?? null);
+        setHearings(hRes.data?.data ?? []);
+        setFees(fRes.data ?? []);
+        setExpenses(eRes.data ?? []);
+        setDocuments(dRes.data ?? []);
+        setTasks(tRes.data ?? []);
+        setTimeline([]);
       } catch {
         toast.error("Failed to load matter details.");
       } finally {
@@ -206,7 +205,8 @@ export default function MatterDetailPage() {
 
   const handleTaskComplete = async (task: Task) => {
     try {
-      await api.tasks.complete(task.id);
+      const r = await fetch(`/api/tasks/${task.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ complete: true }) }).then((r) => r.json());
+      if (!r.success) throw new Error(r.message);
       setTasks((prev) =>
         prev.map((t) => (t.id === task.id ? { ...t, status: "completed" } : t))
       );

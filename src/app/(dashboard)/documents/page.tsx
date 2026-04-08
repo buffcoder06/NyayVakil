@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { Document, Matter } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -151,16 +150,21 @@ function UploadDocumentDialog({
     }
     setSubmitting(true);
     try {
-      const res = await api.documents.upload({
-        name,
-        category: category as Document["category"],
-        matterId: matterId !== "none" ? matterId : undefined,
-        clientId: matters.find((m) => m.id === matterId)?.clientId,
-        description: description || undefined,
-        fileType: "PDF",
-        fileSize: "—",
-        uploadedBy: "Adv. Priya Sharma",
-      });
+      const res = await fetch("/api/documents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          category,
+          matterId: matterId !== "none" ? matterId : undefined,
+          clientId: matters.find((m) => m.id === matterId)?.clientId,
+          description: description || undefined,
+          fileType: "PDF",
+          fileSize: "—",
+          uploadedBy: "default-user",
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       onSuccess(res.data);
       toast.success("Document record added.");
       onOpenChange(false);
@@ -241,11 +245,11 @@ export default function DocumentsPage() {
     const load = async () => {
       try {
         const [dRes, mRes] = await Promise.all([
-          api.documents.list(),
-          api.matters.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/documents").then((r) => r.json()),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
         ]);
-        setDocuments(dRes.data);
-        setMatters(mRes.data.data);
+        setDocuments(dRes.data ?? []);
+        setMatters(mRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load documents.");
       } finally {

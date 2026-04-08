@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { FeeEntry, Matter, Client } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -161,16 +160,21 @@ function AddFeeDialog({
     }
     setSubmitting(true);
     try {
-      const res = await api.fees.create({
-        matterId,
-        clientId: selectedMatter?.clientId || "",
-        description,
-        totalAmount: Number(totalAmount),
-        receivedAmount: 0,
-        dueDate: dueDate || undefined,
-        status: "not_started",
-        notes: notes || undefined,
-      });
+      const res = await fetch("/api/fees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          matterId,
+          clientId: selectedMatter?.clientId || "",
+          description,
+          totalAmount: Number(totalAmount),
+          receivedAmount: 0,
+          dueDate: dueDate || undefined,
+          status: "not_started",
+          notes: notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       onSuccess(res.data);
       toast.success("Fee entry added.");
       onOpenChange(false);
@@ -261,16 +265,21 @@ function LogPaymentDialog({
     }
     setSubmitting(true);
     try {
-      await api.payments.create({
-        feeEntryId: feeId,
-        matterId: fee?.matterId || "",
-        clientId: fee?.clientId || "",
-        amount: Number(amount),
-        paymentMethod: paymentMethod as "cash" | "bank_transfer" | "cheque" | "upi" | "other",
-        paymentDate,
-        referenceNumber: referenceNumber || undefined,
-        notes: notes || undefined,
-      });
+      const res = await fetch("/api/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          feeEntryId: feeId,
+          matterId: fee?.matterId || "",
+          clientId: fee?.clientId || "",
+          amount: Number(amount),
+          paymentMethod,
+          paymentDate,
+          referenceNumber: referenceNumber || undefined,
+          notes: notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       onSuccess();
       toast.success("Payment logged successfully.");
       onOpenChange(false);
@@ -357,21 +366,21 @@ export default function FeesPage() {
   const [selectedFee, setSelectedFee] = useState<FeeEntry | null>(null);
 
   const loadFees = async () => {
-    const res = await api.fees.list();
-    setFees(res.data);
+    const res = await fetch("/api/fees").then((r) => r.json());
+    setFees(res.data ?? []);
   };
 
   useEffect(() => {
     const load = async () => {
       try {
         const [fRes, mRes, cRes] = await Promise.all([
-          api.fees.list(),
-          api.matters.list({}, { page: 1, pageSize: 200 }),
-          api.clients.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/fees").then((r) => r.json()),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
+          fetch("/api/clients?pageSize=200").then((r) => r.json()),
         ]);
-        setFees(fRes.data);
-        setMatters(mRes.data.data);
-        setClients(cRes.data.data);
+        setFees(fRes.data ?? []);
+        setMatters(mRes.data?.data ?? []);
+        setClients(cRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load fee data.");
       } finally {

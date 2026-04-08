@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { Hearing, Matter } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -81,11 +80,11 @@ export default function HearingsPage() {
       setLoading(true);
       try {
         const [hRes, mRes] = await Promise.all([
-          api.hearings.list({}, { page: 1, pageSize: 200 }),
-          api.matters.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/hearings?pageSize=200").then((r) => r.json()),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
         ]);
-        setHearings(hRes.data.data);
-        setMatters(mRes.data.data);
+        setHearings(hRes.data?.data ?? []);
+        setMatters(mRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load hearings.");
       } finally {
@@ -142,7 +141,7 @@ export default function HearingsPage() {
 
   const handleMarkStatus = async (hearing: Hearing) => {
     try {
-      await api.hearings.update(hearing.id, { status: "attended" });
+      await fetch(`/api/hearings/${hearing.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: "attended" }) });
       setHearings((prev) =>
         prev.map((h) => (h.id === hearing.id ? { ...h, status: "attended" } : h))
       );

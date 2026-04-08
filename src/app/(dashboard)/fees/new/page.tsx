@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { api } from "@/lib/api";
 import type { Matter, Client } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,11 +64,11 @@ export default function NewFeePage() {
 
   useEffect(() => {
     Promise.all([
-      api.matters.list({}, { page: 1, pageSize: 200 }),
-      api.clients.list({}, { page: 1, pageSize: 200 }),
+      fetch("/api/matters?pageSize=200").then((r) => r.json()),
+      fetch("/api/clients?pageSize=200").then((r) => r.json()),
     ]).then(([mRes, cRes]) => {
-      setMatters(mRes.data.data);
-      setClients(cRes.data.data);
+      setMatters(mRes.data?.data ?? []);
+      setClients(cRes.data?.data ?? []);
     });
   }, []);
 
@@ -88,16 +87,21 @@ export default function NewFeePage() {
     }
     setSaving(true);
     try {
-      await api.fees.create({
-        matterId: values.matterId,
-        clientId: values.clientId,
-        description: values.description,
-        totalAmount,
-        receivedAmount: 0,
-        dueDate: values.dueDate || undefined,
-        status: values.status,
-        notes: values.notes || undefined,
-      });
+      const res = await fetch("/api/fees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          matterId: values.matterId,
+          clientId: values.clientId,
+          description: values.description,
+          totalAmount,
+          receivedAmount: 0,
+          dueDate: values.dueDate || undefined,
+          status: values.status,
+          notes: values.notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       toast.success("Fee entry created");
       router.push("/fees");
     } catch {

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { api } from "@/lib/api";
 import type { Client } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -167,39 +166,42 @@ export default function NewMatterPage() {
   const assignedClerkId = watch("assignedClerkId");
 
   useEffect(() => {
-    api.clients.list({}, { page: 1, pageSize: 200 }).then((r) => setClients(r.data.data));
+    fetch("/api/clients?pageSize=200").then((r) => r.json()).then((j) => setClients(j.data?.data ?? []));
   }, []);
 
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
     try {
-      const res = await api.matters.create({
-        matterTitle: data.matterTitle,
-        clientId: data.clientId,
-        caseType: data.caseType,
-        courtName: data.courtName,
-        courtLevel: data.courtLevel as Matter["courtLevel"],
-        status: data.status as Matter["status"],
-        priority: data.priority as Matter["priority"],
-        caseNumber: data.caseNumber,
-        cnrNumber: data.cnrNumber,
-        caseStage: data.caseStage,
-        filingDate: data.filingDate,
-        nextHearingDate: data.nextHearingDate,
-        judgeName: data.judgeName,
-        oppositeParty: data.oppositeParty,
-        oppositeAdvocate: data.oppositeAdvocate,
-        advocateOnRecord: data.advocateOnRecord,
-        actSection: data.actSection,
-        policeStation: data.policeStation,
-        assignedJuniorId: data.assignedJuniorId,
-        assignedClerkId: data.assignedClerkId,
-        totalFeeAgreed: data.totalFeeAgreed,
-        notes: data.notes,
-        totalFeePaid: 0,
-        totalExpenses: 0,
-        createdBy: "usr_001",
-      });
+      const res = await fetch("/api/matters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          matterTitle: data.matterTitle,
+          clientId: data.clientId,
+          caseType: data.caseType,
+          courtName: data.courtName,
+          courtLevel: data.courtLevel,
+          status: data.status,
+          priority: data.priority,
+          caseNumber: data.caseNumber || undefined,
+          cnrNumber: data.cnrNumber || undefined,
+          caseStage: data.caseStage || undefined,
+          filingDate: data.filingDate || undefined,
+          nextHearingDate: data.nextHearingDate || undefined,
+          judgeName: data.judgeName || undefined,
+          oppositeParty: data.oppositeParty || undefined,
+          oppositeAdvocate: data.oppositeAdvocate || undefined,
+          advocateOnRecord: data.advocateOnRecord || undefined,
+          actSection: data.actSection || undefined,
+          policeStation: data.policeStation || undefined,
+          assignedJuniorId: data.assignedJuniorId || undefined,
+          assignedClerkId: data.assignedClerkId || undefined,
+          totalFeeAgreed: data.totalFeeAgreed || 0,
+          notes: data.notes || undefined,
+          createdBy: "default-user",
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       toast.success("Matter created successfully!");
       router.push(`/matters/${res.data.id}`);
     } catch {

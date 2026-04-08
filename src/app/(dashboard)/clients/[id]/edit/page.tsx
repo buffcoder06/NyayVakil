@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { api } from "@/lib/api";
 import type { Client } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -73,7 +72,8 @@ export default function EditClientPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.clients.getById(id);
+        const res = await fetch(`/api/clients/${id}`).then((r) => r.json());
+        if (!res.success) throw new Error(res.message);
         const c = res.data;
         setClient(c);
         reset({
@@ -100,18 +100,23 @@ export default function EditClientPage() {
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
     try {
-      await api.clients.update(id, {
-        name: data.name,
-        mobile: data.mobile,
-        alternateMobile: data.alternateMobile || undefined,
-        email: data.email || undefined,
-        clientType: data.clientType,
-        address: data.address || undefined,
-        city: data.city || undefined,
-        state: data.state || undefined,
-        pincode: data.pincode || undefined,
-        notes: data.notes || undefined,
-      });
+      const res = await fetch(`/api/clients/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          mobile: data.mobile,
+          alternateMobile: data.alternateMobile || undefined,
+          email: data.email || undefined,
+          clientType: data.clientType,
+          address: data.address || undefined,
+          city: data.city || undefined,
+          state: data.state || undefined,
+          pincode: data.pincode || undefined,
+          notes: data.notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       toast.success("Client updated successfully.");
       router.push(`/clients/${id}`);
     } catch {

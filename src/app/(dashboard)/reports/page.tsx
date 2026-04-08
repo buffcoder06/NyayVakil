@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { Matter, Hearing, FeeEntry, Expense, Task, Client } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -77,19 +76,19 @@ export default function ReportsPage() {
     const load = async () => {
       try {
         const [mRes, hRes, fRes, eRes, tRes, cRes] = await Promise.all([
-          api.matters.list({}, { page: 1, pageSize: 500 }),
-          api.hearings.list({}, { page: 1, pageSize: 500 }),
-          api.fees.list(),
-          api.expenses.list(),
-          api.tasks.list(),
-          api.clients.list({}, { page: 1, pageSize: 500 }),
+          fetch("/api/matters?pageSize=500").then((r) => r.json()),
+          fetch("/api/hearings?pageSize=500").then((r) => r.json()),
+          fetch("/api/fees").then((r) => r.json()),
+          fetch("/api/expenses").then((r) => r.json()),
+          fetch("/api/tasks").then((r) => r.json()),
+          fetch("/api/clients?pageSize=500").then((r) => r.json()),
         ]);
-        setMatters(mRes.data.data);
-        setHearings(hRes.data.data);
-        setFees(fRes.data);
-        setExpenses(eRes.data);
-        setTasks(tRes.data);
-        setClients(cRes.data.data);
+        setMatters(mRes.data?.data ?? []);
+        setHearings(hRes.data?.data ?? []);
+        setFees(fRes.data ?? []);
+        setExpenses(eRes.data ?? []);
+        setTasks(tRes.data ?? []);
+        setClients(cRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load report data.");
       } finally {

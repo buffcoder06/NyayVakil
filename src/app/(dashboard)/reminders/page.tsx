@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { Reminder, Client, Matter } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -220,18 +219,21 @@ function CreateReminderDialog({
     }
     setSubmitting(true);
     try {
-      const res = await api.reminders.create({
-        type: type as Reminder["type"],
-        title,
-        message,
-        clientId: clientId !== "none" ? clientId : undefined,
-        clientName: selectedClient?.name,
-        matterId: matterId !== "none" ? matterId : undefined,
-        matterTitle: selectedMatter?.matterTitle,
-        scheduledAt: scheduledAt + "T09:00:00.000Z",
-        status: "pending",
-        channel: channel as Reminder["channel"],
-      });
+      const res = await fetch("/api/reminders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type,
+          title,
+          message,
+          clientId: clientId !== "none" ? clientId : undefined,
+          matterId: matterId !== "none" ? matterId : undefined,
+          scheduledAt: scheduledAt + "T09:00:00.000Z",
+          status: "pending",
+          channel,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       onSuccess(res.data);
       toast.success("Reminder created.");
       onOpenChange(false);
@@ -335,13 +337,13 @@ export default function RemindersPage() {
     const load = async () => {
       try {
         const [rRes, cRes, mRes] = await Promise.all([
-          api.reminders.list(),
-          api.clients.list({}, { page: 1, pageSize: 200 }),
-          api.matters.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/reminders").then((r) => r.json()),
+          fetch("/api/clients?pageSize=200").then((r) => r.json()),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
         ]);
-        setReminders(rRes.data);
-        setClients(cRes.data.data);
-        setMatters(mRes.data.data);
+        setReminders(rRes.data ?? []);
+        setClients(cRes.data?.data ?? []);
+        setMatters(mRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load reminders.");
       } finally {
@@ -370,7 +372,7 @@ export default function RemindersPage() {
 
   const handleMarkSent = async (id: string) => {
     try {
-      await api.reminders.markSent(id);
+      await fetch(`/api/reminders/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "markSent" }) });
       setReminders((prev) =>
         prev.map((r) => (r.id === id ? { ...r, status: "sent", sentAt: new Date().toISOString() } : r))
       );
@@ -382,7 +384,7 @@ export default function RemindersPage() {
 
   const handleCancel = async (id: string) => {
     try {
-      await api.reminders.cancel(id);
+      await fetch(`/api/reminders/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "cancel" }) });
       setReminders((prev) => prev.map((r) => (r.id === id ? { ...r, status: "cancelled" } : r)));
       toast.success("Reminder cancelled.");
     } catch {

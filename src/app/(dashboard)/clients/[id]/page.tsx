@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { api } from "@/lib/api";
 import type { Client, Matter, FeeEntry, TimelineEntry } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -84,16 +83,16 @@ export default function ClientDetailPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [cRes, mRes, fRes, tRes] = await Promise.all([
-          api.clients.getById(id),
-          api.matters.list({ clientId: id }, { page: 1, pageSize: 50 }),
-          api.fees.list(undefined, id),
-          api.timeline.getByEntityId(id),
+        const [cRes, mRes, fRes] = await Promise.all([
+          fetch(`/api/clients/${id}`).then((r) => r.json()),
+          fetch(`/api/matters?clientId=${id}&pageSize=50`).then((r) => r.json()),
+          fetch(`/api/fees?clientId=${id}`).then((r) => r.json()),
         ]);
+        if (!cRes.success) throw new Error(cRes.message);
         setClient(cRes.data);
-        setMatters(mRes.data.data);
-        setFees(fRes.data);
-        setTimeline(tRes.data);
+        setMatters(mRes.data?.data ?? []);
+        setFees(fRes.data ?? []);
+        setTimeline([]);
       } catch {
         toast.error("Failed to load client details.");
       } finally {

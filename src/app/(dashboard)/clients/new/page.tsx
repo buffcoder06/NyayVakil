@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { api } from "@/lib/api";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -84,19 +83,25 @@ export default function NewClientPage() {
   const onSubmit = async (data: FormData) => {
     setSubmitting(true);
     try {
-      await api.clients.create({
-        name: data.name,
-        mobile: data.mobile,
-        alternateMobile: data.alternateMobile || undefined,
-        email: data.email || undefined,
-        clientType: data.clientType,
-        address: data.address || undefined,
-        city: data.city || undefined,
-        state: data.state || undefined,
-        pincode: data.pincode || undefined,
-        notes: data.notes || undefined,
-        isActive: true,
+      const res = await fetch("/api/clients", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          mobile: data.mobile,
+          alternateMobile: data.alternateMobile || undefined,
+          email: data.email || undefined,
+          clientType: data.clientType,
+          address: data.address || undefined,
+          city: data.city || undefined,
+          state: data.state || undefined,
+          pincode: data.pincode || undefined,
+          notes: data.notes || undefined,
+          isActive: true,
+        }),
       });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.message);
       toast.success("Client added successfully.");
       router.push("/clients");
     } catch {

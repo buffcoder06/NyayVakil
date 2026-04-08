@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { api } from "@/lib/api";
 import type { Expense, Matter } from "@/types";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -103,18 +102,23 @@ function AddExpenseDialog({
     }
     setSubmitting(true);
     try {
-      const res = await api.expenses.create({
-        date,
-        expenseType: expenseType as Expense["expenseType"],
-        description,
-        amount: Number(amount),
-        matterId: matterId !== "none" ? matterId : undefined,
-        clientId: matters.find((m) => m.id === matterId)?.clientId,
-        paidBy,
-        isRecoverable,
-        isRecovered: false,
-        notes: notes || undefined,
-      });
+      const res = await fetch("/api/expenses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          date,
+          expenseType,
+          description,
+          amount: Number(amount),
+          matterId: matterId !== "none" ? matterId : undefined,
+          clientId: matters.find((m) => m.id === matterId)?.clientId,
+          paidBy,
+          isRecoverable,
+          isRecovered: false,
+          notes: notes || undefined,
+        }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message);
       onSuccess(res.data);
       toast.success("Expense added.");
       onOpenChange(false);
@@ -259,11 +263,11 @@ export default function ExpensesPage() {
     const load = async () => {
       try {
         const [eRes, mRes] = await Promise.all([
-          api.expenses.list(),
-          api.matters.list({}, { page: 1, pageSize: 200 }),
+          fetch("/api/expenses").then((r) => r.json()),
+          fetch("/api/matters?pageSize=200").then((r) => r.json()),
         ]);
-        setExpenses(eRes.data);
-        setMatters(mRes.data.data);
+        setExpenses(eRes.data ?? []);
+        setMatters(mRes.data?.data ?? []);
       } catch {
         toast.error("Failed to load expenses.");
       } finally {
@@ -302,7 +306,7 @@ export default function ExpensesPage() {
 
   const handleToggleRecovered = async (expense: Expense) => {
     try {
-      await api.expenses.update(expense.id, { isRecovered: !expense.isRecovered });
+      await fetch(`/api/expenses?id=${expense.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isRecovered: !expense.isRecovered }) });
       setExpenses((prev) =>
         prev.map((e) => (e.id === expense.id ? { ...e, isRecovered: !e.isRecovered } : e))
       );

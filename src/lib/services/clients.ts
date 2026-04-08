@@ -34,6 +34,10 @@ export async function getClients(
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * pageSize,
       take: pageSize,
+      include: {
+        _count: { select: { matters: true } },
+        feeEntries: { select: { pendingAmount: true } },
+      },
     }),
     db.client.count({ where }),
   ]);

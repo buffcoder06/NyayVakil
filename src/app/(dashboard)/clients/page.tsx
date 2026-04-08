@@ -2,8 +2,13 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { api } from "@/lib/api";
 import type { Client } from "@/types";
+
+// Real client shape returned from /api/clients
+type RealClient = Client & {
+  _count?: { matters: number };
+  feeEntries?: { pendingAmount: number }[];
+};
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -53,7 +58,7 @@ const clientTypeColor: Record<string, string> = {
   organization: "bg-amber-50 text-amber-700 border-amber-200",
 };
 
-function ClientCard({ client }: { client: Client }) {
+function ClientCard({ client }: { client: RealClient }) {
   const Icon =
     client.clientType === "company" || client.clientType === "organization"
       ? Building2
@@ -100,17 +105,17 @@ function ClientCard({ client }: { client: Client }) {
                 <div className="flex items-center gap-1.5 text-sm">
                   <Briefcase className="h-3.5 w-3.5 text-slate-400" />
                   <span className="text-slate-600 font-medium">
-                    {client.linkedMatterIds.length}
+                    {client._count?.matters ?? 0}
                   </span>
                   <span className="text-slate-400">
-                    {client.linkedMatterIds.length === 1 ? "matter" : "matters"}
+                    {(client._count?.matters ?? 0) === 1 ? "matter" : "matters"}
                   </span>
                 </div>
-                {client.totalOutstanding > 0 && (
+                {(client.feeEntries?.reduce((a, f) => a + f.pendingAmount, 0) ?? 0) > 0 && (
                   <div className="flex items-center gap-1.5 text-sm">
                     <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
                     <span className="text-amber-700 font-semibold">
-                      {fmt(client.totalOutstanding)} pending
+                      {fmt(client.feeEntries!.reduce((a, f) => a + f.pendingAmount, 0))} pending
                     </span>
                   </div>
                 )}
@@ -156,7 +161,7 @@ function StatCard({
 }
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<RealClient[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -164,8 +169,10 @@ export default function ClientsPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.clients.list({}, { page: 1, pageSize: 200 });
-        setClients(res.data.data);
+        const res = await fetch("/api/clients?pageSize=200");
+        const json = await res.json();
+        if (!json.success) throw new Error(json.message);
+        setClients(json.data.data);
       } catch {
         toast.error("Failed to load clients.");
       } finally {
@@ -188,17 +195,14 @@ export default function ClientsPage() {
     });
   }, [clients, search, typeFilter]);
 
-  const stats = useMemo(
-    () => ({
-      total: clients.length,
-      active: clients.filter((c) => c.isActive).length,
-      companies: clients.filter(
-        (c) => c.clientType === "company" || c.clientType === "organization"
-      ).length,
-      individuals: clients.filter((c) => c.clientType === "individual").length,
-    }),
-    [clients]
-  );
+  const stats = useMemo(() => ({
+    total: clients.length,
+    active: clients.filter((c) => c.isActive).length,
+    companies: clients.filter(
+      (c) => c.clientType === "company" || c.clientType === "organization"
+    ).length,
+    individuals: clients.filter((c) => c.clientType === "individual").length,
+  }), [clients]);
 
   return (
     <div>

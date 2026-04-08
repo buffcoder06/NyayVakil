@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   Check,
@@ -542,9 +542,9 @@ export default function PricingPage() {
 
             <tbody>
               {COMPARISON_ROWS.map((group) => (
-                <>
+                <React.Fragment key={group.category}>
                   {/* Category header row */}
-                  <tr key={group.category} className="bg-slate-50">
+                  <tr className="bg-slate-50">
                     <td
                       colSpan={5}
                       className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-500"
@@ -561,7 +561,7 @@ export default function PricingPage() {
                       <ComparisonCell value={row.enterprise} />
                     </tr>
                   ))}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>

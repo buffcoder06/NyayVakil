@@ -6,7 +6,20 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { User } from '@/types';
-import { api } from '@/lib/api';
+
+// Hardcoded admin user for development
+const ADMIN_USER: User = {
+  id: "default-user",
+  firmId: "default-firm",
+  name: "Adv. Priya Sharma",
+  email: "admin@nyayvakil.in",
+  role: "advocate",
+  phone: "+91 98203 41567",
+  isActive: true,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};
+const ADMIN_PASSWORD = "admin123";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -52,18 +65,13 @@ export const useAuthStore = create<AuthState>()(
        */
       login: async (email: string, password: string): Promise<void> => {
         set({ status: 'loading', error: null });
-        try {
-          const response = await api.auth.login(email, password);
-          set({
-            user: response.data.user,
-            token: response.data.token,
-            status: 'authenticated',
-            error: null,
-          });
-        } catch (err) {
-          const message = err instanceof Error ? err.message : 'Login failed. Please try again.';
+        await new Promise((r) => setTimeout(r, 400)); // simulate network
+        if (email === ADMIN_USER.email && password === ADMIN_PASSWORD) {
+          set({ user: ADMIN_USER, token: "local-token", status: 'authenticated', error: null });
+        } else {
+          const message = 'Invalid email or password.';
           set({ status: 'unauthenticated', error: message, user: null, token: null });
-          throw err; // Re-throw so the UI can handle it
+          throw new Error(message);
         }
       },
 
@@ -73,13 +81,7 @@ export const useAuthStore = create<AuthState>()(
        * TODO: The api.auth.logout call maps to POST /api/auth/logout
        */
       logout: async (): Promise<void> => {
-        set({ status: 'loading' });
-        try {
-          await api.auth.logout();
-        } finally {
-          // Always clear local state regardless of API outcome
-          set({ user: null, token: null, status: 'unauthenticated', error: null });
-        }
+        set({ user: null, token: null, status: 'unauthenticated', error: null });
       },
 
       /**
@@ -88,17 +90,8 @@ export const useAuthStore = create<AuthState>()(
        * TODO: Maps to GET /api/auth/me
        */
       refreshUser: async (): Promise<void> => {
-        const { user, token } = get();
-        if (!user || !token) {
-          set({ status: 'unauthenticated' });
-          return;
-        }
-        try {
-          const response = await api.auth.getMe(user.id);
-          set({ user: response.data });
-        } catch {
-          set({ status: 'unauthenticated', user: null, token: null });
-        }
+        const { user } = get();
+        if (!user) set({ status: 'unauthenticated' });
       },
 
       /** Clear any auth error (e.g., after displaying the error to the user) */

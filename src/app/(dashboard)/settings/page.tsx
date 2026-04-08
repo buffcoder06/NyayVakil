@@ -10,18 +10,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import {
   Building2,
   Users,
   Gavel,
   Bell,
-  CreditCard,
   Save,
   Upload,
   Plus,
-  CheckCircle2,
-  Shield,
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -376,59 +372,6 @@ function RemindersTab() {
   );
 }
 
-function BillingTab() {
-  const features = [
-    "Unlimited Matters & Clients",
-    "Full Fee & Expense Tracking",
-    "Hearing Diary & Calendar",
-    "Document Vault",
-    "Team Management (up to 5 users)",
-    "Reports & Analytics",
-    "WhatsApp Reminder Integration (coming soon)",
-    "eCourts Integration (coming soon)",
-    "Mobile App (coming soon)",
-  ];
-
-  return (
-    <div className="max-w-md">
-      <Card className="border-[#1e3a5f]/20">
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#1e3a5f]/10 rounded-lg flex items-center justify-center">
-              <Shield className="h-5 w-5 text-[#1e3a5f]" />
-            </div>
-            <div>
-              <CardTitle className="text-base">Professional Plan</CardTitle>
-              <p className="text-sm text-amber-600 font-medium mt-0.5">Demo Mode</p>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 mb-6">
-            {features.map((f) => (
-              <div key={f} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span className="text-sm text-slate-600">{f}</span>
-              </div>
-            ))}
-          </div>
-          <Separator className="mb-4" />
-          <div className="text-center">
-            <p className="text-sm text-slate-500 mb-3">Ready to go live with real data?</p>
-            <Button
-              className="w-full bg-[#1e3a5f] hover:bg-[#162d4a]"
-              onClick={() => toast.info("Contact us at hello@nyayvakil.in to upgrade your plan.")}
-            >
-              Upgrade to Full Plan
-            </Button>
-            <p className="text-xs text-slate-400 mt-2">Starting at ₹999/month</p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
 export default function SettingsPage() {
   return (
     <div>
@@ -451,16 +394,12 @@ export default function SettingsPage() {
           <TabsTrigger value="reminders" className="gap-1.5">
             <Bell className="h-4 w-4" /> Reminders
           </TabsTrigger>
-          <TabsTrigger value="billing" className="gap-1.5">
-            <CreditCard className="h-4 w-4" /> Billing
-          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="office"><OfficeProfileTab /></TabsContent>
         <TabsContent value="team"><TeamTab /></TabsContent>
         <TabsContent value="courts"><CourtsAndCasesTab /></TabsContent>
         <TabsContent value="reminders"><RemindersTab /></TabsContent>
-        <TabsContent value="billing"><BillingTab /></TabsContent>
       </Tabs>
     </div>
   );

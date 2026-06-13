@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/lib/store/auth-store";
 
 const loginSchema = z.object({
-  email: z.string().min(1, "Email is required"),
+  identifier: z.string().min(1, "Email or phone number is required"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -29,13 +29,13 @@ export default function LoginPage() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { identifier: "", password: "" },
   });
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      await login(data.email, data.password);
+      await login(data.identifier, data.password);
       toast.success("Welcome back!");
       router.push("/dashboard");
     } catch (err) {
@@ -65,16 +65,16 @@ export default function LoginPage() {
         <CardContent className="pt-4">
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-slate-700 font-medium">Email</Label>
+              <Label htmlFor="identifier" className="text-slate-700 font-medium">Email or Phone Number</Label>
               <Input
-                id="email"
+                id="identifier"
                 type="text"
-                placeholder="admin@nyayvakil.in"
-                autoComplete="email"
+                placeholder="email@example.com or 9876543210"
+                autoComplete="username"
                 className="h-10 text-sm"
-                {...register("email")}
+                {...register("identifier")}
               />
-              {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+              {errors.identifier && <p className="text-xs text-red-500">{errors.identifier.message}</p>}
             </div>
 
             <div className="space-y-1.5">

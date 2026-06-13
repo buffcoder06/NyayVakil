@@ -1,25 +1,9 @@
 // src/lib/store/auth-store.ts
 // Zustand store for authentication state in NyayVakil.
-// Uses mock login backed by the mock API layer; swap api.auth.login for real
-// implementation when the backend is ready.
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { User } from '@/types';
-
-// Hardcoded admin user for development
-const ADMIN_USER: User = {
-  id: "default-user",
-  firmId: "default-firm",
-  name: "Adv. Priya Sharma",
-  email: "admin@nyayvakil.in",
-  role: "advocate",
-  phone: "+91 98203 41567",
-  isActive: true,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-};
-const ADMIN_PASSWORD = "admin123";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -35,7 +19,7 @@ export interface AuthState {
   error: string | null;
 
   // Actions
-  login: (email: string, password: string) => Promise<void>;
+  login: (identifier: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   clearError: () => void;
@@ -58,21 +42,23 @@ export const useAuthStore = create<AuthState>()(
       // ── Actions ───────────────────────────────────────────────────────────
 
       /**
-       * Authenticate a user with email and password.
-       * On success, persists user and token to localStorage.
-       *
-       * TODO: The api.auth.login call below maps to POST /api/auth/login
+       * Authenticate a user with email/phone and password.
+       * Accepts either an email address or a 10-digit phone number as identifier.
        */
-      login: async (email: string, password: string): Promise<void> => {
+      login: async (identifier: string, password: string): Promise<void> => {
         set({ status: 'loading', error: null });
-        await new Promise((r) => setTimeout(r, 400)); // simulate network
-        if (email === ADMIN_USER.email && password === ADMIN_PASSWORD) {
-          set({ user: ADMIN_USER, token: "local-token", status: 'authenticated', error: null });
-        } else {
-          const message = 'Invalid email or password.';
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          const message = data.error ?? 'Invalid credentials.';
           set({ status: 'unauthenticated', error: message, user: null, token: null });
           throw new Error(message);
         }
+        set({ user: data.user, token: data.token, status: 'authenticated', error: null });
       },
 
       /**

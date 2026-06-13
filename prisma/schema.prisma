@@ -202,7 +202,7 @@ model User {
   name             String
   email            String   @unique
   passwordHash     String
-  phone            String
+  phone            String   @unique
   role             UserRole @default(advocate)
   avatar           String?
   barCouncilNumber String?

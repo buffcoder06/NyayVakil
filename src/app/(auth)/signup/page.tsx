@@ -117,7 +117,7 @@ const ROLES: {
 
 export default function SignupPage() {
   const router = useRouter();
-  const setUser = useAuthStore((s) => s.setUser);
+  const signup = useAuthStore((s) => s.signup);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -150,29 +150,23 @@ export default function SignupPage() {
   const onSubmit = async (data: SignupFormValues) => {
     setIsLoading(true);
     try {
-      // Simulate account creation delay
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
-      // Set the mock user in the auth store
-      setUser({
-        id: `usr_new_${Date.now()}`,
+      await signup({
         name: data.name,
         email: data.email,
         phone: data.phone,
+        password: data.password,
         role: data.role,
         barCouncilNumber: data.barCouncilNumber || undefined,
         chamberName: data.chamberName,
-        createdAt: new Date().toISOString(),
       });
 
       toast.success("Account created!", {
         description: `Welcome to NyayVakil, ${data.name.split(" ")[0]}!`,
       });
       router.push("/dashboard");
-    } catch {
-      toast.error("Registration failed", {
-        description: "Something went wrong. Please try again.",
-      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      toast.error("Registration failed", { description: message });
     } finally {
       setIsLoading(false);
     }

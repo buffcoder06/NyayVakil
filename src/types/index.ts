@@ -9,6 +9,7 @@ export type UserRole = 'advocate' | 'junior' | 'clerk' | 'admin';
 
 export interface User {
   id: string;
+  firmId: string;
   name: string;
   email: string;
   phone: string;
@@ -17,7 +18,9 @@ export interface User {
   barCouncilNumber?: string;
   specialization?: string[];
   chamberName?: string;
+  isActive: boolean;
   createdAt: string;
+  updatedAt: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

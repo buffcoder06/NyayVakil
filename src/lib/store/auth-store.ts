@@ -20,6 +20,15 @@ export interface AuthState {
 
   // Actions
   login: (identifier: string, password: string) => Promise<void>;
+  signup: (data: {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+    role: string;
+    barCouncilNumber?: string;
+    chamberName: string;
+  }) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   clearError: () => void;
@@ -59,6 +68,25 @@ export const useAuthStore = create<AuthState>()(
           throw new Error(message);
         }
         set({ user: data.user, token: data.token, status: 'authenticated', error: null });
+      },
+
+      /**
+       * Register a new user, create their firm, and log them in immediately.
+       */
+      signup: async (data): Promise<void> => {
+        set({ status: 'loading', error: null });
+        const res = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          const message = json.error ?? 'Registration failed.';
+          set({ status: 'unauthenticated', error: message, user: null, token: null });
+          throw new Error(message);
+        }
+        set({ user: json.user, token: json.token, status: 'authenticated', error: null });
       },
 
       /**

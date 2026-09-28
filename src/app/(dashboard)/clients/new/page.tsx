@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -103,6 +104,7 @@ export default function NewClientPage() {
       const json = await res.json();
       if (!json.success) throw new Error(json.message);
       toast.success("Client added successfully.");
+      startNavigationProgress();
       router.push("/clients");
     } catch {
       toast.error("Failed to add client. Please try again.");

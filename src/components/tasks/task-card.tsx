@@ -3,7 +3,8 @@
 // src/components/tasks/task-card.tsx
 
 import { useState } from 'react';
-import { Check, Edit2, Trash2, Calendar, User, Briefcase } from 'lucide-react';
+import Link from 'next/link';
+import { Check, Edit2, Trash2, Calendar, User, Briefcase, Loader2 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -30,9 +31,9 @@ import { formatDate, getInitials, isOverdue, getStatusColor, getPriorityColor } 
 
 interface TaskCardProps {
   task: Task;
-  onComplete?: (id: string) => void;
+  onComplete?: (id: string) => void | Promise<void>;
   onEdit?: (task: Task) => void;
-  onDelete?: (id: string) => void;
+  onDelete?: (id: string) => void | Promise<void>;
 }
 
 const PRIORITY_BAR_COLOR: Record<string, string> = {
@@ -50,6 +51,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) {
   const [completing, setCompleting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const overdue =
     task.status !== 'completed' && task.status !== 'cancelled' && task.dueDate
       ? isOverdue(task.dueDate)
@@ -59,8 +61,21 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
   async function handleComplete() {
     if (!onComplete || isCompleted) return;
     setCompleting(true);
-    await onComplete(task.id);
-    setCompleting(false);
+    try {
+      await onComplete(task.id);
+    } finally {
+      setCompleting(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!onDelete || deleting) return;
+    setDeleting(true);
+    try {
+      await onDelete(task.id);
+    } finally {
+      setDeleting(false);
+    }
   }
 
   return (
@@ -120,12 +135,12 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
           {task.matterTitle && (
             <span className="flex items-center gap-1">
               <Briefcase className="h-3.5 w-3.5 text-slate-400" />
-              <a
+              <Link
                 href={task.matterId ? `/matters/${task.matterId}` : '#'}
                 className="font-medium text-navy-700 hover:underline dark:text-blue-400"
               >
                 {task.matterTitle}
-              </a>
+              </Link>
             </span>
           )}
 
@@ -188,8 +203,9 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
               <AlertDialogTrigger
                 className="h-8 w-8 inline-flex items-center justify-center rounded-md text-red-500 hover:text-red-600 hover:bg-red-50"
                 title="Delete Task"
+                disabled={deleting}
               >
-                <Trash2 className="h-4 w-4" />
+                {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -203,7 +219,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     className="bg-red-600 hover:bg-red-700"
-                    onClick={() => onDelete(task.id)}
+                    onClick={handleDelete}
                   >
                     Delete
                   </AlertDialogAction>

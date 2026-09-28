@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/lib/store/app-store";
@@ -136,11 +137,11 @@ function UserDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => router.push("/profile")} className="flex items-center gap-2 cursor-pointer">
+          <DropdownMenuItem onClick={() => { startNavigationProgress(); router.push("/profile"); }} className="flex items-center gap-2 cursor-pointer">
             <User className="h-4 w-4" />
             My Profile
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push("/settings")} className="flex items-center gap-2 cursor-pointer">
+          <DropdownMenuItem onClick={() => { startNavigationProgress(); router.push("/settings"); }} className="flex items-center gap-2 cursor-pointer">
             <Settings className="h-4 w-4" />
             Settings
           </DropdownMenuItem>

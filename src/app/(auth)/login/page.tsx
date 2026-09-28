@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -39,11 +40,12 @@ export default function LoginPage() {
       toast.success("Welcome back!");
       // Return to the page that bounced us here; only same-site paths are allowed
       const next = new URLSearchParams(window.location.search).get("next");
+      startNavigationProgress();
       router.push(next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Invalid credentials.";
       toast.error(message);
-    } finally {
+      // Only reset on failure: on success the button keeps spinning until the dashboard opens
       setIsLoading(false);
     }
   };

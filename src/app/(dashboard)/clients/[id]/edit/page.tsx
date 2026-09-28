@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -118,6 +119,7 @@ export default function EditClientPage() {
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
       toast.success("Client updated successfully.");
+      startNavigationProgress();
       router.push(`/clients/${id}`);
     } catch {
       toast.error("Failed to update client.");

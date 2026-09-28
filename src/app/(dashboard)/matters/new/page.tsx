@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -202,6 +203,7 @@ export default function NewMatterPage() {
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
       toast.success("Matter created successfully!");
+      startNavigationProgress();
       router.push(`/matters/${res.data.id}`);
     } catch {
       toast.error("Failed to create matter. Please try again.");

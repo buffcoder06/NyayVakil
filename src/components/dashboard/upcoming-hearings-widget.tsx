@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { formatDate, formatTime, formatRelativeDate, getDaysUntil, getStatusColor } from "@/lib/utils";
 import type { Hearing } from "@/types";
+import { addDays, todayIST } from "@/lib/dates";
 
 function getDaysLabel(date: string): { label: string; className: string } {
   const days = getDaysUntil(date);
@@ -46,10 +47,8 @@ interface UpcomingHearingsWidgetProps {
 
 export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps) {
   // Show hearings in the next 7 days (upcoming only), max 5
-  const today = new Date().toISOString().split("T")[0];
-  const sevenDaysLater = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    .toISOString()
-    .split("T")[0];
+  const today = todayIST();
+  const sevenDaysLater = addDays(today, 7);
 
   const filtered = hearings
     .filter(

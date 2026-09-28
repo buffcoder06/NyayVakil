@@ -19,14 +19,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { TaskCard } from '@/components/tasks/task-card';
 import { AddTaskDialog } from '@/components/tasks/add-task-dialog';
 import { TaskFilterBar, type TaskFilters } from '@/components/tasks/task-filter-bar';
-import type { Task } from '@/types';
-import { api } from '@/lib/api';
+import type { Matter, Task, TeamMember, PaginatedResponse } from '@/types';
+import { apiFetch } from '@/lib/http';
+import { todayIST } from '@/lib/dates';
+import { useAuthStore } from '@/lib/store/auth-store';
 import { isOverdue, getDaysUntil } from '@/lib/utils';
 import { toast } from 'sonner';
 
 type ViewTab = 'my_tasks' | 'team_tasks' | 'overdue' | 'completed';
-
-const CURRENT_USER = 'Adv. Priya Sharma'; // Replace with real auth context
 
 interface StatCard {
   label: string;
@@ -63,7 +63,10 @@ function groupTasksByDue(tasks: Task[]): Record<string, Task[]> {
 }
 
 export default function TasksPage() {
+  const currentUserId = useAuthStore((s) => s.user?.id);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [matters, setMatters] = useState<Matter[]>([]);
   const [loading, setLoading] = useState(true);
   const [addOpen, setAddOpen] = useState(false);
   const [editTask, setEditTask] = useState<Task | null>(null);
@@ -80,10 +83,9 @@ export default function TasksPage() {
   const loadTasks = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.tasks.list();
-      setTasks(res.data);
-    } catch {
-      toast.error('Failed to load tasks');
+      setTasks(await apiFetch<Task[]>('/api/tasks'));
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to load tasks');
     } finally {
       setLoading(false);
     }
@@ -93,6 +95,21 @@ export default function TasksPage() {
     loadTasks();
   }, [loadTasks]);
 
+  // Options for the filter bar
+  useEffect(() => {
+    Promise.all([
+      apiFetch<TeamMember[]>('/api/team'),
+      apiFetch<PaginatedResponse<Matter>>('/api/matters?pageSize=200'),
+    ])
+      .then(([team, matterPage]) => {
+        setTeamMembers(team);
+        setMatters(matterPage.data);
+      })
+      .catch(() => {
+        // Filters still work on the loaded tasks without these options
+      });
+  }, []);
+
   // Stats
   const pending = tasks.filter((t) => t.status === 'pending').length;
   const inProgress = tasks.filter((t) => t.status === 'in_progress').length;
@@ -101,8 +118,7 @@ export default function TasksPage() {
   ).length;
   const completedToday = tasks.filter((t) => {
     if (t.status !== 'completed' || !t.completedAt) return false;
-    const today = new Date().toISOString().split('T')[0];
-    return t.completedAt.startsWith(today);
+    return todayIST(new Date(t.completedAt)) === todayIST();
   }).length;
 
   const stats: StatCard[] = [
@@ -134,8 +150,8 @@ export default function TasksPage() {
 
   // Filter tasks by tab
   let visibleTasks = tasks.filter((t) => {
-    if (activeTab === 'my_tasks') return t.assignedTo === CURRENT_USER && t.status !== 'completed' && t.status !== 'cancelled';
-    if (activeTab === 'team_tasks') return t.assignedTo !== CURRENT_USER && t.status !== 'completed' && t.status !== 'cancelled';
+    if (activeTab === 'my_tasks') return t.assignedToId === currentUserId && t.status !== 'completed' && t.status !== 'cancelled';
+    if (activeTab === 'team_tasks') return t.assignedToId !== currentUserId && t.status !== 'completed' && t.status !== 'cancelled';
     if (activeTab === 'overdue') return t.status !== 'completed' && t.status !== 'cancelled' && t.dueDate && isOverdue(t.dueDate);
     if (activeTab === 'completed') return t.status === 'completed';
     return true;
@@ -144,7 +160,7 @@ export default function TasksPage() {
   // Apply search & filter
   visibleTasks = visibleTasks.filter((t) => {
     if (filters.search && !t.title.toLowerCase().includes(filters.search.toLowerCase())) return false;
-    if (filters.assignedTo !== 'all' && t.assignedTo !== filters.assignedTo) return false;
+    if (filters.assignedTo !== 'all' && t.assignedToId !== filters.assignedTo) return false;
     if (filters.matterId !== 'all' && t.matterId !== filters.matterId) return false;
     if (filters.priority !== 'all' && t.priority !== filters.priority) return false;
     if (filters.status !== 'all' && t.status !== filters.status) return false;
@@ -161,21 +177,21 @@ export default function TasksPage() {
 
   async function handleComplete(id: string) {
     try {
-      await api.tasks.complete(id);
+      await apiFetch(`/api/tasks/${id}`, { method: 'PUT', body: { complete: true } });
       toast.success('Task marked as complete');
       loadTasks();
-    } catch {
-      toast.error('Failed to complete task');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to complete task');
     }
   }
 
   async function handleDelete(id: string) {
     try {
-      await api.tasks.delete(id);
+      await apiFetch(`/api/tasks/${id}`, { method: 'DELETE' });
       toast.success('Task deleted');
       loadTasks();
-    } catch {
-      toast.error('Failed to delete task');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to delete task');
     }
   }
 
@@ -232,7 +248,12 @@ export default function TasksPage() {
         </TabsList>
 
         {/* Filters */}
-        <TaskFilterBar filters={filters} onChange={setFilters} />
+        <TaskFilterBar
+          filters={filters}
+          onChange={setFilters}
+          teamMembers={teamMembers}
+          matters={matters}
+        />
 
         {/* Task List */}
         <div className="mt-4 space-y-6">

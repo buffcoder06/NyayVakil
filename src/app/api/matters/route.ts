@@ -1,31 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
+import { withAuth, readBody, readPagination, param, MATTER_EDIT_ROLES } from "@/lib/server/route";
 import { getMatters, createMatter } from "@/lib/services/matters";
+import { matterCreateSchema } from "@/lib/validation";
 
-const FIRM_ID = process.env.DEFAULT_FIRM_ID ?? "default";
+export const GET = withAuth(async ({ req, session }) => {
+  const s = req.nextUrl.searchParams;
+  return getMatters(session.firmId, {
+    search: param(s, "search"),
+    status: param(s, "status"),
+    priority: param(s, "priority"),
+    clientId: param(s, "clientId"),
+    ...readPagination(s),
+  });
+});
 
-export async function GET(req: NextRequest) {
-  try {
-    const s = req.nextUrl.searchParams;
-    const result = await getMatters(FIRM_ID, {
-      search: s.get("search") ?? undefined,
-      status: s.get("status") ?? undefined,
-      priority: s.get("priority") ?? undefined,
-      clientId: s.get("clientId") ?? undefined,
-      page: s.has("page") ? Number(s.get("page")) : 1,
-      pageSize: s.has("pageSize") ? Number(s.get("pageSize")) : 50,
-    });
-    return NextResponse.json({ success: true, data: result });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const matter = await createMatter(FIRM_ID, body);
-    return NextResponse.json({ success: true, data: matter }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const POST = withAuth(
+  async ({ req, session }) => createMatter(session, await readBody(req, matterCreateSchema)),
+  { status: 201, roles: MATTER_EDIT_ROLES }
+);

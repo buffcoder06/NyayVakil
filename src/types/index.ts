@@ -88,6 +88,8 @@ export interface Matter {
   actSection?: string;
   notes?: string;
   clientId: string;
+  /** Client display name (joined on read). */
+  clientName?: string;
   totalFeeAgreed: number;
   totalFeePaid: number;
   totalExpenses: number;
@@ -114,7 +116,9 @@ export interface Hearing {
   notes?: string;
   nextAction?: string;
   nextHearingDate?: string;
+  /** Assignee display name; assignedToId is the user reference. */
   assignedTo?: string;
+  assignedToId?: string;
   appearanceStatus?: string;
   status: HearingStatus;
   createdAt: string;
@@ -131,7 +135,9 @@ export type PaymentMethod = 'cash' | 'bank_transfer' | 'cheque' | 'upi' | 'other
 export interface FeeEntry {
   id: string;
   matterId: string;
+  matterTitle?: string;
   clientId: string;
+  clientName?: string;
   description: string;
   totalAmount: number;
   receivedAmount: number;
@@ -175,6 +181,7 @@ export type ExpenseType =
 export interface Expense {
   id: string;
   matterId?: string;
+  matterTitle?: string;
   clientId?: string;
   date: string;
   expenseType: ExpenseType;
@@ -215,7 +222,9 @@ export interface Document {
   fileSize: string;
   fileUrl?: string;
   description?: string;
+  /** Uploader display name; uploadedById is the user reference. */
   uploadedBy: string;
+  uploadedById?: string;
   uploadedAt: string;
   tags?: string[];
 }
@@ -234,7 +243,10 @@ export interface Task {
   matterId?: string;
   matterTitle?: string;
   clientId?: string;
+  /** Assignee display name; assignedToId is the user reference. */
   assignedTo: string;
+  assignedToId?: string;
+  /** Display name of the user who created the task. */
   assignedBy: string;
   dueDate?: string;
   priority: TaskPriority;

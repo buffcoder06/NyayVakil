@@ -1,45 +1,73 @@
 // src/lib/services/tasks.ts
-import { db } from "@/lib/db";
+import "server-only";
 import type { Prisma } from "@prisma/client";
+import type { z } from "zod";
+import { db } from "@/lib/db";
+import { taskInclude, toTask } from "@/lib/server/dto";
+import type { taskCreateSchema, taskUpdateSchema } from "@/lib/validation";
+import { optional, requireMatter, requireMember, type Actor } from "./tenant";
 
 export async function getTasks(
   firmId: string,
   params: { matterId?: string; assignedTo?: string; status?: string } = {}
 ) {
   const { matterId, assignedTo, status } = params;
-  return db.task.findMany({
+  const rows = await db.task.findMany({
     where: {
       firmId,
       ...(matterId && { matterId }),
       ...(assignedTo && { assignedTo }),
-      ...(status && { status: status as any }),
+      ...(status && { status: status as Prisma.EnumTaskStatusFilter["equals"] }),
     },
-    include: {
-      matter: { select: { matterTitle: true } },
-      assignee: { select: { name: true } },
+    include: taskInclude,
+    orderBy: [{ dueDate: { sort: "asc", nulls: "last" } }, { createdAt: "desc" }],
+  });
+  return rows.map(toTask);
+}
+
+export async function createTask(actor: Actor, data: z.infer<typeof taskCreateSchema>) {
+  const { firmId } = actor;
+  const { assignedToId, ...rest } = data;
+  const [matter] = await Promise.all([
+    optional(data.matterId, (id) => requireMatter(firmId, id)),
+    requireMember(firmId, assignedToId),
+  ]);
+
+  const task = await db.task.create({
+    data: {
+      ...rest,
+      firmId,
+      assignedTo: assignedToId,
+      assignedBy: actor.userId,
+      clientId: matter?.clientId,
+      completedAt: data.status === "completed" ? new Date() : null,
     },
-    orderBy: { createdAt: "desc" },
+    include: taskInclude,
   });
+  return toTask(task);
 }
 
-export async function createTask(
-  firmId: string,
-  data: Omit<Prisma.TaskUncheckedCreateInput, "firmId">
-) {
-  return db.task.create({ data: { ...data, firmId } });
-}
+export async function updateTask(firmId: string, id: string, data: z.infer<typeof taskUpdateSchema>) {
+  const { assignedToId, complete, ...rest } = data;
+  const [matter] = await Promise.all([
+    optional(data.matterId, (mid) => requireMatter(firmId, mid)),
+    optional(assignedToId, (uid) => requireMember(firmId, uid)),
+  ]);
 
-export async function updateTask(id: string, data: Prisma.TaskUpdateInput) {
-  return db.task.update({ where: { id }, data });
-}
-
-export async function completeTask(id: string) {
-  return db.task.update({
-    where: { id },
-    data: { status: "completed", completedAt: new Date() },
+  const status = complete ? "completed" : rest.status;
+  const task = await db.task.update({
+    where: { id, firmId },
+    data: {
+      ...rest,
+      ...(assignedToId && { assignedTo: assignedToId }),
+      ...(data.matterId !== undefined && { clientId: matter?.clientId ?? null }),
+      ...(status && { status, completedAt: status === "completed" ? new Date() : null }),
+    },
+    include: taskInclude,
   });
+  return toTask(task);
 }
 
-export async function deleteTask(id: string) {
-  return db.task.delete({ where: { id } });
+export async function deleteTask(firmId: string, id: string) {
+  await db.task.delete({ where: { id, firmId } });
 }

@@ -37,7 +37,9 @@ export default function LoginPage() {
     try {
       await login(data.identifier, data.password);
       toast.success("Welcome back!");
-      router.push("/dashboard");
+      // Return to the page that bounced us here; only same-site paths are allowed
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.push(next && next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Invalid credentials.";
       toast.error(message);

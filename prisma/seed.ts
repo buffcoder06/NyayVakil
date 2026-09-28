@@ -1,16 +1,27 @@
 // prisma/seed.ts
-// Creates the default firm + advocate user for development
+// Creates a demo firm + advocate user for development.
+// Usage: SEED_ADMIN_PASSWORD='choose-a-password' npx prisma db seed
 
 import "dotenv/config";
+import bcrypt from "bcryptjs";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({
+  connectionString: process.env.DIRECT_URL ?? process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_SSL === "false" ? false : { rejectUnauthorized: false },
+});
 const adapter = new PrismaPg(pool);
 const db = new PrismaClient({ adapter });
 
 async function main() {
+  const password = process.env.SEED_ADMIN_PASSWORD;
+  if (!password || password.length < 8) {
+    throw new Error("Set SEED_ADMIN_PASSWORD (min 8 chars) to seed the demo advocate account.");
+  }
+  const passwordHash = await bcrypt.hash(password, 12);
+
   console.log("Seeding database...");
 
   // Create default firm
@@ -32,7 +43,7 @@ async function main() {
       id: "default-user",
       name: "Adv. Demo User",
       email: "advocate@nyayvakil.in",
-      passwordHash: "demo-hash", // replace with bcrypt hash in production
+      passwordHash,
       phone: "9876543210",
       role: "advocate",
       barCouncilNumber: "MH/1234/2015",
@@ -77,8 +88,7 @@ async function main() {
   console.log("\n🎉 Seed complete!");
   console.log("   Firm ID:", firm.id);
   console.log("   User ID:", user.id);
-  console.log("\nAdd this to your .env:");
-  console.log(`   DEFAULT_FIRM_ID="${firm.id}"`);
+  console.log("   Login:", user.email, "(password from SEED_ADMIN_PASSWORD)");
 }
 
 main()

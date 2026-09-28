@@ -1,5 +1,10 @@
 // NyayVakil – Prisma Schema
 // Database: PostgreSQL (Supabase)
+//
+// Conventions:
+// - Every tenant-owned row carries firmId; services always filter by it.
+// - Money is Decimal(12,2). Calendar dates (hearing day, due date, …) are @db.Date
+//   and travel as "YYYY-MM-DD" strings, so they never shift across timezones.
 
 generator client {
   provider = "prisma-client-js"
@@ -176,6 +181,7 @@ model Firm {
   updatedAt DateTime @updatedAt
 
   users             User[]
+  sessions          Session[]
   clients           Client[]
   matters           Matter[]
   hearings          Hearing[]
@@ -187,6 +193,7 @@ model Firm {
   reminders         Reminder[]
   timelineEntries   TimelineEntry[]
   reminderTemplates ReminderTemplate[]
+  caseTypes         CaseType[]
   officeSettings    OfficeSettings?
   subscription      Subscription?
 
@@ -214,15 +221,18 @@ model User {
 
   firmId String
 
-  firm            Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  sessions        Session[]
-  matters         Matter[]        @relation("CreatedByUser")
-  assignedMatters Matter[]        @relation("AssignedJunior")
-  clerkMatters    Matter[]        @relation("AssignedClerk")
-  assignedTasks   Task[]          @relation("AssignedToUser")
-  createdTasks    Task[]          @relation("AssignedByUser")
-  timeline        TimelineEntry[]
+  firm             Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  sessions         Session[]
+  matters          Matter[]        @relation("CreatedByUser")
+  assignedMatters  Matter[]        @relation("AssignedJunior")
+  clerkMatters     Matter[]        @relation("AssignedClerk")
+  assignedTasks    Task[]          @relation("AssignedToUser")
+  createdTasks     Task[]          @relation("AssignedByUser")
+  assignedHearings Hearing[]       @relation("HearingAssignee")
+  uploadedDocs     Document[]      @relation("DocumentUploader")
+  timeline         TimelineEntry[]
 
+  @@index([firmId])
   @@map("users")
 }
 
@@ -232,7 +242,8 @@ model User {
 
 model Session {
   id         String   @id @default(cuid())
-  token      String   @unique
+  // SHA-256 of the cookie token; the raw token is never stored
+  tokenHash  String   @unique
   deviceInfo String?
   ipAddress  String?
   expiresAt  DateTime
@@ -242,8 +253,27 @@ model Session {
   firmId String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
+  @@index([expiresAt])
   @@map("sessions")
+}
+
+// ─────────────────────────────────────────────
+// LOGIN ATTEMPT (brute-force protection)
+// ─────────────────────────────────────────────
+
+model LoginAttempt {
+  id         String   @id @default(cuid())
+  identifier String
+  ipAddress  String?
+  success    Boolean
+  createdAt  DateTime @default(now())
+
+  @@index([identifier, createdAt])
+  @@index([ipAddress, createdAt])
+  @@map("login_attempts")
 }
 
 // ─────────────────────────────────────────────
@@ -251,17 +281,17 @@ model Session {
 // ─────────────────────────────────────────────
 
 model Subscription {
-  id                   String             @id @default(cuid())
-  plan                 SubscriptionPlan   @default(free)
-  status               SubscriptionStatus @default(trialing)
-  trialEndsAt          DateTime?
-  currentPeriodStart   DateTime?
-  currentPeriodEnd     DateTime?
-  cancelledAt          DateTime?
-  razorpaySubId        String?
-  razorpayCustomerId   String?
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
+  id                 String             @id @default(cuid())
+  plan               SubscriptionPlan   @default(free)
+  status             SubscriptionStatus @default(trialing)
+  trialEndsAt        DateTime?
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelledAt        DateTime?
+  razorpaySubId      String?
+  razorpayCustomerId String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
 
   firmId String @unique
 
@@ -292,16 +322,18 @@ model Client {
 
   firmId String
 
-  firm      Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  matters   Matter[]
+  firm       Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  matters    Matter[]
   feeEntries FeeEntry[]
-  payments  Payment[]
-  expenses  Expense[]
-  documents Document[]
-  tasks     Task[]
-  reminders Reminder[]
-  timeline  TimelineEntry[]
+  payments   Payment[]
+  expenses   Expense[]
+  documents  Document[]
+  tasks      Task[]
+  reminders  Reminder[]
+  timeline   TimelineEntry[]
 
+  @@index([firmId, isActive])
+  @@index([firmId, createdAt])
   @@map("clients")
 }
 
@@ -318,8 +350,9 @@ model Matter {
   courtName        String
   courtLevel       CourtLevel     @default(district_court)
   caseStage        String?
-  filingDate       DateTime?
-  nextHearingDate  DateTime?
+  filingDate       DateTime?      @db.Date
+  // Kept in sync with the earliest upcoming hearing by the hearings service
+  nextHearingDate  DateTime?      @db.Date
   oppositeParty    String?
   oppositeAdvocate String?
   advocateOnRecord String?
@@ -329,9 +362,8 @@ model Matter {
   policeStation    String?
   actSection       String?
   notes            String?
-  totalFeeAgreed   Float          @default(0)
-  totalFeePaid     Float          @default(0)
-  totalExpenses    Float          @default(0)
+  // Fees paid and expenses are derived from payments/expenses, never stored here
+  totalFeeAgreed   Decimal        @default(0) @db.Decimal(12, 2)
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 
@@ -355,6 +387,9 @@ model Matter {
   reminders      Reminder[]
   timeline       TimelineEntry[]
 
+  @@index([firmId, status])
+  @@index([firmId, clientId])
+  @@index([firmId, createdAt])
   @@map("matters")
 }
 
@@ -364,24 +399,30 @@ model Matter {
 
 model Hearing {
   id               String        @id @default(cuid())
-  date             DateTime
+  // Court day of the hearing; time is local "HH:mm" as printed on the cause list
+  date             DateTime      @db.Date
   time             String?
+  // Overrides the matter's court (e.g. matter transferred to another court room)
+  courtName        String?
   purpose          String?
   notes            String?
   nextAction       String?
-  nextHearingDate  DateTime?
-  assignedTo       String?
+  nextHearingDate  DateTime?     @db.Date
   appearanceStatus String?
   status           HearingStatus @default(upcoming)
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 
-  firmId   String
-  matterId String
+  firmId       String
+  matterId     String
+  assignedToId String?
 
-  firm   Firm   @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  matter Matter @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  firm       Firm   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  matter     Matter @relation(fields: [matterId], references: [id], onDelete: Cascade)
+  assignedTo User?  @relation("HearingAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
 
+  @@index([firmId, date])
+  @@index([firmId, matterId])
   @@map("hearings")
 }
 
@@ -392,10 +433,12 @@ model Hearing {
 model FeeEntry {
   id             String    @id @default(cuid())
   description    String
-  totalAmount    Float
-  receivedAmount Float     @default(0)
-  pendingAmount  Float
-  dueDate        DateTime?
+  totalAmount    Decimal   @db.Decimal(12, 2)
+  // receivedAmount/pendingAmount are changed only by the payments service, atomically
+  receivedAmount Decimal   @default(0) @db.Decimal(12, 2)
+  pendingAmount  Decimal   @db.Decimal(12, 2)
+  dueDate        DateTime? @db.Date
+  // Stored as paid / partially_paid / not_started; "overdue" is derived when reading
   status         FeeStatus @default(not_started)
   notes          String?
   createdAt      DateTime  @default(now())
@@ -410,6 +453,9 @@ model FeeEntry {
   client   Client    @relation(fields: [clientId], references: [id])
   payments Payment[]
 
+  @@index([firmId, status])
+  @@index([firmId, matterId])
+  @@index([firmId, clientId])
   @@map("fee_entries")
 }
 
@@ -419,9 +465,9 @@ model FeeEntry {
 
 model Payment {
   id              String        @id @default(cuid())
-  amount          Float
+  amount          Decimal       @db.Decimal(12, 2)
   paymentMethod   PaymentMethod @default(cash)
-  paymentDate     DateTime
+  paymentDate     DateTime      @db.Date
   referenceNumber String?
   receiptNumber   String?
   notes           String?
@@ -437,6 +483,9 @@ model Payment {
   matter   Matter   @relation(fields: [matterId], references: [id])
   client   Client   @relation(fields: [clientId], references: [id])
 
+  @@index([firmId, paymentDate])
+  @@index([firmId, matterId])
+  @@index([feeEntryId])
   @@map("payments")
 }
 
@@ -446,10 +495,10 @@ model Payment {
 
 model Expense {
   id            String      @id @default(cuid())
-  date          DateTime
+  date          DateTime    @db.Date
   expenseType   ExpenseType
   description   String
-  amount        Float
+  amount        Decimal     @db.Decimal(12, 2)
   paidBy        String
   isRecoverable Boolean     @default(false)
   isRecovered   Boolean     @default(false)
@@ -465,6 +514,8 @@ model Expense {
   matter Matter? @relation(fields: [matterId], references: [id])
   client Client? @relation(fields: [clientId], references: [id])
 
+  @@index([firmId, date])
+  @@index([firmId, matterId])
   @@map("expenses")
 }
 
@@ -480,18 +531,21 @@ model Document {
   fileSize    String
   fileUrl     String?
   description String?
-  uploadedBy  String
   tags        String[]
   uploadedAt  DateTime         @default(now())
 
-  firmId   String
-  matterId String?
-  clientId String?
+  firmId       String
+  matterId     String?
+  clientId     String?
+  uploadedById String
 
-  firm   Firm    @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  matter Matter? @relation(fields: [matterId], references: [id])
-  client Client? @relation(fields: [clientId], references: [id])
+  firm       Firm    @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  matter     Matter? @relation(fields: [matterId], references: [id])
+  client     Client? @relation(fields: [clientId], references: [id])
+  uploadedBy User    @relation("DocumentUploader", fields: [uploadedById], references: [id])
 
+  @@index([firmId, matterId])
+  @@index([firmId, uploadedAt])
   @@map("documents")
 }
 
@@ -503,7 +557,7 @@ model Task {
   id          String       @id @default(cuid())
   title       String
   description String?
-  dueDate     DateTime?
+  dueDate     DateTime?    @db.Date
   priority    TaskPriority @default(medium)
   status      TaskStatus   @default(pending)
   notes       String?
@@ -523,6 +577,9 @@ model Task {
   matter   Matter? @relation(fields: [matterId], references: [id])
   client   Client? @relation(fields: [clientId], references: [id])
 
+  @@index([firmId, status])
+  @@index([firmId, assignedTo])
+  @@index([firmId, matterId])
   @@map("tasks")
 }
 
@@ -549,6 +606,7 @@ model Reminder {
   client Client? @relation(fields: [clientId], references: [id])
   matter Matter? @relation(fields: [matterId], references: [id])
 
+  @@index([firmId, status, scheduledAt])
   @@map("reminders")
 }
 
@@ -576,6 +634,7 @@ model TimelineEntry {
   matter Matter? @relation(fields: [matterId], references: [id])
   client Client? @relation(fields: [clientId], references: [id])
 
+  @@index([firmId, entityId, createdAt])
   @@map("timeline_entries")
 }
 
@@ -646,5 +705,8 @@ model CaseType {
   name   String
   firmId String
 
+  firm Firm @relation(fields: [firmId], references: [id], onDelete: Cascade)
+
+  @@unique([firmId, name])
   @@map("case_types")
 }

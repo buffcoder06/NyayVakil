@@ -1,36 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getClientById, updateClient, deleteClient } from "@/lib/services/clients";
+import { withAuth, readBody, notFound, MATTER_EDIT_ROLES } from "@/lib/server/route";
+import { getClientById, updateClient, deactivateClient } from "@/lib/services/clients";
+import { clientUpdateSchema } from "@/lib/validation";
 
-const FIRM_ID = process.env.DEFAULT_FIRM_ID ?? "default";
+type Params = { id: string };
 
-export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const client = await getClientById(id, FIRM_ID);
-    if (!client) return NextResponse.json({ success: false, message: "Not found" }, { status: 404 });
-    return NextResponse.json({ success: true, data: client });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const GET = withAuth<Params>(async ({ session, params }) => {
+  const client = await getClientById(session.firmId, params.id);
+  if (!client) throw notFound("Client");
+  return client;
+});
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const body = await req.json();
-    const client = await updateClient(id, FIRM_ID, body);
-    return NextResponse.json({ success: true, data: client });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const PUT = withAuth<Params>(async ({ req, session, params }) =>
+  updateClient(session.firmId, params.id, await readBody(req, clientUpdateSchema))
+);
 
-export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    await deleteClient(id, FIRM_ID);
-    return NextResponse.json({ success: true, data: null });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const DELETE = withAuth<Params>(
+  async ({ session, params }) => {
+    await deactivateClient(session.firmId, params.id);
+  },
+  { roles: MATTER_EDIT_ROLES }
+);

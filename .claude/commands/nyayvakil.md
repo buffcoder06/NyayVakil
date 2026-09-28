@@ -40,12 +40,21 @@ src/
 │   ├── settings/       → office/team settings components
 │   ├── shared/         → EmptyState, LoadingSkeleton, StatCard, StatusBadge
 │   └── providers.tsx   → React Query provider wrapper
+├── app/api/            → Route handlers (thin: auth + validate + call a service)
+├── proxy.ts            → Cookie gate: no session cookie → 401 (API) / redirect to /login
 ├── lib/
-│   ├── api/index.ts        → Complete MOCK API layer (951 lines, all CRUD)
+│   ├── db.ts               → Prisma client (pg adapter, small pool)
+│   ├── dates.ts            → todayIST(), parseDateOnly(), addDays() — IST calendar helpers
+│   ├── http.ts             → apiFetch() for client components (unwraps {success,data}, 401 → /login)
+│   ├── auth/session.ts     → createSession / getSession / destroySession (DB-backed cookie sessions)
+│   ├── auth/rate-limit.ts  → login throttling (login_attempts table)
+│   ├── server/route.ts     → withAuth() wrapper, ApiError, role lists, error mapping
+│   ├── server/dto.ts       → Prisma row → @/types mappers (Decimal → number, DATE → "YYYY-MM-DD")
+│   ├── services/*.ts       → All DB access, always scoped by firmId; tenant.ts = ownership checks
+│   ├── validation/index.ts → Zod schemas for every request body
 │   ├── store/
-│   │   ├── auth-store.ts   → useAuthStore (user, token, login/logout, role checks)
+│   │   ├── auth-store.ts   → useAuthStore (cached user profile, login/signup/logout, role checks)
 │   │   └── app-store.ts    → useAppStore (sidebar, filters, modals, toasts, pagination)
-│   ├── mock-data/index.ts  → In-memory mock data arrays
 │   └── utils.ts            → formatCurrency, formatDate, getStatusColor, getInitials, etc.
 ├── hooks/
 │   └── use-mobile.ts   → useIsMobile() (768px breakpoint)
@@ -111,28 +120,38 @@ src/
 
 ---
 
-## API LAYER (src/lib/api/index.ts)
+## BACKEND ARCHITECTURE
 
-All functions are a **complete mock API** (in-memory with simulated 200-800ms delays). All have TODO comments for real backend swap. Never change call sites — only swap internals.
+PostgreSQL (Supabase) via Prisma 7. Multi-tenant: every tenant row has `firmId`.
 
+**Request flow:** `proxy.ts` (cookie present?) → `withAuth()` in the route (valid session, role) → Zod schema → service (scoped by `session.firmId`) → DTO mapper → `{ success: true, data }`.
+
+**Rules (don't break these):**
+1. Never take `firmId`, `createdBy`, `uploadedById`, `assignedBy`, fee `receivedAmount/pendingAmount/status` from the request — the server derives them.
+2. Every service update/delete uses `where: { id, firmId }` (cross-firm ids → 404).
+3. Ids from a body (clientId, matterId, assignedToId, …) are checked with `requireClient/requireMatter/requireMember` from `services/tenant.ts`.
+4. Money is `Decimal(12,2)`; calendar dates are `@db.Date` and travel as `"YYYY-MM-DD"`. "Today" is always `todayIST()`, never `new Date().toISOString()`.
+5. Fee payments only change via `services/fees.ts` (atomic increments + overpayment check). "overdue" is derived from `dueDate`, never stored. Matter `totalFeePaid/totalExpenses` are computed from payments/expenses.
+6. Server components can call services directly with `getSession()`; client components use `apiFetch()`.
+
+**Endpoints:**
 ```
-api.auth.login(email, password) / logout() / getMe(userId)
-api.clients.list(filters?, pagination) / getById(id) / create(data) / update(id, data) / delete(id)
-api.matters.list(filters?, pagination) / getById(id) / create(data) / update(id, data) / close(id)
-api.hearings.list(filters?) / getById(id) / getByDate(date) / getToday() / create(data) / update(id, data) / delete(id)
-api.fees.list(matterId?, clientId?) / getById(id) / create(data) / update(id, data)
-api.payments.list(matterId?, clientId?) / create(data)
-api.expenses.list(matterId?, clientId?) / create(data) / update(id, data) / delete(id)
-api.documents.list(matterId?, clientId?) / getById(id) / upload(data) / delete(id)
-api.tasks.list(assignedTo?, matterId?, status?) / create(data) / update(id, data) / complete(id, notes?) / delete(id)
-api.reminders.list(clientId?, matterId?, status?) / create(data) / update(id, data) / markSent(id) / cancel(id) / getTemplates()
-api.timeline.getByEntityId(entityId)
-api.courts.list()
-api.dashboard.getStats()
-api.settings.getOfficeSettings() / updateOfficeSettings(data) / getTeamMembers()
+POST /api/auth/login | signup | logout      GET /api/auth/me       GET /api/team
+GET|POST /api/clients      GET|PUT|DELETE(deactivate) /api/clients/:id
+GET|POST /api/matters      GET|PUT|DELETE(close) /api/matters/:id
+GET|POST /api/hearings (?today=true, dateFrom/dateTo)   PUT|DELETE /api/hearings/:id
+GET|POST /api/fees         PUT|DELETE /api/fees/:id              (advocate/admin)
+GET|POST /api/payments     DELETE /api/payments/:id (reversal)   (advocate/admin)
+GET|POST /api/expenses     PUT|DELETE /api/expenses/:id          (advocate/admin)
+GET|POST /api/documents    DELETE /api/documents/:id
+GET|POST /api/tasks        PUT (body.complete=true) | DELETE /api/tasks/:id
+GET|POST /api/reminders    PUT /api/reminders/:id (body.action = markSent | cancel)
+GET /api/dashboard/stats
 ```
 
-**Pagination pattern:** `{ page: number, pageSize: number }` → `PaginatedResponse<T>` with `{ data, total, page, pageSize, totalPages }`
+**Pagination:** `?page=&pageSize=` (max 500) → `PaginatedResponse<T>` `{ data, total, page, pageSize, totalPages }`
+
+**Migrations:** `npx prisma migrate dev` / `migrate deploy` (uses `DIRECT_URL`, falls back to `DATABASE_URL`). Never change the schema with raw SQL scripts.
 
 ---
 
@@ -140,8 +159,9 @@ api.settings.getOfficeSettings() / updateOfficeSettings(data) / getTeamMembers()
 
 ### useAuthStore (src/lib/store/auth-store.ts)
 Persisted to localStorage key `nyayvakil-auth`.
-- **State:** `user: User | null`, `token: string | null`, `status: 'idle'|'loading'|'authenticated'|'unauthenticated'`, `error: string | null`
-- **Actions:** `login(email, password)`, `logout()`, `refreshUser()`, `clearError()`, `setUser()`
+- Only caches the display profile — the real session is an httpOnly cookie. No token in JS.
+- **State:** `user: User | null`, `status: 'idle'|'loading'|'authenticated'|'unauthenticated'`, `error: string | null`
+- **Actions:** `login(identifier, password)`, `signup(data)`, `logout()` (revokes server session), `refreshUser()` (GET /api/auth/me), `clearError()`, `setUser()`
 - **Role helpers:** `useIsAdvocate()`, `useIsAdmin()`, `useCanEditMatters()`, `useCanManageFinance()`
 - **Selectors:** `selectUser`, `selectIsAuthenticated`, `selectIsLoading`, `selectAuthError`
 
@@ -164,14 +184,15 @@ QueryClient defaults: `staleTime: 60000`, `retry: 1`, `refetchOnWindowFocus: fal
 
 ## AUTHENTICATION & ROLES
 
-**Demo credentials:**
-- Advocate (full access): `priya.sharma@nyayvakil.in` / `demo123`
-- Junior (matters + limited): `rahul.mehta@nyayvakil.in` / `demo123`
-- Clerk (data entry): `suresh.patil@nyayvakil.in` / `demo123`
+**Sessions:** random token in httpOnly `nv_session` cookie; only its SHA-256 is stored in `sessions` (30-day expiry). Login is throttled (5 failures / identifier / 15 min, 20 / IP).
 
-**Role hierarchy:** advocate > admin > junior > clerk
+**Signup** always creates a new firm with the caller as `advocate` (owner); role is never read from the body. Juniors/clerks will join via invites (not built yet).
 
-**Protected routes:** All `/dashboard/*` — if `useAuthStore((s) => s.user)` is null, redirect to `/login`. Root `/` redirects to `/login`.
+**Dev account:** seed with `SEED_ADMIN_PASSWORD=... npx prisma db seed` → `advocate@nyayvakil.in`.
+
+**Role hierarchy:** advocate > admin > junior > clerk. Enforced on the server via `withAuth(..., { roles })`: finance (fees/payments/expenses) = advocate/admin; matter edits = advocate/admin/junior. Client-side hooks only hide UI.
+
+**Protected routes:** `proxy.ts` gates by cookie; `(dashboard)/layout.tsx` validates the session with `getSession()` and redirects to `/login?expired=1`.
 
 ---
 
@@ -226,7 +247,7 @@ QueryClient defaults: `staleTime: 60000`, `retry: 1`, `refetchOnWindowFocus: fal
 1. Always use the `@/` path alias (maps to `src/`)
 2. Use `cn()` for all className merging
 3. Use `formatCurrency()` / `formatDate()` for all display formatting — never raw values
-4. New API calls go in `src/lib/api/index.ts` following the existing mock pattern
+4. New endpoints: Zod schema in `lib/validation`, logic in `lib/services` (scoped by firmId), mapper in `lib/server/dto.ts`, thin route using `withAuth()`
 5. New types go in `src/types/index.ts`
 6. UI components: prefer existing shadcn/ui components in `src/components/ui/`
 7. Forms: React Hook Form + Zod schema validation

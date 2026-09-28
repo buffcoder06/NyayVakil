@@ -12,11 +12,7 @@ import {
   EyeOff,
   Scale,
   Loader2,
-  Briefcase,
-  GraduationCap,
-  ClipboardList,
-  ShieldCheck,
-  CheckCircle2,
+  Info,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -31,7 +27,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/lib/store/auth-store";
-import type { UserRole } from "@/types";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SCHEMA
@@ -39,9 +34,6 @@ import type { UserRole } from "@/types";
 
 const signupSchema = z
   .object({
-    role: z.enum(["advocate", "junior", "clerk", "admin"] as const, {
-      error: () => ({ message: "Please select your role" }),
-    }),
     name: z.string().min(2, "Full name must be at least 2 characters"),
     phone: z
       .string()
@@ -63,53 +55,12 @@ const signupSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   })
-  .refine(
-    (data) =>
-      data.role !== "advocate" ||
-      (data.barCouncilNumber && data.barCouncilNumber.trim().length > 0),
-    {
-      message: "Bar Council Number is required for advocates",
-      path: ["barCouncilNumber"],
-    }
-  );
+  .refine((data) => data.barCouncilNumber && data.barCouncilNumber.trim().length > 0, {
+    message: "Bar Council Number is required",
+    path: ["barCouncilNumber"],
+  });
 
 type SignupFormValues = z.infer<typeof signupSchema>;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ROLE CONFIG
-// ─────────────────────────────────────────────────────────────────────────────
-
-const ROLES: {
-  value: UserRole;
-  label: string;
-  description: string;
-  icon: React.ReactNode;
-}[] = [
-  {
-    value: "advocate",
-    label: "Advocate",
-    description: "Senior advocate / partner",
-    icon: <Scale className="w-5 h-5" />,
-  },
-  {
-    value: "junior",
-    label: "Junior",
-    description: "Junior advocate",
-    icon: <GraduationCap className="w-5 h-5" />,
-  },
-  {
-    value: "clerk",
-    label: "Clerk",
-    description: "Office clerk / support",
-    icon: <ClipboardList className="w-5 h-5" />,
-  },
-  {
-    value: "admin",
-    label: "Admin",
-    description: "Office administrator",
-    icon: <ShieldCheck className="w-5 h-5" />,
-  },
-];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PAGE COMPONENT
@@ -126,12 +77,10 @@ export default function SignupPage() {
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      role: undefined,
       name: "",
       phone: "",
       email: "",
@@ -143,8 +92,6 @@ export default function SignupPage() {
     },
   });
 
-  const selectedRole = watch("role");
-
   // ── Handlers ──────────────────────────────────────────────────────────────
 
   const onSubmit = async (data: SignupFormValues) => {
@@ -155,7 +102,6 @@ export default function SignupPage() {
         email: data.email,
         phone: data.phone,
         password: data.password,
-        role: data.role,
         barCouncilNumber: data.barCouncilNumber || undefined,
         chamberName: data.chamberName,
       });
@@ -197,60 +143,13 @@ export default function SignupPage() {
 
       <CardContent className="pt-4">
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-          {/* Role Selection */}
-          <div className="space-y-2">
-            <Label className="text-slate-700 font-medium">
-              Your Role <span className="text-red-500">*</span>
-            </Label>
-            <Controller
-              name="role"
-              control={control}
-              render={({ field }) => (
-                <div className="grid grid-cols-2 gap-2">
-                  {ROLES.map((role) => {
-                    const isSelected = field.value === role.value;
-                    return (
-                      <button
-                        key={role.value}
-                        type="button"
-                        onClick={() => field.onChange(role.value)}
-                        className={`relative flex items-start gap-2.5 p-3 rounded-lg border-2 transition-all text-left ${
-                          isSelected
-                            ? "border-[#1e3a5f] bg-[#1e3a5f]/5"
-                            : "border-slate-200 hover:border-slate-300 bg-white"
-                        }`}
-                      >
-                        <div
-                          className={`mt-0.5 shrink-0 ${
-                            isSelected ? "text-[#1e3a5f]" : "text-slate-400"
-                          }`}
-                        >
-                          {role.icon}
-                        </div>
-                        <div className="min-w-0">
-                          <p
-                            className={`font-semibold text-sm ${
-                              isSelected ? "text-[#1e3a5f]" : "text-slate-700"
-                            }`}
-                          >
-                            {role.label}
-                          </p>
-                          <p className="text-xs text-slate-400 leading-snug mt-0.5">
-                            {role.description}
-                          </p>
-                        </div>
-                        {isSelected && (
-                          <CheckCircle2 className="w-4 h-4 text-[#1e3a5f] absolute top-2 right-2" />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            />
-            {errors.role && (
-              <p className="text-xs text-red-500">{errors.role.message}</p>
-            )}
+          {/* Signup always creates a new firm with this person as its advocate/owner */}
+          <div className="flex items-start gap-2.5 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+            <Info className="w-4 h-4 mt-0.5 shrink-0 text-[#1e3a5f]" />
+            <p>
+              This creates a new chamber account with you as the advocate. Juniors and clerks
+              join an existing chamber when the advocate invites them.
+            </p>
           </div>
 
           {/* Full Name */}
@@ -316,30 +215,28 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* Bar Council Number (advocates only) */}
-          {selectedRole === "advocate" && (
-            <div className="space-y-1.5">
-              <Label
-                htmlFor="barCouncilNumber"
-                className="text-slate-700 font-medium"
-              >
-                Bar Council Number <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="barCouncilNumber"
-                type="text"
-                placeholder="e.g. MH/1234/2010"
-                aria-invalid={!!errors.barCouncilNumber}
-                className="h-10 text-sm"
-                {...register("barCouncilNumber")}
-              />
-              {errors.barCouncilNumber && (
-                <p className="text-xs text-red-500">
-                  {errors.barCouncilNumber.message}
-                </p>
-              )}
-            </div>
-          )}
+          {/* Bar Council Number */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="barCouncilNumber"
+              className="text-slate-700 font-medium"
+            >
+              Bar Council Number <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="barCouncilNumber"
+              type="text"
+              placeholder="e.g. MH/1234/2010"
+              aria-invalid={!!errors.barCouncilNumber}
+              className="h-10 text-sm"
+              {...register("barCouncilNumber")}
+            />
+            {errors.barCouncilNumber && (
+              <p className="text-xs text-red-500">
+                {errors.barCouncilNumber.message}
+              </p>
+            )}
+          </div>
 
           {/* Chamber / Firm Name */}
           <div className="space-y-1.5">

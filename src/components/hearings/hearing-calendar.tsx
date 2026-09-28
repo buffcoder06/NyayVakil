@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatTime, titleCase, getStatusColor } from "@/lib/utils/index";
+import { todayIST } from "@/lib/dates";
 
 interface HearingCalendarProps {
   hearings: Hearing[];
@@ -33,7 +34,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const todayStr = today.toISOString().split("T")[0];
+  const todayStr = todayIST();
 
   const hearingsByDate = useMemo(() => {
     const map: Record<string, Hearing[]> = {};

@@ -40,8 +40,8 @@ import {
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
-import { api } from '@/lib/api';
-import type { Task, Matter } from '@/types';
+import { apiFetch } from '@/lib/http';
+import type { Task, Matter, PaginatedResponse, TeamMember } from '@/types';
 import { toast } from 'sonner';
 
 const taskSchema = z.object({
@@ -63,7 +63,7 @@ interface AddTaskDialogProps {
   defaultMatterId?: string;
 }
 
-const CURRENT_USER_ID = 'user_1'; // Replace with real auth
+const NO_MATTER = 'none';
 
 export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }: AddTaskDialogProps) {
   const [loading, setLoading] = useState(false);
@@ -75,7 +75,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
     defaultValues: {
       title: '',
       description: '',
-      matterId: defaultMatterId ?? '',
+      matterId: defaultMatterId ?? NO_MATTER,
       assignedTo: '',
       priority: 'medium',
       notes: '',
@@ -84,39 +84,39 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
 
   useEffect(() => {
     if (!open) return;
-    // Fetch matters and team members
+    // Fetch matters and team members of the signed-in firm
     Promise.all([
-      api.matters.list(undefined, { page: 1, pageSize: 100 }),
-      api.settings.getTeamMembers(),
-    ]).then(([mattersRes, teamRes]) => {
-      setMatters(mattersRes.data.data);
-      setTeamMembers(teamRes.data.map((u) => ({ id: u.id, name: u.name })));
-    });
+      apiFetch<PaginatedResponse<Matter>>('/api/matters?pageSize=200'),
+      apiFetch<TeamMember[]>('/api/team'),
+    ])
+      .then(([matterPage, team]) => {
+        setMatters(matterPage.data);
+        setTeamMembers(team.map((u) => ({ id: u.id, name: u.name })));
+      })
+      .catch(() => toast.error('Failed to load matters and team members.'));
   }, [open]);
 
   async function onSubmit(values: TaskFormValues) {
     setLoading(true);
     try {
-      const selectedMatter = matters.find((m) => m.id === values.matterId);
-      const res = await api.tasks.create({
-        title: values.title,
-        description: values.description,
-        matterId: values.matterId || undefined,
-        matterTitle: selectedMatter?.matterTitle,
-        clientId: selectedMatter?.clientId,
-        assignedTo: values.assignedTo,
-        assignedBy: CURRENT_USER_ID,
-        dueDate: values.dueDate ? format(values.dueDate, 'yyyy-MM-dd') : undefined,
-        priority: values.priority,
-        status: 'pending',
-        notes: values.notes,
+      const task = await apiFetch<Task>('/api/tasks', {
+        method: 'POST',
+        body: {
+          title: values.title,
+          description: values.description,
+          matterId: values.matterId && values.matterId !== NO_MATTER ? values.matterId : undefined,
+          assignedToId: values.assignedTo,
+          dueDate: values.dueDate ? format(values.dueDate, 'yyyy-MM-dd') : undefined,
+          priority: values.priority,
+          notes: values.notes,
+        },
       });
       toast.success('Task created successfully');
-      onSuccess?.(res.data);
+      onSuccess?.(task);
       form.reset();
       onOpenChange(false);
-    } catch {
-      toast.error('Failed to create task. Please try again.');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to create task. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -183,7 +183,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="max-h-60">
-                        <SelectItem value="">None</SelectItem>
+                        <SelectItem value={NO_MATTER}>None</SelectItem>
                         {matters.map((m) => (
                           <SelectItem key={m.id} value={m.id}>
                             {m.matterTitle}
@@ -211,7 +211,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
                       </FormControl>
                       <SelectContent>
                         {teamMembers.map((m) => (
-                          <SelectItem key={m.id} value={m.name}>
+                          <SelectItem key={m.id} value={m.id}>
                             {m.name}
                           </SelectItem>
                         ))}

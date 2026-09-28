@@ -1,6 +1,10 @@
 // src/lib/services/clients.ts
-import { db } from "@/lib/db";
+import "server-only";
 import type { Prisma } from "@prisma/client";
+import type { z } from "zod";
+import { db } from "@/lib/db";
+import { clientInclude, toClient } from "@/lib/server/dto";
+import type { clientCreateSchema, clientUpdateSchema } from "@/lib/validation";
 
 export async function getClients(
   firmId: string,
@@ -17,7 +21,7 @@ export async function getClients(
   const where: Prisma.ClientWhereInput = {
     firmId,
     ...(isActive !== undefined && { isActive }),
-    ...(clientType && { clientType: clientType as any }),
+    ...(clientType && { clientType: clientType as Prisma.EnumClientTypeFilter["equals"] }),
     ...(search && {
       OR: [
         { name: { contains: search, mode: "insensitive" } },
@@ -28,47 +32,36 @@ export async function getClients(
     }),
   };
 
-  const [data, total] = await Promise.all([
+  const [rows, total] = await Promise.all([
     db.client.findMany({
       where,
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * pageSize,
       take: pageSize,
-      include: {
-        _count: { select: { matters: true } },
-        feeEntries: { select: { pendingAmount: true } },
-      },
+      include: clientInclude,
     }),
     db.client.count({ where }),
   ]);
 
-  return { data, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
+  return { data: rows.map(toClient), total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
 }
 
-export async function getClientById(id: string, firmId: string) {
-  return db.client.findFirst({ where: { id, firmId } });
+export async function getClientById(firmId: string, id: string) {
+  const client = await db.client.findFirst({ where: { id, firmId }, include: clientInclude });
+  return client ? toClient(client) : null;
 }
 
-export async function createClient(
-  firmId: string,
-  data: Omit<Prisma.ClientCreateInput, "firm">
-) {
-  return db.client.create({
-    data: { ...data, firm: { connect: { id: firmId } } },
-  });
+export async function createClient(firmId: string, data: z.infer<typeof clientCreateSchema>) {
+  const client = await db.client.create({ data: { ...data, firmId }, include: clientInclude });
+  return toClient(client);
 }
 
-export async function updateClient(
-  id: string,
-  firmId: string,
-  data: Prisma.ClientUpdateInput
-) {
-  return db.client.update({ where: { id }, data });
+export async function updateClient(firmId: string, id: string, data: z.infer<typeof clientUpdateSchema>) {
+  const client = await db.client.update({ where: { id, firmId }, data, include: clientInclude });
+  return toClient(client);
 }
 
-export async function deleteClient(id: string, firmId: string) {
-  return db.client.update({
-    where: { id },
-    data: { isActive: false },
-  });
+/** Clients are never hard-deleted: matters, fees and payments reference them. */
+export async function deactivateClient(firmId: string, id: string) {
+  await db.client.update({ where: { id, firmId }, data: { isActive: false } });
 }

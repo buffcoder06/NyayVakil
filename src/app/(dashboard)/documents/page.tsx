@@ -161,7 +161,6 @@ function UploadDocumentDialog({
           description: description || undefined,
           fileType: "PDF",
           fileSize: "—",
-          uploadedBy: "default-user",
         }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);

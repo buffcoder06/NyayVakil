@@ -8,6 +8,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { User } from '@/types';
+import { startNavigationProgress } from '@/components/shared/navigation-progress';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
@@ -88,12 +89,15 @@ export const useAuthStore = create<AuthState>()(
         set({ user: json.user, status: 'authenticated', error: null });
       },
 
-      /** Revoke the server session and clear local state. */
+      /** Revoke the server session, clear local state and go to /login. */
       logout: async (): Promise<void> => {
+        startNavigationProgress();
         try {
           await postJson('/api/auth/logout', {});
         } finally {
           set({ user: null, status: 'unauthenticated', error: null });
+          // Full page load so no cached data from the previous user survives
+          window.location.assign('/login');
         }
       },
 

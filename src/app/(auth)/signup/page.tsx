@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -109,11 +110,12 @@ export default function SignupPage() {
       toast.success("Account created!", {
         description: `Welcome to NyayVakil, ${data.name.split(" ")[0]}!`,
       });
+      startNavigationProgress();
       router.push("/dashboard");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       toast.error("Registration failed", { description: message });
-    } finally {
+      // Only reset on failure: on success the button keeps spinning until the dashboard opens
       setIsLoading(false);
     }
   };

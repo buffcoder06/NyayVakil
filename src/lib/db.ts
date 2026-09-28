@@ -13,7 +13,7 @@ const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 function createPrismaClient() {
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    max: Number(process.env.DATABASE_POOL_MAX ?? 5),
+    max: Number(process.env.DATABASE_POOL_MAX ?? 10),
     idleTimeoutMillis: 10_000,
     connectionTimeoutMillis: 10_000,
     // Supabase requires TLS; its certificate chain isn't in Node's default store

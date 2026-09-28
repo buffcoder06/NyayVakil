@@ -15,6 +15,7 @@ import {
   Pencil,
   CheckCircle2,
   CalendarPlus,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +26,8 @@ interface HearingCardProps {
   onEdit?: (hearing: Hearing) => void;
   onMarkStatus?: (hearing: Hearing) => void;
   onAddNextHearing?: (hearing: Hearing) => void;
+  /** True while an action on this hearing is being saved. */
+  busy?: boolean;
 }
 
 export function HearingCard({
@@ -34,6 +37,7 @@ export function HearingCard({
   onEdit,
   onMarkStatus,
   onAddNextHearing,
+  busy = false,
 }: HearingCardProps) {
   const leftBorderClass =
     isMissed || hearing.status === "missed"
@@ -141,8 +145,9 @@ export function HearingCard({
             variant="ghost"
             className="h-8 text-xs gap-1 text-green-700 hover:text-green-800 hover:bg-green-50"
             onClick={() => onMarkStatus(hearing)}
+            disabled={busy}
           >
-            <CheckCircle2 className="h-3.5 w-3.5" />
+            {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
             <span className="hidden sm:inline">Status</span>
           </Button>
         )}

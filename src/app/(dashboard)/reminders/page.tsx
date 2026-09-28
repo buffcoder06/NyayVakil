@@ -42,6 +42,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { todayIST } from "@/lib/dates";
+import { apiFetch } from "@/lib/http";
 import { cn } from "@/lib/utils";
 
 const reminderTypeConfig: Record<string, { label: string; icon: React.ElementType; color: string }> = {
@@ -103,10 +104,13 @@ function ReminderCard({
   reminder,
   onMarkSent,
   onCancel,
+  busy = false,
 }: {
   reminder: Reminder;
   onMarkSent: (id: string) => void;
   onCancel: (id: string) => void;
+  /** True while an action on this reminder is being saved. */
+  busy?: boolean;
 }) {
   const typeConf = reminderTypeConfig[reminder.type] || reminderTypeConfig.general;
   const statusConf = reminderStatusConfig[reminder.status] || reminderStatusConfig.pending;
@@ -157,8 +161,9 @@ function ReminderCard({
                     size="sm"
                     className="h-7 text-xs bg-[#1e3a5f] hover:bg-[#162d4a] gap-1"
                     onClick={() => onMarkSent(reminder.id)}
+                    disabled={busy}
                   >
-                    <Send className="h-3 w-3" />
+                    {busy ? <Loader2 className="h-3 w-3 animate-spin" /> : <Send className="h-3 w-3" />}
                     Mark Sent
                   </Button>
                   <Button
@@ -166,6 +171,8 @@ function ReminderCard({
                     variant="ghost"
                     className="h-7 w-7 text-slate-400 hover:text-red-500"
                     onClick={() => onCancel(reminder.id)}
+                    disabled={busy}
+                    aria-label="Cancel reminder"
                   >
                     <X className="h-3.5 w-3.5" />
                   </Button>
@@ -328,6 +335,7 @@ function CreateReminderDialog({
 
 export default function RemindersPage() {
   const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [busyId, setBusyId] = useState<string | null>(null);
   const [clients, setClients] = useState<Client[]>([]);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [loading, setLoading] = useState(true);
@@ -372,27 +380,25 @@ export default function RemindersPage() {
     payment: reminders.filter((r) => r.type === "payment"),
   }), [reminders]);
 
-  const handleMarkSent = async (id: string) => {
+  const runAction = async (id: string, action: "markSent" | "cancel", done: string, failed: string) => {
+    if (busyId) return;
+    setBusyId(id);
     try {
-      await fetch(`/api/reminders/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "markSent" }) });
-      setReminders((prev) =>
-        prev.map((r) => (r.id === id ? { ...r, status: "sent", sentAt: new Date().toISOString() } : r))
-      );
-      toast.success("Reminder marked as sent.");
-    } catch {
-      toast.error("Failed to update reminder.");
+      const updated = await apiFetch<Reminder>(`/api/reminders/${id}`, { method: "PUT", body: { action } });
+      setReminders((prev) => prev.map((r) => (r.id === id ? updated : r)));
+      toast.success(done);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : failed);
+    } finally {
+      setBusyId(null);
     }
   };
 
-  const handleCancel = async (id: string) => {
-    try {
-      await fetch(`/api/reminders/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "cancel" }) });
-      setReminders((prev) => prev.map((r) => (r.id === id ? { ...r, status: "cancelled" } : r)));
-      toast.success("Reminder cancelled.");
-    } catch {
-      toast.error("Failed to cancel reminder.");
-    }
-  };
+  const handleMarkSent = (id: string) =>
+    runAction(id, "markSent", "Reminder marked as sent.", "Failed to update reminder.");
+
+  const handleCancel = (id: string) =>
+    runAction(id, "cancel", "Reminder cancelled.", "Failed to cancel reminder.");
 
   const openWithTemplate = (template: typeof REMINDER_TEMPLATES[0]) => {
     setPrefillMessage(template.template);
@@ -417,6 +423,7 @@ export default function RemindersPage() {
             reminder={reminder}
             onMarkSent={handleMarkSent}
             onCancel={handleCancel}
+            busy={busyId === reminder.id}
           />
         ))}
       </div>

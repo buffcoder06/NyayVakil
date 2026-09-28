@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -103,6 +104,7 @@ export default function NewFeePage() {
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
       toast.success("Fee entry created");
+      startNavigationProgress();
       router.push("/fees");
     } catch {
       toast.error("Failed to create fee entry");

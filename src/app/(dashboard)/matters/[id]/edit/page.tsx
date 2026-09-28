@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -142,6 +143,7 @@ export default function EditMatterPage() {
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
       toast.success("Matter updated successfully.");
+      startNavigationProgress();
       router.push(`/matters/${id}`);
     } catch {
       toast.error("Failed to update matter.");

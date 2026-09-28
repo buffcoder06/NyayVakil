@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import { formatDate, groupBy } from "@/lib/utils/index";
 import { cn } from "@/lib/utils";
 import { addDays, todayIST } from "@/lib/dates";
+import { apiFetch } from "@/lib/http";
 
 type ViewMode = "list" | "calendar";
 
@@ -59,6 +60,7 @@ function StatCard({
 
 export default function HearingsPage() {
   const [hearings, setHearings] = useState<Hearing[]>([]);
+  const [busyId, setBusyId] = useState<string | null>(null);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
@@ -137,14 +139,19 @@ export default function HearingsPage() {
   };
 
   const handleMarkStatus = async (hearing: Hearing) => {
+    if (busyId) return;
+    setBusyId(hearing.id);
     try {
-      await fetch(`/api/hearings/${hearing.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: "attended" }) });
-      setHearings((prev) =>
-        prev.map((h) => (h.id === hearing.id ? { ...h, status: "attended" } : h))
-      );
+      const updated = await apiFetch<Hearing>(`/api/hearings/${hearing.id}`, {
+        method: "PUT",
+        body: { status: "attended" },
+      });
+      setHearings((prev) => prev.map((h) => (h.id === hearing.id ? updated : h)));
       toast.success("Hearing marked as attended.");
-    } catch {
-      toast.error("Failed to update status.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update status.");
+    } finally {
+      setBusyId(null);
     }
   };
 
@@ -196,6 +203,7 @@ export default function HearingsPage() {
                     isToday={dateStr === todayStr}
                     isMissed={h.status === "missed"}
                     onMarkStatus={handleMarkStatus}
+                    busy={busyId === h.id}
                     onEdit={() => toast.info("Edit hearing — coming soon.")}
                     onAddNextHearing={() => {
                       setAddOpen(true);

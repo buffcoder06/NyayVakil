@@ -207,10 +207,11 @@ function AddExpenseDialog({
   );
 }
 
-function ExpenseRowMobile({ expense, matterTitle, onToggleRecovered }: {
+function ExpenseRowMobile({ expense, matterTitle, onToggleRecovered, busy = false }: {
   expense: Expense;
   matterTitle: string;
   onToggleRecovered: (expense: Expense) => void;
+  busy?: boolean;
 }) {
   return (
     <Card className="hover:shadow-sm transition-shadow">
@@ -238,8 +239,9 @@ function ExpenseRowMobile({ expense, matterTitle, onToggleRecovered }: {
                       : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
                   )}
                   onClick={() => onToggleRecovered(expense)}
+                  disabled={busy}
                 >
-                  {expense.isRecovered ? <CheckCircle2 className="h-3 w-3" /> : <Circle className="h-3 w-3" />}
+                  {busy ? <Loader2 className="h-3 w-3 animate-spin" /> : expense.isRecovered ? <CheckCircle2 className="h-3 w-3" /> : <Circle className="h-3 w-3" />}
                   {expense.isRecovered ? "Recovered" : "Recoverable"}
                 </button>
               )}
@@ -254,6 +256,7 @@ function ExpenseRowMobile({ expense, matterTitle, onToggleRecovered }: {
 
 export default function ExpensesPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [busyId, setBusyId] = useState<string | null>(null);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [loading, setLoading] = useState(true);
   const [addOpen, setAddOpen] = useState(false);
@@ -307,6 +310,8 @@ export default function ExpensesPage() {
   }, [expenses]);
 
   const handleToggleRecovered = async (expense: Expense) => {
+    if (busyId) return;
+    setBusyId(expense.id);
     try {
       const updated = await apiFetch<Expense>(`/api/expenses/${expense.id}`, {
         method: "PUT",
@@ -316,6 +321,8 @@ export default function ExpensesPage() {
       toast.success("Expense updated.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to update expense.");
+    } finally {
+      setBusyId(null);
     }
   };
 
@@ -406,6 +413,7 @@ export default function ExpensesPage() {
                 expense={expense}
                 matterTitle={expense.matterId ? matterMap[expense.matterId] || "—" : "—"}
                 onToggleRecovered={handleToggleRecovered}
+                busy={busyId === expense.id}
               />
             ))}
           </div>
@@ -458,8 +466,9 @@ export default function ExpensesPage() {
                               : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
                           )}
                           onClick={() => handleToggleRecovered(expense)}
+                          disabled={busyId === expense.id}
                         >
-                          {expense.isRecovered ? <CheckCircle2 className="h-3 w-3" /> : <Circle className="h-3 w-3" />}
+                          {busyId === expense.id ? <Loader2 className="h-3 w-3 animate-spin" /> : expense.isRecovered ? <CheckCircle2 className="h-3 w-3" /> : <Circle className="h-3 w-3" />}
                           {expense.isRecovered ? "Recovered" : "Recoverable"}
                         </button>
                       ) : (

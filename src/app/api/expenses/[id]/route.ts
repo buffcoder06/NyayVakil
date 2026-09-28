@@ -1,23 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { withAuth, readBody, FINANCE_ROLES } from "@/lib/server/route";
 import { updateExpense, deleteExpense } from "@/lib/services/expenses";
+import { expenseUpdateSchema } from "@/lib/validation";
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const body = await req.json();
-    const expense = await updateExpense(id, body);
-    return NextResponse.json({ success: true, data: expense });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+type Params = { id: string };
 
-export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    await deleteExpense(id);
-    return NextResponse.json({ success: true, data: null });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const PUT = withAuth<Params>(
+  async ({ req, session, params }) => updateExpense(session.firmId, params.id, await readBody(req, expenseUpdateSchema)),
+  { roles: FINANCE_ROLES }
+);
+
+export const DELETE = withAuth<Params>(
+  async ({ session, params }) => {
+    await deleteExpense(session.firmId, params.id);
+  },
+  { roles: FINANCE_ROLES }
+);

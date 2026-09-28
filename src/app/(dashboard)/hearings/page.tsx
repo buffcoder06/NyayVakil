@@ -31,6 +31,7 @@ import {
 import { toast } from "sonner";
 import { formatDate, groupBy } from "@/lib/utils/index";
 import { cn } from "@/lib/utils";
+import { addDays, todayIST } from "@/lib/dates";
 
 type ViewMode = "list" | "calendar";
 
@@ -67,13 +68,9 @@ export default function HearingsPage() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const todayStr = new Date().toISOString().split("T")[0];
-  const weekEnd = new Date();
-  weekEnd.setDate(weekEnd.getDate() + 7);
-  const weekEndStr = weekEnd.toISOString().split("T")[0];
-  const monthEnd = new Date();
-  monthEnd.setMonth(monthEnd.getMonth() + 1);
-  const monthEndStr = monthEnd.toISOString().split("T")[0];
+  const todayStr = todayIST();
+  const weekEndStr = addDays(todayStr, 7);
+  const monthEndStr = addDays(todayStr, 30);
 
   useEffect(() => {
     const load = async () => {

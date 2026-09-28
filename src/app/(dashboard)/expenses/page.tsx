@@ -42,6 +42,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { apiFetch } from "@/lib/http";
+import { todayIST } from "@/lib/dates";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -85,7 +87,7 @@ function AddExpenseDialog({
   matters: Matter[];
   onSuccess: (expense: Expense) => void;
 }) {
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(todayIST());
   const [expenseType, setExpenseType] = useState("court_fee");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -306,13 +308,14 @@ export default function ExpensesPage() {
 
   const handleToggleRecovered = async (expense: Expense) => {
     try {
-      await fetch(`/api/expenses?id=${expense.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isRecovered: !expense.isRecovered }) });
-      setExpenses((prev) =>
-        prev.map((e) => (e.id === expense.id ? { ...e, isRecovered: !e.isRecovered } : e))
-      );
+      const updated = await apiFetch<Expense>(`/api/expenses/${expense.id}`, {
+        method: "PUT",
+        body: { isRecovered: !expense.isRecovered },
+      });
+      setExpenses((prev) => prev.map((e) => (e.id === expense.id ? updated : e)));
       toast.success("Expense updated.");
-    } catch {
-      toast.error("Failed to update expense.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update expense.");
     }
   };
 

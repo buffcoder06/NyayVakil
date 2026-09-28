@@ -1,36 +1,24 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getMatterById, updateMatter, deleteMatter } from "@/lib/services/matters";
+import { withAuth, readBody, notFound, MATTER_EDIT_ROLES } from "@/lib/server/route";
+import { getMatterById, updateMatter, closeMatter } from "@/lib/services/matters";
+import { matterUpdateSchema } from "@/lib/validation";
 
-const FIRM_ID = process.env.DEFAULT_FIRM_ID ?? "default";
+type Params = { id: string };
 
-export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const matter = await getMatterById(id, FIRM_ID);
-    if (!matter) return NextResponse.json({ success: false, message: "Not found" }, { status: 404 });
-    return NextResponse.json({ success: true, data: matter });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const GET = withAuth<Params>(async ({ session, params }) => {
+  const matter = await getMatterById(session.firmId, params.id);
+  if (!matter) throw notFound("Matter");
+  return matter;
+});
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const body = await req.json();
-    const matter = await updateMatter(id, FIRM_ID, body);
-    return NextResponse.json({ success: true, data: matter });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const PUT = withAuth<Params>(
+  async ({ req, session, params }) => updateMatter(session, params.id, await readBody(req, matterUpdateSchema)),
+  { roles: MATTER_EDIT_ROLES }
+);
 
-export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    await deleteMatter(id, FIRM_ID);
-    return NextResponse.json({ success: true, data: null });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+/** Closes the matter; matters are never hard-deleted. */
+export const DELETE = withAuth<Params>(
+  async ({ session, params }) => {
+    await closeMatter(session.firmId, params.id);
+  },
+  { roles: MATTER_EDIT_ROLES }
+);

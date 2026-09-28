@@ -1,5 +1,9 @@
 // src/lib/store/auth-store.ts
 // Zustand store for authentication state in NyayVakil.
+//
+// The real session lives in an httpOnly cookie that JavaScript can't read. This store
+// only caches the signed-in user's profile for display and client-side role checks;
+// the server enforces access on every request.
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -14,7 +18,6 @@ export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'unauthenticated
 export interface AuthState {
   // State
   user: User | null;
-  token: string | null;
   status: AuthStatus;
   error: string | null;
 
@@ -25,7 +28,6 @@ export interface AuthState {
     email: string;
     phone: string;
     password: string;
-    role: string;
     barCouncilNumber?: string;
     chamberName: string;
   }) => Promise<void>;
@@ -35,77 +37,75 @@ export interface AuthState {
   setUser: (user: User) => void;
 }
 
+async function postJson(url: string, body: unknown) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const json = await res.json().catch(() => ({}));
+  return { ok: res.ok, json };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // STORE
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // ── Initial State ──────────────────────────────────────────────────────
       user: null,
-      token: null,
       status: 'idle',
       error: null,
 
       // ── Actions ───────────────────────────────────────────────────────────
 
       /**
-       * Authenticate a user with email/phone and password.
-       * Accepts either an email address or a 10-digit phone number as identifier.
+       * Authenticate with email or 10-digit phone + password.
+       * On success the server sets the session cookie.
        */
       login: async (identifier: string, password: string): Promise<void> => {
         set({ status: 'loading', error: null });
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ identifier, password }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          const message = data.error ?? 'Invalid credentials.';
-          set({ status: 'unauthenticated', error: message, user: null, token: null });
+        const { ok, json } = await postJson('/api/auth/login', { identifier, password });
+        if (!ok) {
+          const message = json.error ?? json.message ?? 'Invalid credentials.';
+          set({ status: 'unauthenticated', error: message, user: null });
           throw new Error(message);
         }
-        set({ user: data.user, token: data.token, status: 'authenticated', error: null });
+        set({ user: json.user, status: 'authenticated', error: null });
       },
 
-      /**
-       * Register a new user, create their firm, and log them in immediately.
-       */
+      /** Register a new firm + owner account and sign in. */
       signup: async (data): Promise<void> => {
         set({ status: 'loading', error: null });
-        const res = await fetch('/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (!res.ok) {
-          const message = json.error ?? 'Registration failed.';
-          set({ status: 'unauthenticated', error: message, user: null, token: null });
+        const { ok, json } = await postJson('/api/auth/signup', data);
+        if (!ok) {
+          const message = json.error ?? json.message ?? 'Registration failed.';
+          set({ status: 'unauthenticated', error: message, user: null });
           throw new Error(message);
         }
-        set({ user: json.user, token: json.token, status: 'authenticated', error: null });
+        set({ user: json.user, status: 'authenticated', error: null });
       },
 
-      /**
-       * Log the current user out and clear persisted state.
-       *
-       * TODO: The api.auth.logout call maps to POST /api/auth/logout
-       */
+      /** Revoke the server session and clear local state. */
       logout: async (): Promise<void> => {
-        set({ user: null, token: null, status: 'unauthenticated', error: null });
+        try {
+          await postJson('/api/auth/logout', {});
+        } finally {
+          set({ user: null, status: 'unauthenticated', error: null });
+        }
       },
 
-      /**
-       * Re-fetch the current user's profile (e.g., after token refresh).
-       *
-       * TODO: Maps to GET /api/auth/me
-       */
+      /** Re-fetch the signed-in user; clears local state if the session is gone. */
       refreshUser: async (): Promise<void> => {
-        const { user } = get();
-        if (!user) set({ status: 'unauthenticated' });
+        const res = await fetch('/api/auth/me');
+        if (res.status === 401) {
+          set({ user: null, status: 'unauthenticated' });
+          return;
+        }
+        const json = await res.json().catch(() => null);
+        if (json?.success) set({ user: json.data, status: 'authenticated' });
       },
 
       /** Clear any auth error (e.g., after displaying the error to the user) */
@@ -117,11 +117,9 @@ export const useAuthStore = create<AuthState>()(
     {
       name: 'nyayvakil-auth', // localStorage key
       storage: createJSONStorage(() => localStorage),
-      // Only persist essential auth data, not transient status fields
+      // Only the display profile is persisted — never any credential
       partialize: (state) => ({
         user: state.user,
-        token: state.token,
-        // Restore as 'authenticated' on page reload if we have persisted data
         status: state.user ? 'authenticated' : 'unauthenticated',
       }),
     }
@@ -140,7 +138,7 @@ export const selectUserRole = (state: AuthState) => state.user?.role ?? null;
 export const selectAuthError = (state: AuthState): string | null => state.error;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ROLE-BASED ACCESS HELPERS
+// ROLE-BASED ACCESS HELPERS (UI only — the server enforces the same rules)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const useIsAdvocate = (): boolean => {
@@ -155,7 +153,7 @@ export const useIsAdmin = (): boolean => {
 
 export const useCanEditMatters = (): boolean => {
   const role = useAuthStore(selectUserRole);
-  return role === 'advocate' || role === 'junior';
+  return role === 'advocate' || role === 'admin' || role === 'junior';
 };
 
 export const useCanManageFinance = (): boolean => {

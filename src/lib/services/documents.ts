@@ -1,34 +1,47 @@
 // src/lib/services/documents.ts
-import { db } from "@/lib/db";
+import "server-only";
 import type { Prisma } from "@prisma/client";
+import type { z } from "zod";
+import { db } from "@/lib/db";
+import { documentInclude, toDocument } from "@/lib/server/dto";
+import type { documentCreateSchema } from "@/lib/validation";
+import { optional, requireClient, requireMatter, type Actor } from "./tenant";
 
 export async function getDocuments(
   firmId: string,
   params: { matterId?: string; clientId?: string; category?: string } = {}
 ) {
   const { matterId, clientId, category } = params;
-  return db.document.findMany({
+  const rows = await db.document.findMany({
     where: {
       firmId,
       ...(matterId && { matterId }),
       ...(clientId && { clientId }),
-      ...(category && { category: category as any }),
+      ...(category && { category: category as Prisma.EnumDocumentCategoryFilter["equals"] }),
     },
-    include: {
-      matter: { select: { matterTitle: true } },
-      client: { select: { name: true } },
-    },
+    include: documentInclude,
     orderBy: { uploadedAt: "desc" },
   });
+  return rows.map(toDocument);
 }
 
-export async function createDocument(
-  firmId: string,
-  data: Omit<Prisma.DocumentUncheckedCreateInput, "firmId">
-) {
-  return db.document.create({ data: { ...data, firmId } });
+export async function createDocument(actor: Actor, data: z.infer<typeof documentCreateSchema>) {
+  const { firmId } = actor;
+  const matter = await optional(data.matterId, (id) => requireMatter(firmId, id));
+  await optional(data.clientId, (id) => requireClient(firmId, id));
+
+  const doc = await db.document.create({
+    data: {
+      ...data,
+      clientId: data.clientId ?? matter?.clientId,
+      firmId,
+      uploadedById: actor.userId,
+    },
+    include: documentInclude,
+  });
+  return toDocument(doc);
 }
 
-export async function deleteDocument(id: string) {
-  return db.document.delete({ where: { id } });
+export async function deleteDocument(firmId: string, id: string) {
+  await db.document.delete({ where: { id, firmId } });
 }

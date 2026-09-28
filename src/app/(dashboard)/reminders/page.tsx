@@ -41,6 +41,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
+import { todayIST } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 
 const reminderTypeConfig: Record<string, { label: string; icon: React.ElementType; color: string }> = {
@@ -200,7 +201,7 @@ function CreateReminderDialog({
   const [clientId, setClientId] = useState("none");
   const [matterId, setMatterId] = useState("none");
   const [message, setMessage] = useState(prefillMessage);
-  const [scheduledAt, setScheduledAt] = useState(new Date().toISOString().split("T")[0]);
+  const [scheduledAt, setScheduledAt] = useState(todayIST());
   const [channel, setChannel] = useState("whatsapp");
   const [submitting, setSubmitting] = useState(false);
 
@@ -228,7 +229,8 @@ function CreateReminderDialog({
           message,
           clientId: clientId !== "none" ? clientId : undefined,
           matterId: matterId !== "none" ? matterId : undefined,
-          scheduledAt: scheduledAt + "T09:00:00.000Z",
+          // 9:00 AM India time on the chosen day
+          scheduledAt: `${scheduledAt}T09:00:00+05:30`,
           status: "pending",
           channel,
         }),

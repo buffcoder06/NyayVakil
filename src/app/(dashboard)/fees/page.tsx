@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { todayIST } from "@/lib/dates";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -247,7 +248,7 @@ function LogPaymentDialog({
   const [feeId, setFeeId] = useState(selectedFee?.id || "");
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split("T")[0]);
+  const [paymentDate, setPaymentDate] = useState(todayIST());
   const [referenceNumber, setReferenceNumber] = useState("");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);

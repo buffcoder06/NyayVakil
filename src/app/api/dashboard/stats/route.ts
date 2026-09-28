@@ -1,13 +1,4 @@
-import { NextResponse } from "next/server";
+import { withAuth } from "@/lib/server/route";
 import { getDashboardStats } from "@/lib/services/dashboard";
 
-const FIRM_ID = process.env.DEFAULT_FIRM_ID ?? "default";
-
-export async function GET() {
-  try {
-    const stats = await getDashboardStats(FIRM_ID);
-    return NextResponse.json({ success: true, data: stats });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const GET = withAuth(async ({ session }) => getDashboardStats(session.firmId));

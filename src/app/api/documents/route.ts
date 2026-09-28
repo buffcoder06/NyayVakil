@@ -1,28 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { withAuth, readBody, param } from "@/lib/server/route";
 import { getDocuments, createDocument } from "@/lib/services/documents";
+import { documentCreateSchema } from "@/lib/validation";
 
-const FIRM_ID = process.env.DEFAULT_FIRM_ID ?? "default";
+export const GET = withAuth(async ({ req, session }) => {
+  const s = req.nextUrl.searchParams;
+  return getDocuments(session.firmId, {
+    matterId: param(s, "matterId"),
+    clientId: param(s, "clientId"),
+    category: param(s, "category"),
+  });
+});
 
-export async function GET(req: NextRequest) {
-  try {
-    const s = req.nextUrl.searchParams;
-    const data = await getDocuments(FIRM_ID, {
-      matterId: s.get("matterId") ?? undefined,
-      clientId: s.get("clientId") ?? undefined,
-      category: s.get("category") ?? undefined,
-    });
-    return NextResponse.json({ success: true, data });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const doc = await createDocument(FIRM_ID, body);
-    return NextResponse.json({ success: true, data: doc }, { status: 201 });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+export const POST = withAuth(
+  async ({ req, session }) => createDocument(session, await readBody(req, documentCreateSchema)),
+  { status: 201 }
+);

@@ -198,7 +198,6 @@ export default function NewMatterPage() {
           assignedClerkId: data.assignedClerkId || undefined,
           totalFeeAgreed: data.totalFeeAgreed || 0,
           notes: data.notes || undefined,
-          createdBy: "default-user",
         }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);

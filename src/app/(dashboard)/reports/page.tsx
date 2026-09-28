@@ -25,6 +25,7 @@ import {
 import { Download, BarChart3, TrendingUp, Calendar, CheckSquare } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { addDays, todayIST } from "@/lib/dates";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -391,12 +392,12 @@ export default function ReportsPage() {
 
           {/* Today's hearings */}
           <SectionCard title="Today's Hearings">
-            {hearings.filter((h) => h.date === new Date().toISOString().split("T")[0]).length === 0 ? (
+            {hearings.filter((h) => h.date === todayIST()).length === 0 ? (
               <p className="text-sm text-slate-400 py-4 text-center">No hearings scheduled for today.</p>
             ) : (
               <div className="space-y-2">
                 {hearings
-                  .filter((h) => h.date === new Date().toISOString().split("T")[0])
+                  .filter((h) => h.date === todayIST())
                   .map((h) => (
                     <div key={h.id} className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-100">
                       <div>
@@ -415,10 +416,8 @@ export default function ReportsPage() {
           {/* Upcoming */}
           <SectionCard title="Upcoming Hearings (Next 7 Days)">
             {(() => {
-              const today = new Date().toISOString().split("T")[0];
-              const weekEnd = new Date();
-              weekEnd.setDate(weekEnd.getDate() + 7);
-              const weekEndStr = weekEnd.toISOString().split("T")[0];
+              const today = todayIST();
+              const weekEndStr = addDays(today, 7);
               const upcoming = hearings.filter(
                 (h) => h.date > today && h.date <= weekEndStr && h.status === "upcoming"
               );

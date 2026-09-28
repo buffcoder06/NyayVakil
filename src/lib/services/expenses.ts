@@ -1,49 +1,55 @@
 // src/lib/services/expenses.ts
-import { db } from "@/lib/db";
+import "server-only";
 import type { Prisma } from "@prisma/client";
+import type { z } from "zod";
+import { db } from "@/lib/db";
+import { expenseInclude, toExpense } from "@/lib/server/dto";
+import type { expenseCreateSchema, expenseUpdateSchema } from "@/lib/validation";
+import { requireMatter } from "./tenant";
 
 export async function getExpenses(
   firmId: string,
   params: { matterId?: string; clientId?: string; expenseType?: string } = {}
 ) {
   const { matterId, clientId, expenseType } = params;
-  return db.expense.findMany({
+  const rows = await db.expense.findMany({
     where: {
       firmId,
       ...(matterId && { matterId }),
       ...(clientId && { clientId }),
-      ...(expenseType && { expenseType: expenseType as any }),
+      ...(expenseType && { expenseType: expenseType as Prisma.EnumExpenseTypeFilter["equals"] }),
     },
-    include: {
-      matter: { select: { matterTitle: true } },
-      client: { select: { name: true } },
-    },
+    include: expenseInclude,
     orderBy: { date: "desc" },
   });
+  return rows.map(toExpense);
 }
 
-export async function createExpense(
-  firmId: string,
-  data: Omit<Prisma.ExpenseUncheckedCreateInput, "firmId">
-) {
-  return db.$transaction(async (tx) => {
-    const expense = await tx.expense.create({ data: { ...data, firmId } });
+/** The client of an expense always follows its matter. */
+async function clientFor(firmId: string, matterId: string | null | undefined) {
+  if (matterId === undefined) return {};
+  if (matterId === null) return { matterId: null, clientId: null };
+  const matter = await requireMatter(firmId, matterId);
+  return { matterId, clientId: matter.clientId };
+}
 
-    if (data.matterId) {
-      await tx.matter.update({
-        where: { id: data.matterId },
-        data: { totalExpenses: { increment: data.amount } },
-      });
-    }
-
-    return expense;
+export async function createExpense(firmId: string, data: z.infer<typeof expenseCreateSchema>) {
+  const expense = await db.expense.create({
+    data: { ...data, ...(await clientFor(firmId, data.matterId)), firmId },
+    include: expenseInclude,
   });
+  return toExpense(expense);
 }
 
-export async function updateExpense(id: string, data: Prisma.ExpenseUpdateInput) {
-  return db.expense.update({ where: { id }, data });
+export async function updateExpense(firmId: string, id: string, data: z.infer<typeof expenseUpdateSchema>) {
+  const expense = await db.expense.update({
+    where: { id, firmId },
+    data: { ...data, ...(await clientFor(firmId, data.matterId)) },
+    include: expenseInclude,
+  });
+  return toExpense(expense);
 }
 
-export async function deleteExpense(id: string) {
-  return db.expense.delete({ where: { id } });
+export async function deleteExpense(firmId: string, id: string) {
+  await db.expense.delete({ where: { id, firmId } });
 }

@@ -1,16 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { updateReminder, markReminderSent, cancelReminder } from "@/lib/services/reminders";
+import { withAuth, readBody } from "@/lib/server/route";
+import { updateReminder } from "@/lib/services/reminders";
+import { reminderUpdateSchema } from "@/lib/validation";
 
-export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    const { id } = await params;
-    const body = await req.json();
-    let reminder;
-    if (body.action === "markSent") reminder = await markReminderSent(id);
-    else if (body.action === "cancel") reminder = await cancelReminder(id);
-    else reminder = await updateReminder(id, body);
-    return NextResponse.json({ success: true, data: reminder });
-  } catch (e: any) {
-    return NextResponse.json({ success: false, message: e.message }, { status: 500 });
-  }
-}
+type Params = { id: string };
+
+/** Body may carry { action: "markSent" | "cancel" } or plain field updates. */
+export const PUT = withAuth<Params>(async ({ req, session, params }) =>
+  updateReminder(session.firmId, params.id, await readBody(req, reminderUpdateSchema))
+);

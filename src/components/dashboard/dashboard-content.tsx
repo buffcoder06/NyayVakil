@@ -1,7 +1,10 @@
 // src/components/dashboard/dashboard-content.tsx
-// Server component – fetches all data and composes the dashboard layout.
+// Server component – loads the signed-in firm's data straight from the services
+// (no HTTP round-trip) and composes the dashboard layout.
 
-import { api } from "@/lib/api";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth/session";
+import { getDashboardData } from "@/lib/services/dashboard";
 import { StatsRow } from "./stats-row";
 import { TodaysDiary } from "./todays-diary";
 import { QuickActions } from "./quick-actions";
@@ -12,29 +15,16 @@ import { TasksWidget } from "./tasks-widget";
 import { OnboardingChecklist } from "./onboarding-checklist";
 
 export default async function DashboardContent() {
-  // Fetch all data in parallel
-  const [statsRes, hearingsRes, mattersRes, feesRes, tasksRes, clientsRes] =
-    await Promise.all([
-      api.dashboard.getStats(),
-      api.hearings.list(undefined, { page: 1, pageSize: 100 }),
-      api.matters.list(undefined, { page: 1, pageSize: 50 }),
-      api.fees.list(),
-      api.tasks.list(),
-      api.clients.list(undefined, { page: 1, pageSize: 100 }),
-    ]);
+  const session = await getSession();
+  if (!session) redirect("/login?expired=1");
 
-  const stats = statsRes.data;
-  const allHearings = hearingsRes.data.data;
-  const allMatters = mattersRes.data.data;
-  const allFees = feesRes.data;
-  const allTasks = tasksRes.data;
-  const allClients = clientsRes.data.data;
+  const { today, stats, hearings, matters, totalMatters, fees, tasks, clients } =
+    await getDashboardData(session.firmId);
 
-  const today = new Date().toISOString().split("T")[0];
-  const todaysHearings = allHearings.filter((h) => h.date === today);
+  const todaysHearings = hearings.filter((h) => h.date === today);
 
   // Determine if this is a new user (fewer than 3 matters = onboarding)
-  const isNewUser = allMatters.length < 3;
+  const isNewUser = totalMatters < 3;
 
   return (
     <div className="space-y-6">
@@ -53,18 +43,18 @@ export default async function DashboardContent() {
           <TodaysDiary hearings={todaysHearings} today={today} />
         </div>
         <div className="lg:col-span-2">
-          <PendingFeesWidget fees={allFees} />
+          <PendingFeesWidget fees={fees} />
         </div>
       </div>
 
       {/* Row 4 — My Tasks (1/2) + Recent Cases (1/2) */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <TasksWidget tasks={allTasks} />
-        <RecentMattersWidget matters={allMatters} clients={allClients} />
+        <TasksWidget tasks={tasks} />
+        <RecentMattersWidget matters={matters} clients={clients} />
       </div>
 
       {/* Row 5 — Upcoming hearings this week (full width) */}
-      <UpcomingHearingsWidget hearings={allHearings} />
+      <UpcomingHearingsWidget hearings={hearings} />
     </div>
   );
 }

@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getPriorityColor, getPriorityDotColor, isOverdue, truncateText } from "@/lib/utils";
-import { api } from "@/lib/api";
+import { apiFetch } from "@/lib/http";
+import { todayIST } from "@/lib/dates";
+import { toast } from "sonner";
 import type { Task } from "@/types";
 
 const priorityLabelMap: Record<string, string> = {
@@ -30,7 +32,7 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
   const [tasks, setTasks] = useState(initialTasks);
   const [completing, setCompleting] = useState<string | null>(null);
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = todayIST();
 
   // Tasks due today or overdue (pending/in_progress)
   const dueTasks = tasks
@@ -50,14 +52,14 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
     if (completing) return;
     setCompleting(taskId);
     try {
-      await api.tasks.complete(taskId);
+      await apiFetch(`/api/tasks/${taskId}`, { method: "PUT", body: { complete: true } });
       setTasks((prev) =>
         prev.map((t) =>
           t.id === taskId ? { ...t, status: "completed" as const } : t
         )
       );
-    } catch {
-      // Silently fail in mock environment
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to complete task.");
     } finally {
       setCompleting(null);
     }

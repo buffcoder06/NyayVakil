@@ -3,12 +3,6 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import type { Client } from "@/types";
-
-// Real client shape returned from /api/clients
-type RealClient = Client & {
-  _count?: { matters: number };
-  feeEntries?: { pendingAmount: number }[];
-};
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -58,7 +52,7 @@ const clientTypeColor: Record<string, string> = {
   organization: "bg-amber-50 text-amber-700 border-amber-200",
 };
 
-function ClientCard({ client }: { client: RealClient }) {
+function ClientCard({ client }: { client: Client }) {
   const Icon =
     client.clientType === "company" || client.clientType === "organization"
       ? Building2
@@ -105,17 +99,17 @@ function ClientCard({ client }: { client: RealClient }) {
                 <div className="flex items-center gap-1.5 text-sm">
                   <Briefcase className="h-3.5 w-3.5 text-slate-400" />
                   <span className="text-slate-600 font-medium">
-                    {client._count?.matters ?? 0}
+                    {client.linkedMatterIds.length}
                   </span>
                   <span className="text-slate-400">
-                    {(client._count?.matters ?? 0) === 1 ? "matter" : "matters"}
+                    {client.linkedMatterIds.length === 1 ? "matter" : "matters"}
                   </span>
                 </div>
-                {(client.feeEntries?.reduce((a, f) => a + f.pendingAmount, 0) ?? 0) > 0 && (
+                {client.totalOutstanding > 0 && (
                   <div className="flex items-center gap-1.5 text-sm">
                     <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
                     <span className="text-amber-700 font-semibold">
-                      {fmt(client.feeEntries!.reduce((a, f) => a + f.pendingAmount, 0))} pending
+                      {fmt(client.totalOutstanding)} pending
                     </span>
                   </div>
                 )}
@@ -161,7 +155,7 @@ function StatCard({
 }
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState<RealClient[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");

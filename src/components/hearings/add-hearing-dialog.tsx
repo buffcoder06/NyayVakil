@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { api } from "@/lib/api";
-import type { Hearing, Matter } from "@/types";
+import { apiFetch } from "@/lib/http";
+import type { Hearing, Matter, TeamMember } from "@/types";
 import {
   Dialog,
   DialogContent,
@@ -23,13 +23,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
-
-const TEAM_MEMBERS = [
-  "Adv. Priya Sharma",
-  "Adv. Rahul Mehta",
-  "Suresh Patil",
-  "Kavitha Nair",
-];
 
 const HEARING_PURPOSES = [
   "Arguments",
@@ -71,6 +64,14 @@ export function AddHearingDialog({
   const [assignedTo, setAssignedTo] = useState("");
   const [notes, setNotes] = useState("");
   const [search, setSearch] = useState("");
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    if (!open) return;
+    apiFetch<TeamMember[]>("/api/team")
+      .then(setTeamMembers)
+      .catch(() => setTeamMembers([]));
+  }, [open]);
 
   const selectedMatter = matters.find((m) => m.id === matterId);
   const filteredMatters = matters.filter(
@@ -104,24 +105,25 @@ export function AddHearingDialog({
 
     setLoading(true);
     try {
-      const res = await api.hearings.create({
-        matterId,
-        matterTitle: matter.matterTitle,
-        clientName: "",
-        courtName: courtName || matter.courtName,
-        date,
-        time,
-        purpose,
-        assignedTo,
-        notes,
-        status: "upcoming",
+      const hearing = await apiFetch<Hearing>("/api/hearings", {
+        method: "POST",
+        body: {
+          matterId,
+          // Only store a court when it differs from the matter's own court
+          courtName: courtName && courtName !== matter.courtName ? courtName : undefined,
+          date,
+          time,
+          purpose,
+          assignedToId: assignedTo || undefined,
+          notes,
+        },
       });
       toast.success("Hearing scheduled successfully.");
-      onSuccess?.(res.data);
+      onSuccess?.(hearing);
       reset();
       onOpenChange(false);
     } catch (err) {
-      toast.error("Failed to schedule hearing.");
+      toast.error(err instanceof Error ? err.message : "Failed to schedule hearing.");
     } finally {
       setLoading(false);
     }
@@ -247,9 +249,9 @@ export function AddHearingDialog({
                 <SelectValue placeholder="Select person..." />
               </SelectTrigger>
               <SelectContent>
-                {TEAM_MEMBERS.map((m) => (
-                  <SelectItem key={m} value={m}>
-                    {m}
+                {teamMembers.map((m) => (
+                  <SelectItem key={m.id} value={m.id}>
+                    {m.name}
                   </SelectItem>
                 ))}
               </SelectContent>

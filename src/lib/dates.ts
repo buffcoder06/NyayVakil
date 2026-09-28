@@ -26,6 +26,23 @@ export function formatDateOnly(value: Date): string {
   return value.toISOString().slice(0, 10);
 }
 
+/**
+ * Whole calendar days from today (IST) to `value`: 0 = today, 1 = tomorrow,
+ * -1 = yesterday. Accepts "YYYY-MM-DD" or a full ISO timestamp (converted to its
+ * IST calendar day). Returns 0 for empty or invalid input.
+ */
+export function daysFromTodayIST(value: string): number {
+  if (!value) return 0;
+  let day = value.slice(0, 10);
+  if (value.length > 10) {
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return 0;
+    day = todayIST(d);
+  }
+  if (!DATE_ONLY.test(day)) return 0;
+  return Math.round((parseDateOnly(day).getTime() - parseDateOnly(todayIST()).getTime()) / 86_400_000);
+}
+
 /** Adds whole days to a "YYYY-MM-DD" string. */
 export function addDays(day: string, days: number): string {
   const d = parseDateOnly(day);

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import type { Client } from "@/types";
+import type { Client, TeamMember } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,12 +51,6 @@ const COURTS = [
   "Judicial Magistrate First Class", "Civil Judge (Senior Division)",
   "Civil Judge (Junior Division)", "Labour Court", "Debt Recovery Tribunal",
   "National Company Law Tribunal", "Income Tax Appellate Tribunal", "Other",
-];
-
-const TEAM_MEMBERS = [
-  { id: "usr_002", name: "Adv. Rahul Mehta", role: "junior" },
-  { id: "usr_003", name: "Suresh Patil", role: "clerk" },
-  { id: "usr_004", name: "Kavitha Nair", role: "clerk" },
 ];
 
 const schema = z.object({
@@ -136,6 +130,7 @@ const STATUS_OPTIONS = [
 export default function NewMatterPage() {
   const router = useRouter();
   const [clients, setClients] = useState<Client[]>([]);
+  const [team, setTeam] = useState<TeamMember[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   type Matter = import("@/types").Matter;
@@ -150,6 +145,11 @@ export default function NewMatterPage() {
     resolver: zodResolver(schema),
     mode: "onSubmit",
     defaultValues: {
+      // Empty strings (not undefined) so the "Please select…" messages show
+      matterTitle: "",
+      clientId: "",
+      caseType: "",
+      courtName: "",
       status: "active",
       priority: "medium",
       courtLevel: "district_court",
@@ -168,6 +168,7 @@ export default function NewMatterPage() {
 
   useEffect(() => {
     fetch("/api/clients?pageSize=200").then((r) => r.json()).then((j) => setClients(j.data?.data ?? []));
+    fetch("/api/team").then((r) => r.json()).then((j) => setTeam(j.data ?? []));
   }, []);
 
   const onSubmit = async (data: FormData) => {
@@ -489,7 +490,7 @@ export default function NewMatterPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">Not assigned</SelectItem>
-                    {TEAM_MEMBERS.filter((m) => m.role === "junior").map((m) => (
+                    {team.filter((m) => m.role === "junior").map((m) => (
                       <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
                     ))}
                   </SelectContent>
@@ -503,7 +504,7 @@ export default function NewMatterPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">Not assigned</SelectItem>
-                    {TEAM_MEMBERS.filter((m) => m.role === "clerk").map((m) => (
+                    {team.filter((m) => m.role === "clerk").map((m) => (
                       <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
                     ))}
                   </SelectContent>

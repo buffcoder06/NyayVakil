@@ -317,6 +317,8 @@ export interface DashboardStats {
   pendingPayments: number;
   monthlyCollections: number;
   pendingTasks: number;
+  /** Open tasks due today or already overdue. */
+  tasksDue: number;
   totalClients: number;
   overduePayments: number;
   monthlyExpenses: number;

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/lib/store/app-store";
 import Sidebar from "@/components/layout/sidebar";
@@ -9,7 +10,6 @@ import Header from "@/components/layout/header";
 import MobileNav from "@/components/layout/mobile-nav";
 // import TrialBanner from "@/components/shared/trial-banner";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -37,22 +37,16 @@ function MobileSidebarSheet({
 // ─────────────────────────────────────────────────────────────────────────────
 
 function MobileFAB() {
-  const openModal = useAppStore((s) => s.openModal);
-
-  // Context-sensitive FAB: opens the most relevant modal based on route
-  const handleFAB = () => {
-    openModal("add_matter");
-  };
-
+  // Quick "new case" shortcut on phones
   return (
-    <Button
-      onClick={handleFAB}
-      className="fixed bottom-20 right-4 z-30 lg:hidden h-14 w-14 rounded-full bg-[#1e3a5f] hover:bg-[#162d4a] text-white shadow-lg shadow-[#1e3a5f]/30 p-0"
-      aria-label="Quick add"
+    <Link
+      href="/matters/new"
+      className="fixed bottom-20 right-4 z-30 lg:hidden h-14 w-14 rounded-full bg-[#1e3a5f] hover:bg-[#162d4a] text-white shadow-lg shadow-[#1e3a5f]/30 inline-flex items-center justify-center"
+      aria-label="Add a new case"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
       <Plus className="h-6 w-6" strokeWidth={2.5} />
-    </Button>
+    </Link>
   );
 }
 

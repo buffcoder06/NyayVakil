@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   Menu,
-  Search,
   Bell,
   Scale,
   User,
@@ -127,16 +126,35 @@ function CrumbLabel({ crumb }: { crumb: Crumb }) {
 // NOTIFICATIONS BELL
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** Badge = client reminders that are due (pending and scheduled for now or earlier). */
 function NotificationsBell() {
-  // In a real app, this count would come from a query
-  const count = 3;
+  const pathname = usePathname();
+  const [count, setCount] = useState(0);
 
+  // Re-check whenever the user moves to another page (e.g. after marking one sent)
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/reminders?status=pending")
+      .then((r) => r.json())
+      .then((json) => {
+        if (cancelled || !json?.success) return;
+        const now = Date.now();
+        const due = (json.data as { scheduledAt: string }[]).filter((r) => new Date(r.scheduledAt).getTime() <= now);
+        setCount(due.length);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
+
+  const label = count === 0 ? "No reminders due" : `${count} reminder${count === 1 ? "" : "s"} due`;
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="relative text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-9 w-9"
-      aria-label={`${count} notifications`}
+    <Link
+      href="/reminders"
+      title={label}
+      aria-label={label}
+      className="relative inline-flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-9 w-9"
     >
       <Bell className="h-4.5 w-4.5" />
       {count > 0 && (
@@ -144,7 +162,7 @@ function NotificationsBell() {
           {count > 9 ? "9+" : count}
         </span>
       )}
-    </Button>
+    </Link>
   );
 }
 
@@ -197,7 +215,7 @@ function UserDropdown() {
             <Settings className="h-4 w-4" />
             Settings
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+          <DropdownMenuItem onClick={() => { startNavigationProgress(); router.push("/help"); }} className="flex items-center gap-2 cursor-pointer">
             <HelpCircle className="h-4 w-4" />
             Help & Support
           </DropdownMenuItem>
@@ -285,16 +303,6 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
 
       {/* Right actions */}
       <div className="flex items-center gap-1.5">
-        {/* Search */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-9 w-9"
-          aria-label="Search"
-        >
-          <Search className="h-4.5 w-4.5" />
-        </Button>
-
         {/* Notifications */}
         <NotificationsBell />
 

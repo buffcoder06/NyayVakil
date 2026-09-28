@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { daysFromTodayIST } from "@/lib/dates"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -39,12 +40,12 @@ export function formatTime(time: string): string {
 
 export function isOverdue(dateStr: string): boolean {
   if (!dateStr) return false;
-  return new Date(dateStr) < new Date(new Date().toDateString());
+  return daysFromTodayIST(dateStr) < 0;
 }
 
+/** Calendar days from today in India (0 = today). */
 export function getDaysUntil(dateStr: string): number {
-  const diff = new Date(dateStr).getTime() - new Date(new Date().toDateString()).getTime();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  return daysFromTodayIST(dateStr);
 }
 
 export function getPaymentPercentage(total: number, received: number): number {

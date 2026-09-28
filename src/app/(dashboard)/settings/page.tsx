@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/http";
+import type { OfficeSettings, TeamMember } from "@/types";
+import { PageSkeleton } from "@/components/shared/loading-skeleton";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,29 +24,6 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
-
-// Mock office data
-const MOCK_OFFICE = {
-  officeName: "Sharma & Associates",
-  advocateName: "Adv. Priya Sharma",
-  barCouncilNumber: "MH/1234/2008",
-  address: "Chamber 204, Bar Council Building, High Court Compound",
-  city: "Mumbai",
-  state: "Maharashtra",
-  phone: "+91 98203 41567",
-  email: "priya.sharma@nyayvakil.in",
-  website: "www.sharmaassociates.in",
-  gstin: "27AAAPS1234B1Z5",
-  panNumber: "AAAPS1234B",
-};
-
-const MOCK_TEAM = [
-  { id: "usr_001", name: "Adv. Priya Sharma", role: "advocate", phone: "9820341567", email: "priya.sharma@nyayvakil.in", isActive: true },
-  { id: "usr_002", name: "Adv. Rahul Mehta", role: "junior", phone: "9867234510", email: "rahul.mehta@nyayvakil.in", isActive: true },
-  { id: "usr_003", name: "Suresh Patil", role: "clerk", phone: "9823456789", email: "suresh.patil@nyayvakil.in", isActive: true },
-  { id: "usr_004", name: "Kavitha Nair", role: "clerk", phone: "9812345678", email: "kavitha.nair@nyayvakil.in", isActive: true },
-  { id: "usr_005", name: "Anita Desai", role: "admin", phone: "9856781234", email: "anita.desai@nyayvakil.in", isActive: false },
-];
 
 const MOCK_COURTS = [
   "District Court, Mumbai", "Bombay High Court", "Family Court, Mumbai",
@@ -78,16 +58,37 @@ const roleLabel: Record<string, string> = {
   admin: "Admin",
 };
 
+const EMPTY_OFFICE: OfficeSettings = {
+  officeName: "", advocateName: "", barCouncilNumber: "", address: "", city: "", state: "",
+  phone: "", email: "", website: "", gstin: "", panNumber: "",
+};
+
 function OfficeProfileTab() {
-  const [office, setOffice] = useState(MOCK_OFFICE);
+  const [office, setOffice] = useState<OfficeSettings>(EMPTY_OFFICE);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    apiFetch<OfficeSettings>("/api/settings/office")
+      .then((data) => setOffice({ ...EMPTY_OFFICE, ...data }))
+      .catch((err) => toast.error(err instanceof Error ? err.message : "Failed to load office profile."))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleSave = async () => {
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSaving(false);
-    toast.success("Office profile saved successfully.");
+    try {
+      const saved = await apiFetch<OfficeSettings>("/api/settings/office", { method: "PUT", body: office });
+      setOffice({ ...EMPTY_OFFICE, ...saved });
+      toast.success("Office profile saved.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to save office profile.");
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) return <PageSkeleton />;
 
   return (
     <div className="space-y-6 max-w-2xl">
@@ -184,12 +185,20 @@ function OfficeProfileTab() {
 }
 
 function TeamTab() {
-  const [team] = useState(MOCK_TEAM);
+  const [team, setTeam] = useState<TeamMember[] | null>(null);
+
+  useEffect(() => {
+    apiFetch<TeamMember[]>("/api/team")
+      .then(setTeam)
+      .catch(() => setTeam([]));
+  }, []);
+
+  if (!team) return <PageSkeleton />;
 
   return (
     <div className="space-y-4 max-w-2xl">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-500">{team.length} team members</p>
+        <p className="text-sm text-slate-500">{team.length} team member{team.length === 1 ? "" : "s"}</p>
         <Button size="sm" variant="outline" className="gap-1.5" onClick={() => toast.info("Invite member — coming soon.")}>
           <Plus className="h-4 w-4" /> Invite Member
         </Button>
@@ -217,14 +226,6 @@ function TeamTab() {
                   </div>
                   <p className="text-xs text-slate-500 mt-0.5">{member.email} · +91 {member.phone}</p>
                 </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="text-xs text-slate-500 hover:text-slate-800"
-                  onClick={() => toast.info("Edit member — coming soon.")}
-                >
-                  Edit
-                </Button>
               </div>
             </CardContent>
           </Card>

@@ -66,7 +66,7 @@ interface StatsRowProps {
 }
 
 export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
-  const tasksDueToday = stats.pendingTasks;
+  const tasksDueToday = stats.tasksDue;
 
   const cards: StatCardProps[] = [
     {
@@ -91,10 +91,8 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
     },
     {
       title: "Pending Fees",
-      value: formatCurrencyCompact(
-        // pendingPayments is a count; use monthlyCollections as proxy for amount
-        stats.pendingPayments
-      ),
+      // Total rupees still owed across all unpaid fee entries
+      value: formatCurrencyCompact(stats.pendingPayments),
       subtitle:
         stats.overduePayments > 0
           ? `${stats.overduePayments} overdue entries`
@@ -106,7 +104,7 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
     {
       title: "Tasks Due Today",
       value: tasksDueToday,
-      subtitle: tasksDueToday === 0 ? "All caught up!" : "Needs your attention",
+      subtitle: tasksDueToday === 0 ? "All caught up!" : "Due today or overdue",
       icon: <ClipboardList className="h-5 w-5" />,
       iconBg: "bg-orange-100 dark:bg-orange-900/40",
       iconColor: "text-orange-600 dark:text-orange-400",

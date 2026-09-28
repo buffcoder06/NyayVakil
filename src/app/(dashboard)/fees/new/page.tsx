@@ -36,7 +36,6 @@ const schema = z.object({
   description: z.string().min(2, "Description is required"),
   totalAmount: z.string().min(1, "Amount is required"),
   dueDate: z.string().optional(),
-  status: z.enum(["not_started", "overdue", "partially_paid", "paid"]),
   notes: z.string().optional(),
 });
 
@@ -56,7 +55,6 @@ export default function NewFeePage() {
       description: "",
       totalAmount: "",
       dueDate: "",
-      status: "not_started",
       notes: "",
     },
   });
@@ -98,7 +96,6 @@ export default function NewFeePage() {
           totalAmount,
           receivedAmount: 0,
           dueDate: values.dueDate || undefined,
-          status: values.status,
           notes: values.notes || undefined,
         }),
       }).then((r) => r.json());
@@ -169,10 +166,11 @@ export default function NewFeePage() {
                 name="clientId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Client *</FormLabel>
-                    <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)}>
+                    <FormLabel>Client</FormLabel>
+                    {/* Always the matter's client — the server derives it from the matter */}
+                    <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)} disabled>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a client…" />
+                        <SelectValue placeholder="Filled in from the matter" />
                       </SelectTrigger>
                       <SelectContent>
                         {clients.map((c) => (
@@ -236,29 +234,6 @@ export default function NewFeePage() {
                   )}
                 />
               </div>
-
-              {/* Status */}
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="not_started">Not Started</SelectItem>
-                        <SelectItem value="partially_paid">Partially Paid</SelectItem>
-                        <SelectItem value="overdue">Overdue</SelectItem>
-                        <SelectItem value="paid">Paid</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               {/* Notes */}
               <FormField

@@ -1,5 +1,6 @@
 // src/lib/utils/index.ts
 // Shared utility functions for NyayVakil – Indian Legal Practice Management SaaS
+import { daysFromTodayIST } from '@/lib/dates';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CURRENCY
@@ -82,15 +83,8 @@ export const formatDateTime = (date: string): string => {
  */
 export const formatRelativeDate = (date: string): string => {
   if (!date) return '—';
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return '—';
-
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  const diffDays = Math.round(
-    (targetStart.getTime() - todayStart.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  if (isNaN(new Date(date).getTime())) return '—';
+  const diffDays = daysFromTodayIST(date);
 
   if (diffDays === 0) return 'Today';
   if (diffDays === 1) return 'Tomorrow';
@@ -124,15 +118,7 @@ export const formatTime = (time: string): string => {
  * Positive = future, negative = past.
  * Example: getDaysUntil("2026-03-20") → 6 (if today is 2026-03-14)
  */
-export const getDaysUntil = (date: string): number => {
-  if (!date) return 0;
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return 0;
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  return Math.round((targetStart.getTime() - todayStart.getTime()) / (1000 * 60 * 60 * 24));
-};
+export const getDaysUntil = (date: string): number => daysFromTodayIST(date);
 
 /**
  * Check if a date string is in the past (overdue).

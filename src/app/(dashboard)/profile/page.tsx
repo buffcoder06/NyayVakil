@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuthStore } from "@/lib/store/auth-store";
+import { apiFetch } from "@/lib/http";
+import type { User as UserProfile } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -93,35 +95,45 @@ export default function ProfilePage() {
 
   async function onSaveProfile(values: ProfileFormValues) {
     setSavingProfile(true);
-    await new Promise((r) => setTimeout(r, 800));
-    if (user) {
-      setUser({
-        ...user,
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
-        barCouncilNumber: values.barCouncilNumber,
-        chamberName: values.chamberName,
-        specialization: values.specialization
-          ? values.specialization.split(",").map((s) => s.trim()).filter(Boolean)
-          : [],
+    try {
+      const updated = await apiFetch<UserProfile>("/api/auth/me", {
+        method: "PUT",
+        body: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          barCouncilNumber: values.barCouncilNumber,
+          chamberName: values.chamberName,
+          specialization: values.specialization
+            ? values.specialization.split(",").map((s) => s.trim()).filter(Boolean)
+            : [],
+        },
       });
+      setUser(updated);
+      toast.success("Profile updated successfully");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update profile.");
+    } finally {
+      setSavingProfile(false);
     }
-    setSavingProfile(false);
-    toast.success("Profile updated successfully");
   }
 
   async function onChangePassword(values: PasswordFormValues) {
     setSavingPassword(true);
-    await new Promise((r) => setTimeout(r, 800));
-    if (values.currentPassword !== "password") {
-      passwordForm.setError("currentPassword", { message: "Incorrect current password" });
+    try {
+      await apiFetch("/api/auth/password", {
+        method: "POST",
+        body: { currentPassword: values.currentPassword, newPassword: values.newPassword },
+      });
+      passwordForm.reset();
+      toast.success("Password changed. Other devices have been signed out.");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to change password.";
+      if (/current password/i.test(message)) passwordForm.setError("currentPassword", { message });
+      else toast.error(message);
+    } finally {
       setSavingPassword(false);
-      return;
     }
-    setSavingPassword(false);
-    passwordForm.reset();
-    toast.success("Password changed successfully");
   }
 
   const initials = user ? getInitials(user.name) : "U";

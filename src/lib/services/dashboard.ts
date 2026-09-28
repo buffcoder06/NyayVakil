@@ -24,12 +24,14 @@ export async function getDashboardStats(firmId: string): Promise<DashboardStats>
     pendingPayments,
     monthlyCollections,
     pendingTasks,
+    tasksDue,
     totalClients,
     monthlyExpenses,
   ] = await Promise.all([
     db.matter.count({ where: { firmId, status: "active" } }),
     db.hearing.count({ where: { firmId, date: today } }),
-    db.hearing.count({ where: { firmId, date: { gt: today }, status: "upcoming" } }),
+    // Upcoming = the next 7 days after today (the dashboard says "N more this week")
+    db.hearing.count({ where: { firmId, date: { gt: today, lte: parseDateOnly(addDays(todayStr, 7)) }, status: "upcoming" } }),
     db.feeEntry.count({ where: { firmId, status: { not: "paid" }, dueDate: { lt: today } } }),
     db.feeEntry.aggregate({ where: { firmId, status: { not: "paid" } }, _sum: { pendingAmount: true } }),
     db.payment.aggregate({
@@ -37,6 +39,7 @@ export async function getDashboardStats(firmId: string): Promise<DashboardStats>
       _sum: { amount: true },
     }),
     db.task.count({ where: { firmId, status: { in: ["pending", "in_progress"] } } }),
+    db.task.count({ where: { firmId, status: { in: ["pending", "in_progress"] }, dueDate: { lte: today } } }),
     db.client.count({ where: { firmId, isActive: true } }),
     db.expense.aggregate({
       where: { firmId, date: { gte: monthStart, lte: monthEnd } },
@@ -52,6 +55,7 @@ export async function getDashboardStats(firmId: string): Promise<DashboardStats>
     pendingPayments: pendingPayments._sum.pendingAmount?.toNumber() ?? 0,
     monthlyCollections: monthlyCollections._sum.amount?.toNumber() ?? 0,
     pendingTasks,
+    tasksDue,
     totalClients,
     monthlyExpenses: monthlyExpenses._sum.amount?.toNumber() ?? 0,
   };

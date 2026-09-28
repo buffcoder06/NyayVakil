@@ -59,6 +59,34 @@ export const signupSchema = z.object({
   chamberName: text(200),
 });
 
+export const profileUpdateSchema = z.object({
+  name: text(120),
+  email,
+  phone,
+  barCouncilNumber: optText(50),
+  chamberName: optText(200),
+  specialization: z.array(z.string().trim().min(1).max(60)).max(20).default([]),
+});
+
+export const passwordChangeSchema = z.object({
+  currentPassword: z.string().min(1, "is required").max(200),
+  newPassword: z.string().min(8, "must be at least 8 characters").max(200),
+});
+
+export const officeSettingsSchema = z.object({
+  officeName: text(200),
+  advocateName: text(120),
+  barCouncilNumber: z.string().trim().max(50).default(""),
+  address: z.string().trim().max(500).default(""),
+  city: z.string().trim().max(100).default(""),
+  state: z.string().trim().max(100).default(""),
+  phone: z.string().trim().max(20).default(""),
+  email: z.string().trim().max(200).default(""),
+  website: optText(200),
+  gstin: optText(20),
+  panNumber: optText(12),
+});
+
 // ── Clients ──────────────────────────────────────────────────────────────────
 
 export const clientCreateSchema = z.object({

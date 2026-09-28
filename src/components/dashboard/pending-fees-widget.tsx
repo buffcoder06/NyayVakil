@@ -23,9 +23,10 @@ interface PendingFeesWidgetProps {
 }
 
 export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
-  // Show only pending/partially_paid/overdue, sorted by overdue first then amount
-  const pending = fees
-    .filter((f) => f.status !== "paid" && f.status !== "not_started")
+  // Every unpaid fee, overdue first then by amount; the list shows the top 5
+  const unpaid = fees.filter((f) => f.status !== "paid" && f.pendingAmount > 0);
+  const totalPending = unpaid.reduce((sum, f) => sum + f.pendingAmount, 0);
+  const pending = [...unpaid]
     .sort((a, b) => {
       const aOverdue = a.dueDate ? isOverdue(a.dueDate) : false;
       const bOverdue = b.dueDate ? isOverdue(b.dueDate) : false;
@@ -35,7 +36,6 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
     })
     .slice(0, 5);
 
-  const totalPending = pending.reduce((sum, f) => sum + f.pendingAmount, 0);
 
   return (
     <Card className="shadow-sm h-full flex flex-col">

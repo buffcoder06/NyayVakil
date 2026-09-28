@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -117,6 +118,12 @@ export default function LoginPage() {
               )}
             </Button>
           </form>
+          <p className="mt-5 text-center text-sm text-slate-500">
+            New to NyayVakil?{" "}
+            <Link href="/signup" className="font-medium text-[#1e3a5f] hover:underline">
+              Create an account
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>

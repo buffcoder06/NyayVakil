@@ -65,6 +65,12 @@ export default function HearingsPage() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [addOpen, setAddOpen] = useState(false);
+  // What the hearing dialog is opened for: a new hearing, the next date of a case, or editing
+  const [dialogFor, setDialogFor] = useState<{ key: number; hearing?: Hearing; matterId?: string }>({ key: 0 });
+  const openDialog = (target: { hearing?: Hearing; matterId?: string } = {}) => {
+    setDialogFor((prev) => ({ key: prev.key + 1, ...target }));
+    setAddOpen(true);
+  };
   const [filterCourt, setFilterCourt] = useState("all");
   const [filterAssigned, setFilterAssigned] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -204,10 +210,8 @@ export default function HearingsPage() {
                     isMissed={h.status === "missed"}
                     onMarkStatus={handleMarkStatus}
                     busy={busyId === h.id}
-                    onEdit={() => toast.info("Edit hearing — coming soon.")}
-                    onAddNextHearing={() => {
-                      setAddOpen(true);
-                    }}
+                    onEdit={() => openDialog({ hearing: h })}
+                    onAddNextHearing={() => openDialog({ matterId: h.matterId })}
                   />
                 ))}
               </div>
@@ -224,7 +228,7 @@ export default function HearingsPage() {
         title="Court Diary"
         description="Manage and track all your court hearings."
         actions={
-          <Button onClick={() => setAddOpen(true)} className="gap-2">
+          <Button onClick={() => openDialog()} className="gap-2">
             <Plus className="h-4 w-4" />
             Add Hearing
           </Button>
@@ -412,10 +416,15 @@ export default function HearingsPage() {
       )}
 
       <AddHearingDialog
+        key={dialogFor.key}
         open={addOpen}
         onOpenChange={setAddOpen}
         matters={matters}
-        onSuccess={(h) => setHearings((prev) => [h, ...prev])}
+        hearing={dialogFor.hearing}
+        prefillMatterId={dialogFor.matterId}
+        onSuccess={(h) =>
+          setHearings((prev) => (prev.some((x) => x.id === h.id) ? prev.map((x) => (x.id === h.id ? h : x)) : [h, ...prev]))
+        }
       />
     </div>
   );

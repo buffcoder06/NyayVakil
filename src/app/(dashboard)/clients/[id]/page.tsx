@@ -180,15 +180,12 @@ export default function ClientDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => toast.info("Send Reminder — feature coming soon.")}
-            className="gap-1.5"
-          >
-            <Bell className="h-4 w-4" />
-            Reminder
-          </Button>
+          <Link href="/reminders">
+            <Button variant="outline" size="sm" className="gap-1.5">
+              <Bell className="h-4 w-4" />
+              Reminder
+            </Button>
+          </Link>
           <Link href={`/clients/${id}/edit`}>
             <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-1.5">
               <Edit className="h-4 w-4" />

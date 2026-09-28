@@ -328,6 +328,7 @@ export default function TasksPage() {
       {editTask && (
         <AddTaskDialog
           open={!!editTask}
+          task={editTask}
           onOpenChange={(open) => { if (!open) setEditTask(null); }}
           onSuccess={() => { loadTasks(); setEditTask(null); }}
         />

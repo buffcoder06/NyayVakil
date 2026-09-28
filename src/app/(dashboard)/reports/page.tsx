@@ -26,6 +26,7 @@ import { Download, BarChart3, TrendingUp, Calendar, CheckSquare } from "lucide-r
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { addDays, todayIST } from "@/lib/dates";
+import { titleCase } from "@/lib/utils/index";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -64,6 +65,31 @@ function BarRow({ label, value, max, color = "bg-[#1e3a5f]" }: { label: string; 
   );
 }
 
+// ── CSV export ────────────────────────────────────────────────────────────────
+
+type ReportTab = "financial" | "matters" | "hearings" | "tasks";
+
+function csvCell(value: unknown): string {
+  let text = value === null || value === undefined ? "" : String(value);
+  // Stop spreadsheets from treating a cell as a formula
+  if (/^[=+\-@]/.test(text)) text = "'" + text;
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function downloadCsv(filename: string, header: string[], rows: unknown[][]) {
+  const body = [header, ...rows].map((r) => r.map(csvCell).join(",")).join("\r\n");
+  // BOM so Excel reads UTF-8 (₹, Devanagari names)
+  const blob = new Blob(["﻿" + body], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 export default function ReportsPage() {
   const [matters, setMatters] = useState<Matter[]>([]);
   const [hearings, setHearings] = useState<Hearing[]>([]);
@@ -72,6 +98,31 @@ export default function ReportsPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState<ReportTab>("financial");
+
+  const exportCsv = () => {
+    const stamp = todayIST();
+    const clientName = (id?: string) => clients.find((c) => c.id === id)?.name ?? "";
+    const matterTitle = (id?: string) => matters.find((m) => m.id === id)?.matterTitle ?? "";
+    if (tab === "financial") {
+      downloadCsv(`nyayvakil-fees-${stamp}.csv`,
+        ["Matter", "Client", "Description", "Total (INR)", "Received (INR)", "Pending (INR)", "Due date", "Status"],
+        fees.map((f) => [f.matterTitle ?? matterTitle(f.matterId), f.clientName ?? clientName(f.clientId), f.description, f.totalAmount, f.receivedAmount, f.pendingAmount, f.dueDate ?? "", titleCase(f.status)]));
+    } else if (tab === "matters") {
+      downloadCsv(`nyayvakil-matters-${stamp}.csv`,
+        ["Matter", "Case number", "CNR", "Client", "Court", "Case type", "Status", "Priority", "Filing date", "Next hearing", "Fee agreed (INR)", "Fee paid (INR)", "Expenses (INR)"],
+        matters.map((m) => [m.matterTitle, m.caseNumber ?? "", m.cnrNumber ?? "", m.clientName ?? clientName(m.clientId), m.courtName, m.caseType, titleCase(m.status), titleCase(m.priority), m.filingDate ?? "", m.nextHearingDate ?? "", m.totalFeeAgreed, m.totalFeePaid, m.totalExpenses]));
+    } else if (tab === "hearings") {
+      downloadCsv(`nyayvakil-hearings-${stamp}.csv`,
+        ["Date", "Time", "Matter", "Client", "Court", "Purpose", "Assigned to", "Status"],
+        [...hearings].sort((a, b) => a.date.localeCompare(b.date)).map((h) => [h.date, h.time ?? "", h.matterTitle, h.clientName, h.courtName, h.purpose ?? "", h.assignedTo ?? "", titleCase(h.status)]));
+    } else {
+      downloadCsv(`nyayvakil-tasks-${stamp}.csv`,
+        ["Task", "Matter", "Assigned to", "Due date", "Priority", "Status", "Completed at"],
+        tasks.map((t) => [t.title, t.matterTitle ?? "", t.assignedTo, t.dueDate ?? "", titleCase(t.priority), titleCase(t.status), t.completedAt ? new Date(t.completedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : ""]));
+    }
+    toast.success("Report downloaded.");
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -210,14 +261,14 @@ export default function ReportsPage() {
         title="Reports"
         description="Practice analytics, financial reports, and operational insights."
         actions={
-          <Button variant="outline" className="gap-2" onClick={() => toast.info("Export feature — coming soon.")}>
+          <Button variant="outline" className="gap-2" onClick={exportCsv} disabled={loading}>
             <Download className="h-4 w-4" />
             Export CSV
           </Button>
         }
       />
 
-      <Tabs defaultValue="financial">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as ReportTab)}>
         <TabsList className="mb-6 flex-wrap">
           <TabsTrigger value="financial" className="gap-1.5">
             <BarChart3 className="h-4 w-4" /> Financial

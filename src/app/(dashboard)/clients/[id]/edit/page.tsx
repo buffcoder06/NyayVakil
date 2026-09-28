@@ -162,8 +162,8 @@ export default function EditClientPage() {
           <CardHeader className="pb-4"><CardTitle className="text-base text-slate-700">Basic Information</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <Label>Full Name *</Label>
-              <Input placeholder="Full name" className="mt-1" {...register("name")} />
+              <Label htmlFor="name">Full Name *</Label>
+              <Input placeholder="Full name" className="mt-1" id="name" {...register("name")} />
               <FieldError message={errors.name?.message} />
             </div>
             <div>
@@ -179,23 +179,23 @@ export default function EditClientPage() {
               </Select>
             </div>
             <div>
-              <Label>Mobile Number *</Label>
+              <Label htmlFor="mobile">Mobile Number *</Label>
               <div className="flex mt-1">
                 <span className="inline-flex items-center px-3 text-sm text-slate-600 bg-slate-50 border border-r-0 border-slate-200 rounded-l-md">+91</span>
-                <Input placeholder="98XXXXXXXX" className="rounded-l-none" maxLength={10} {...register("mobile")} />
+                <Input placeholder="98XXXXXXXX" className="rounded-l-none" maxLength={10} id="mobile" {...register("mobile")} />
               </div>
               <FieldError message={errors.mobile?.message} />
             </div>
             <div>
-              <Label>Alternate Mobile</Label>
+              <Label htmlFor="alternateMobile">Alternate Mobile</Label>
               <div className="flex mt-1">
                 <span className="inline-flex items-center px-3 text-sm text-slate-600 bg-slate-50 border border-r-0 border-slate-200 rounded-l-md">+91</span>
-                <Input placeholder="98XXXXXXXX" className="rounded-l-none" maxLength={10} {...register("alternateMobile")} />
+                <Input placeholder="98XXXXXXXX" className="rounded-l-none" maxLength={10} id="alternateMobile" {...register("alternateMobile")} />
               </div>
             </div>
             <div>
-              <Label>Email</Label>
-              <Input type="email" placeholder="client@example.com" className="mt-1" {...register("email")} />
+              <Label htmlFor="email">Email</Label>
+              <Input type="email" placeholder="client@example.com" className="mt-1" id="email" {...register("email")} />
               <FieldError message={errors.email?.message} />
             </div>
           </CardContent>
@@ -205,12 +205,12 @@ export default function EditClientPage() {
           <CardHeader className="pb-4"><CardTitle className="text-base text-slate-700">Address</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <Label>Street Address</Label>
-              <Textarea placeholder="House/Flat No., Street, Area" className="mt-1 resize-none" rows={2} {...register("address")} />
+              <Label htmlFor="address">Street Address</Label>
+              <Textarea placeholder="House/Flat No., Street, Area" className="mt-1 resize-none" rows={2} id="address" {...register("address")} />
             </div>
             <div>
-              <Label>City</Label>
-              <Input placeholder="e.g. Mumbai" className="mt-1" {...register("city")} />
+              <Label htmlFor="city">City</Label>
+              <Input placeholder="e.g. Mumbai" className="mt-1" id="city" {...register("city")} />
             </div>
             <div>
               <Label>State</Label>
@@ -222,8 +222,8 @@ export default function EditClientPage() {
               </Select>
             </div>
             <div>
-              <Label>Pincode</Label>
-              <Input placeholder="400001" maxLength={6} className="mt-1" {...register("pincode")} />
+              <Label htmlFor="pincode">Pincode</Label>
+              <Input placeholder="400001" maxLength={6} className="mt-1" id="pincode" {...register("pincode")} />
               <FieldError message={errors.pincode?.message} />
             </div>
           </CardContent>

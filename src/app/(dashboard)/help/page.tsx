@@ -76,17 +76,17 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How do I upload documents?",
     answer:
-      "Go to Documents or open a case and click the Documents tab. Click 'Upload Document' to add files.",
+      "Go to Documents and click 'Upload Document' to record a document (name, category and linked case). Attaching the file itself is coming soon; until then keep the file in your usual folder.",
   },
   {
     question: "How do I invite a team member?",
     answer:
-      "Go to Office Settings from the sidebar. Click 'Team Members'. Use 'Invite Member' to add juniors or clerks.",
+      "Team invitations are coming soon. Once available, the advocate will invite juniors and clerks from Office Settings → Team. Until then, each chamber has one login — please don't create separate accounts for staff.",
   },
   {
     question: "How do I set reminders for hearings?",
     answer:
-      "Go to Reminders. You can set WhatsApp, SMS, or email reminders for any hearing or payment.",
+      "Go to Reminders and click 'Create Reminder' (or pick a Quick Template). Choose the client, message, date and channel. NyayVakil doesn't send messages automatically yet: when a reminder is due, the bell at the top shows it — send it from your phone and click 'Mark Sent'.",
   },
   {
     question: "Can I use this on my phone?",

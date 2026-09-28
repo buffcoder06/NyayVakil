@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { CalendarIcon, Plus } from 'lucide-react';
+import { CalendarIcon, Pencil, Plus } from 'lucide-react';
 import { format } from 'date-fns';
 import {
   Dialog,
@@ -61,11 +61,14 @@ interface AddTaskDialogProps {
   onOpenChange: (open: boolean) => void;
   onSuccess?: (task: Task) => void;
   defaultMatterId?: string;
+  /** When set, the dialog edits this task instead of creating a new one. */
+  task?: Task | null;
 }
 
 const NO_MATTER = 'none';
 
-export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }: AddTaskDialogProps) {
+export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, task }: AddTaskDialogProps) {
+  const isEdit = !!task;
   const [loading, setLoading] = useState(false);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [teamMembers, setTeamMembers] = useState<Array<{ id: string; name: string }>>([]);
@@ -81,6 +84,20 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
       notes: '',
     },
   });
+
+  // Pre-fill the form when editing
+  useEffect(() => {
+    if (!open || !task) return;
+    form.reset({
+      title: task.title,
+      description: task.description ?? '',
+      matterId: task.matterId ?? NO_MATTER,
+      assignedTo: task.assignedToId ?? '',
+      dueDate: task.dueDate ? new Date(`${task.dueDate}T00:00:00`) : undefined,
+      priority: task.priority,
+      notes: task.notes ?? '',
+    });
+  }, [open, task, form]);
 
   useEffect(() => {
     if (!open) return;
@@ -99,24 +116,24 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
   async function onSubmit(values: TaskFormValues) {
     setLoading(true);
     try {
-      const task = await apiFetch<Task>('/api/tasks', {
-        method: 'POST',
-        body: {
-          title: values.title,
-          description: values.description,
-          matterId: values.matterId && values.matterId !== NO_MATTER ? values.matterId : undefined,
-          assignedToId: values.assignedTo,
-          dueDate: values.dueDate ? format(values.dueDate, 'yyyy-MM-dd') : undefined,
-          priority: values.priority,
-          notes: values.notes,
-        },
-      });
-      toast.success('Task created successfully');
-      onSuccess?.(task);
+      const body = {
+        title: values.title,
+        description: values.description,
+        matterId: values.matterId && values.matterId !== NO_MATTER ? values.matterId : isEdit ? null : undefined,
+        assignedToId: values.assignedTo,
+        dueDate: values.dueDate ? format(values.dueDate, 'yyyy-MM-dd') : isEdit ? null : undefined,
+        priority: values.priority,
+        notes: values.notes,
+      };
+      const saved = isEdit
+        ? await apiFetch<Task>(`/api/tasks/${task!.id}`, { method: 'PUT', body })
+        : await apiFetch<Task>('/api/tasks', { method: 'POST', body });
+      toast.success(isEdit ? 'Task updated' : 'Task created successfully');
+      onSuccess?.(saved);
       form.reset();
       onOpenChange(false);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to create task. Please try again.');
+      toast.error(err instanceof Error ? err.message : 'Failed to save task. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -127,8 +144,8 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId }
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Plus className="h-5 w-5 text-slate-600" />
-            Add New Task
+            {isEdit ? <Pencil className="h-5 w-5 text-slate-600" /> : <Plus className="h-5 w-5 text-slate-600" />}
+            {isEdit ? 'Edit Task' : 'Add New Task'}
           </DialogTitle>
         </DialogHeader>
 

@@ -36,6 +36,7 @@ import {
   Hash,
 } from "lucide-react";
 import { toast } from "sonner";
+import { AddHearingDialog } from "@/components/hearings/add-hearing-dialog";
 import { cn } from "@/lib/utils";
 
 const fmt = (n: number) =>
@@ -136,6 +137,12 @@ export default function MatterDetailPage() {
   const [matter, setMatter] = useState<Matter | null>(null);
   const [client, setClient] = useState<Client | null>(null);
   const [hearings, setHearings] = useState<Hearing[]>([]);
+  const [hearingDialogOpen, setHearingDialogOpen] = useState(false);
+  const [hearingDialogKey, setHearingDialogKey] = useState(0);
+  const openHearingDialog = () => {
+    setHearingDialogKey((k) => k + 1);
+    setHearingDialogOpen(true);
+  };
   const [fees, setFees] = useState<FeeEntry[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -270,7 +277,7 @@ export default function MatterDetailPage() {
           <Button
             size="sm"
             className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-1.5"
-            onClick={() => toast.info("Add hearing — coming soon.")}
+            onClick={openHearingDialog}
           >
             <Plus className="h-4 w-4" />
             Add Hearing
@@ -407,7 +414,7 @@ export default function MatterDetailPage() {
             <div className="flex flex-col items-center py-16 text-slate-400">
               <Calendar className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No hearings scheduled</p>
-              <Button size="sm" variant="outline" className="mt-3" onClick={() => toast.info("Add hearing — navigate to Hearing Diary.")}>
+              <Button size="sm" variant="outline" className="mt-3" onClick={openHearingDialog}>
                 <Plus className="h-4 w-4 mr-1" /> Add Hearing
               </Button>
             </div>
@@ -544,14 +551,16 @@ export default function MatterDetailPage() {
             <div className="flex flex-col items-center py-16 text-slate-400">
               <FileText className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No documents uploaded</p>
-              <Button size="sm" variant="outline" className="mt-3" onClick={() => toast.info("Upload documents from the Documents page.")}>
-                <Plus className="h-4 w-4 mr-1" /> Upload Document
-              </Button>
+              <Link href="/documents" className="mt-3">
+                <Button size="sm" variant="outline">
+                  <Plus className="h-4 w-4 mr-1" /> Add Document
+                </Button>
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {documents.map((doc) => (
-                <Card key={doc.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => toast.info("Document viewer — coming soon.")}>
+                <Card key={doc.id} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
@@ -655,6 +664,18 @@ export default function MatterDetailPage() {
           )}
         </TabsContent>
       </Tabs>
+      <AddHearingDialog
+        key={hearingDialogKey}
+        open={hearingDialogOpen}
+        onOpenChange={setHearingDialogOpen}
+        matters={[matter]}
+        prefillMatterId={matter.id}
+        onSuccess={(h) => {
+          setHearings((prev) => [h, ...prev]);
+          // Refresh "Next Hearing" in the header
+          fetch(`/api/matters/${id}`).then((r) => r.json()).then((j) => j.success && setMatter(j.data));
+        }}
+      />
     </div>
   );
 }

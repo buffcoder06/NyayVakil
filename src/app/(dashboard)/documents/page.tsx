@@ -100,24 +100,17 @@ function DocumentCard({ doc, matterTitle }: { doc: Document; matterTitle: string
                   day: "numeric", month: "short", year: "numeric",
                 })} · {doc.uploadedBy}
               </p>
-              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6"
-                  onClick={(e) => { e.stopPropagation(); toast.info("Document viewer — coming soon."); }}
-                >
-                  <Eye className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6"
-                  onClick={(e) => { e.stopPropagation(); toast.info("Download feature — coming soon."); }}
-                >
-                  <Download className="h-3.5 w-3.5" />
-                </Button>
-              </div>
+              {/* Only records with an uploaded file can be opened (file upload is coming soon) */}
+              {doc.fileUrl && (
+                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${doc.name}`} className="inline-flex h-6 w-6 items-center justify-center rounded-md hover:bg-slate-100">
+                    <Eye className="h-3.5 w-3.5" />
+                  </a>
+                  <a href={doc.fileUrl} download aria-label={`Download ${doc.name}`} className="inline-flex h-6 w-6 items-center justify-center rounded-md hover:bg-slate-100">
+                    <Download className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>

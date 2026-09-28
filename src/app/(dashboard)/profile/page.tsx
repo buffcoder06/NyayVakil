@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -87,6 +87,20 @@ export default function ProfilePage() {
       specialization: user?.specialization?.join(", ") ?? "",
     },
   });
+
+  // The cached profile loads after the first render — fill the form once it arrives
+  const { reset: resetProfile } = profileForm;
+  useEffect(() => {
+    if (!user) return;
+    resetProfile({
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      barCouncilNumber: user.barCouncilNumber ?? "",
+      chamberName: user.chamberName ?? "",
+      specialization: user.specialization?.join(", ") ?? "",
+    });
+  }, [user, resetProfile]);
 
   const passwordForm = useForm<PasswordFormValues>({
     resolver: zodResolver(passwordSchema),

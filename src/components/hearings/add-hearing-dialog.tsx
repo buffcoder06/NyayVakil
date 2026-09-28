@@ -44,6 +44,8 @@ interface AddHearingDialogProps {
   matters: Matter[];
   prefillMatterId?: string;
   prefillDate?: string;
+  /** When set, the dialog edits this hearing (its case can't be changed). */
+  hearing?: Hearing | null;
   onSuccess?: (hearing: Hearing) => void;
 }
 
@@ -53,16 +55,22 @@ export function AddHearingDialog({
   matters,
   prefillMatterId,
   prefillDate,
+  hearing,
   onSuccess,
 }: AddHearingDialogProps) {
+  // Initial values come from props; parents give this dialog a `key` so it
+  // starts fresh for each hearing/case it is opened for.
+  const isEdit = !!hearing;
   const [loading, setLoading] = useState(false);
-  const [matterId, setMatterId] = useState(prefillMatterId ?? "");
-  const [courtName, setCourtName] = useState("");
-  const [date, setDate] = useState(prefillDate ?? "");
-  const [time, setTime] = useState("");
-  const [purpose, setPurpose] = useState("");
-  const [assignedTo, setAssignedTo] = useState("");
-  const [notes, setNotes] = useState("");
+  const [matterId, setMatterId] = useState(hearing?.matterId ?? prefillMatterId ?? "");
+  const [courtName, setCourtName] = useState(
+    hearing?.courtName ?? matters.find((m) => m.id === prefillMatterId)?.courtName ?? ""
+  );
+  const [date, setDate] = useState(hearing?.date ?? prefillDate ?? "");
+  const [time, setTime] = useState(hearing?.time ?? "");
+  const [purpose, setPurpose] = useState(hearing?.purpose ?? "");
+  const [assignedTo, setAssignedTo] = useState(hearing?.assignedToId ?? "");
+  const [notes, setNotes] = useState(hearing?.notes ?? "");
   const [search, setSearch] = useState("");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
@@ -105,25 +113,24 @@ export function AddHearingDialog({
 
     setLoading(true);
     try {
-      const hearing = await apiFetch<Hearing>("/api/hearings", {
-        method: "POST",
-        body: {
-          matterId,
-          // Only store a court when it differs from the matter's own court
-          courtName: courtName && courtName !== matter.courtName ? courtName : undefined,
-          date,
-          time,
-          purpose,
-          assignedToId: assignedTo || undefined,
-          notes,
-        },
-      });
-      toast.success("Hearing scheduled successfully.");
-      onSuccess?.(hearing);
+      const fields = {
+        // Only store a court when it differs from the matter's own court
+        courtName: courtName && courtName !== matter.courtName ? courtName : isEdit ? null : undefined,
+        date,
+        time,
+        purpose,
+        assignedToId: assignedTo || (isEdit ? null : undefined),
+        notes,
+      };
+      const saved = isEdit
+        ? await apiFetch<Hearing>(`/api/hearings/${hearing!.id}`, { method: "PUT", body: fields })
+        : await apiFetch<Hearing>("/api/hearings", { method: "POST", body: { matterId, ...fields } });
+      toast.success(isEdit ? "Hearing updated." : "Hearing scheduled successfully.");
+      onSuccess?.(saved);
       reset();
       onOpenChange(false);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to schedule hearing.");
+      toast.error(err instanceof Error ? err.message : "Failed to save hearing.");
     } finally {
       setLoading(false);
     }
@@ -133,7 +140,7 @@ export function AddHearingDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Schedule Hearing</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit Hearing" : "Schedule Hearing"}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -177,7 +184,7 @@ export function AddHearingDialog({
             ) : (
               <div className="flex items-center gap-2 rounded-md border px-3 py-2 bg-slate-50 dark:bg-slate-800">
                 <span className="text-sm flex-1 font-medium">{selectedMatter?.matterTitle}</span>
-                <Button
+{!isEdit && (                  <Button
                   type="button"
                   variant="ghost"
                   size="sm"
@@ -185,7 +192,7 @@ export function AddHearingDialog({
                   onClick={() => setMatterId("")}
                 >
                   Change
-                </Button>
+                </Button>)}
               </div>
             )}
           </div>
@@ -281,7 +288,7 @@ export function AddHearingDialog({
             </Button>
             <Button type="submit" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Schedule Hearing
+              {isEdit ? "Save Changes" : "Schedule Hearing"}
             </Button>
           </DialogFooter>
         </form>

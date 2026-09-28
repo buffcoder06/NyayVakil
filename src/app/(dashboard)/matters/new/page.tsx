@@ -226,8 +226,8 @@ export default function NewMatterPage() {
               <ArrowLeft className="h-4 w-4" />
               Matters
             </Link>
-            <ChevronRight className="h-4 w-4 text-slate-300" />
-            <span className="text-sm font-medium text-slate-800">New Matter</span>
+            <ChevronRight className="hidden sm:block h-4 w-4 text-slate-300" />
+            <span className="hidden sm:inline text-sm font-medium text-slate-800">New Matter</span>
           </div>
           <div className="flex items-center gap-2">
             <Link href="/matters">

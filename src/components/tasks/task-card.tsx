@@ -179,6 +179,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
                 className="h-8 w-8 inline-flex items-center justify-center rounded-md text-green-600 hover:text-green-700 hover:bg-green-50"
                 onClick={handleComplete}
                 disabled={completing}
+                aria-label={`Complete task: ${task.title}`}
               >
                 <Check className="h-4 w-4" />
               </TooltipTrigger>
@@ -191,6 +192,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
               <TooltipTrigger
                 className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent"
                 onClick={() => onEdit(task)}
+                aria-label={`Edit task: ${task.title}`}
               >
                 <Edit2 className="h-4 w-4" />
               </TooltipTrigger>
@@ -203,6 +205,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
               <AlertDialogTrigger
                 className="h-8 w-8 inline-flex items-center justify-center rounded-md text-red-500 hover:text-red-600 hover:bg-red-50"
                 title="Delete Task"
+                aria-label={`Delete task: ${task.title}`}
                 disabled={deleting}
               >
                 {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}

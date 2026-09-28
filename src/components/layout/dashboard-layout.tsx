@@ -120,8 +120,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Mobile Bottom Navigation */}
       <MobileNav />
 
-      {/* Mobile Floating Action Button */}
-      <MobileFAB />
+      {/* Mobile "new case" button — only on the dashboard and case list, so it never covers forms */}
+      {(pathname === "/dashboard" || pathname === "/matters") && <MobileFAB />}
     </div>
   );
 }

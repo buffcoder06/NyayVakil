@@ -134,6 +134,7 @@ export function HearingCard({
             variant="ghost"
             className="h-8 text-xs gap-1"
             onClick={() => onEdit(hearing)}
+            aria-label={`Edit hearing: ${hearing.matterTitle}`}
           >
             <Pencil className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Edit</span>
@@ -145,6 +146,7 @@ export function HearingCard({
             variant="ghost"
             className="h-8 text-xs gap-1 text-green-700 hover:text-green-800 hover:bg-green-50"
             onClick={() => onMarkStatus(hearing)}
+            aria-label={`Mark attended: ${hearing.matterTitle}`}
             disabled={busy}
           >
             {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
@@ -157,6 +159,7 @@ export function HearingCard({
             variant="ghost"
             className="h-8 text-xs gap-1 text-blue-700 hover:text-blue-800 hover:bg-blue-50"
             onClick={() => onAddNextHearing(hearing)}
+            aria-label={`Schedule next hearing: ${hearing.matterTitle}`}
           >
             <CalendarPlus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Next</span>

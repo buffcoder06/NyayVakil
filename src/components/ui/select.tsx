@@ -6,7 +6,41 @@ import { Select as SelectPrimitive } from "@base-ui/react/select"
 import { cn } from "@/lib/utils"
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
-const Select = SelectPrimitive.Root
+/**
+ * Base UI's <Select.Value> shows the raw value (e.g. a database id) unless the
+ * root is given an `items` map from value to label. Build that map from the
+ * <SelectItem> children so every select shows the option's label.
+ */
+function collectItemLabels(node: React.ReactNode, labels: Record<string, React.ReactNode>) {
+  React.Children.forEach(node, (child) => {
+    if (!React.isValidElement(child)) return
+    const props = child.props as { value?: unknown; children?: React.ReactNode }
+    if (child.type === SelectItem) {
+      if (props.value !== undefined && props.value !== null) labels[String(props.value)] = props.children
+      return
+    }
+    if (props.children) collectItemLabels(props.children, labels)
+  })
+}
+
+function Select<Value, Multiple extends boolean | undefined = false>({
+  items,
+  children,
+  ...props
+}: SelectPrimitive.Root.Props<Value, Multiple>) {
+  const labels = React.useMemo(() => {
+    if (items) return items
+    const found: Record<string, React.ReactNode> = {}
+    collectItemLabels(children, found)
+    return found
+  }, [items, children])
+
+  return (
+    <SelectPrimitive.Root items={labels} {...props}>
+      {children}
+    </SelectPrimitive.Root>
+  )
+}
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
@@ -59,16 +60,67 @@ function getPageTitle(pathname: string): string {
   return "NyayVakil";
 }
 
-function getBreadcrumb(pathname: string): { label: string; href: string }[] {
+interface Crumb {
+  label: string;
+  href: string;
+  /** Set when the segment is a record id whose name should be shown instead. */
+  entity?: { kind: "matters" | "clients"; id: string };
+}
+
+// Record ids are cuids (e.g. "cmuld5cef000004i50qtb777n") — never show them to users
+const RECORD_ID = /^c[a-z0-9]{20,}$/;
+
+function getBreadcrumb(pathname: string): Crumb[] {
   const segments = pathname.split("/").filter(Boolean);
-  const crumbs: { label: string; href: string }[] = [];
+  const crumbs: Crumb[] = [];
   let cumPath = "";
-  for (const seg of segments) {
+  segments.forEach((seg, i) => {
     cumPath += "/" + seg;
+    if (RECORD_ID.test(seg)) {
+      const parent = segments[i - 1];
+      const kind = parent === "matters" || parent === "clients" ? parent : undefined;
+      crumbs.push({ label: "Details", href: cumPath, entity: kind && { kind, id: seg } });
+      return;
+    }
     const label = ROUTE_TITLES[cumPath] ?? seg.charAt(0).toUpperCase() + seg.slice(1);
     crumbs.push({ label, href: cumPath });
-  }
+  });
   return crumbs;
+}
+
+// Names already looked up this session, so the breadcrumb doesn't refetch on every page
+const entityNames = new Map<string, string>();
+
+/** Case title / client name for a breadcrumb segment, or null while loading. */
+function useEntityName(entity: Crumb["entity"]): string | null {
+  const key = entity ? `${entity.kind}/${entity.id}` : "";
+  const [fetched, setFetched] = useState<{ key: string; name: string } | null>(null);
+
+  useEffect(() => {
+    if (!entity || entityNames.has(key)) return;
+    let cancelled = false;
+    fetch(`/api/${key}`)
+      .then((r) => r.json())
+      .then((json) => {
+        const record = json?.success ? json.data : null;
+        const name = record ? (entity.kind === "matters" ? record.matterTitle : record.name) : "Details";
+        entityNames.set(key, name);
+        if (!cancelled) setFetched({ key, name });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [entity, key]);
+
+  if (!entity) return null;
+  return entityNames.get(key) ?? (fetched?.key === key ? fetched.name : null);
+}
+
+function CrumbLabel({ crumb }: { crumb: Crumb }) {
+  const name = useEntityName(crumb.entity);
+  if (!crumb.entity) return <>{crumb.label}</>;
+  return <span className="inline-block max-w-[320px] truncate align-bottom">{name ?? "…"}</span>;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -175,7 +227,7 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
   const pathname = usePathname();
   const sidebarCollapsed = useAppStore((s) => s.sidebarCollapsed);
   const pageTitle = getPageTitle(pathname);
-  const breadcrumbs = getBreadcrumb(pathname);
+  const breadcrumbs = useMemo(() => getBreadcrumb(pathname), [pathname]);
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-slate-200 bg-white/95 backdrop-blur-sm px-4 lg:px-6">
@@ -214,12 +266,12 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
                         href={crumb.href}
                         className="hover:text-[#1e3a5f] transition-colors"
                       >
-                        {crumb.label}
+                        <CrumbLabel crumb={crumb} />
                       </Link>
                       <ChevronRight className="h-3 w-3" />
                     </>
                   ) : (
-                    <span className="font-medium text-slate-700">{crumb.label}</span>
+                    <span className="font-medium text-slate-700"><CrumbLabel crumb={crumb} /></span>
                   )}
                 </span>
               ))}

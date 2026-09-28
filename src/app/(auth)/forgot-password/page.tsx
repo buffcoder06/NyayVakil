@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -144,6 +145,7 @@ function Step1Form({
   onSuccess: (identifier: string) => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const hydrated = useHydrated();
 
   const {
     register,
@@ -171,7 +173,7 @@ function Step1Form({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+    <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       <div className="space-y-1.5">
         <Label htmlFor="identifier" className="text-slate-700 font-medium">
           Email or Phone Number
@@ -195,7 +197,7 @@ function Step1Form({
 
       <Button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !hydrated}
         className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg transition-colors"
       >
         {isLoading ? (
@@ -225,6 +227,7 @@ function Step2Form({
   onResend: () => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const hydrated = useHydrated();
   const [isResending, setIsResending] = useState(false);
 
   const {
@@ -270,7 +273,7 @@ function Step2Form({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+    <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       {/* Context */}
       <div className="bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-3 text-sm">
         <p className="text-slate-500 text-xs">OTP sent to</p>
@@ -302,7 +305,7 @@ function Step2Form({
 
       <Button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !hydrated}
         className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg transition-colors"
       >
         {isLoading ? (
@@ -341,6 +344,7 @@ function Step2Form({
 
 function Step3Form({ onSuccess }: { onSuccess: () => void }) {
   const [isLoading, setIsLoading] = useState(false);
+  const hydrated = useHydrated();
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -370,7 +374,7 @@ function Step3Form({ onSuccess }: { onSuccess: () => void }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+    <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       {/* New Password */}
       <div className="space-y-1.5">
         <Label htmlFor="newPassword" className="text-slate-700 font-medium">
@@ -491,7 +495,7 @@ function Step3Form({ onSuccess }: { onSuccess: () => void }) {
 
       <Button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !hydrated}
         className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg transition-colors"
       >
         {isLoading ? (

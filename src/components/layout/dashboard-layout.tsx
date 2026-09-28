@@ -74,6 +74,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     setMobileSidebarOpen(false);
   }, [pathname]);
 
+  // After signing out, the browser's Back button can restore this page from its
+  // back/forward cache. Reload it instead so the server re-checks the session
+  // (and sends the user to /login if they are signed out).
+  useEffect(() => {
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) window.location.reload();
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Desktop Sidebar */}

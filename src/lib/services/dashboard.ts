@@ -70,10 +70,20 @@ export async function getDashboardData(firmId: string) {
   ]);
 
   const clientIds = [...new Set(matters.data.map((m) => m.clientId))];
-  const clients = await db.client.findMany({
-    where: { firmId, id: { in: clientIds } },
-    include: clientInclude,
-  });
+  const [clients, clientCount, hearingCount, feeCount] = await Promise.all([
+    db.client.findMany({ where: { firmId, id: { in: clientIds } }, include: clientInclude }),
+    db.client.count({ where: { firmId } }),
+    db.hearing.count({ where: { firmId } }),
+    db.feeEntry.count({ where: { firmId } }),
+  ]);
+
+  // Onboarding checklist steps the firm has already done (ids match OnboardingChecklist)
+  const onboardingDone = [
+    clientCount > 0 && "add_client",
+    matters.total > 0 && "create_case",
+    hearingCount > 0 && "add_hearing",
+    feeCount > 0 && "log_fee",
+  ].filter((step): step is string => Boolean(step));
 
   return {
     today,
@@ -84,5 +94,6 @@ export async function getDashboardData(firmId: string) {
     fees: fees.filter((f) => f.status !== "paid"),
     tasks: tasks.filter((t) => t.status === "pending" || t.status === "in_progress"),
     clients: clients.map(toClient),
+    onboardingDone,
   };
 }

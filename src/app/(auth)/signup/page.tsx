@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { useRouter } from "next/navigation";
 import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
@@ -73,6 +74,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const hydrated = useHydrated();
 
   const {
     register,
@@ -144,7 +146,7 @@ export default function SignupPage() {
       </CardHeader>
 
       <CardContent className="pt-4">
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+        <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
           {/* Signup always creates a new firm with this person as its advocate/owner */}
           <div className="flex items-start gap-2.5 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
             <Info className="w-4 h-4 mt-0.5 shrink-0 text-[#1e3a5f]" />
@@ -377,7 +379,7 @@ export default function SignupPage() {
           {/* Submit */}
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !hydrated}
             className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg transition-colors"
           >
             {isLoading ? (

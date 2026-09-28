@@ -18,18 +18,15 @@ export default async function DashboardContent() {
   const session = await getSession();
   if (!session) redirect("/login?expired=1");
 
-  const { today, stats, hearings, matters, totalMatters, fees, tasks, clients } =
+  const { today, stats, hearings, matters, fees, tasks, clients, onboardingDone } =
     await getDashboardData(session.firmId);
 
   const todaysHearings = hearings.filter((h) => h.date === today);
 
-  // Determine if this is a new user (fewer than 3 matters = onboarding)
-  const isNewUser = totalMatters < 3;
-
   return (
     <div className="space-y-6">
-      {/* Onboarding checklist — shown only to new users */}
-      {isNewUser && <OnboardingChecklist />}
+      {/* Onboarding checklist — ticks come from real data; hides itself once all steps are done */}
+      <OnboardingChecklist completedItemIds={onboardingDone} />
 
       {/* Row 1 — Quick Actions (full width, prominent) */}
       <QuickActions />

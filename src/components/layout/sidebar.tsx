@@ -207,8 +207,9 @@ function UserProfile({ collapsed }: { collapsed: boolean }) {
           variant="ghost"
           size="icon"
           onClick={() => logout()}
-          className="h-7 w-7 shrink-0 text-white/40 hover:text-white hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
+          className="h-7 w-7 shrink-0 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
           title="Sign out"
+          aria-label="Sign out"
         >
           <LogOut className="h-3.5 w-3.5" />
         </Button>

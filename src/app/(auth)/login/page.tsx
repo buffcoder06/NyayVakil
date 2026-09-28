@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { useRouter } from "next/navigation";
 import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,7 @@ export default function LoginPage() {
   const login = useAuthStore((s) => s.login);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const hydrated = useHydrated();
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -67,7 +69,7 @@ export default function LoginPage() {
         </CardHeader>
 
         <CardContent className="pt-4">
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+          <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="identifier" className="text-slate-700 font-medium">Email or Phone Number</Label>
               <Input
@@ -105,7 +107,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !hydrated}
               className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg"
             >
               {isLoading ? (

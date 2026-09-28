@@ -40,15 +40,11 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
     href: "/fees/new",
     description: "Record fees agreed with your client",
   },
-  {
-    id: "invite_team",
-    label: "Invite a team member",
-    href: "/settings/team",
-    description: "Add a junior or clerk to your chamber",
-  },
+  // "Invite a team member" returns here once team invitations exist
 ];
 
 interface OnboardingChecklistProps {
+  /** Step ids the firm has already done, computed from real data on the server. */
   completedItemIds?: string[];
 }
 
@@ -79,10 +75,11 @@ export function OnboardingChecklist({
     setDismissed(true);
   }
 
-  // Avoid hydration mismatch
-  if (!mounted || dismissed) return null;
+  const completedCount = CHECKLIST_ITEMS.filter((item) => completedItemIds.includes(item.id)).length;
 
-  const completedCount = completedItemIds.length;
+  // Avoid hydration mismatch; hide once dismissed or everything is done
+  if (!mounted || dismissed || completedCount === CHECKLIST_ITEMS.length) return null;
+
   const totalCount = CHECKLIST_ITEMS.length;
   const progressPercent = Math.round((completedCount / totalCount) * 100);
 

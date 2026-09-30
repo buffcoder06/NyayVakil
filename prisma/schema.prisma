@@ -277,6 +277,29 @@ model LoginAttempt {
 }
 
 // ─────────────────────────────────────────────
+// LEAD (website enquiries: demo bookings, contact form, callback requests)
+// ─────────────────────────────────────────────
+
+model Lead {
+  id           String    @id @default(cuid())
+  kind         String // "demo" | "contact" | "callback"
+  name         String
+  mobile       String
+  email        String?
+  organisation String?
+  message      String?
+  // Everything else the form collected (practice type, preferred slot, …)
+  details      Json?
+  ipAddress    String?
+  createdAt    DateTime  @default(now())
+  handledAt    DateTime?
+
+  @@index([createdAt])
+  @@index([ipAddress, createdAt])
+  @@map("leads")
+}
+
+// ─────────────────────────────────────────────
 // SUBSCRIPTION
 // ─────────────────────────────────────────────
 

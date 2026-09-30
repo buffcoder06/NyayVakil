@@ -14,7 +14,7 @@ const VALUES = [
     icon: Shield,
     title: "Privacy",
     description:
-      "Your client information is confidential. We treat it with the same seriousness that you do. Your data is encrypted, backed up, and never shared with third parties. You remain the owner of everything you put into NyayVakil.",
+      "Your client information is confidential. We treat it with the same seriousness that you do. Your data is encrypted, kept separate for every chamber, and never shared with third parties. You remain the owner of everything you put into NyayVakil.",
   },
   {
     icon: Zap,

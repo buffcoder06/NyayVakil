@@ -131,7 +131,7 @@ export default function SignupPage() {
           Create your account
         </CardTitle>
         <CardDescription className="text-slate-500 mt-1">
-          Join thousands of legal professionals across India
+          Free during early access — set up your chamber in 2 minutes
         </CardDescription>
       </CardHeader>
 

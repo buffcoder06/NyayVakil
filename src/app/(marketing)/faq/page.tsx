@@ -29,17 +29,17 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Is it suitable for a solo advocate?",
         answer:
-          "Yes, absolutely. The Starter plan is designed specifically for solo practitioners. It gives you a full hearing diary, matter management, fee tracking, and client records — everything you need to run your practice efficiently, without paying for team features you will never use.",
+          "Yes, absolutely. NyayVakil gives a solo practitioner a full hearing diary, case management, fee and expense tracking, client records and a document register — everything you need to run your practice, and it's free during early access.",
       },
       {
         question: "Can a chamber with junior advocates and a clerk use it?",
         answer:
-          "Yes. The Chamber plan supports multiple team members with role-based access. Your clerk can manage the diary and tasks, junior advocates can update matter notes, and you as the senior can see everything. Each person only sees what is relevant to their role.",
+          "Team access is coming soon. Today each chamber has one login for the advocate. Next, you'll be able to invite juniors and clerks with role-based access, so each person sees what's relevant to their role.",
       },
       {
         question: "Is my data secure?",
         answer:
-          "Yes. All data is encrypted in transit and at rest. We take automated backups daily so your information is never at risk of being lost. We do not share your data with any third parties. Your client and matter information remains strictly yours.",
+          "Yes. All data travels over encrypted connections (HTTPS) and is stored encrypted on a managed cloud database. Each chamber's data is kept completely separate, and passwords are never stored in readable form. We do not share your data with any third parties — your client and case information remains strictly yours.",
       },
       {
         question: "Can I use NyayVakil just for maintaining a hearing diary?",
@@ -61,12 +61,12 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Does NyayVakil have a court diary or hearing diary?",
         answer:
-          "Yes. The hearing diary is one of the core features. It shows all your upcoming hearings date-wise, lets you record next date after each hearing, and sends you reminders before each court appearance. You can filter by court, matter type, or client.",
+          "Yes. The court diary is one of the core features. It shows your hearings date-wise (list or calendar), lets you record the next date after each hearing, and puts today's hearings on your dashboard. You can filter by court, person or status. Automatic reminders before each hearing are coming soon.",
       },
       {
         question: "Can I track fees and pending payments?",
         answer:
-          "Yes, fully. You can record professional fees against each matter, mark payments as received, and see at a glance which matters have outstanding amounts. The fee ledger shows a complete history for each client and matter. You can also generate fee summaries for a given period.",
+          "Yes, fully. You can record professional fees against each case, log payments (cash, UPI, bank transfer or cheque) and see at a glance which cases have outstanding amounts. Overdue fees are flagged automatically, and fee reports can be downloaded as CSV for Excel.",
       },
       {
         question: "Does it handle expenses like court fees and travel?",
@@ -77,22 +77,22 @@ const FAQ_CATEGORIES: FaqCategory[] = [
         question:
           "Can I store documents like vakalatnamas and court orders?",
         answer:
-          "Yes. The document vault lets you upload and attach files to matters — vakalatnamas, court orders, agreements, plaints, replies, and any other documents. Documents are stored securely and can be retrieved quickly by matter or client name.",
+          "You can keep a document register today — record each vakalatnama, court order, plaint or reply with its category and linked case. Uploading and storing the files themselves is coming soon.",
       },
       {
         question: "Can I send reminders to clients?",
         answer:
-          "Yes. NyayVakil supports client reminders via WhatsApp, SMS, and email for upcoming hearings, pending fee payments, and document submission. You can customise the message and timing of reminders from your account settings.",
+          "You can prepare client reminders for hearings, pending fees and document requests using ready-made templates, and the bell at the top tells you when one is due. Automatic sending by WhatsApp, SMS and email is coming soon — until then you send the message from your phone and mark it sent.",
       },
       {
         question: "Does it have task management for clerks?",
         answer:
-          "Yes. You can create tasks, assign them to team members (clerks, juniors, or others), set due dates, and track completion. Tasks can be linked to specific matters so everything stays in context. Clerks get notified when tasks are assigned to them.",
+          "Yes, you can create tasks with due dates and priorities, link them to cases and track completion. Assigning tasks to juniors and clerks will arrive with team access, which is coming soon.",
       },
       {
         question: "Are reports available?",
         answer:
-          "Yes. NyayVakil includes reports for income and expense summaries (monthly and yearly), matter statistics (active, disposed, pending), outstanding fee reports by client, and hearing frequency by court. Reports can be exported as PDF or CSV.",
+          "Yes. Reports cover fees collected vs. pending, expenses, case statistics and hearings, with an outstanding-by-client view. Every report can be downloaded as CSV for Excel; PDF export is coming soon.",
       },
     ],
   },
@@ -103,28 +103,28 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "What plans are available?",
         answer:
-          "NyayVakil offers four plans: Starter (for solo advocates), Chamber (for advocates with juniors and clerks), Firm (for small law firms with larger teams), and Enterprise (for legal departments and larger organisations with custom requirements). Visit our Pricing page for current rates.",
+          "NyayVakil is free during early access. When paid plans launch there will be four: Starter (solo advocates), Chamber (advocates with juniors and clerks), Firm (small law firms) and Enterprise (larger organisations). See the Pricing page for planned prices.",
       },
       {
         question: "Can I upgrade or downgrade my plan later?",
         answer:
-          "Yes, you can upgrade or downgrade at any time. Upgrades take effect immediately. If you downgrade, the change takes effect at the start of your next billing cycle. There are no penalties for changing plans.",
+          "During early access every feature is free, so there's nothing to change. Once paid plans launch, you'll be able to switch plans at any time from your account.",
       },
       {
         question: "Is yearly billing cheaper than monthly billing?",
         answer:
-          "Yes. Choosing an annual subscription saves you up to 20% compared to paying month by month. The discount is applied automatically when you select the yearly billing option at checkout.",
+          "When paid plans launch, yearly billing will save you up to 20% compared to paying monthly.",
       },
       {
         question: "Is there a free trial? Do I need a credit card?",
         answer:
-          "Yes, we offer a 14-day free trial on all plans. No credit card is required to start the trial. You can explore all features of your chosen plan freely. At the end of the trial, you can subscribe or your account will simply pause — your data is retained for 30 days.",
+          "NyayVakil is completely free during early access, and no credit card is needed. You'll hear from us well in advance before paid plans start, and nothing is ever charged automatically.",
       },
       {
         question:
           "What happens to my data if I cancel my subscription?",
         answer:
-          "If you cancel, your data is retained for 30 days after the cancellation date. During this period, you can export everything — matters, clients, hearings, fees, and documents. After 30 days, data is permanently deleted. We will send you reminders before deletion so you have time to export.",
+          "Your data is yours. You can download your reports as CSV at any time, and if you ever want your full data exported or your account deleted, email support@nyayvakil.in and we'll take care of it.",
       },
     ],
   },
@@ -146,7 +146,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
         question:
           "Can I migrate my existing data into NyayVakil?",
         answer:
-          "Yes. You can import existing matters and client records using our CSV import tool. We also offer onboarding support for Chamber and Firm plan subscribers, where our team helps you migrate data from spreadsheets or your previous software. Contact us to discuss your specific situation.",
+          "Yes — contact us and we'll help you bring in your existing cases and clients from spreadsheets. A self-service import tool is coming soon.",
       },
       {
         question: "Which browsers are supported?",
@@ -162,18 +162,18 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "What support options are available?",
         answer:
-          "All plans include email and in-app chat support. Chamber and Firm plan subscribers also get priority support with faster response times. Enterprise plan customers get dedicated phone support and a named account manager. You can also reach us on WhatsApp during office hours.",
+          "During early access, email support@nyayvakil.in and we'll get back to you — usually within one business day. Priority and phone support are planned for paid plans.",
       },
       {
         question:
           "Is onboarding training provided after I sign up?",
         answer:
-          "Starter plan subscribers get access to our written help centre and video tutorials. Chamber and Firm plan subscribers receive a personalised onboarding session with one of our team members, where we help you set up your practice, import existing data, and answer your questions.",
+          "Yes. The app has a built-in Get Started checklist and a Help section, and we provide a step-by-step user guide. Early-access chambers can also ask us for a personal walkthrough.",
       },
       {
         question: "How quickly are issues resolved?",
         answer:
-          "For Starter plan subscribers, we aim to respond within 24–48 hours on business days. Chamber and Firm plan subscribers receive priority responses, typically within a few hours. Critical issues affecting your ability to access the product are treated as highest priority across all plans.",
+          "During early access we aim to respond to every email within one business day. Anything that stops you from accessing your account is treated as top priority.",
       },
     ],
   },

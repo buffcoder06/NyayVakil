@@ -268,3 +268,15 @@ export const reminderCreateSchema = z.object({
 export const reminderUpdateSchema = reminderCreateSchema.partial().extend({
   action: z.enum(["markSent", "cancel"]).optional(),
 });
+
+// ── Website leads ────────────────────────────────────────────────────────────
+
+export const leadSchema = z.object({
+  kind: z.enum(["demo", "contact", "callback"]),
+  name: text(120),
+  mobile: phone,
+  email: optEmail,
+  organisation: optText(200),
+  message: optText(2000),
+  details: z.record(z.string(), z.union([z.string().max(300), z.number(), z.boolean(), z.null()])).optional(),
+});

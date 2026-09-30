@@ -53,7 +53,7 @@ const PLANS: PricingPlan[] = [
     forWho: "Solo advocates",
     users: "1 user",
     matters: "50 matters",
-    storage: "1 GB storage",
+    storage: "1 GB file storage (coming soon)",
     features: [
       "Case & matter tracking",
       "Court diary (hearing dates)",
@@ -65,11 +65,11 @@ const PLANS: PricingPlan[] = [
     notIncluded: [
       "Multiple users",
       "Team tasks",
-      "Document vault",
+      "Document file storage",
       "Advanced reports",
     ],
-    ctaLabel: "Start Free Trial",
-    ctaHref: "/contact",
+    ctaLabel: "Start free",
+    ctaHref: "/signup",
   },
   {
     id: "chamber",
@@ -84,21 +84,20 @@ const PLANS: PricingPlan[] = [
     forWho: "Advocate + junior/clerk",
     users: "5 users",
     matters: "500 matters",
-    storage: "10 GB storage",
+    storage: "10 GB file storage (coming soon)",
     features: [
       "Everything in Starter",
-      "Up to 5 team members",
-      "Team task assignment",
-      "Document vault",
       "Expense tracking",
-      "Payment reminders",
-      "Reports & insights",
-      "WhatsApp reminder support",
+      "Document register",
+      "Reports & CSV export",
       "Priority support",
+      "Up to 5 team members (coming soon)",
+      "Team task assignment (coming soon)",
+      "Automatic WhatsApp & SMS reminders (coming soon)",
     ],
     notIncluded: [],
-    ctaLabel: "Start Free Trial",
-    ctaHref: "/contact",
+    ctaLabel: "Start free",
+    ctaHref: "/signup",
   },
   {
     id: "firm",
@@ -113,19 +112,18 @@ const PLANS: PricingPlan[] = [
     forWho: "Small law firms",
     users: "20 users",
     matters: "Unlimited matters",
-    storage: "50 GB storage",
+    storage: "50 GB file storage (coming soon)",
     features: [
       "Everything in Chamber",
-      "Up to 20 team members",
-      "Advanced analytics",
-      "Role-based permissions",
-      "Higher document storage",
       "Onboarding support",
+      "Up to 20 team members (coming soon)",
+      "Role-based permissions (coming soon)",
+      "Advanced analytics (coming soon)",
       "Custom branding (coming soon)",
     ],
     notIncluded: [],
-    ctaLabel: "Start Free Trial",
-    ctaHref: "/contact",
+    ctaLabel: "Start free",
+    ctaHref: "/signup",
   },
   {
     id: "enterprise",
@@ -184,18 +182,18 @@ const COMPARISON_ROWS: ComparisonRow[] = [
   {
     category: "Team & Collaboration",
     features: [
-      { name: "Multiple users", starter: false, chamber: true, firm: true, enterprise: true },
-      { name: "Team task assignment", starter: false, chamber: true, firm: true, enterprise: true },
-      { name: "Role-based permissions", starter: false, chamber: false, firm: true, enterprise: true },
+      { name: "Multiple users (coming soon)", starter: false, chamber: true, firm: true, enterprise: true },
+      { name: "Team task assignment (coming soon)", starter: false, chamber: true, firm: true, enterprise: true },
+      { name: "Role-based permissions (coming soon)", starter: false, chamber: false, firm: true, enterprise: true },
       { name: "Custom workflows", starter: false, chamber: false, firm: false, enterprise: true },
     ],
   },
   {
     category: "Storage & Documents",
     features: [
-      { name: "Document vault", starter: false, chamber: true, firm: true, enterprise: true },
+      { name: "Document file storage (coming soon)", starter: false, chamber: true, firm: true, enterprise: true },
       { name: "Expense tracking", starter: false, chamber: true, firm: true, enterprise: true },
-      { name: "Advanced analytics", starter: false, chamber: false, firm: true, enterprise: true },
+      { name: "Advanced analytics (coming soon)", starter: false, chamber: false, firm: true, enterprise: true },
     ],
   },
   {
@@ -216,27 +214,27 @@ const FAQS = [
   {
     question: "Can I switch plans later?",
     answer:
-      "Yes, absolutely. You can upgrade or downgrade your plan at any time from your account settings. When upgrading, the new plan takes effect immediately and you're charged a prorated amount for the remainder of the billing cycle. When downgrading, the change takes effect at the start of the next billing cycle.",
+      "During early access every feature is free, so there's nothing to switch. When paid plans launch, you'll be able to move between plans from your account at any time.",
   },
   {
     question: "Is yearly billing required?",
     answer:
-      "No. Monthly billing is fully supported on all plans. Yearly billing is optional and gives you a discount of up to 20% — the savings are shown upfront so you can decide what works best for you.",
+      "No. When paid plans launch, both monthly and yearly billing will be available — yearly will simply save you up to 20%.",
   },
   {
-    question: "Is there a free trial?",
+    question: "Is NyayVakil free right now?",
     answer:
-      "Yes! Every plan comes with a 14-day free trial — no credit card required. You get full access to all features of the chosen plan during the trial period, so you can evaluate NyayVakil with your real practice needs.",
+      "Yes. NyayVakil is free during early access — no credit card required. The prices on this page are the planned prices for when paid plans launch.",
   },
   {
-    question: "What happens to my data after the trial?",
+    question: "What happens when paid plans launch?",
     answer:
-      "Your data is completely preserved after the trial ends. If you choose to subscribe, everything you entered — matters, hearings, clients, fees — will be right there waiting. If you don't subscribe, your data is retained for 30 days before deletion, giving you time to reconsider or export.",
+      "You'll hear from us well in advance, and nothing is charged automatically. Everything you've entered — cases, hearings, clients, fees — stays in your account.",
   },
   {
-    question: "Do you offer refunds?",
+    question: "How will payment and refunds work?",
     answer:
-      "Yes. If you're not satisfied within the first 30 days of a paid subscription, we'll issue a pro-rated refund for the unused portion of your billing period. Just reach out to our support team and we'll process it promptly.",
+      "Paid plans aren't live yet, so there's nothing to pay or refund today. Payment options and our refund policy will be published here before paid plans launch.",
   },
 ];
 
@@ -433,8 +431,8 @@ export default function PricingPage() {
             Simple, transparent pricing
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Built for Indian legal professionals. No hidden charges, no per-user surprises.
-            Start free, upgrade when you need to.
+            NyayVakil is <strong className="font-semibold text-slate-900">free during early access</strong>.
+            These are our planned prices once paid plans launch — no hidden charges, no per-user surprises.
           </p>
         </div>
 
@@ -483,7 +481,7 @@ export default function PricingPage() {
             className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold"
             style={{
               backgroundColor: isYearly ? "#d1fae5" : "#f1f5f9",
-              color: isYearly ? "#065f46" : "#94a3b8",
+              color: isYearly ? "#065f46" : "#475569",
             }}
           >
             Save up to 20%

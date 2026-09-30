@@ -77,7 +77,6 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { label: "Help Center", href: "/help", placeholder: true },
       { label: "Book a Demo", href: "/demo" },
-      { label: "WhatsApp Support", href: "https://wa.me/919999999999", external: true, placeholder: true },
     ],
   },
 ];

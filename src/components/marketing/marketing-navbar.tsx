@@ -112,7 +112,7 @@ export default function MarketingNavbar() {
                 )}
                 style={{ backgroundColor: "#14213D" }}
               >
-                Start Free Trial
+                Start Free
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
               </Link>
             </div>
@@ -217,11 +217,11 @@ export default function MarketingNavbar() {
             className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-sm font-medium text-white transition-all hover:opacity-90"
             style={{ backgroundColor: "#14213D" }}
           >
-            Start Free Trial
+            Start Free
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </Link>
           <p className="text-center text-xs text-slate-400 pt-1">
-            No credit card required &middot; 14-day free trial
+            Free during early access &middot; No credit card
           </p>
         </div>
       </div>

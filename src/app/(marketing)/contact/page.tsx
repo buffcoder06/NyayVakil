@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
+import { submitLead } from "@/lib/leads-client";
 import Link from "next/link";
 import {
   Calendar,
@@ -127,12 +129,21 @@ function ContactForm() {
 
     setSubmitState("loading");
 
-    // TODO: Replace with real API call to /api/leads/contact
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-
-    const ref = `NV-${Math.floor(10000 + Math.random() * 90000)}`;
-    setReferenceNumber(ref);
-    setSubmitState("success");
+    try {
+      const ref = await submitLead({
+        kind: "contact",
+        name: formData.name,
+        mobile: formData.mobile,
+        email: formData.email,
+        message: formData.message,
+        details: { subject: formData.subject },
+      });
+      setReferenceNumber(ref);
+      setSubmitState("success");
+    } catch (err) {
+      setSubmitState("idle");
+      toast.error(err instanceof Error ? err.message : "Could not send your message. Please try again.");
+    }
   };
 
   if (submitState === "success") {
@@ -350,10 +361,19 @@ function CallbackForm() {
 
     setSubmitState("loading");
 
-    // TODO: Replace with real API call to /api/leads/request-callback
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setSubmitState("success");
+    try {
+      await submitLead({
+        kind: "callback",
+        name: formData.name,
+        mobile: formData.mobile,
+        message: formData.message,
+        details: { callbackTime: formData.callbackTime },
+      });
+      setSubmitState("success");
+    } catch (err) {
+      setSubmitState("idle");
+      toast.error(err instanceof Error ? err.message : "Could not request a callback. Please try again.");
+    }
   };
 
   if (submitState === "success") {
@@ -538,38 +558,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* WhatsApp */}
-              <div className="rounded-xl border border-slate-200 p-5">
-                <div className="flex items-start gap-3.5">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#14213D10" }}
-                  >
-                    <MessageSquare
-                      className="w-4.5 h-4.5"
-                      style={{ color: "#14213D" }}
-                      strokeWidth={2}
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-0.5">
-                      WhatsApp
-                    </h3>
-                    <a
-                      href="https://wa.me/919999999999"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
-                    >
-                      +91 XXXXX XXXXX
-                    </a>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Quick responses during office hours
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               {/* Email */}
               <div className="rounded-xl border border-slate-200 p-5">
                 <div className="flex items-start gap-3.5">
@@ -595,36 +583,6 @@ export default function ContactPage() {
                     </a>
                     <p className="text-xs text-slate-400 mt-0.5">
                       We respond within 24–48 hours
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Call Us */}
-              <div className="rounded-xl border border-slate-200 p-5">
-                <div className="flex items-start gap-3.5">
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#14213D10" }}
-                  >
-                    <Phone
-                      className="w-4.5 h-4.5"
-                      style={{ color: "#14213D" }}
-                      strokeWidth={2}
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-0.5">
-                      Call Us
-                    </h3>
-                    <a
-                      href="tel:+919999999999"
-                      className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
-                    >
-                      +91 XXXXX XXXXX
-                    </a>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Available Mon–Sat, 9 AM – 7 PM IST
                     </p>
                   </div>
                 </div>

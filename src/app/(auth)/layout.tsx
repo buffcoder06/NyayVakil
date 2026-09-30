@@ -58,7 +58,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           {/* Bottom trust badge */}
           <div className="mt-12 pt-8 border-t border-white/10">
             <p className="text-white/40 text-xs">
-              Trusted by advocates across India
+              Free during early access · Made in India
             </p>
           </div>
         </div>

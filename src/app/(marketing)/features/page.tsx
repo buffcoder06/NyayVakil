@@ -306,7 +306,7 @@ function DocumentVaultMock() {
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 w-full max-w-sm mx-auto space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-bold text-slate-800">Document Vault</p>
+        <p className="text-sm font-bold text-slate-800">Document Register</p>
         <span className="text-xs text-slate-400">4 files</span>
       </div>
       <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-400">
@@ -551,7 +551,7 @@ export default function FeaturesPage() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
               style={{ backgroundColor: "#14213D" }}
             >
-              Start Free Trial
+              Start Free
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
             <Link
@@ -598,7 +598,7 @@ export default function FeaturesPage() {
           { icon: Flag, label: "Priority flags" },
           { icon: UserRound, label: "Opposite party and advocate details" },
           { icon: Handshake, label: "Fee agreement linked to matter" },
-          { icon: History, label: "Case timeline / audit trail" },
+          { icon: History, label: "Case timeline (coming soon)" },
         ]}
         visual={<MatterCardMock />}
       />
@@ -626,13 +626,13 @@ export default function FeaturesPage() {
         id="fee-tracking"
         label="Fee & Payment Tracking"
         title="Know exactly who owes you what"
-        description="Set the total fee agreed per matter and track every payment received. Get instant visibility into outstanding balances, overdue alerts, and full payment history — matter by matter and client by client."
+        description="Set the total fee agreed per matter and track every payment received. Get instant visibility into outstanding balances, overdue fees and full payment history — case by case and client by client."
         features={[
           { icon: IndianRupee, label: "Total fee agreed per matter" },
           { icon: Wallet, label: "Received vs pending breakdown" },
-          { icon: AlertCircle, label: "Overdue alerts" },
+          { icon: AlertCircle, label: "Overdue fees flagged automatically" },
           { icon: CreditCard, label: "Payment method tracking (cash, UPI, bank, cheque)" },
-          { icon: Receipt, label: "Receipt management" },
+          { icon: Receipt, label: "Fee reports as CSV for Excel" },
           { icon: Users, label: "Client-wise outstanding balance" },
         ]}
         visual={<FeeTrackerMock />}
@@ -643,13 +643,13 @@ export default function FeaturesPage() {
         id="clients"
         label="Client Management"
         title="Complete client profiles at your fingertips"
-        description="Maintain a clean, searchable client database. Each client profile links their matters, tracks outstanding dues, and shows a full activity history — so you always have context before a call or meeting."
+        description="Maintain a clean, searchable client database. Each client profile links their cases and payments and shows outstanding dues — so you always have context before a call or meeting."
         features={[
           { icon: UserRound, label: "Individual and company clients" },
           { icon: Phone, label: "Contact details and notes" },
           { icon: LinkIcon, label: "Linked matters per client" },
           { icon: IndianRupee, label: "Outstanding balance at a glance" },
-          { icon: History, label: "Activity history" },
+          { icon: History, label: "Activity history (coming soon)" },
           { icon: Building2, label: "Company and entity support" },
         ]}
         visual={<ClientProfileMock />}
@@ -659,14 +659,14 @@ export default function FeaturesPage() {
       {/* ── Document Vault ───────────────────────────────────────────────── */}
       <FeatureSection
         id="documents"
-        label="Document Vault"
+        label="Document Register"
         title="All your legal documents, always findable"
-        description="Upload, categorise, and search your documents — vakalatnamas, petitions, affidavits, court orders, and more. Link documents directly to matters and clients so everything is exactly where you'd expect it."
+        description="Keep a register of every vakalatnama, petition, affidavit and court order — categorised and linked to its case and client, so everything is where you'd expect it. Uploading the files themselves is coming soon."
         features={[
-          { icon: FolderOpen, label: "Upload and organise documents" },
+          { icon: FolderOpen, label: "Document register per case" },
           { icon: Tag, label: "Categories — vakalatnama, affidavit, petitions" },
-          { icon: Tag, label: "Tagging and custom labels" },
-          { icon: Search, label: "Full-text search" },
+          { icon: FolderOpen, label: "File uploads (coming soon)" },
+          { icon: Search, label: "Search by name and category" },
           { icon: LinkIcon, label: "Linked to client and matter" },
           { icon: Shield, label: "Secure and private" },
         ]}
@@ -677,15 +677,15 @@ export default function FeaturesPage() {
       <FeatureSection
         id="team"
         label="Team Coordination"
-        title="Keep your junior and clerk on the same page"
-        description="Assign tasks to team members with due dates and priorities. Juniors and clerks get visibility into the matters they're working on, and you get a clear view of what everyone is doing — without endless follow-up."
+        title="Keep every task on track"
+        description="Track drafting, filing and follow-ups with due dates and priorities, linked to each case. Team access is coming soon, so you'll be able to assign work to your junior and clerk and see what everyone is doing."
         features={[
-          { icon: ClipboardList, label: "Assign tasks to junior / clerk" },
+          { icon: ClipboardList, label: "Assign tasks to junior / clerk (coming soon)" },
           { icon: Clock, label: "Due dates and priority levels" },
-          { icon: Eye, label: "Team visibility into matters" },
-          { icon: Shield, label: "Role-based access — advocate / junior / clerk" },
+          { icon: Eye, label: "Team visibility into cases (coming soon)" },
+          { icon: Shield, label: "Role-based access (coming soon)" },
           { icon: ListTodo, label: "Task status tracking" },
-          { icon: Users, label: "Multi-user support" },
+          { icon: Users, label: "Multi-user support (coming soon)" },
         ]}
         visual={<TaskBoardMock />}
         reversed
@@ -695,16 +695,16 @@ export default function FeaturesPage() {
       <FeatureSection
         id="reminders"
         label="Reminders & Notifications"
-        title="Timely alerts, your preferred way"
-        description="Set reminders for upcoming hearings and overdue payments. Choose your channel — WhatsApp, SMS, or email — and customise templates so notifications feel natural for your clients and team."
+        title="Never forget to update a client"
+        description="Prepare reminders for hearings, pending fees and document requests from ready-made templates. The bell tells you when each one is due. Automatic sending by WhatsApp, SMS and email is coming soon."
         features={[
           { icon: Bell, label: "Hearing reminders" },
           { icon: IndianRupee, label: "Payment due reminders" },
-          { icon: MessageSquare, label: "WhatsApp channel" },
-          { icon: Phone, label: "SMS channel" },
-          { icon: Mail, label: "Email channel" },
+          { icon: MessageSquare, label: "Automatic WhatsApp sending (coming soon)" },
+          { icon: Phone, label: "Automatic SMS sending (coming soon)" },
+          { icon: Mail, label: "Automatic email sending (coming soon)" },
           { icon: FileText, label: "Reminder templates" },
-          { icon: Clock, label: "Scheduled reminders" },
+          { icon: Clock, label: "Due-reminder alerts in the app" },
         ]}
         visual={<RemindersMock />}
       />
@@ -714,13 +714,13 @@ export default function FeaturesPage() {
         id="reports"
         label="Reports & Insights"
         title="Run your practice with data, not gut feel"
-        description="Monthly income vs expense charts, matter status breakdowns, outstanding receivables, and team productivity metrics — all in one dashboard so you can spot trends and make informed decisions."
+        description="Monthly collections vs expenses, case status breakdowns, outstanding fees by client and task progress — with every report downloadable as CSV for Excel."
         features={[
           { icon: TrendingUp, label: "Monthly income vs expenses chart" },
           { icon: PieChart, label: "Matter status breakdown" },
           { icon: Wallet, label: "Outstanding receivables overview" },
-          { icon: Users, label: "Team productivity — tasks completed" },
-          { icon: BarChart3, label: "Practice growth trends" },
+          { icon: Users, label: "Task progress" },
+          { icon: BarChart3, label: "CSV export for Excel" },
           { icon: IndianRupee, label: "Revenue and collection metrics" },
         ]}
         visual={<ReportsMock />}
@@ -806,8 +806,8 @@ export default function FeaturesPage() {
             Ready to modernise your practice?
           </h2>
           <p className="text-slate-300 mb-8 text-base leading-relaxed">
-            Join advocates and law firms across India who are managing their practice smarter
-            with NyayVakil. Start your 14-day free trial — no credit card needed.
+            Set up your chamber in two minutes and manage your practice smarter with NyayVakil.
+            Free during early access — no credit card needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
@@ -815,7 +815,7 @@ export default function FeaturesPage() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-white transition-all hover:bg-slate-100 active:scale-[0.98]"
               style={{ color: "#14213D" }}
             >
-              Start Free Trial
+              Start Free
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
             <Link
@@ -826,7 +826,7 @@ export default function FeaturesPage() {
             </Link>
           </div>
           <p className="mt-5 text-xs text-slate-400">
-            14-day free trial · No credit card required · Cancel anytime
+            Free during early access · No credit card required
           </p>
         </div>
       </section>

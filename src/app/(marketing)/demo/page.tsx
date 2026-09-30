@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { toast } from "sonner";
+import { submitLead } from "@/lib/leads-client";
 import Link from "next/link";
 import {
   Play,
@@ -65,9 +67,9 @@ const DEMO_FEATURES = [
   },
   {
     icon: FolderOpen,
-    title: "Document Vault",
+    title: "Document Register",
     description:
-      "Store vakalatnamas, court orders, and client documents securely. Retrieve them in seconds.",
+      "Record vakalatnamas, court orders and client documents against each case. File uploads are coming soon.",
   },
   {
     icon: ClipboardList,
@@ -88,7 +90,7 @@ const FAQS = [
   {
     question: "Can I try the product before booking a live demo?",
     answer:
-      "Yes. The interactive demo lets you explore the full product with pre-loaded sample data — no sign-up required. You can launch it directly from this page. The live demo is for when you want a personalised walkthrough with one of our team members.",
+      "Yes. You can create a free account in about two minutes and try every feature with your own cases — no credit card needed. The live demo is for when you want our team to walk you through it.",
   },
   {
     question: "What happens after I submit the booking form?",
@@ -209,12 +211,27 @@ export default function DemoPage() {
 
     setSubmitState("loading");
 
-    // TODO: Replace mock submission with real API call to /api/leads/book-demo
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-
-    const ref = `NV-DEMO-${Math.floor(1000 + Math.random() * 9000)}`;
-    setReferenceNumber(ref);
-    setSubmitState("success");
+    try {
+      const ref = await submitLead({
+        kind: "demo",
+        name: formData.fullName,
+        mobile: formData.mobile,
+        email: formData.email,
+        organisation: formData.organisation,
+        message: formData.questions,
+        details: {
+          practiceType: formData.practiceType,
+          teamSize: formData.teamSize,
+          preferredDate: formData.preferredDate,
+          preferredTime: formData.preferredTime,
+        },
+      });
+      setReferenceNumber(ref);
+      setSubmitState("success");
+    } catch (err) {
+      setSubmitState("idle");
+      toast.error(err instanceof Error ? err.message : "Could not book the demo. Please try again.");
+    }
   };
 
   const handleBookAnother = () => {
@@ -262,18 +279,18 @@ export default function DemoPage() {
             See NyayVakil in action
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
-            Explore the product yourself with sample data, or let our team walk
-            you through it personally. Either way, no sign-up required to start.
+            Try it yourself free — sign-up takes two minutes — or let our team
+            walk you through it personally.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              href="/login?demo=true"
+              href="/signup"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
               style={{ backgroundColor: "#14213D" }}
             >
               <Play className="w-4 h-4" strokeWidth={2.5} />
-              Try Interactive Demo
+              Try it free
             </Link>
             <button
               onClick={scrollToForm}
@@ -304,31 +321,31 @@ export default function DemoPage() {
               </div>
 
               <h2 className="text-xl font-bold text-slate-900 mb-2">
-                Try the Interactive Demo
+                Try it yourself — free
               </h2>
               <p className="text-sm text-slate-500 leading-relaxed mb-5">
-                Explore the full product with sample legal practice data. No
-                sign-up required.
+                Create your chamber in two minutes and use every feature with your
+                own cases. Free during early access, no credit card.
               </p>
 
               <ul className="space-y-2.5 mb-7">
-                <FeatureCheckItem text="Pre-loaded matter and client data" />
-                <FeatureCheckItem text="Sample hearing diary with upcoming dates" />
-                <FeatureCheckItem text="Demo fees and expenses recorded" />
-                <FeatureCheckItem text="No real data, no commitment" />
+                <FeatureCheckItem text="A Get Started checklist guides your first steps" />
+                <FeatureCheckItem text="Court diary, fees, clients and tasks from day one" />
+                <FeatureCheckItem text="Works on your phone and computer" />
+                <FeatureCheckItem text="No credit card, no commitment" />
               </ul>
 
               <div className="mt-auto">
                 <Link
-                  href="/login?demo=true"
+                  href="/signup"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
                   style={{ backgroundColor: "#14213D" }}
                 >
-                  Launch Demo →
+                  Create free account →
                 </Link>
                 <p className="mt-3 text-xs text-slate-400 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 shrink-0" strokeWidth={2} />
-                  Demo data resets automatically
+                  Takes about 2 minutes
                 </p>
               </div>
             </div>
@@ -465,7 +482,7 @@ export default function DemoPage() {
                   Book Another
                 </button>
                 <Link
-                  href="/login?demo=true"
+                  href="/signup"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
                   style={{ backgroundColor: "#14213D" }}
                 >
@@ -732,7 +749,7 @@ export default function DemoPage() {
             Just want to explore on your own?
           </p>
           <Link
-            href="/login?demo=true"
+            href="/signup"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
             style={{ backgroundColor: "#14213D" }}
           >

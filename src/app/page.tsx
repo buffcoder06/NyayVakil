@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
+import { ProductShot } from "@/components/marketing/product-shot";
 import {
   Briefcase,
   CalendarDays,
@@ -8,7 +9,6 @@ import {
   FolderOpen,
   ClipboardList,
   CheckCircle,
-  Star,
   ArrowRight,
   Scale,
   Bell,
@@ -47,10 +47,10 @@ export default function HomePage() {
               Sign In
             </Link>
             <Link
-              href="/free-trial"
+              href="/signup"
               className="rounded-lg bg-[#14213D] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0E182E] transition-colors"
             >
-              Start Free Trial
+              Start Free
             </Link>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-4xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-500 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Now in early access — join 500+ advocates
+            Now in early access · Free for Indian advocates
           </div>
 
           <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-[#14213D] sm:text-5xl lg:text-6xl">
@@ -94,10 +94,10 @@ export default function HomePage() {
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/free-trial"
+              href="/signup"
               className="inline-flex items-center gap-2 rounded-xl bg-[#14213D] px-8 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-[#0E182E] transition-colors"
             >
-              Start Free Trial <ArrowRight className="h-4 w-4" />
+              Start Free <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact?type=demo"
@@ -108,86 +108,20 @@ export default function HomePage() {
           </div>
 
           <p className="mt-5 text-sm text-slate-400">
-            No credit card required · Setup in minutes · Cancel anytime
+            Free during early access · No credit card · Set up in 2 minutes
           </p>
         </div>
 
-        {/* Mock Dashboard Screenshot */}
+        {/* Real product screenshot */}
         <div className="mx-auto mt-16 max-w-5xl">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-2xl">
-            {/* Browser chrome */}
-            <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-100 px-5 py-3">
-              <div className="h-3 w-3 rounded-full bg-red-400" />
-              <div className="h-3 w-3 rounded-full bg-amber-400" />
-              <div className="h-3 w-3 rounded-full bg-emerald-400" />
-              <div className="ml-4 flex-1 rounded-md bg-white px-4 py-1 text-xs text-slate-400">
-                app.nyayvakil.in/dashboard
-              </div>
-            </div>
-            {/* Fake dashboard UI */}
-            <div className="bg-slate-50 p-6">
-              {/* Top stats row */}
-              <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {[
-                  { label: "Active Matters", value: "34" },
-                  { label: "Today's Hearings", value: "6" },
-                  { label: "Fee Pending", value: "₹84,500" },
-                  { label: "Tasks Due", value: "11" },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                    <p className="text-xs text-slate-400">{stat.label}</p>
-                    <p className="mt-1 text-2xl font-bold text-[#14213D]">{stat.value}</p>
-                  </div>
-                ))}
-              </div>
-              {/* Two column layout */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {/* Hearing list mock */}
-                <div className="col-span-2 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="text-sm font-semibold text-slate-700">Today's Court Diary</p>
-                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-[#14213D]">Delhi HC</span>
-                  </div>
-                  {[
-                    { time: "10:30 AM", matter: "Sharma v. State of Delhi", court: "Court No. 4" },
-                    { time: "12:00 PM", matter: "Mehta Industries Ltd.", court: "Court No. 11" },
-                    { time: "02:15 PM", matter: "Gupta & Sons v. HDFC", court: "Court No. 7" },
-                  ].map((h) => (
-                    <div key={h.time} className="flex items-center gap-3 border-t border-slate-100 py-2.5">
-                      <span className="w-16 shrink-0 text-xs font-medium text-[#14213D]">{h.time}</span>
-                      <div className="flex-1">
-                        <p className="text-xs font-semibold text-slate-700">{h.matter}</p>
-                        <p className="text-xs text-slate-400">{h.court}</p>
-                      </div>
-                      <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-600">Scheduled</span>
-                    </div>
-                  ))}
-                </div>
-                {/* Fee overview mock */}
-                <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                  <p className="mb-3 text-sm font-semibold text-slate-700">Fee Overview</p>
-                  {[
-                    { label: "Total Agreed", value: "₹3,20,000", color: "bg-slate-200" },
-                    { label: "Received", value: "₹2,35,500", color: "bg-emerald-400" },
-                    { label: "Pending", value: "₹84,500", color: "bg-amber-400" },
-                  ].map((f) => (
-                    <div key={f.label} className="mb-3">
-                      <div className="mb-1 flex justify-between text-xs">
-                        <span className="text-slate-500">{f.label}</span>
-                        <span className="font-semibold text-slate-700">{f.value}</span>
-                      </div>
-                      <div className="h-1.5 w-full rounded-full bg-slate-100">
-                        <div
-                          className={`h-1.5 rounded-full ${f.color}`}
-                          style={{ width: f.label === "Total Agreed" ? "100%" : f.label === "Received" ? "73%" : "26%" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProductShot
+            src="/screens/dashboard.jpg"
+            alt="NyayVakil dashboard showing today's court diary, pending fees and tasks"
+            width={2880}
+            height={1800}
+            url="www.nyayvakil.in/dashboard"
+            priority
+          />
         </div>
       </section>
 
@@ -196,10 +130,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {[
-              { stat: "500+", label: "Advocates" },
-              { stat: "12,000+", label: "Matters Tracked" },
-              { stat: "45,000+", label: "Hearings Logged" },
-              { stat: "₹2.4Cr+", label: "Fee Recoveries" },
+              { stat: "Free", label: "During early access" },
+              { stat: "2 min", label: "To set up your chamber" },
+              { stat: "₹ · IST", label: "Built for Indian courts" },
+              { stat: "Any device", label: "Phone, tablet or desktop" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -301,17 +235,17 @@ export default function HomePage() {
               {
                 icon: <Users className="h-6 w-6" />,
                 title: "Client Records",
-                desc: "Individual and firm clients with full matter linkage, contact history, and documents.",
+                desc: "Individuals, families and companies — with every case, fee and payment linked to them.",
               },
               {
                 icon: <FolderOpen className="h-6 w-6" />,
-                title: "Document Vault",
-                desc: "Upload and organise vakalatnamas, affidavits, petitions, and all case files securely.",
+                title: "Document Register",
+                desc: "Record vakalatnamas, affidavits, petitions and orders against each case. File uploads coming soon.",
               },
               {
                 icon: <ClipboardList className="h-6 w-6" />,
-                title: "Team Tasks",
-                desc: "Assign work to your junior or clerk with due dates, priority, and completion tracking.",
+                title: "Tasks & Reminders",
+                desc: "Track drafting, filing and follow-ups with due dates and priorities, linked to each case.",
               },
             ].map((feature) => (
               <div
@@ -352,14 +286,14 @@ export default function HomePage() {
               {
                 icon: <Users className="h-7 w-7" />,
                 title: "Advocate's Chamber",
-                desc: "Coordinate with your junior and clerk, assign tasks, track matters across your team — without losing control.",
-                highlight: "Best for chambers with 2–5 members",
+                desc: "Run the chamber's cases, court diary and fees from one place. Team logins for juniors and clerks are coming soon.",
+                highlight: "Team access coming soon",
               },
               {
                 icon: <Briefcase className="h-7 w-7" />,
                 title: "Small Law Firm",
-                desc: "Multi-user access, role-based permissions, and team-wide visibility into all active matters and deadlines.",
-                highlight: "Best for firms with 5–25 lawyers",
+                desc: "Multi-user access with role-based permissions is on our roadmap. Join early access and help us shape it.",
+                highlight: "On our roadmap",
               },
             ].map((card) => (
               <div
@@ -399,8 +333,8 @@ export default function HomePage() {
                   { icon: <CalendarDays className="h-5 w-5" />, text: "Court diary organised by date — see every hearing at a glance" },
                   { icon: <ArrowRight className="h-5 w-5" />, text: "Adjournment tracking with next hearing date automatically saved" },
                   { icon: <FileText className="h-5 w-5" />, text: "Matter and client linked to each hearing for instant context" },
-                  { icon: <CheckCircle className="h-5 w-5" />, text: "Appearance status tracking — present, absent, or adjourned" },
-                  { icon: <Bell className="h-5 w-5" />, text: "Send hearing reminders to clients via WhatsApp" },
+                  { icon: <CheckCircle className="h-5 w-5" />, text: "Mark hearings attended, adjourned or missed in one tap" },
+                  { icon: <Bell className="h-5 w-5" />, text: "Prepare client reminders — automatic WhatsApp & SMS sending coming soon" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-3">
                     <span className="mt-0.5 shrink-0 text-[#14213D]">{item.icon}</span>
@@ -410,31 +344,13 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Visual placeholder */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm font-semibold text-slate-700">March 2026 — Court Diary</p>
-                <span className="rounded-full bg-[#14213D]/10 px-2.5 py-0.5 text-xs font-medium text-[#14213D]">6 hearings</span>
-              </div>
-              {[
-                { date: "Mon, 21 Mar", matter: "Sharma v. State", court: "Delhi HC — Court 4", status: "Scheduled", color: "bg-blue-100 text-blue-700" },
-                { date: "Mon, 21 Mar", matter: "Mehta Industries Ltd.", court: "Delhi HC — Court 11", status: "Completed", color: "bg-emerald-100 text-emerald-700" },
-                { date: "Wed, 23 Mar", matter: "Gupta & Sons v. HDFC", court: "Tis Hazari — Court 7", status: "Scheduled", color: "bg-blue-100 text-blue-700" },
-                { date: "Thu, 24 Mar", matter: "Anand v. Municipal Corp.", court: "Saket DC — Court 2", status: "Adjourned", color: "bg-amber-100 text-amber-700" },
-                { date: "Fri, 25 Mar", matter: "Kapoor Estates", court: "Delhi HC — Court 9", status: "Scheduled", color: "bg-blue-100 text-blue-700" },
-              ].map((h, i) => (
-                <div key={i} className="flex items-center gap-3 border-t border-slate-100 py-3">
-                  <div className="w-24 shrink-0">
-                    <p className="text-xs font-medium text-[#14213D]">{h.date}</p>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="truncate text-xs font-semibold text-slate-700">{h.matter}</p>
-                    <p className="text-xs text-slate-400">{h.court}</p>
-                  </div>
-                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${h.color}`}>{h.status}</span>
-                </div>
-              ))}
-            </div>
+            <ProductShot
+              src="/screens/court-diary.jpg"
+              alt="NyayVakil court diary listing hearings with court, time, purpose and status"
+              width={2000}
+              height={1300}
+              url="www.nyayvakil.in/hearings"
+            />
           </div>
         </div>
       </section>
@@ -443,43 +359,13 @@ export default function HomePage() {
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            {/* Visual placeholder */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <p className="mb-5 text-sm font-semibold text-slate-700">Fee Recovery Overview</p>
-              <div className="mb-6 grid grid-cols-3 gap-3">
-                {[
-                  { label: "Total Agreed", value: "₹8,40,000", color: "text-slate-700" },
-                  { label: "Received", value: "₹6,15,500", color: "text-emerald-600" },
-                  { label: "Pending", value: "₹2,24,500", color: "text-amber-600" },
-                ].map((f) => (
-                  <div key={f.label} className="rounded-xl bg-slate-50 p-3 text-center">
-                    <p className={`text-base font-bold ${f.color}`}>{f.value}</p>
-                    <p className="mt-0.5 text-xs text-slate-400">{f.label}</p>
-                  </div>
-                ))}
-              </div>
-              {/* Bar chart mock */}
-              <p className="mb-2 text-xs font-medium text-slate-500">Client-wise outstanding</p>
-              {[
-                { name: "Mehta Industries", amount: "₹85,000", pct: "78%" },
-                { name: "Kapoor Estates", amount: "₹62,000", pct: "55%" },
-                { name: "Anand & Co.", amount: "₹45,500", pct: "40%" },
-                { name: "Gupta Transport", amount: "₹32,000", pct: "28%" },
-              ].map((c) => (
-                <div key={c.name} className="mb-3">
-                  <div className="mb-1 flex justify-between text-xs">
-                    <span className="text-slate-600">{c.name}</span>
-                    <span className="font-semibold text-[#14213D]">{c.amount}</span>
-                  </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
-                    <div
-                      className="h-2 rounded-full bg-[#14213D]"
-                      style={{ width: c.pct }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ProductShot
+              src="/screens/fees.jpg"
+              alt="NyayVakil fee management showing agreed, collected and pending fees per case"
+              width={2000}
+              height={1300}
+              url="www.nyayvakil.in/fees"
+            />
 
             {/* Text */}
             <div>
@@ -493,7 +379,7 @@ export default function HomePage() {
               <ul className="space-y-4">
                 {[
                   { icon: <TrendingUp className="h-5 w-5" />, text: "Total fee agreed vs received vs pending — always up to date" },
-                  { icon: <Bell className="h-5 w-5" />, text: "Overdue payment alerts so nothing slips through the cracks" },
+                  { icon: <Bell className="h-5 w-5" />, text: "Overdue fees flagged automatically so nothing slips through the cracks" },
                   { icon: <FileText className="h-5 w-5" />, text: "Complete payment history broken down by matter" },
                   { icon: <Users className="h-5 w-5" />, text: "Client-wise outstanding balance at a glance" },
                 ].map((item) => (
@@ -535,7 +421,7 @@ export default function HomePage() {
               {
                 icon: <FolderOpen className="h-6 w-6" />,
                 title: "Centralise case records",
-                desc: "Every matter, document, and note in one place — accessible from anywhere.",
+                desc: "Every case, hearing, fee and note in one place — accessible from anywhere.",
               },
               {
                 icon: <FileText className="h-6 w-6" />,
@@ -544,8 +430,8 @@ export default function HomePage() {
               },
               {
                 icon: <Users className="h-6 w-6" />,
-                title: "Coordinate your team better",
-                desc: "Assign tasks to your junior or clerk and track progress without constant follow-up.",
+                title: "Stay on top of every task",
+                desc: "Drafting, filing and client follow-ups tracked with due dates, so nothing depends on memory.",
               },
               {
                 icon: <Smartphone className="h-6 w-6" />,
@@ -570,60 +456,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Section 9: Testimonials ── */}
+      {/* ── Section 9: Early access ── */}
       <section className="bg-slate-50 px-6 py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-4 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
-              What advocates are saying
-            </h2>
-          </div>
-          <p className="mb-12 text-center text-sm text-slate-400">
-            (Sample testimonials — actual advocate reviews coming soon)
+        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-8 py-12 text-center shadow-sm sm:px-14">
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold-bright/15 px-3 py-1 text-xs font-semibold text-gold">
+            Early access
+          </span>
+          <h2 className="mt-4 text-3xl font-bold text-[#14213D] sm:text-4xl">Built with advocates, for advocates</h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-slate-600">
+            NyayVakil is in early access. We&apos;re working closely with our first advocates to shape every
+            feature around real court practice. Join free today and tell us what your chamber needs next —
+            AI document analysis, WhatsApp reminders and team access are already on the way.
           </p>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              {
-                quote: "I used to maintain three different registers for my hearings, fees, and client details. NyayVakil replaced all of them. I can now check everything from my phone before I enter the courtroom.",
-                name: "Adv. Priya Sharma",
-                role: "Advocate, Delhi High Court",
-                initials: "PS",
-              },
-              {
-                quote: "The fee tracking feature alone is worth it. I always knew I was owed money but never had a clear number. Now I send reminders to clients based on actual data, not memory.",
-                name: "Adv. Rohit Mahajan",
-                role: "Advocate, Bombay High Court",
-                initials: "RM",
-              },
-              {
-                quote: "Managing my chamber's work used to mean WhatsApp groups and shared Excel sheets. With NyayVakil, my junior and I are on the same page without any confusion about who is handling what.",
-                name: "Adv. Kavitha Nair",
-                role: "Senior Advocate, Madras High Court",
-                initials: "KN",
-              },
-            ].map((t) => (
-              <div key={t.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                {/* Stars */}
-                <div className="mb-4 flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <blockquote className="flex-1 text-sm leading-relaxed text-slate-600">
-                  "{t.quote}"
-                </blockquote>
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-200 text-sm font-semibold text-slate-600">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">{t.name}</p>
-                    <p className="text-xs text-slate-400">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/signup" className="inline-flex items-center gap-2 rounded-xl bg-[#14213D] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0E182E]">
+              Join early access — free <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/demo" className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-[#14213D] hover:bg-slate-50">
+              Book a demo
+            </Link>
           </div>
         </div>
       </section>
@@ -637,7 +488,7 @@ export default function HomePage() {
             </h2>
           </div>
           <p className="mb-12 text-center text-sm text-slate-400">
-            All prices introductory. Custom pricing available for larger firms.
+            Free during early access — these are the planned prices once paid plans launch.
           </p>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -647,7 +498,7 @@ export default function HomePage() {
                 price: "₹799",
                 period: "/month",
                 desc: "Perfect for solo advocates managing their own practice.",
-                features: ["1 user", "Unlimited matters", "Court diary", "Fee tracking", "Document vault"],
+                features: ["1 user", "Unlimited matters", "Court diary", "Fee tracking", "Document register"],
                 highlighted: false,
               },
               {
@@ -655,7 +506,7 @@ export default function HomePage() {
                 price: "₹2,499",
                 period: "/month",
                 desc: "For advocates with a junior, clerk, or small team.",
-                features: ["Up to 5 users", "Everything in Starter", "Task assignment", "Team visibility", "Priority support"],
+                features: ["Everything in Starter", "Reports & CSV export", "Up to 5 users (coming soon)", "Task assignment (coming soon)", "Priority support"],
                 highlighted: true,
               },
               {
@@ -663,7 +514,7 @@ export default function HomePage() {
                 price: "₹6,999",
                 period: "/month",
                 desc: "For small law firms needing multi-user, role-based access.",
-                features: ["Up to 25 users", "Everything in Chamber", "Role-based permissions", "Advanced reports", "Dedicated onboarding"],
+                features: ["Everything in Chamber", "Dedicated onboarding", "Up to 25 users (coming soon)", "Role-based permissions (coming soon)", "Advanced reports (coming soon)"],
                 highlighted: false,
               },
             ].map((p) => (
@@ -699,14 +550,14 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <Link
-                  href="/free-trial"
+                  href="/signup"
                   className={`block rounded-xl py-3 text-center text-sm font-semibold transition-colors ${
                     p.highlighted
                       ? "bg-white text-[#14213D] hover:bg-slate-100"
                       : "bg-[#14213D] text-white hover:bg-[#0E182E]"
                   }`}
                 >
-                  Get Started
+                  Start free
                 </Link>
               </div>
             ))}
@@ -736,15 +587,15 @@ export default function HomePage() {
             {[
               {
                 q: "Is NyayVakil suitable for a solo advocate?",
-                a: "Yes, absolutely. NyayVakil was designed with solo advocates in mind. The Starter plan gives a single practitioner everything they need — matter management, court diary, fee tracking, client records, and document storage — at a price that makes sense for an individual practice.",
+                a: "Yes, absolutely. NyayVakil was designed with solo advocates in mind. The Starter plan gives a single practitioner everything they need — case management, court diary, fee tracking, client records and a document register — and it's free during early access.",
               },
               {
                 q: "Can I use this for hearing diary only?",
                 a: "Yes. You can start by using just the court diary feature and add other features as you get comfortable. There is no obligation to use everything at once. Many advocates start with the diary and gradually bring in fee tracking and matter management over the first few weeks.",
               },
               {
-                q: "Is there a free trial?",
-                a: "Yes. You can start a free trial without entering any credit card details. The trial gives you full access to all features for 14 days so you can evaluate whether NyayVakil fits your practice before committing to a paid plan.",
+                q: "Is NyayVakil free?",
+                a: "Yes — NyayVakil is free during early access, with no credit card needed. When paid plans launch you'll get advance notice, and everything you've entered stays with you.",
               },
             ].map((faq) => (
               <div key={faq.q} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -776,10 +627,10 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/free-trial"
+              href="/signup"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-[#14213D] hover:bg-slate-100 transition-colors"
             >
-              Start Free Trial <ArrowRight className="h-4 w-4" />
+              Start Free <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact?type=demo"
@@ -789,7 +640,7 @@ export default function HomePage() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-blue-300">
-            No credit card required · 14-day free trial · Cancel anytime
+            Free during early access · No credit card required
           </p>
         </div>
       </section>

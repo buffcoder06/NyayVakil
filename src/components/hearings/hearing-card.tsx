@@ -98,24 +98,24 @@ export function HearingCard({
 
         <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-600 dark:text-slate-400">
           <span className="flex items-center gap-1">
-            <MapPin className="h-3.5 w-3.5 text-slate-400" />
+            <MapPin className="h-3.5 w-3.5 text-slate-500" />
             {hearing.courtName}
           </span>
           {hearing.time && (
             <span className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5 text-slate-400" />
+              <Clock className="h-3.5 w-3.5 text-slate-500" />
               {formatTime(hearing.time)}
             </span>
           )}
           {hearing.purpose && (
             <span className="flex items-center gap-1">
-              <FileText className="h-3.5 w-3.5 text-slate-400" />
+              <FileText className="h-3.5 w-3.5 text-slate-500" />
               {hearing.purpose}
             </span>
           )}
           {hearing.assignedTo && (
             <span className="flex items-center gap-1">
-              <User className="h-3.5 w-3.5 text-slate-400" />
+              <User className="h-3.5 w-3.5 text-slate-500" />
               {hearing.assignedTo}
             </span>
           )}

@@ -134,7 +134,7 @@ export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps
       <CardFooter className="border-t pt-3">
         <Link
           href="/hearings"
-          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium pointer-coarse:min-h-11 text-navy hover:text-gold-deep dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           Open court diary
           <ArrowRight className="h-3.5 w-3.5" />

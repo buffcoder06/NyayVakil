@@ -98,11 +98,11 @@ function ClientCard({ client }: { client: Client }) {
               </div>
               <div className="mt-3 flex items-center gap-4">
                 <div className="flex items-center gap-1.5 text-sm">
-                  <Briefcase className="h-3.5 w-3.5 text-slate-400" />
+                  <Briefcase className="h-3.5 w-3.5 text-slate-500" />
                   <span className="text-slate-600 font-medium">
                     {client.linkedMatterIds.length}
                   </span>
-                  <span className="text-slate-400">
+                  <span className="text-slate-500">
                     {client.linkedMatterIds.length === 1 ? "matter" : "matters"}
                   </span>
                 </div>
@@ -228,7 +228,7 @@ export default function ClientsPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
           <Input
             className="pl-9"
             placeholder="Search by name, phone, email, city…"
@@ -237,7 +237,7 @@ export default function ClientsPage() {
           />
         </div>
         <Select value={typeFilter} onValueChange={(v) => v !== null && setTypeFilter(v)}>
-          <SelectTrigger className="w-full sm:w-44">
+          <SelectTrigger aria-label="Filter by type" className="w-full sm:w-44">
             <SelectValue placeholder="Client Type" />
           </SelectTrigger>
           <SelectContent>
@@ -258,7 +258,7 @@ export default function ClientsPage() {
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center py-20 text-slate-400">
+        <div className="flex flex-col items-center py-20 text-slate-500">
           <Users className="h-12 w-12 mb-3 opacity-30" />
           <p className="text-base font-medium">No clients found</p>
           <p className="text-sm mt-1">
@@ -277,7 +277,7 @@ export default function ClientsPage() {
         </div>
       ) : (
         <>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-500 mb-3">
             Showing {filtered.length} of {clients.length} clients
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">

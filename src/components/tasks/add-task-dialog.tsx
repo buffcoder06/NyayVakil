@@ -195,7 +195,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, 
                     <FormLabel>Case (Optional)</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger aria-label="Case">
                           <SelectValue placeholder="Select case" />
                         </SelectTrigger>
                       </FormControl>
@@ -222,7 +222,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, 
                     <FormLabel>Assign To <span className="text-red-500">*</span></FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger aria-label="Assign To">
                           <SelectValue placeholder="Select member" />
                         </SelectTrigger>
                       </FormControl>
@@ -284,7 +284,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, 
                     <FormLabel>Priority <span className="text-red-500">*</span></FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger aria-label="Priority">
                           <SelectValue placeholder="Select priority" />
                         </SelectTrigger>
                       </FormControl>

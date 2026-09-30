@@ -48,8 +48,8 @@ const statusConfig: Record<string, { label: string; className: string }> = {
 };
 
 const priorityConfig: Record<string, { label: string; className: string }> = {
-  high: { label: "High", className: "bg-red-50 text-red-600 border-red-200" },
-  medium: { label: "Medium", className: "bg-amber-50 text-amber-600 border-amber-200" },
+  high: { label: "High", className: "bg-red-50 text-red-700 border-red-200" },
+  medium: { label: "Medium", className: "bg-amber-50 text-amber-700 border-amber-200" },
   low: { label: "Low", className: "bg-slate-50 text-slate-500 border-slate-200" },
 };
 
@@ -87,7 +87,7 @@ function MatterCard({ matter, clientName }: { matter: Matter; clientName: string
                 <Building2 className="h-3.5 w-3.5 shrink-0" />
                 <span>{matter.courtName}</span>
                 {matter.caseNumber && (
-                  <span className="text-xs text-slate-400">· Case No. {matter.caseNumber}</span>
+                  <span className="text-xs text-slate-500">· Case No. {matter.caseNumber}</span>
                 )}
               </div>
               <div className="flex items-center gap-1.5 text-sm text-slate-500">
@@ -107,7 +107,7 @@ function MatterCard({ matter, clientName }: { matter: Matter; clientName: string
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center gap-1.5 text-sm text-slate-400">
+                <div className="flex items-center gap-1.5 text-sm text-slate-500">
                   <Calendar className="h-3.5 w-3.5 shrink-0" />
                   <span>No hearing scheduled</span>
                 </div>
@@ -225,7 +225,7 @@ export default function MattersPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5 flex-wrap">
         <div className="relative flex-1 min-w-48">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
           <Input
             className="pl-9"
             placeholder="Search case title, case no., court, client…"
@@ -234,7 +234,7 @@ export default function MattersPage() {
           />
         </div>
         <Select value={statusFilter} onValueChange={(v) => v !== null && setStatusFilter(v)}>
-          <SelectTrigger className="w-full sm:w-36"><SelectValue placeholder="Status" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by status" className="w-full sm:w-36"><SelectValue placeholder="Status" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="active">Active</SelectItem>
@@ -245,7 +245,7 @@ export default function MattersPage() {
           </SelectContent>
         </Select>
         <Select value={priorityFilter} onValueChange={(v) => v !== null && setPriorityFilter(v)}>
-          <SelectTrigger className="w-full sm:w-36"><SelectValue placeholder="Priority" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by priority" className="w-full sm:w-36"><SelectValue placeholder="Priority" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Priority</SelectItem>
             <SelectItem value="high">High</SelectItem>
@@ -254,7 +254,7 @@ export default function MattersPage() {
           </SelectContent>
         </Select>
         <Select value={caseTypeFilter} onValueChange={(v) => v !== null && setCaseTypeFilter(v)}>
-          <SelectTrigger className="w-full sm:w-40"><SelectValue placeholder="Case Type" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by type" className="w-full sm:w-40"><SelectValue placeholder="Case Type" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             {CASE_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
@@ -268,7 +268,7 @@ export default function MattersPage() {
           {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-32 rounded-xl" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center py-20 text-slate-400">
+        <div className="flex flex-col items-center py-20 text-slate-500">
           <Scale className="h-12 w-12 mb-3 opacity-30" />
           <p className="text-base font-medium">No cases found</p>
           <p className="text-sm mt-1">
@@ -286,7 +286,7 @@ export default function MattersPage() {
         </div>
       ) : (
         <>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-500 mb-3">
             Showing {filtered.length} of {matters.length} matters
           </p>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">

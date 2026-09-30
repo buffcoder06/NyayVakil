@@ -61,7 +61,7 @@ export function FeeEntryCard({
                 {matterTitle ?? feeEntry.description}
               </p>
               {matterTitle && (
-                <p className="text-xs text-slate-400 mt-0.5">{feeEntry.description}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{feeEntry.description}</p>
               )}
             </div>
             <Badge
@@ -75,23 +75,23 @@ export function FeeEntryCard({
           {/* Amounts row */}
           <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <div>
-              <p className="text-xs text-slate-400">Total Agreed</p>
+              <p className="text-xs text-slate-500">Total Agreed</p>
               <p className="font-semibold text-slate-800 dark:text-slate-200">
                 {formatCurrency(feeEntry.totalAmount)}
               </p>
             </div>
             <div>
-              <p className="text-xs text-slate-400">Received</p>
+              <p className="text-xs text-slate-500">Received</p>
               <p className="font-semibold text-green-700">
                 {formatCurrency(feeEntry.receivedAmount)}
               </p>
             </div>
             <div>
-              <p className="text-xs text-slate-400">Pending</p>
+              <p className="text-xs text-slate-500">Pending</p>
               <p
                 className={cn(
                   "font-semibold",
-                  overdue ? "text-red-600" : "text-slate-700 dark:text-slate-300"
+                  overdue ? "text-red-700" : "text-slate-700 dark:text-slate-300"
                 )}
               >
                 {formatCurrency(feeEntry.pendingAmount)}
@@ -99,11 +99,11 @@ export function FeeEntryCard({
             </div>
             {feeEntry.dueDate && (
               <div>
-                <p className="text-xs text-slate-400">Due Date</p>
+                <p className="text-xs text-slate-500">Due Date</p>
                 <p
                   className={cn(
                     "text-sm font-medium flex items-center gap-1",
-                    overdue ? "text-red-600" : "text-slate-600 dark:text-slate-300"
+                    overdue ? "text-red-700" : "text-slate-600 dark:text-slate-300"
                   )}
                 >
                   <CalendarClock className="h-3.5 w-3.5" />
@@ -116,12 +116,12 @@ export function FeeEntryCard({
           {/* Progress bar */}
           <div className="mt-3">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-slate-400">Payment progress</span>
+              <span className="text-xs text-slate-500">Payment progress</span>
               <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
                 {pct}%
               </span>
             </div>
-            <Progress
+            <Progress aria-label="Amount received"
               value={pct}
               className="h-2"
             />
@@ -156,7 +156,7 @@ export function FeeEntryCard({
             <Button
               size="sm"
               variant="ghost"
-              className="gap-1.5 text-xs text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+              className="gap-1.5 text-xs text-orange-700 hover:text-orange-700 hover:bg-orange-50"
               onClick={() => onSendReminder(feeEntry)}
             >
               <Bell className="h-3.5 w-3.5" />

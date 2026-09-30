@@ -40,7 +40,7 @@ function DemoBanner() {
         {/* Left — message */}
         <div className="flex items-center gap-2.5 min-w-0">
           <AlertCircle
-            className="h-4 w-4 text-amber-600 shrink-0"
+            className="h-4 w-4 text-amber-700 shrink-0"
             aria-hidden="true"
           />
           <p className="text-sm font-medium text-amber-800 truncate">
@@ -112,7 +112,7 @@ function TrialModeBanner({
         <div className="flex items-center gap-2.5 min-w-0">
           <Zap
             className={`h-4 w-4 shrink-0 ${
-              isUrgent ? "text-red-600" : "text-blue-600"
+              isUrgent ? "text-red-700" : "text-blue-600"
             }`}
             aria-hidden="true"
           />

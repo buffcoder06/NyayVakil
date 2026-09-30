@@ -155,7 +155,7 @@ function NotificationsBell() {
       href="/reminders"
       title={label}
       aria-label={label}
-      className="relative inline-flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-9 w-9"
+      className="relative inline-flex items-center justify-center text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-9 w-9 pointer-coarse:h-11 pointer-coarse:w-11"
     >
       <Bell className="h-4.5 w-4.5" />
       {count > 0 && (
@@ -186,7 +186,7 @@ function UserDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="relative h-9 w-9 rounded-xl p-0 hover:bg-slate-100 inline-flex items-center justify-center"
+        className="relative h-9 w-9 pointer-coarse:h-11 pointer-coarse:w-11 rounded-xl p-0 hover:bg-slate-100 inline-flex items-center justify-center"
         aria-label="User menu"
       >
         <Avatar className="h-8 w-8">
@@ -224,7 +224,7 @@ function UserDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => logout()}
-          className="flex items-center gap-2 cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+          className="flex items-center gap-2 cursor-pointer text-red-700 focus:text-red-600 focus:bg-red-50"
         >
           <LogOut className="h-4 w-4" />
           Sign out

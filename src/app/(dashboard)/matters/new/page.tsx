@@ -106,18 +106,18 @@ function SectionHeader({ icon: Icon, title, description }: {
   );
 }
 
-function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
+function FieldLabel({ children, required, htmlFor }: { children: React.ReactNode; required?: boolean; htmlFor?: string }) {
   return (
-    <Label className="text-xs font-medium text-slate-600 uppercase tracking-wide">
+    <Label htmlFor={htmlFor} className="text-xs font-medium text-slate-600 uppercase tracking-wide">
       {children}
-      {required && <span className="text-red-400 ml-0.5">*</span>}
+      {required && <span className="text-red-600 ml-0.5">*</span>}
     </Label>
   );
 }
 
 const PRIORITY_OPTIONS = [
   { value: "high", label: "High", color: "bg-red-50 text-red-700 border-red-200 data-[active=true]:bg-red-600 data-[active=true]:text-white data-[active=true]:border-red-600" },
-  { value: "medium", label: "Medium", color: "bg-amber-50 text-amber-700 border-amber-200 data-[active=true]:bg-amber-500 data-[active=true]:text-white data-[active=true]:border-amber-500" },
+  { value: "medium", label: "Medium", color: "bg-amber-50 text-amber-700 border-amber-200 data-[active=true]:bg-amber-700 data-[active=true]:text-white data-[active=true]:border-amber-700" },
   { value: "low", label: "Low", color: "bg-emerald-50 text-emerald-700 border-emerald-200 data-[active=true]:bg-emerald-600 data-[active=true]:text-white data-[active=true]:border-emerald-600" },
 ];
 
@@ -221,7 +221,7 @@ export default function NewMatterPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/matters"
-              className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+              className="inline-flex pointer-coarse:min-h-11 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Cases
@@ -254,7 +254,7 @@ export default function NewMatterPage() {
         {/* Page Title */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-900">Add New Case</h1>
-          <p className="text-sm text-slate-500 mt-1">Fill in the case details below. Fields marked with <span className="text-red-400">*</span> are required.</p>
+          <p className="text-sm text-slate-500 mt-1">Fill in the case details below. Fields marked with <span className="text-red-600">*</span> are required.</p>
         </div>
 
         <form id="matter-form" onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -268,8 +268,8 @@ export default function NewMatterPage() {
             />
             <div className="grid grid-cols-1 gap-5">
               <div>
-                <FieldLabel required>Case Title</FieldLabel>
-                <Input
+                <FieldLabel htmlFor="f-case-title" required>Case Title</FieldLabel>
+                <Input id="f-case-title"
                   placeholder="e.g. Agarwal vs Sharma – Property Dispute"
                   className={cn("mt-1.5 h-10", errors.matterTitle && "border-red-300 focus-visible:ring-red-300")}
                   {...register("matterTitle")}
@@ -281,7 +281,7 @@ export default function NewMatterPage() {
                 <div>
                   <FieldLabel required>Client</FieldLabel>
                   <Select value={clientId ?? ""} onValueChange={(v) => { if (v !== null) setValue("clientId", v, { shouldValidate: false }); }}>
-                    <SelectTrigger className={cn("mt-1.5 h-10", errors.clientId && "border-red-300")}>
+                    <SelectTrigger aria-label="Client" className={cn("mt-1.5 h-10", errors.clientId && "border-red-300")}>
                       <SelectValue placeholder="Select client" />
                     </SelectTrigger>
                     <SelectContent>
@@ -295,7 +295,7 @@ export default function NewMatterPage() {
                 <div>
                   <FieldLabel required>Case Type</FieldLabel>
                   <Select value={caseType ?? ""} onValueChange={(v) => { if (v !== null) setValue("caseType", v, { shouldValidate: false }); }}>
-                    <SelectTrigger className={cn("mt-1.5 h-10", errors.caseType && "border-red-300")}>
+                    <SelectTrigger aria-label="Case Type" className={cn("mt-1.5 h-10", errors.caseType && "border-red-300")}>
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -353,12 +353,12 @@ export default function NewMatterPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <FieldLabel>Case Number</FieldLabel>
-                  <Input placeholder="e.g. CS/1234/2024" className="mt-1.5 h-10" {...register("caseNumber")} />
+                  <FieldLabel htmlFor="f-case-number">Case Number</FieldLabel>
+                  <Input id="f-case-number" placeholder="e.g. CS/1234/2024" className="mt-1.5 h-10" {...register("caseNumber")} />
                 </div>
                 <div>
-                  <FieldLabel>CNR Number</FieldLabel>
-                  <Input placeholder="eCourts CNR number" className="mt-1.5 h-10" {...register("cnrNumber")} />
+                  <FieldLabel htmlFor="f-cnr-number">CNR Number</FieldLabel>
+                  <Input id="f-cnr-number" placeholder="eCourts CNR number" className="mt-1.5 h-10" {...register("cnrNumber")} />
                 </div>
               </div>
             </div>
@@ -376,7 +376,7 @@ export default function NewMatterPage() {
                 <div>
                   <FieldLabel required>Court Name</FieldLabel>
                   <Select value={courtName ?? ""} onValueChange={(v) => { if (v !== null) setValue("courtName", v, { shouldValidate: false }); }}>
-                    <SelectTrigger className={cn("mt-1.5 h-10", errors.courtName && "border-red-300")}>
+                    <SelectTrigger aria-label="Court Name" className={cn("mt-1.5 h-10", errors.courtName && "border-red-300")}>
                       <SelectValue placeholder="Select court" />
                     </SelectTrigger>
                     <SelectContent>
@@ -390,7 +390,7 @@ export default function NewMatterPage() {
                 <div>
                   <FieldLabel required>Court Level</FieldLabel>
                   <Select value={courtLevel ?? ""} onValueChange={(v) => { if (v !== null) setValue("courtLevel", v); }}>
-                    <SelectTrigger className="mt-1.5 h-10">
+                    <SelectTrigger aria-label="Court Level" className="mt-1.5 h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -410,23 +410,23 @@ export default function NewMatterPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <FieldLabel>Case Stage</FieldLabel>
-                  <Input placeholder="e.g. Arguments, Evidence, Trial" className="mt-1.5 h-10" {...register("caseStage")} />
+                  <FieldLabel htmlFor="f-case-stage">Case Stage</FieldLabel>
+                  <Input id="f-case-stage" placeholder="e.g. Arguments, Evidence, Trial" className="mt-1.5 h-10" {...register("caseStage")} />
                 </div>
                 <div>
-                  <FieldLabel>Judge Name</FieldLabel>
-                  <Input placeholder="Hon. Judge's name" className="mt-1.5 h-10" {...register("judgeName")} />
+                  <FieldLabel htmlFor="f-judge-name">Judge Name</FieldLabel>
+                  <Input id="f-judge-name" placeholder="Hon. Judge's name" className="mt-1.5 h-10" {...register("judgeName")} />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <FieldLabel>Filing Date</FieldLabel>
-                  <Input type="date" className="mt-1.5 h-10" {...register("filingDate")} />
+                  <FieldLabel htmlFor="f-filing-date">Filing Date</FieldLabel>
+                  <Input id="f-filing-date" type="date" className="mt-1.5 h-10" {...register("filingDate")} />
                 </div>
                 <div>
-                  <FieldLabel>Next Hearing Date</FieldLabel>
-                  <Input type="date" className="mt-1.5 h-10" {...register("nextHearingDate")} />
+                  <FieldLabel htmlFor="f-next-hearing-date">Next Hearing Date</FieldLabel>
+                  <Input id="f-next-hearing-date" type="date" className="mt-1.5 h-10" {...register("nextHearingDate")} />
                 </div>
               </div>
             </div>
@@ -441,16 +441,16 @@ export default function NewMatterPage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <FieldLabel>Opposite Party</FieldLabel>
-                <Input placeholder="Name of opposite party" className="mt-1.5 h-10" {...register("oppositeParty")} />
+                <FieldLabel htmlFor="f-opposite-party">Opposite Party</FieldLabel>
+                <Input id="f-opposite-party" placeholder="Name of opposite party" className="mt-1.5 h-10" {...register("oppositeParty")} />
               </div>
               <div>
-                <FieldLabel>Opposite Advocate</FieldLabel>
-                <Input placeholder="Opposing counsel's name" className="mt-1.5 h-10" {...register("oppositeAdvocate")} />
+                <FieldLabel htmlFor="f-opposite-advocate">Opposite Advocate</FieldLabel>
+                <Input id="f-opposite-advocate" placeholder="Opposing counsel's name" className="mt-1.5 h-10" {...register("oppositeAdvocate")} />
               </div>
               <div>
-                <FieldLabel>Advocate on Record</FieldLabel>
-                <Input placeholder="AOR name (if different)" className="mt-1.5 h-10" {...register("advocateOnRecord")} />
+                <FieldLabel htmlFor="f-advocate-on-record">Advocate on Record</FieldLabel>
+                <Input id="f-advocate-on-record" placeholder="AOR name (if different)" className="mt-1.5 h-10" {...register("advocateOnRecord")} />
               </div>
             </div>
           </div>
@@ -464,12 +464,12 @@ export default function NewMatterPage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="md:col-span-2">
-                <FieldLabel>Act / Section</FieldLabel>
-                <Input placeholder="e.g. IPC 420, CPC Order 39, NI Act 138" className="mt-1.5 h-10" {...register("actSection")} />
+                <FieldLabel htmlFor="f-act-section">Act / Section</FieldLabel>
+                <Input id="f-act-section" placeholder="e.g. IPC 420, CPC Order 39, NI Act 138" className="mt-1.5 h-10" {...register("actSection")} />
               </div>
               <div>
-                <FieldLabel>Police Station</FieldLabel>
-                <Input placeholder="For criminal cases only" className="mt-1.5 h-10" {...register("policeStation")} />
+                <FieldLabel htmlFor="f-police-station">Police Station</FieldLabel>
+                <Input id="f-police-station" placeholder="For criminal cases only" className="mt-1.5 h-10" {...register("policeStation")} />
               </div>
             </div>
           </div>
@@ -485,7 +485,7 @@ export default function NewMatterPage() {
               <div>
                 <FieldLabel>Assigned Junior Advocate</FieldLabel>
                 <Select value={assignedJuniorId || ""} onValueChange={(v) => setValue("assignedJuniorId", v || undefined)}>
-                  <SelectTrigger className="mt-1.5 h-10">
+                  <SelectTrigger aria-label="Assigned Junior Advocate" className="mt-1.5 h-10">
                     <SelectValue placeholder="Not assigned" />
                   </SelectTrigger>
                   <SelectContent>
@@ -499,7 +499,7 @@ export default function NewMatterPage() {
               <div>
                 <FieldLabel>Assigned Clerk</FieldLabel>
                 <Select value={assignedClerkId || ""} onValueChange={(v) => setValue("assignedClerkId", v || undefined)}>
-                  <SelectTrigger className="mt-1.5 h-10">
+                  <SelectTrigger aria-label="Assigned Clerk" className="mt-1.5 h-10">
                     <SelectValue placeholder="Not assigned" />
                   </SelectTrigger>
                   <SelectContent>
@@ -523,7 +523,7 @@ export default function NewMatterPage() {
             <div className="max-w-xs">
               <FieldLabel>Total Fee Agreed (₹)</FieldLabel>
               <div className="relative mt-1.5">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">₹</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium">₹</span>
                 <Input
                   type="number"
                   min={0}
@@ -553,8 +553,8 @@ export default function NewMatterPage() {
 
           {/* Bottom Actions */}
           <div className="flex items-center justify-between bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-            <p className="text-xs text-slate-400">
-              Fields marked <span className="text-red-400 font-medium">*</span> are required
+            <p className="text-xs text-slate-500">
+              Fields marked <span className="text-red-600 font-medium">*</span> are required
             </p>
             <div className="flex items-center gap-3">
               <Link href="/matters">

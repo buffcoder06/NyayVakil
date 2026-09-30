@@ -170,14 +170,14 @@ export default function EditMatterPage() {
           <CardHeader className="pb-4"><CardTitle className="text-base text-slate-700">Basic Information</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <Label>Case Title *</Label>
-              <Input className="mt-1" {...register("matterTitle")} />
+              <Label htmlFor="f-case-title">Case Title *</Label>
+              <Input id="f-case-title" className="mt-1" {...register("matterTitle")} />
               <FieldError message={errors.matterTitle?.message} />
             </div>
             <div>
               <Label>Client *</Label>
               <Select value={clientId} onValueChange={(v) => v !== null && setValue("clientId", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Client" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>{clients.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
               <FieldError message={errors.clientId?.message} />
@@ -185,14 +185,14 @@ export default function EditMatterPage() {
             <div>
               <Label>Case Type *</Label>
               <Select value={caseType} onValueChange={(v) => v !== null && setValue("caseType", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Case Type" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>{CASE_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
               <Label>Status</Label>
               <Select value={status} onValueChange={(v) => v !== null && setValue("status", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Status" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="active">Active</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
@@ -205,7 +205,7 @@ export default function EditMatterPage() {
             <div>
               <Label>Priority</Label>
               <Select value={priority} onValueChange={(v) => v !== null && setValue("priority", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Priority" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="high">High</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
@@ -224,14 +224,14 @@ export default function EditMatterPage() {
             <div>
               <Label>Court Name *</Label>
               <Select value={courtName} onValueChange={(v) => v !== null && setValue("courtName", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Court Name" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>{COURTS.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
               <Label>Court Level *</Label>
               <Select value={courtLevel} onValueChange={(v) => v !== null && setValue("courtLevel", v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Court Level" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="district_court">District Court</SelectItem>
                   <SelectItem value="high_court">High Court</SelectItem>
@@ -267,8 +267,8 @@ export default function EditMatterPage() {
           <CardHeader className="pb-4"><CardTitle className="text-base text-slate-700">Financial</CardTitle></CardHeader>
           <CardContent>
             <div className="max-w-xs">
-              <Label>Total Fee Agreed (₹)</Label>
-              <Input type="number" min={0} className="mt-1" {...register("totalFeeAgreed", { valueAsNumber: true })} />
+              <Label htmlFor="f-total-fee-agreed">Total Fee Agreed (₹)</Label>
+              <Input id="f-total-fee-agreed" type="number" min={0} className="mt-1" {...register("totalFeeAgreed", { valueAsNumber: true })} />
             </div>
           </CardContent>
         </Card>

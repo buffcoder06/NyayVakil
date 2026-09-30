@@ -45,7 +45,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
             <IndianRupee className="h-4 w-4 text-gold" />
             Pending Fees
           </CardTitle>
-          <span className="text-xs font-semibold text-red-600 dark:text-red-400">
+          <span className="text-xs font-semibold text-red-700 dark:text-red-400">
             {formatCurrency(totalPending)} total
           </span>
         </div>
@@ -88,7 +88,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
                         <p
                           className={`text-xs mt-0.5 ${
                             overdue
-                              ? "text-red-600 dark:text-red-400 font-medium"
+                              ? "text-red-700 dark:text-red-400 font-medium"
                               : "text-slate-500 dark:text-slate-400"
                           }`}
                         >
@@ -98,10 +98,10 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
                       )}
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-sm font-bold text-red-600 dark:text-red-400">
+                      <p className="text-sm font-bold text-red-700 dark:text-red-400">
                         {formatCurrency(fee.pendingAmount)}
                       </p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500">
+                      <p className="text-xs text-slate-600 dark:text-slate-400">
                         of {formatCurrency(fee.totalAmount)}
                       </p>
                     </div>
@@ -110,7 +110,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
                   {/* Progress bar */}
                   <div className="mt-2.5">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                      <span className="text-xs text-slate-600 dark:text-slate-400">
                         Paid
                       </span>
                       <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
@@ -142,7 +142,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
       <CardFooter className="border-t pt-3">
         <Link
           href="/fees"
-          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium pointer-coarse:min-h-11 text-navy hover:text-gold-deep dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           View all fees
           <ArrowRight className="h-3.5 w-3.5" />

@@ -118,7 +118,7 @@ export default function NewClientPage() {
       <div className="mb-4">
         <Link
           href="/clients"
-          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+          className="inline-flex pointer-coarse:min-h-11 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Clients
@@ -156,7 +156,7 @@ export default function NewClientPage() {
                   v !== null && setValue("clientType", v as FormData["clientType"])
                 }
               >
-                <SelectTrigger id="clientType" className="mt-1">
+                <SelectTrigger aria-label="Client Type" id="clientType" className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -250,7 +250,7 @@ export default function NewClientPage() {
                 value={state || ""}
                 onValueChange={(v) => v !== null && setValue("state", v)}
               >
-                <SelectTrigger id="state" className="mt-1">
+                <SelectTrigger aria-label="State" id="state" className="mt-1">
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>

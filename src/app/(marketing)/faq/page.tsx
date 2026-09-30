@@ -214,7 +214,7 @@ export default function FaqPage() {
           <h1 className="font-brand text-3xl sm:text-4xl font-normal text-slate-900 mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-lg text-slate-500 leading-relaxed">
+          <p className="text-lg text-slate-600 leading-relaxed">
             Answers to common questions about NyayVakil, its features, pricing,
             and how it works for Indian legal practices.
           </p>
@@ -225,7 +225,7 @@ export default function FaqPage() {
       <section className="py-8 border-b border-slate-100 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide mr-1">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide mr-1">
               Categories:
             </span>
             {FAQ_CATEGORIES.map(({ id, label }) => (
@@ -248,7 +248,7 @@ export default function FaqPage() {
                   aria-hidden="true"
                 />
                 <h2 className="text-xl font-bold text-slate-900">{label}</h2>
-                <span className="text-xs font-medium text-slate-400 ml-1">
+                <span className="text-xs font-medium text-slate-500 ml-1">
                   {questions.length} questions
                 </span>
               </div>
@@ -273,7 +273,7 @@ export default function FaqPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-3">
             Still have questions?
           </h2>
-          <p className="text-slate-500 text-sm mb-7 leading-relaxed">
+          <p className="text-slate-600 text-sm mb-7 leading-relaxed">
             If you could not find what you were looking for, our team is happy
             to help. Reach out through the contact page and we will get back to
             you promptly.

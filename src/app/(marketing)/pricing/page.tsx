@@ -307,7 +307,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
               </p>
             )}
             {!isYearly && (
-              <p className="text-xs text-slate-400 mt-1">Billed monthly</p>
+              <p className="text-xs text-slate-500 mt-1">Billed monthly</p>
             )}
           </div>
         )}
@@ -321,7 +321,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
           { icon: HardDrive, label: plan.storage },
         ].map(({ icon: Icon, label }, i) => (
           <div key={i} className="flex items-center gap-2 text-sm text-slate-600">
-            <Icon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <Icon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
             <span>{label}</span>
           </div>
         ))}
@@ -340,7 +340,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
           </li>
         ))}
         {plan.notIncluded.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-sm text-slate-400">
+          <li key={feature} className="flex items-start gap-2 text-sm text-slate-500">
             <Minus className="w-4 h-4 mt-0.5 shrink-0" strokeWidth={2} />
             <span>{feature}</span>
           </li>
@@ -397,9 +397,9 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       >
         <span className="font-medium text-slate-800 text-sm sm:text-base">{question}</span>
         {open ? (
-          <ChevronUp className="w-4.5 h-4.5 text-slate-400 shrink-0 ml-3" />
+          <ChevronUp className="w-4.5 h-4.5 text-slate-500 shrink-0 ml-3" />
         ) : (
-          <ChevronDown className="w-4.5 h-4.5 text-slate-400 shrink-0 ml-3" />
+          <ChevronDown className="w-4.5 h-4.5 text-slate-500 shrink-0 ml-3" />
         )}
       </button>
       {open && (
@@ -441,7 +441,7 @@ export default function PricingPage() {
           <span
             className={[
               "text-sm font-medium transition-colors",
-              !isYearly ? "text-slate-900" : "text-slate-400",
+              !isYearly ? "text-slate-900" : "text-slate-500",
             ].join(" ")}
           >
             Monthly
@@ -470,7 +470,7 @@ export default function PricingPage() {
           <span
             className={[
               "text-sm font-medium transition-colors",
-              isYearly ? "text-slate-900" : "text-slate-400",
+              isYearly ? "text-slate-900" : "text-slate-500",
             ].join(" ")}
           >
             Yearly
@@ -513,7 +513,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+        <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm" tabIndex={0} role="region" aria-label="Plan comparison table">
           <table className="w-full text-sm">
             {/* Header */}
             <thead>

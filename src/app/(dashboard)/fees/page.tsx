@@ -83,21 +83,21 @@ function FeeCard({
               </Badge>
             </div>
             <p className="text-xs text-slate-500">{matterTitle}</p>
-            <p className="text-xs text-slate-400">{clientName}</p>
+            <p className="text-xs text-slate-500">{clientName}</p>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-xs text-slate-400">Total</p>
+            <p className="text-xs text-slate-500">Total</p>
             <p className="font-bold text-slate-900">{fmt(fee.totalAmount)}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-3 text-center mb-3">
           <div className="rounded-lg bg-emerald-50 p-2">
-            <p className="text-xs text-emerald-600">Received</p>
+            <p className="text-xs text-emerald-700">Received</p>
             <p className="font-semibold text-emerald-800 text-sm">{fmt(fee.receivedAmount)}</p>
           </div>
           <div className={cn("rounded-lg p-2", fee.pendingAmount > 0 ? "bg-red-50" : "bg-slate-50")}>
-            <p className={cn("text-xs", fee.pendingAmount > 0 ? "text-red-600" : "text-slate-500")}>Pending</p>
+            <p className={cn("text-xs", fee.pendingAmount > 0 ? "text-red-700" : "text-slate-500")}>Pending</p>
             <p className={cn("font-semibold text-sm", fee.pendingAmount > 0 ? "text-red-700" : "text-slate-700")}>
               {fmt(fee.pendingAmount)}
             </p>
@@ -108,11 +108,11 @@ function FeeCard({
           </div>
         </div>
 
-        <Progress value={pct} className="h-1.5 mb-3" />
+        <Progress aria-label="Amount received" value={pct} className="h-1.5 mb-3" />
 
         <div className="flex items-center justify-between">
           {fee.dueDate && (
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Due: {new Date(fee.dueDate).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
             </p>
           )}
@@ -199,27 +199,27 @@ function AddFeeDialog({
           <div>
             <Label>Case *</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case" /></SelectTrigger>
+              <SelectTrigger aria-label="Case" className="mt-1"><SelectValue placeholder="Select case" /></SelectTrigger>
               <SelectContent>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Description *</Label>
-            <Input className="mt-1" placeholder="e.g. Professional fee for civil case" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <Label htmlFor="f-description">Description *</Label>
+            <Input id="f-description" className="mt-1" placeholder="e.g. Professional fee for civil case" value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
           <div>
-            <Label>Total Amount (₹) *</Label>
-            <Input type="number" min={0} className="mt-1" placeholder="0" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
+            <Label htmlFor="f-total-amount">Total Amount (₹) *</Label>
+            <Input id="f-total-amount" type="number" min={0} className="mt-1" placeholder="0" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
           </div>
           <div>
-            <Label>Due Date</Label>
-            <Input type="date" className="mt-1" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+            <Label htmlFor="f-due-date">Due Date</Label>
+            <Input id="f-due-date" type="date" className="mt-1" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
           </div>
           <div>
-            <Label>Notes</Label>
-            <Textarea className="mt-1 resize-none" rows={2} placeholder="Additional notes…" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Label htmlFor="f-notes">Notes</Label>
+            <Textarea id="f-notes" className="mt-1 resize-none" rows={2} placeholder="Additional notes…" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
@@ -304,7 +304,7 @@ function LogPaymentDialog({
           <div>
             <Label>Fee Entry *</Label>
             <Select value={feeId} onValueChange={(v) => v !== null && setFeeId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select fee entry" /></SelectTrigger>
+              <SelectTrigger aria-label="Fee Entry" className="mt-1"><SelectValue placeholder="Select fee entry" /></SelectTrigger>
               <SelectContent>
                 {fees.filter((f) => f.status !== "paid").map((f) => (
                   <SelectItem key={f.id} value={f.id}>{f.description} — {fmt(f.pendingAmount)} pending</SelectItem>
@@ -318,13 +318,13 @@ function LogPaymentDialog({
             </div>
           )}
           <div>
-            <Label>Amount (₹) *</Label>
-            <Input type="number" min={0} max={fee?.pendingAmount} className="mt-1" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Label htmlFor="f-amount">Amount (₹) *</Label>
+            <Input id="f-amount" type="number" min={0} max={fee?.pendingAmount} className="mt-1" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} />
           </div>
           <div>
             <Label>Payment Method *</Label>
             <Select value={paymentMethod} onValueChange={(v) => v !== null && setPaymentMethod(v)}>
-              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectTrigger aria-label="Payment Method" className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="cash">Cash</SelectItem>
                 <SelectItem value="bank_transfer">Bank Transfer (NEFT/RTGS)</SelectItem>
@@ -335,16 +335,16 @@ function LogPaymentDialog({
             </Select>
           </div>
           <div>
-            <Label>Payment Date *</Label>
-            <Input type="date" className="mt-1" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
+            <Label htmlFor="f-payment-date">Payment Date *</Label>
+            <Input id="f-payment-date" type="date" className="mt-1" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
           </div>
           <div>
-            <Label>Reference / Cheque Number</Label>
-            <Input className="mt-1" placeholder="Transaction / Cheque No." value={referenceNumber} onChange={(e) => setReferenceNumber(e.target.value)} />
+            <Label htmlFor="f-reference-cheque-number">Reference / Cheque Number</Label>
+            <Input id="f-reference-cheque-number" className="mt-1" placeholder="Transaction / Cheque No." value={referenceNumber} onChange={(e) => setReferenceNumber(e.target.value)} />
           </div>
           <div>
-            <Label>Notes</Label>
-            <Input className="mt-1" placeholder="Optional notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Label htmlFor="f-notes-2">Notes</Label>
+            <Input id="f-notes-2" className="mt-1" placeholder="Optional notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
@@ -427,7 +427,7 @@ export default function FeesPage() {
   const renderFees = (list: FeeEntry[]) => {
     if (list.length === 0) {
       return (
-        <div className="flex flex-col items-center py-16 text-slate-400">
+        <div className="flex flex-col items-center py-16 text-slate-500">
           <IndianRupee className="h-10 w-10 mb-3 opacity-30" />
           <p className="text-sm font-medium">No fee entries in this category</p>
         </div>
@@ -494,8 +494,8 @@ export default function FeesPage() {
                 {((stats.totalCollected / stats.totalAgreed) * 100).toFixed(0)}%
               </span>
             </div>
-            <Progress value={(stats.totalCollected / stats.totalAgreed) * 100} className="h-3" />
-            <div className="flex justify-between mt-2 text-xs text-slate-400">
+            <Progress aria-label="Overall fees collected" value={(stats.totalCollected / stats.totalAgreed) * 100} className="h-3" />
+            <div className="flex justify-between mt-2 text-xs text-slate-500">
               <span>Collected: {fmt(stats.totalCollected)}</span>
               <span>Pending: {fmt(stats.totalPending)}</span>
             </div>

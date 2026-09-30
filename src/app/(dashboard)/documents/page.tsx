@@ -89,14 +89,14 @@ function DocumentCard({ doc, matterTitle }: { doc: Document; matterTitle: string
               <Badge className={cn("text-xs", docCategoryColor[doc.category])}>
                 {docCategoryLabel[doc.category] || doc.category}
               </Badge>
-              <span className="text-xs text-slate-400">{doc.fileType}</span>
-              <span className="text-xs text-slate-400">{doc.fileSize}</span>
+              <span className="text-xs text-slate-500">{doc.fileType}</span>
+              <span className="text-xs text-slate-500">{doc.fileSize}</span>
             </div>
             {matterTitle !== "—" && (
               <p className="text-xs text-slate-500 mt-1 truncate">{matterTitle}</p>
             )}
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 {new Date(doc.uploadedAt).toLocaleDateString("en-IN", {
                   day: "numeric", month: "short", year: "numeric",
                 })} · {doc.uploadedBy}
@@ -178,21 +178,21 @@ function UploadDocumentDialog({
         <div className="space-y-4 py-2">
           {/* Upload placeholder */}
           <div className="border-2 border-dashed border-slate-200 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100/80 transition-colors cursor-pointer">
-            <Upload className="h-8 w-8 mx-auto text-slate-400 mb-2" />
+            <Upload className="h-8 w-8 mx-auto text-slate-500 mb-2" />
             <p className="text-sm font-medium text-slate-600">Click to upload or drag and drop</p>
-            <p className="text-xs text-slate-400 mt-1">PDF, DOC, DOCX, JPG, PNG up to 10MB</p>
-            <p className="text-xs text-amber-600 mt-2 font-medium">
+            <p className="text-xs text-slate-500 mt-1">PDF, DOC, DOCX, JPG, PNG up to 10MB</p>
+            <p className="text-xs text-amber-700 mt-2 font-medium">
               (File upload coming in next release — enter document details below)
             </p>
           </div>
           <div>
-            <Label>Document Name *</Label>
-            <Input className="mt-1" placeholder="e.g. Vakalatnama - Agarwal Case" value={name} onChange={(e) => setName(e.target.value)} />
+            <Label htmlFor="f-document-name">Document Name *</Label>
+            <Input id="f-document-name" className="mt-1" placeholder="e.g. Vakalatnama - Agarwal Case" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
             <Label>Category *</Label>
             <Select value={category} onValueChange={(v) => v !== null && setCategory(v)}>
-              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectTrigger aria-label="Category" className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {Object.entries(docCategoryLabel).map(([k, v]) => <SelectItem key={k} value={k}>{v}</SelectItem>)}
               </SelectContent>
@@ -201,7 +201,7 @@ function UploadDocumentDialog({
           <div>
             <Label>Linked Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
+              <SelectTrigger aria-label="Linked Case" className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -209,8 +209,8 @@ function UploadDocumentDialog({
             </Select>
           </div>
           <div>
-            <Label>Description</Label>
-            <Textarea className="mt-1 resize-none" rows={2} placeholder="Optional description…" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <Label htmlFor="f-description">Description</Label>
+            <Textarea id="f-description" className="mt-1 resize-none" rows={2} placeholder="Optional description…" value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
@@ -303,18 +303,18 @@ export default function DocumentsPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5 flex-wrap">
         <div className="relative flex-1 min-w-48">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
           <Input className="pl-9" placeholder="Search documents…" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <Select value={categoryFilter} onValueChange={(v) => v !== null && setCategoryFilter(v)}>
-          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Categories" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by category" className="w-full sm:w-48"><SelectValue placeholder="All Categories" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
             {Object.entries(docCategoryLabel).map(([k, v]) => <SelectItem key={k} value={k}>{v}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select value={matterFilter} onValueChange={(v) => v !== null && setMatterFilter(v)}>
-          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by case" className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Cases</SelectItem>
             {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -328,7 +328,7 @@ export default function DocumentsPage() {
           {Array.from({ length: 9 }).map((_, i) => <Skeleton key={i} className="h-28 rounded-xl" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center py-20 text-slate-400">
+        <div className="flex flex-col items-center py-20 text-slate-500">
           <FileText className="h-12 w-12 mb-3 opacity-30" />
           <p className="text-base font-medium">No documents found</p>
           <p className="text-sm mt-1">Upload your first document to get started.</p>
@@ -338,7 +338,7 @@ export default function DocumentsPage() {
         </div>
       ) : (
         <>
-          <p className="text-xs text-slate-400 mb-3">Showing {filtered.length} documents</p>
+          <p className="text-xs text-slate-500 mb-3">Showing {filtered.length} documents</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filtered.map((doc) => (
               <DocumentCard

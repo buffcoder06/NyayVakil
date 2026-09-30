@@ -30,7 +30,7 @@ export function SummaryStat({ label, value, icon: Icon, tone = "default", count,
         <div
           className={cn(
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
-            alert ? "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400" : "bg-gold-bright/15 text-gold dark:bg-gold-bright/20 dark:text-gold-bright",
+            alert ? "bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400" : "bg-gold-bright/15 text-gold dark:bg-gold-bright/20 dark:text-gold-bright",
           )}
         >
           <Icon className="h-5 w-5" aria-hidden="true" />

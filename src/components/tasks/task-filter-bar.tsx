@@ -77,7 +77,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
           <Input
             placeholder="Search tasks..."
             value={filters.search}
@@ -91,7 +91,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
           value={filters.assignedTo}
           onValueChange={(val) => val !== null && onChange({ ...filters, assignedTo: val })}
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger aria-label="Filter by team member" className="w-[160px]">
             <SelectValue placeholder="Assigned To" />
           </SelectTrigger>
           <SelectContent>
@@ -109,7 +109,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
           value={filters.matterId}
           onValueChange={(val) => val !== null && onChange({ ...filters, matterId: val })}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger aria-label="Filter by case" className="w-[180px]">
             <SelectValue placeholder="Case" />
           </SelectTrigger>
           <SelectContent>
@@ -127,7 +127,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
           value={filters.priority}
           onValueChange={(val) => onChange({ ...filters, priority: val as TaskPriority | 'all' })}
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger aria-label="Filter by priority" className="w-[140px]">
             <SelectValue placeholder="Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -144,7 +144,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
           value={filters.status}
           onValueChange={(val) => onChange({ ...filters, status: val as TaskStatus | 'all' })}
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger aria-label="Filter by status" className="w-[140px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -163,7 +163,7 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
             onChange({ ...filters, dueDateRange: val as TaskFilters['dueDateRange'] })
           }
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger aria-label="Filter by due date" className="w-[160px]">
             <SelectValue placeholder="Due Date" />
           </SelectTrigger>
           <SelectContent>

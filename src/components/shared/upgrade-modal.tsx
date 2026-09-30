@@ -220,7 +220,7 @@ function PlanCard({
             ₹{plan.price.toLocaleString("en-IN")}
           </span>
           <span className="text-xs text-slate-500">{plan.priceSuffix}</span>
-          <p className="text-xs text-slate-400 mt-0.5">billed monthly</p>
+          <p className="text-xs text-slate-500 mt-0.5">billed monthly</p>
         </div>
       </div>
 
@@ -341,7 +341,7 @@ export default function UpgradeModal({
             type="button"
             onClick={onClose}
             aria-label="Close upgrade modal"
-            className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 z-10"
+            className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:text-slate-600 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 z-10"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>

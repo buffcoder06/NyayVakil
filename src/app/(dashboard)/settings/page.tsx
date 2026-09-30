@@ -106,7 +106,7 @@ function OfficeProfileTab() {
               <Button variant="outline" size="sm" className="gap-2" onClick={() => toast.info("Logo upload — coming soon.")}>
                 <Upload className="h-4 w-4" /> Upload Logo
               </Button>
-              <p className="text-xs text-slate-400 mt-1.5">PNG, JPG up to 2MB. Appears on invoices.</p>
+              <p className="text-xs text-slate-500 mt-1.5">PNG, JPG up to 2MB. Appears on invoices.</p>
             </div>
           </div>
         </CardContent>
@@ -120,40 +120,40 @@ function OfficeProfileTab() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <Label>Office / Chamber Name</Label>
-              <Input className="mt-1" value={office.officeName} onChange={(e) => setOffice({ ...office, officeName: e.target.value })} />
+              <Label htmlFor="f-office-chamber-name">Office / Chamber Name</Label>
+              <Input id="f-office-chamber-name" className="mt-1" value={office.officeName} onChange={(e) => setOffice({ ...office, officeName: e.target.value })} />
             </div>
             <div>
-              <Label>Advocate Name</Label>
-              <Input className="mt-1" value={office.advocateName} onChange={(e) => setOffice({ ...office, advocateName: e.target.value })} />
+              <Label htmlFor="f-advocate-name">Advocate Name</Label>
+              <Input id="f-advocate-name" className="mt-1" value={office.advocateName} onChange={(e) => setOffice({ ...office, advocateName: e.target.value })} />
             </div>
             <div>
-              <Label>Bar Council Number</Label>
-              <Input className="mt-1" value={office.barCouncilNumber} onChange={(e) => setOffice({ ...office, barCouncilNumber: e.target.value })} />
+              <Label htmlFor="f-bar-council-number">Bar Council Number</Label>
+              <Input id="f-bar-council-number" className="mt-1" value={office.barCouncilNumber} onChange={(e) => setOffice({ ...office, barCouncilNumber: e.target.value })} />
             </div>
             <div>
-              <Label>Phone</Label>
-              <Input className="mt-1" value={office.phone} onChange={(e) => setOffice({ ...office, phone: e.target.value })} />
+              <Label htmlFor="f-phone">Phone</Label>
+              <Input id="f-phone" className="mt-1" value={office.phone} onChange={(e) => setOffice({ ...office, phone: e.target.value })} />
             </div>
             <div>
-              <Label>Email</Label>
-              <Input type="email" className="mt-1" value={office.email} onChange={(e) => setOffice({ ...office, email: e.target.value })} />
+              <Label htmlFor="f-email">Email</Label>
+              <Input id="f-email" type="email" className="mt-1" value={office.email} onChange={(e) => setOffice({ ...office, email: e.target.value })} />
             </div>
             <div>
-              <Label>Website</Label>
-              <Input className="mt-1" value={office.website} onChange={(e) => setOffice({ ...office, website: e.target.value })} />
+              <Label htmlFor="f-website">Website</Label>
+              <Input id="f-website" className="mt-1" value={office.website} onChange={(e) => setOffice({ ...office, website: e.target.value })} />
             </div>
             <div className="sm:col-span-2">
-              <Label>Address</Label>
-              <Textarea className="mt-1 resize-none" rows={2} value={office.address} onChange={(e) => setOffice({ ...office, address: e.target.value })} />
+              <Label htmlFor="f-address">Address</Label>
+              <Textarea id="f-address" className="mt-1 resize-none" rows={2} value={office.address} onChange={(e) => setOffice({ ...office, address: e.target.value })} />
             </div>
             <div>
-              <Label>City</Label>
-              <Input className="mt-1" value={office.city} onChange={(e) => setOffice({ ...office, city: e.target.value })} />
+              <Label htmlFor="f-city">City</Label>
+              <Input id="f-city" className="mt-1" value={office.city} onChange={(e) => setOffice({ ...office, city: e.target.value })} />
             </div>
             <div>
-              <Label>State</Label>
-              <Input className="mt-1" value={office.state} onChange={(e) => setOffice({ ...office, state: e.target.value })} />
+              <Label htmlFor="f-state">State</Label>
+              <Input id="f-state" className="mt-1" value={office.state} onChange={(e) => setOffice({ ...office, state: e.target.value })} />
             </div>
           </div>
         </CardContent>
@@ -166,12 +166,12 @@ function OfficeProfileTab() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label>GSTIN</Label>
-            <Input className="mt-1" value={office.gstin} onChange={(e) => setOffice({ ...office, gstin: e.target.value })} />
+            <Label htmlFor="f-gstin">GSTIN</Label>
+            <Input id="f-gstin" className="mt-1" value={office.gstin} onChange={(e) => setOffice({ ...office, gstin: e.target.value })} />
           </div>
           <div>
-            <Label>PAN Number</Label>
-            <Input className="mt-1" value={office.panNumber} onChange={(e) => setOffice({ ...office, panNumber: e.target.value })} />
+            <Label htmlFor="f-pan-number">PAN Number</Label>
+            <Input id="f-pan-number" className="mt-1" value={office.panNumber} onChange={(e) => setOffice({ ...office, panNumber: e.target.value })} />
           </div>
         </CardContent>
       </Card>
@@ -221,7 +221,7 @@ function TeamTab() {
                       {roleLabel[member.role]}
                     </Badge>
                     {!member.isActive && (
-                      <Badge variant="outline" className="text-xs text-slate-400">Inactive</Badge>
+                      <Badge variant="outline" className="text-xs text-slate-500">Inactive</Badge>
                     )}
                   </div>
                   <p className="text-xs text-slate-500 mt-0.5">{member.email} · +91 {member.phone}</p>
@@ -254,7 +254,7 @@ function CourtsAndCasesTab() {
               <div key={idx} className="flex items-center justify-between gap-2 py-1.5 border-b border-slate-50 last:border-0">
                 <span className="text-sm text-slate-700">{court}</span>
                 <button
-                  className="text-xs text-red-400 hover:text-red-600 transition-colors"
+                  className="text-xs text-red-600 hover:text-red-600 transition-colors"
                   onClick={() => setCourts((prev) => prev.filter((_, i) => i !== idx))}
                 >
                   Remove
@@ -302,7 +302,7 @@ function CourtsAndCasesTab() {
               <div key={idx} className="flex items-center justify-between gap-2 py-1.5 border-b border-slate-50 last:border-0">
                 <span className="text-sm text-slate-700">{type}</span>
                 <button
-                  className="text-xs text-red-400 hover:text-red-600 transition-colors"
+                  className="text-xs text-red-600 hover:text-red-600 transition-colors"
                   onClick={() => setCaseTypes((prev) => prev.filter((_, i) => i !== idx))}
                 >
                   Remove

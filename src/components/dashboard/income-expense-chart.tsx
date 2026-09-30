@@ -89,7 +89,7 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
         <span className="text-slate-600 dark:text-slate-400">Net</span>
         <span
           className={`font-semibold ${
-            net >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
+            net >= 0 ? "text-emerald-700 dark:text-emerald-400" : "text-red-700 dark:text-red-400"
           }`}
         >
           {formatCurrency(net)}
@@ -122,7 +122,7 @@ export function IncomeExpenseChart() {
             </div>
             <div className="text-slate-500 dark:text-slate-400">
               Expenses:{" "}
-              <span className="font-semibold text-red-600 dark:text-red-400">
+              <span className="font-semibold text-red-700 dark:text-red-400">
                 {formatCurrencyCompact(totalExpense)}
               </span>
             </div>

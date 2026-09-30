@@ -47,7 +47,7 @@ import { cn } from "@/lib/utils";
 
 const reminderTypeConfig: Record<string, { label: string; icon: React.ElementType; color: string }> = {
   hearing: { label: "Hearing", icon: Calendar, color: "text-blue-600" },
-  payment: { label: "Payment", icon: IndianRupee, color: "text-amber-600" },
+  payment: { label: "Payment", icon: IndianRupee, color: "text-amber-700" },
   document: { label: "Document", icon: FileText, color: "text-violet-600" },
   follow_up: { label: "Follow-up", icon: MessageSquare, color: "text-teal-600" },
   general: { label: "General", icon: Bell, color: "text-slate-500" },
@@ -150,7 +150,7 @@ function ReminderCard({
             </p>
 
             <div className="flex items-center justify-between mt-3 flex-wrap gap-2">
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 {reminder.status === "sent" && reminder.sentAt
                   ? `Sent: ${new Date(reminder.sentAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}`
                   : `Scheduled: ${new Date(reminder.scheduledAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}`}
@@ -169,7 +169,7 @@ function ReminderCard({
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="h-7 w-7 text-slate-400 hover:text-red-500"
+                    className="h-7 w-7 text-slate-500 hover:text-red-500"
                     onClick={() => onCancel(reminder.id)}
                     disabled={busy}
                     aria-label="Cancel reminder"
@@ -265,7 +265,7 @@ function CreateReminderDialog({
             <div>
               <Label>Type *</Label>
               <Select value={type} onValueChange={(v) => v !== null && setType(v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Type" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="hearing">Hearing</SelectItem>
                   <SelectItem value="payment">Payment</SelectItem>
@@ -278,7 +278,7 @@ function CreateReminderDialog({
             <div>
               <Label>Channel *</Label>
               <Select value={channel} onValueChange={(v) => v !== null && setChannel(v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Channel" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="whatsapp">WhatsApp</SelectItem>
                   <SelectItem value="sms">SMS</SelectItem>
@@ -289,13 +289,13 @@ function CreateReminderDialog({
             </div>
           </div>
           <div>
-            <Label>Title *</Label>
-            <Input className="mt-1" placeholder="Reminder title…" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Label htmlFor="f-title">Title *</Label>
+            <Input id="f-title" className="mt-1" placeholder="Reminder title…" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div>
             <Label>Client</Label>
             <Select value={clientId} onValueChange={(v) => v !== null && setClientId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select client (optional)" /></SelectTrigger>
+              <SelectTrigger aria-label="Client" className="mt-1"><SelectValue placeholder="Select client (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {clients.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
@@ -305,7 +305,7 @@ function CreateReminderDialog({
           <div>
             <Label>Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
+              <SelectTrigger aria-label="Case" className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -313,12 +313,12 @@ function CreateReminderDialog({
             </Select>
           </div>
           <div>
-            <Label>Message *</Label>
-            <Textarea className="mt-1 resize-none" rows={4} placeholder="Reminder message…" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <Label htmlFor="f-message">Message *</Label>
+            <Textarea id="f-message" className="mt-1 resize-none" rows={4} placeholder="Reminder message…" value={message} onChange={(e) => setMessage(e.target.value)} />
           </div>
           <div>
-            <Label>Scheduled Date *</Label>
-            <Input type="date" className="mt-1" value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)} />
+            <Label htmlFor="f-scheduled-date">Scheduled Date *</Label>
+            <Input id="f-scheduled-date" type="date" className="mt-1" value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
@@ -409,7 +409,7 @@ export default function RemindersPage() {
   const renderReminders = (list: Reminder[]) => {
     if (list.length === 0) {
       return (
-        <div className="flex flex-col items-center py-16 text-slate-400">
+        <div className="flex flex-col items-center py-16 text-slate-500">
           <Bell className="h-10 w-10 mb-3 opacity-30" />
           <p className="text-sm font-medium">No reminders in this category</p>
         </div>
@@ -452,15 +452,15 @@ export default function RemindersPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           <div className="rounded-xl border p-4 bg-amber-50">
             <p className="text-2xl font-bold text-amber-800">{stats.pending}</p>
-            <p className="text-xs text-amber-600 mt-1">Pending</p>
+            <p className="text-xs text-amber-700 mt-1">Pending</p>
           </div>
           <div className="rounded-xl border p-4 bg-emerald-50">
             <p className="text-2xl font-bold text-emerald-800">{stats.sent}</p>
-            <p className="text-xs text-emerald-600 mt-1">Sent / Acknowledged</p>
+            <p className="text-xs text-emerald-700 mt-1">Sent / Acknowledged</p>
           </div>
           <div className="rounded-xl border p-4 bg-red-50">
             <p className="text-2xl font-bold text-red-800">{stats.overdue}</p>
-            <p className="text-xs text-red-600 mt-1">Overdue</p>
+            <p className="text-xs text-red-700 mt-1">Overdue</p>
           </div>
           <div className="rounded-xl border p-4 bg-slate-50">
             <p className="text-2xl font-bold text-slate-800">{stats.total}</p>

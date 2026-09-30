@@ -217,7 +217,7 @@ export function EmptyState({
         )}
       >
         <Icon
-          className={cn("text-slate-400", sizes.icon)}
+          className={cn("text-slate-500", sizes.icon)}
           strokeWidth={1.5}
         />
       </div>

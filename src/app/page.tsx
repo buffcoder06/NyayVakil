@@ -107,7 +107,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <p className="mt-5 text-sm text-slate-400">
+          <p className="mt-5 text-sm text-slate-500">
             Free during early access · No credit card · Set up in 2 minutes
           </p>
         </div>
@@ -183,7 +183,7 @@ export default function HomePage() {
               <div key={item.problem} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 {/* Problem */}
                 <div className="border-b border-slate-100 bg-red-50 px-6 py-5">
-                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-red-400">Before</p>
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-red-700">Before</p>
                   <p className="text-sm font-medium text-slate-700">{item.problem}</p>
                 </div>
                 {/* Arrow indicator */}
@@ -194,7 +194,7 @@ export default function HomePage() {
                 </div>
                 {/* Solution */}
                 <div className="border-t border-slate-100 bg-emerald-50 px-6 py-5">
-                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-600">With NyayVakil</p>
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-700">With NyayVakil</p>
                   <p className="text-sm font-semibold text-slate-800">{item.solution}</p>
                 </div>
               </div>
@@ -459,7 +459,7 @@ export default function HomePage() {
       {/* ── Section 9: Early access ── */}
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-8 py-12 text-center shadow-sm sm:px-14">
-          <span className="inline-flex items-center gap-2 rounded-full bg-gold-bright/15 px-3 py-1 text-xs font-semibold text-gold">
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold-bright/15 px-3 py-1 text-xs font-semibold text-gold-deep">
             Early access
           </span>
           <h2 className="font-brand mt-4 text-3xl font-normal text-[#14213D] sm:text-4xl">Built with advocates, for advocates</h2>
@@ -487,7 +487,7 @@ export default function HomePage() {
               Simple, transparent pricing
             </h2>
           </div>
-          <p className="mb-12 text-center text-sm text-slate-400">
+          <p className="mb-12 text-center text-sm text-slate-500">
             Free during early access — these are the planned prices once paid plans launch.
           </p>
 
@@ -538,7 +538,7 @@ export default function HomePage() {
                 </p>
                 <div className="mb-2 flex items-end gap-1">
                   <span className="text-4xl font-extrabold">{p.price}</span>
-                  <span className={`mb-1 text-sm ${p.highlighted ? "text-blue-200" : "text-slate-400"}`}>{p.period}</span>
+                  <span className={`mb-1 text-sm ${p.highlighted ? "text-blue-200" : "text-slate-500"}`}>{p.period}</span>
                 </div>
                 <p className={`mb-6 text-sm ${p.highlighted ? "text-blue-100" : "text-slate-500"}`}>{p.desc}</p>
                 <ul className="mb-8 space-y-2.5">
@@ -566,7 +566,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline pointer-coarse:min-h-11"
             >
               View Full Pricing <ArrowRight className="h-4 w-4" />
             </Link>
@@ -608,7 +608,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline pointer-coarse:min-h-11"
             >
               See all FAQs <ArrowRight className="h-4 w-4" />
             </Link>
@@ -651,18 +651,18 @@ export default function HomePage() {
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo tone="light" size="xs" />
-              <span className="text-sm text-slate-400">— Legal Practice Management</span>
+              <span className="text-sm text-slate-500">— Legal Practice Management</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
-              <Link href="/features" className="hover:text-[#14213D]">Features</Link>
-              <Link href="/pricing" className="hover:text-[#14213D]">Pricing</Link>
-              <Link href="/faq" className="hover:text-[#14213D]">FAQ</Link>
-              <Link href="/contact" className="hover:text-[#14213D]">Contact</Link>
-              <Link href="/privacy" className="hover:text-[#14213D]">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#14213D]">Terms</Link>
+              <Link href="/features" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">Features</Link>
+              <Link href="/pricing" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">Pricing</Link>
+              <Link href="/faq" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">FAQ</Link>
+              <Link href="/contact" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">Contact</Link>
+              <Link href="/privacy" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#14213D] pointer-coarse:inline-block pointer-coarse:py-2.5">Terms</Link>
             </div>
           </div>
-          <div className="mt-6 border-t border-slate-100 pt-6 text-center text-xs text-slate-400">
+          <div className="mt-6 border-t border-slate-100 pt-6 text-center text-xs text-slate-500">
             © {new Date().getFullYear()} NyayVakil. All rights reserved. Built for Indian legal professionals.
           </div>
         </div>

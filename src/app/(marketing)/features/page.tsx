@@ -130,7 +130,7 @@ function MatterCardMock() {
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 space-y-4 w-full max-w-sm mx-auto">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Case</span>
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Case</span>
         <span
           className="text-xs font-semibold px-2 py-0.5 rounded-full"
           style={{ backgroundColor: "#d1fae5", color: "#065f46" }}
@@ -150,7 +150,7 @@ function MatterCardMock() {
           ["Opposite", "Adv. Mehta"],
         ].map(([k, v]) => (
           <div key={k} className="bg-slate-50 rounded-lg px-2.5 py-2">
-            <p className="text-slate-400 mb-0.5">{k}</p>
+            <p className="text-slate-500 mb-0.5">{k}</p>
             <p className="font-semibold text-slate-700">{v}</p>
           </div>
         ))}
@@ -174,7 +174,7 @@ function DiaryMock() {
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 w-full max-w-sm mx-auto">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <p className="text-xs text-slate-400 font-medium">Today's Diary</p>
+          <p className="text-xs text-slate-500 font-medium">Today's Diary</p>
           <p className="text-sm font-bold text-slate-800">Friday, 28 Mar 2026</p>
         </div>
         <span
@@ -196,7 +196,7 @@ function DiaryMock() {
             <div>
               <p className="text-xs font-semibold text-slate-800">{e.matter}</p>
               <p className="text-xs text-slate-500">{e.court}</p>
-              <span className="text-[12px] text-slate-400">{e.purpose}</span>
+              <span className="text-[12px] text-slate-500">{e.purpose}</span>
             </div>
           </div>
         ))}
@@ -209,7 +209,7 @@ function FeeTrackerMock() {
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 w-full max-w-sm mx-auto space-y-4">
       <div>
-        <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">Fee Summary</p>
+        <p className="text-xs text-slate-500 font-medium uppercase tracking-wide">Fee Summary</p>
         <p className="text-sm font-bold text-slate-800 mt-0.5">Sharma v. Municipal Corp.</p>
       </div>
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -219,7 +219,7 @@ function FeeTrackerMock() {
           { label: "Pending", val: "₹30,000", color: "#b45309" },
         ].map(({ label, val, color }) => (
           <div key={label} className="bg-slate-50 rounded-xl p-2.5">
-            <p className="text-slate-400 mb-1">{label}</p>
+            <p className="text-slate-500 mb-1">{label}</p>
             <p className="font-bold text-sm" style={{ color }}>{val}</p>
           </div>
         ))}
@@ -233,7 +233,7 @@ function FeeTrackerMock() {
           <div key={p.date} className="flex items-center justify-between text-xs py-1.5 border-b border-slate-100 last:border-0">
             <span className="text-slate-500">{p.date}</span>
             <span className="font-semibold text-slate-700">{p.amount}</span>
-            <span className="text-slate-400">{p.method}</span>
+            <span className="text-slate-500">{p.method}</span>
           </div>
         ))}
       </div>
@@ -241,7 +241,7 @@ function FeeTrackerMock() {
         className="flex items-center gap-2 p-2.5 rounded-xl text-xs"
         style={{ backgroundColor: "#fef3c7" }}
       >
-        <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+        <AlertCircle className="w-3.5 h-3.5 text-amber-700 shrink-0" />
         <span className="text-amber-800">Payment overdue by 12 days</span>
       </div>
     </div>
@@ -277,7 +277,7 @@ function ClientProfileMock() {
           { label: "Member since", val: "Jan 2024" },
         ].map(({ label, val }) => (
           <div key={label} className="bg-slate-50 rounded-lg px-2.5 py-2">
-            <p className="text-slate-400 mb-0.5">{label}</p>
+            <p className="text-slate-500 mb-0.5">{label}</p>
             <p className="font-semibold text-slate-700">{val}</p>
           </div>
         ))}
@@ -307,19 +307,19 @@ function DocumentVaultMock() {
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 w-full max-w-sm mx-auto space-y-3">
       <div className="flex items-center justify-between">
         <p className="text-sm font-bold text-slate-800">Document Register</p>
-        <span className="text-xs text-slate-400">4 files</span>
+        <span className="text-xs text-slate-500">4 files</span>
       </div>
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-400">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-xs text-slate-500">
         <Search className="w-3.5 h-3.5" />
         Search documents...
       </div>
       <div className="space-y-2">
         {docs.map((d) => (
           <div key={d.name} className="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors">
-            <FileText className="w-4 h-4 text-slate-400 shrink-0" />
+            <FileText className="w-4 h-4 text-slate-500 shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-slate-700 truncate">{d.name}</p>
-              <p className="text-[12px] text-slate-400">{d.size}</p>
+              <p className="text-[12px] text-slate-500">{d.size}</p>
             </div>
             <span
               className="text-[12px] font-semibold px-2 py-0.5 rounded-full shrink-0"
@@ -362,7 +362,7 @@ function TaskBoardMock() {
               {t.priority}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-xs text-slate-400">
+          <div className="flex items-center gap-1 text-xs text-slate-500">
             <Clock className="w-3 h-3" />
             Due {t.due}
           </div>
@@ -380,7 +380,7 @@ function RemindersMock() {
   ];
 
   const channelIcon: Record<string, React.ReactNode> = {
-    WhatsApp: <MessageSquare className="w-3.5 h-3.5 text-green-600" />,
+    WhatsApp: <MessageSquare className="w-3.5 h-3.5 text-green-700" />,
     SMS: <Phone className="w-3.5 h-3.5 text-blue-500" />,
     Email: <Mail className="w-3.5 h-3.5 text-slate-500" />,
   };
@@ -393,7 +393,7 @@ function RemindersMock() {
           <Bell className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#14213D" }} />
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-slate-800">{r.matter}</p>
-            <p className="text-[12px] text-slate-400">{r.type} reminder · {r.time}</p>
+            <p className="text-[12px] text-slate-500">{r.type} reminder · {r.time}</p>
           </div>
           <div className="flex items-center gap-1 shrink-0">
             {channelIcon[r.channel]}
@@ -422,7 +422,7 @@ function ReportsMock() {
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 w-full max-w-sm mx-auto space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm font-bold text-slate-800">Income vs Expenses</p>
-        <span className="text-xs text-slate-400">Last 5 months</span>
+        <span className="text-xs text-slate-500">Last 5 months</span>
       </div>
       {/* Simple bar chart */}
       <div className="flex items-end gap-2 h-24">
@@ -438,7 +438,7 @@ function ReportsMock() {
                 style={{ height: `${b.expense}%`, backgroundColor: "#94a3b8" }}
               />
             </div>
-            <span className="text-[12px] text-slate-400">{b.month}</span>
+            <span className="text-[12px] text-slate-500">{b.month}</span>
           </div>
         ))}
       </div>
@@ -459,7 +459,7 @@ function ReportsMock() {
           { label: "Tasks done", val: "34", color: "#14213D" },
         ].map(({ label, val, color }) => (
           <div key={label} className="bg-slate-50 rounded-xl p-2">
-            <p className="text-slate-400 mb-0.5">{label}</p>
+            <p className="text-slate-500 mb-0.5">{label}</p>
             <p className="font-bold text-sm" style={{ color }}>{val}</p>
           </div>
         ))}
@@ -741,7 +741,7 @@ export default function FeaturesPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm" tabIndex={0} role="region" aria-label="Comparison table">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-200">
@@ -756,7 +756,7 @@ export default function FeaturesPage() {
                   </th>
                   <th className="px-5 py-4 text-left font-semibold text-slate-500">
                     <div className="flex items-center gap-2">
-                      <X className="w-4 h-4 shrink-0 text-slate-400" strokeWidth={2.5} />
+                      <X className="w-4 h-4 shrink-0 text-slate-500" strokeWidth={2.5} />
                       Without (Excel / Paper)
                     </div>
                   </th>
@@ -784,7 +784,7 @@ export default function FeaturesPage() {
                     </td>
                     <td className="px-5 py-4 text-slate-500 align-top">
                       <div className="flex items-start gap-2">
-                        <X className="w-4 h-4 mt-0.5 shrink-0 text-slate-400" strokeWidth={2} />
+                        <X className="w-4 h-4 mt-0.5 shrink-0 text-slate-500" strokeWidth={2} />
                         {row.without}
                       </div>
                     </td>

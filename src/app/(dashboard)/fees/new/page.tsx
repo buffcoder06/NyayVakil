@@ -114,8 +114,8 @@ export default function NewFeePage() {
     <div className="p-4 lg:p-6 max-w-2xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <Link href="/fees">
-          <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl">
+        <Link href="/fees" aria-label="Back to fees">
+          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl" tabIndex={-1} aria-hidden="true">
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
@@ -144,7 +144,7 @@ export default function NewFeePage() {
                   <FormItem>
                     <FormLabel>Case *</FormLabel>
                     <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)}>
-                      <SelectTrigger>
+                      <SelectTrigger aria-label="Case">
                         <SelectValue placeholder="Select a case…" />
                       </SelectTrigger>
                       <SelectContent>
@@ -169,7 +169,7 @@ export default function NewFeePage() {
                     <FormLabel>Client</FormLabel>
                     {/* Always the matter's client — the server derives it from the matter */}
                     <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)} disabled>
-                      <SelectTrigger>
+                      <SelectTrigger aria-label="Client">
                         <SelectValue placeholder="Filled in from the case" />
                       </SelectTrigger>
                       <SelectContent>
@@ -210,7 +210,7 @@ export default function NewFeePage() {
                       <FormLabel>Total Amount (₹) *</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                          <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                           <Input type="number" min={0} className="pl-9" placeholder="50000" {...field} />
                         </div>
                       </FormControl>

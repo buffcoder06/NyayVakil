@@ -55,8 +55,8 @@ const statusConfig: Record<string, { label: string; className: string }> = {
 };
 
 const priorityConfig: Record<string, { label: string; className: string }> = {
-  high: { label: "High", className: "bg-red-50 text-red-600 border-red-200" },
-  medium: { label: "Medium", className: "bg-amber-50 text-amber-600 border-amber-200" },
+  high: { label: "High", className: "bg-red-50 text-red-700 border-red-200" },
+  medium: { label: "Medium", className: "bg-amber-50 text-amber-700 border-amber-200" },
   low: { label: "Low", className: "bg-slate-50 text-slate-500 border-slate-200" },
 };
 
@@ -194,7 +194,7 @@ export default function MatterDetailPage() {
 
   if (!matter) {
     return (
-      <div className="flex flex-col items-center py-20 text-slate-400">
+      <div className="flex flex-col items-center py-20 text-slate-500">
         <AlertCircle className="h-12 w-12 mb-3" />
         <p>Case not found.</p>
         <Link href="/matters" className="mt-4">
@@ -374,17 +374,17 @@ export default function MatterDetailPage() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-500">Pending</span>
-                  <span className={cn("font-semibold", pendingFee > 0 ? "text-red-600" : "text-slate-800")}>
+                  <span className={cn("font-semibold", pendingFee > 0 ? "text-red-700" : "text-slate-800")}>
                     {fmt(pendingFee)}
                   </span>
                 </div>
                 {matter.totalFeeAgreed > 0 && (
                   <div>
-                    <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+                    <div className="flex justify-between text-xs text-slate-500 mb-1.5">
                       <span>Payment Recovery</span>
                       <span>{recoveryPct.toFixed(0)}%</span>
                     </div>
-                    <Progress value={recoveryPct} className="h-2" />
+                    <Progress aria-label="Fees collected" value={recoveryPct} className="h-2" />
                   </div>
                 )}
                 <Separator />
@@ -411,7 +411,7 @@ export default function MatterDetailPage() {
         {/* HEARINGS */}
         <TabsContent value="hearings" className="space-y-3">
           {hearings.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <Calendar className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No hearings scheduled</p>
               <Button size="sm" variant="outline" className="mt-3" onClick={openHearingDialog}>
@@ -434,8 +434,8 @@ export default function MatterDetailPage() {
                         </Badge>
                       </div>
                       {h.purpose && <p className="text-sm text-slate-600 mt-1">{h.purpose}</p>}
-                      <p className="text-xs text-slate-400 mt-0.5">{h.courtName}</p>
-                      {h.assignedTo && <p className="text-xs text-slate-400">Assigned: {h.assignedTo}</p>}
+                      <p className="text-xs text-slate-500 mt-0.5">{h.courtName}</p>
+                      {h.assignedTo && <p className="text-xs text-slate-500">Assigned: {h.assignedTo}</p>}
                     </div>
                   </div>
                 </CardContent>
@@ -447,7 +447,7 @@ export default function MatterDetailPage() {
         {/* FEES */}
         <TabsContent value="fees" className="space-y-3">
           {fees.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <IndianRupee className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No fee entries</p>
             </div>
@@ -461,10 +461,10 @@ export default function MatterDetailPage() {
                 </div>
                 <div className="rounded-xl border p-3 text-center bg-emerald-50">
                   <p className="text-lg font-bold text-emerald-700">{fmt(fees.reduce((a, f) => a + f.receivedAmount, 0))}</p>
-                  <p className="text-xs text-emerald-600 mt-0.5">Received</p>
+                  <p className="text-xs text-emerald-700 mt-0.5">Received</p>
                 </div>
                 <div className="rounded-xl border p-3 text-center bg-red-50">
-                  <p className="text-lg font-bold text-red-600">{fmt(fees.reduce((a, f) => a + f.pendingAmount, 0))}</p>
+                  <p className="text-lg font-bold text-red-700">{fmt(fees.reduce((a, f) => a + f.pendingAmount, 0))}</p>
                   <p className="text-xs text-red-500 mt-0.5">Pending</p>
                 </div>
               </div>
@@ -483,18 +483,18 @@ export default function MatterDetailPage() {
                           <span className="text-slate-500">Total: <strong>{fmt(fee.totalAmount)}</strong></span>
                           <span className="text-emerald-700">Received: <strong>{fmt(fee.receivedAmount)}</strong></span>
                           {fee.pendingAmount > 0 && (
-                            <span className="text-red-600">Pending: <strong>{fmt(fee.pendingAmount)}</strong></span>
+                            <span className="text-red-700">Pending: <strong>{fmt(fee.pendingAmount)}</strong></span>
                           )}
                         </div>
                         {fee.dueDate && (
-                          <p className="text-xs text-slate-400 mt-1">
+                          <p className="text-xs text-slate-500 mt-1">
                             Due: {new Date(fee.dueDate).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                           </p>
                         )}
                       </div>
                     </div>
                     {fee.totalAmount > 0 && (
-                      <Progress value={(fee.receivedAmount / fee.totalAmount) * 100} className="h-1.5 mt-3" />
+                      <Progress aria-label="Amount received" value={(fee.receivedAmount / fee.totalAmount) * 100} className="h-1.5 mt-3" />
                     )}
                   </CardContent>
                 </Card>
@@ -506,7 +506,7 @@ export default function MatterDetailPage() {
         {/* EXPENSES */}
         <TabsContent value="expenses" className="space-y-3">
           {expenses.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <AlertCircle className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No expenses recorded</p>
             </div>
@@ -532,7 +532,7 @@ export default function MatterDetailPage() {
                             </Badge>
                           )}
                         </div>
-                        <p className="text-xs text-slate-400 mt-0.5">
+                        <p className="text-xs text-slate-500 mt-0.5">
                           {new Date(exp.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })} · Paid by: {exp.paidBy}
                         </p>
                       </div>
@@ -548,7 +548,7 @@ export default function MatterDetailPage() {
         {/* DOCUMENTS */}
         <TabsContent value="documents">
           {documents.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <FileText className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No documents uploaded</p>
               <Link href="/documents" className="mt-3">
@@ -572,9 +572,9 @@ export default function MatterDetailPage() {
                           <Badge className={cn("text-xs", docCategoryColor[doc.category])}>
                             {doc.category.replace("_", " ")}
                           </Badge>
-                          <span className="text-xs text-slate-400">{doc.fileSize}</span>
+                          <span className="text-xs text-slate-500">{doc.fileSize}</span>
                         </div>
-                        <p className="text-xs text-slate-400 mt-0.5">
+                        <p className="text-xs text-slate-500 mt-0.5">
                           {new Date(doc.uploadedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                         </p>
                       </div>
@@ -589,7 +589,7 @@ export default function MatterDetailPage() {
         {/* TASKS */}
         <TabsContent value="tasks" className="space-y-3">
           {tasks.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <CheckSquare className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No tasks assigned</p>
             </div>
@@ -600,7 +600,7 @@ export default function MatterDetailPage() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className={cn("font-medium text-sm", task.status === "completed" ? "line-through text-slate-400" : "text-slate-900")}>
+                        <span className={cn("font-medium text-sm", task.status === "completed" ? "line-through text-slate-500" : "text-slate-900")}>
                           {task.title}
                         </span>
                         <Badge variant="outline" className={cn("text-xs", taskStatusColor[task.status])}>
@@ -613,7 +613,7 @@ export default function MatterDetailPage() {
                       {task.description && (
                         <p className="text-xs text-slate-500 mt-1">{task.description}</p>
                       )}
-                      <div className="flex items-center gap-3 mt-1 text-xs text-slate-400 flex-wrap">
+                      <div className="flex items-center gap-3 mt-1 text-xs text-slate-500 flex-wrap">
                         <span>Assigned to: {task.assignedTo}</span>
                         {task.dueDate && (
                           <span>Due: {new Date(task.dueDate).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
@@ -635,7 +635,7 @@ export default function MatterDetailPage() {
         {/* TIMELINE */}
         <TabsContent value="timeline">
           {timeline.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <Activity className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No activity yet</p>
             </div>
@@ -652,7 +652,7 @@ export default function MatterDetailPage() {
                   <div className="pb-4 flex-1 min-w-0">
                     <p className="text-sm font-medium text-slate-800">{entry.title}</p>
                     {entry.description && <p className="text-xs text-slate-500 mt-0.5">{entry.description}</p>}
-                    <p className="text-xs text-slate-400 mt-1">
+                    <p className="text-xs text-slate-500 mt-1">
                       {new Date(entry.createdAt).toLocaleDateString("en-IN", {
                         day: "numeric", month: "short", year: "numeric",
                       })} · {entry.userName}

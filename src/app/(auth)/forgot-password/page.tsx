@@ -53,13 +53,13 @@ export default function ForgotPasswordPage() {
             </div>
           </div>
 
-          <p className="text-xs text-slate-400 text-center">
+          <p className="text-xs text-slate-500 text-center">
             Resetting by SMS or email code is coming soon.
           </p>
 
           <Link
             href="/login"
-            className="flex items-center justify-center gap-1.5 text-sm font-medium text-[#14213D] hover:underline"
+            className="flex pointer-coarse:min-h-11 items-center justify-center gap-1.5 text-sm font-medium text-[#14213D] hover:underline"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to sign in

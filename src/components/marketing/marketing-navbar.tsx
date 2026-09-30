@@ -121,7 +121,7 @@ export default function MarketingNavbar() {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className={cn(
-                "md:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors",
+                "md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors",
                 "text-slate-600 hover:text-[#14213D] hover:bg-[#14213D]/8"
               )}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -170,7 +170,7 @@ export default function MarketingNavbar() {
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+            className="flex items-center justify-center w-11 h-11 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
             aria-label="Close menu"
           >
             <X className="w-4.5 h-4.5" strokeWidth={2} />
@@ -187,7 +187,7 @@ export default function MarketingNavbar() {
                 href={href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "flex items-center px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
+                  "flex items-center min-h-11 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
                   isActive
                     ? "bg-[#14213D] text-white"
                     : "text-slate-700 hover:bg-[#14213D]/8 hover:text-[#14213D]"
@@ -205,7 +205,7 @@ export default function MarketingNavbar() {
             href="/login"
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors duration-150",
+              "flex items-center justify-center w-full min-h-11 px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors duration-150",
               "border-[#14213D]/40 text-[#14213D] hover:border-[#14213D] hover:bg-[#14213D]/6"
             )}
           >
@@ -220,7 +220,7 @@ export default function MarketingNavbar() {
             Start Free
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </Link>
-          <p className="text-center text-xs text-slate-400 pt-1">
+          <p className="text-center text-xs text-slate-500 pt-1">
             Free during early access &middot; No credit card
           </p>
         </div>

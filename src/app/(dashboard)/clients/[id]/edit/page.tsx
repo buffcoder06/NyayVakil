@@ -139,7 +139,7 @@ export default function EditClientPage() {
 
   if (!client) {
     return (
-      <div className="text-center py-20 text-slate-400">
+      <div className="text-center py-20 text-slate-500">
         <p>Client not found.</p>
         <Link href="/clients"><Button variant="outline" size="sm" className="mt-4">Back to Clients</Button></Link>
       </div>
@@ -169,7 +169,7 @@ export default function EditClientPage() {
             <div>
               <Label>Client Type *</Label>
               <Select value={clientType} onValueChange={(v) => v !== null && setValue("clientType", v as FormData["clientType"])}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Client Type" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="individual">Individual</SelectItem>
                   <SelectItem value="company">Company</SelectItem>
@@ -215,7 +215,7 @@ export default function EditClientPage() {
             <div>
               <Label>State</Label>
               <Select value={state || ""} onValueChange={(v) => v !== null && setValue("state", v)}>
-                <SelectTrigger className="mt-1"><SelectValue placeholder="Select state" /></SelectTrigger>
+                <SelectTrigger aria-label="State" className="mt-1"><SelectValue placeholder="Select state" /></SelectTrigger>
                 <SelectContent>
                   {INDIAN_STATES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
                 </SelectContent>

@@ -122,7 +122,7 @@ function HelpAccordion({ items }: { items: FaqItem[] }) {
                 {item.question}
               </span>
               <ChevronDown
-                className={`h-4 w-4 flex-shrink-0 text-slate-400 transition-transform duration-200 ${
+                className={`h-4 w-4 flex-shrink-0 text-slate-500 transition-transform duration-200 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />
@@ -204,7 +204,7 @@ export default function HelpPage() {
           <h2 className="text-lg font-semibold text-slate-900">Contact Support</h2>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             {/* Email */}
             <div className="flex flex-col items-start gap-2 p-6">
               <div className="h-9 w-9 rounded-lg bg-[#14213D]/10 flex items-center justify-center">
@@ -215,29 +215,12 @@ export default function HelpPage() {
               </p>
               <a
                 href="mailto:info@nyayvakil.in"
-                className="text-sm font-semibold text-[#14213D] hover:underline"
+                className="text-sm font-semibold text-[#14213D] hover:underline pointer-coarse:inline-block pointer-coarse:py-2.5"
               >
                 info@nyayvakil.in
               </a>
             </div>
 
-            {/* WhatsApp */}
-            <div className="flex flex-col items-start gap-2 p-6">
-              <div className="h-9 w-9 rounded-lg bg-[#14213D]/10 flex items-center justify-center">
-                <MessageCircle className="h-4 w-4 text-[#14213D]" />
-              </div>
-              <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
-                WhatsApp
-              </p>
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold text-[#14213D] hover:underline"
-              >
-                +91 98765 43210
-              </a>
-            </div>
 
             {/* Response Time */}
             <div className="flex flex-col items-start gap-2 p-6">
@@ -260,7 +243,7 @@ export default function HelpPage() {
             </p>
             <Link
               href="/demo"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#14213D] hover:underline"
+              className="inline-flex pointer-coarse:min-h-11 items-center gap-1.5 text-sm font-semibold text-[#14213D] hover:underline"
             >
               Book a Demo
               <ExternalLink className="h-3.5 w-3.5" />

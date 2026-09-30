@@ -104,7 +104,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
         <div className="flex flex-wrap items-start justify-between gap-2">
           <p
             className={`font-semibold text-slate-900 dark:text-slate-100 ${
-              isCompleted ? 'line-through text-slate-400' : ''
+              isCompleted ? 'line-through text-slate-500' : ''
             }`}
           >
             {task.title}
@@ -134,7 +134,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
         <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-slate-500">
           {task.matterTitle && (
             <span className="flex items-center gap-1">
-              <Briefcase className="h-3.5 w-3.5 text-slate-400" />
+              <Briefcase className="h-3.5 w-3.5 text-slate-500" />
               <Link
                 href={task.matterId ? `/matters/${task.matterId}` : '#'}
                 className="font-medium text-navy hover:underline dark:text-blue-400"
@@ -146,7 +146,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
 
           {task.assignedTo && (
             <span className="flex items-center gap-1">
-              <User className="h-3.5 w-3.5 text-slate-400" />
+              <User className="h-3.5 w-3.5 text-slate-500" />
               <Avatar className="h-5 w-5">
                 <AvatarFallback className="text-[12px] bg-slate-200">
                   {getInitials(task.assignedTo)}
@@ -159,7 +159,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
           {task.dueDate && (
             <span
               className={`flex items-center gap-1 ${
-                overdue ? 'text-red-600 font-semibold' : ''
+                overdue ? 'text-red-700 font-semibold' : ''
               }`}
             >
               <Calendar className="h-3.5 w-3.5" />
@@ -176,7 +176,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
           {!isCompleted && (
             <Tooltip>
               <TooltipTrigger
-                className="h-8 w-8 inline-flex items-center justify-center rounded-md text-green-600 hover:text-green-700 hover:bg-green-50"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-md text-green-700 hover:text-green-700 hover:bg-green-50"
                 onClick={handleComplete}
                 disabled={completing}
                 aria-label={`Complete task: ${task.title}`}

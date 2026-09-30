@@ -73,7 +73,7 @@ export default function AboutPage() {
           <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 mb-5">
             About NyayVakil
           </h1>
-          <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             NyayVakil is a legal practice management platform built specifically
             for Indian advocates. Our goal is straightforward: help every legal
             professional in India manage their practice with clarity, without the

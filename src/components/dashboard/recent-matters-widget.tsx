@@ -86,12 +86,12 @@ export function RecentMattersWidget({ matters, clients }: RecentMattersWidgetPro
                       <td className="px-4 py-3">
                         <Link
                           href={`/matters/${matter.id}`}
-                          className="font-medium text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          className="font-medium text-slate-900 dark:text-slate-100 hover:text-gold-deep dark:hover:text-gold-bright transition-colors pointer-coarse:inline-block pointer-coarse:py-2.5"
                         >
                           {truncateText(matter.matterTitle, 30)}
                         </Link>
                         {matter.caseNumber && (
-                          <p className="text-xs text-slate-400 mt-0.5">
+                          <p className="text-xs text-slate-500 mt-0.5">
                             {matter.caseNumber}
                           </p>
                         )}
@@ -132,7 +132,7 @@ export function RecentMattersWidget({ matters, clients }: RecentMattersWidgetPro
       <CardFooter className="border-t pt-3">
         <Link
           href="/matters"
-          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium pointer-coarse:min-h-11 text-navy hover:text-gold-deep dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           View all cases
           <ArrowRight className="h-3.5 w-3.5" />

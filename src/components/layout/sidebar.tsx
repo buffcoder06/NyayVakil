@@ -262,7 +262,8 @@ export default function Sidebar() {
               variant="ghost"
               size="icon"
               onClick={toggleCollapsed}
-              className="h-7 w-7 text-white/50 hover:text-white hover:bg-white/10 rounded-lg"
+              className="h-8 w-8 text-white/70 hover:text-white hover:bg-white/10 rounded-lg"
+              aria-label="Collapse sidebar"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -275,7 +276,7 @@ export default function Sidebar() {
             <div key={idx}>
               {/* Only show group label when expanded and title is non-empty */}
               {!collapsed && group.title && (
-                <p className="mb-1.5 px-2 text-[12px] font-semibold uppercase tracking-widest text-white/30">
+                <p className="mb-1.5 px-2 text-[12px] font-semibold uppercase tracking-widest text-white/60">
                   {group.title}
                 </p>
               )}
@@ -301,6 +302,7 @@ export default function Sidebar() {
               <TooltipTrigger
                 className="h-8 w-8 inline-flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 w-full rounded-lg"
                 onClick={toggleCollapsed}
+                aria-label="Expand sidebar"
               >
                 <ChevronLeft className="h-4 w-4 rotate-180" />
               </TooltipTrigger>

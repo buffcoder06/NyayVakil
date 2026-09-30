@@ -114,7 +114,7 @@ export default function ClientDetailPage() {
 
   if (!client) {
     return (
-      <div className="flex flex-col items-center py-20 text-slate-400">
+      <div className="flex flex-col items-center py-20 text-slate-500">
         <AlertCircle className="h-12 w-12 mb-3" />
         <p className="text-base font-medium">Client not found</p>
         <Link href="/clients" className="mt-4">
@@ -198,12 +198,12 @@ export default function ClientDetailPage() {
       {/* Outstanding Banner */}
       {client.totalOutstanding > 0 && (
         <div className="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl mb-6">
-          <AlertCircle className="h-5 w-5 text-amber-600 shrink-0" />
+          <AlertCircle className="h-5 w-5 text-amber-700 shrink-0" />
           <div>
             <p className="text-sm font-semibold text-amber-800">
               Outstanding Amount: {fmt(client.totalOutstanding)}
             </p>
-            <p className="text-xs text-amber-600 mt-0.5">
+            <p className="text-xs text-amber-700 mt-0.5">
               This client has pending professional fee payments.
             </p>
           </div>
@@ -304,7 +304,7 @@ export default function ClientDetailPage() {
                   <span
                     className={cn(
                       "font-semibold",
-                      client.totalOutstanding > 0 ? "text-red-600" : "text-slate-800"
+                      client.totalOutstanding > 0 ? "text-red-700" : "text-slate-800"
                     )}
                   >
                     {fmt(client.totalOutstanding)}
@@ -312,11 +312,11 @@ export default function ClientDetailPage() {
                 </div>
                 {totalFeeAgreed > 0 && (
                   <div className="pt-1">
-                    <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+                    <div className="flex justify-between text-xs text-slate-500 mb-1.5">
                       <span>Payment Recovery</span>
                       <span>{recoveryPct.toFixed(0)}%</span>
                     </div>
-                    <Progress value={recoveryPct} className="h-2" />
+                    <Progress aria-label="Fees collected" value={recoveryPct} className="h-2" />
                   </div>
                 )}
                 <Separator />
@@ -354,7 +354,7 @@ export default function ClientDetailPage() {
         {/* Matters */}
         <TabsContent value="matters" className="space-y-3">
           {matters.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <Briefcase className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No cases linked to this client</p>
               <Link href="/matters/new" className="mt-3">
@@ -400,7 +400,7 @@ export default function ClientDetailPage() {
                       </div>
                       {matter.totalFeeAgreed - matter.totalFeePaid > 0 && (
                         <div className="text-right shrink-0">
-                          <p className="text-xs text-slate-400">Pending</p>
+                          <p className="text-xs text-slate-500">Pending</p>
                           <p className="text-sm font-semibold text-amber-700">
                             {fmt(matter.totalFeeAgreed - matter.totalFeePaid)}
                           </p>
@@ -417,7 +417,7 @@ export default function ClientDetailPage() {
         {/* Fees */}
         <TabsContent value="fees" className="space-y-3">
           {fees.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <IndianRupee className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No fee records for this client</p>
             </div>
@@ -451,14 +451,14 @@ export default function ClientDetailPage() {
                         {fee.pendingAmount > 0 && (
                           <span className="text-slate-500">
                             Pending:{" "}
-                            <span className="font-medium text-red-600">
+                            <span className="font-medium text-red-700">
                               {fmt(fee.pendingAmount)}
                             </span>
                           </span>
                         )}
                       </div>
                       {fee.dueDate && (
-                        <p className="text-xs text-slate-400 mt-1">
+                        <p className="text-xs text-slate-500 mt-1">
                           Due:{" "}
                           {new Date(fee.dueDate).toLocaleDateString("en-IN", {
                             day: "numeric",
@@ -471,7 +471,7 @@ export default function ClientDetailPage() {
                   </div>
                   {fee.totalAmount > 0 && (
                     <div className="mt-3">
-                      <Progress
+                      <Progress aria-label="Amount received"
                         value={(fee.receivedAmount / fee.totalAmount) * 100}
                         className="h-1.5"
                       />
@@ -486,7 +486,7 @@ export default function ClientDetailPage() {
         {/* Timeline */}
         <TabsContent value="timeline">
           {timeline.length === 0 ? (
-            <div className="flex flex-col items-center py-16 text-slate-400">
+            <div className="flex flex-col items-center py-16 text-slate-500">
               <Activity className="h-10 w-10 mb-3 opacity-30" />
               <p className="text-sm font-medium">No activity yet</p>
             </div>
@@ -509,7 +509,7 @@ export default function ClientDetailPage() {
                       {entry.description && (
                         <p className="text-xs text-slate-500 mt-0.5">{entry.description}</p>
                       )}
-                      <p className="text-xs text-slate-400 mt-1">
+                      <p className="text-xs text-slate-500 mt-1">
                         {new Date(entry.createdAt).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",

@@ -320,7 +320,7 @@ export default function ReportsPage() {
           {/* Outstanding Clients */}
           <SectionCard title="Outstanding by Client (Top 8)">
             {clientOutstanding.length === 0 ? (
-              <p className="text-sm text-slate-400 py-4 text-center">No outstanding amounts. All collected!</p>
+              <p className="text-sm text-slate-500 py-4 text-center">No outstanding amounts. All collected!</p>
             ) : (
               <div className="space-y-3">
                 {clientOutstanding.map((client) => (
@@ -328,9 +328,9 @@ export default function ReportsPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between mb-1">
                         <span className="text-sm font-medium text-slate-800 truncate">{client.name}</span>
-                        <span className="text-sm font-bold text-red-600 shrink-0 ml-2">{fmt(client.totalOutstanding)}</span>
+                        <span className="text-sm font-bold text-red-700 shrink-0 ml-2">{fmt(client.totalOutstanding)}</span>
                       </div>
-                      <Progress
+                      <Progress aria-label="Share of the largest outstanding amount"
                         value={(client.totalOutstanding / (clientOutstanding[0]?.totalOutstanding || 1)) * 100}
                         className="h-1.5"
                       />
@@ -419,7 +419,7 @@ export default function ReportsPage() {
           {/* Today's hearings */}
           <SectionCard title="Today's Hearings">
             {hearings.filter((h) => h.date === todayIST()).length === 0 ? (
-              <p className="text-sm text-slate-400 py-4 text-center">No hearings scheduled for today.</p>
+              <p className="text-sm text-slate-500 py-4 text-center">No hearings scheduled for today.</p>
             ) : (
               <div className="space-y-2">
                 {hearings
@@ -448,7 +448,7 @@ export default function ReportsPage() {
                 (h) => h.date > today && h.date <= weekEndStr && h.status === "upcoming"
               );
               return upcoming.length === 0 ? (
-                <p className="text-sm text-slate-400 py-4 text-center">No hearings in the next 7 days.</p>
+                <p className="text-sm text-slate-500 py-4 text-center">No hearings in the next 7 days.</p>
               ) : (
                 <div className="space-y-2">
                   {upcoming.sort((a, b) => a.date.localeCompare(b.date)).map((h) => (
@@ -477,8 +477,8 @@ export default function ReportsPage() {
                 <span className="text-slate-600">Completed Tasks</span>
                 <span className="font-bold text-slate-900">{taskStats.completionRate.toFixed(0)}%</span>
               </div>
-              <Progress value={taskStats.completionRate} className="h-3" />
-              <div className="flex justify-between mt-2 text-xs text-slate-400">
+              <Progress aria-label="Tasks completed" value={taskStats.completionRate} className="h-3" />
+              <div className="flex justify-between mt-2 text-xs text-slate-500">
                 <span>{taskStats.completed} completed</span>
                 <span>{taskStats.total} total</span>
               </div>

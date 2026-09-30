@@ -78,7 +78,7 @@ export default function PrivacyPage() {
       <div className="bg-amber-50 border-b border-amber-200">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-start gap-3">
           <svg
-            className="mt-0.5 h-5 w-5 shrink-0 text-amber-600"
+            className="mt-0.5 h-5 w-5 shrink-0 text-amber-700"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
                   href={`#${id}`}
                   className="flex items-baseline gap-2 hover:text-[#14213D] transition-colors"
                 >
-                  <span className="text-xs text-slate-400 tabular-nums w-5 shrink-0">
+                  <span className="text-xs text-slate-500 tabular-nums w-5 shrink-0">
                     {i + 1}.
                   </span>
                   {label}

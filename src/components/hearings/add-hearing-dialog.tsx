@@ -235,7 +235,7 @@ export function AddHearingDialog({
           <div className="space-y-1.5">
             <Label>Purpose</Label>
             <Select value={purpose} onValueChange={(v) => v !== null && setPurpose(v)}>
-              <SelectTrigger>
+              <SelectTrigger aria-label="Purpose">
                 <SelectValue placeholder="Select purpose..." />
               </SelectTrigger>
               <SelectContent>
@@ -252,7 +252,7 @@ export function AddHearingDialog({
           <div className="space-y-1.5">
             <Label>Assigned Person</Label>
             <Select value={assignedTo} onValueChange={(v) => v !== null && setAssignedTo(v)}>
-              <SelectTrigger>
+              <SelectTrigger aria-label="Assigned Person">
                 <SelectValue placeholder="Select person..." />
               </SelectTrigger>
               <SelectContent>

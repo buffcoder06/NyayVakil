@@ -55,19 +55,19 @@ const COLOR_CONFIG: Record<
   green: {
     bg: "bg-emerald-50",
     text: "text-emerald-700",
-    icon: "text-emerald-600",
+    icon: "text-emerald-700",
     ring: "ring-emerald-200",
   },
   red: {
     bg: "bg-red-50",
     text: "text-red-700",
-    icon: "text-red-600",
+    icon: "text-red-700",
     ring: "ring-red-200",
   },
   yellow: {
     bg: "bg-amber-50",
     text: "text-amber-700",
-    icon: "text-amber-600",
+    icon: "text-amber-700",
     ring: "ring-amber-200",
   },
   purple: {
@@ -167,13 +167,13 @@ export function StatCard({
               <span
                 className={cn(
                   "text-xs font-semibold",
-                  trend.positive ? "text-emerald-600" : "text-red-600"
+                  trend.positive ? "text-emerald-700" : "text-red-700"
                 )}
               >
                 {trend.positive ? "+" : ""}
                 {trend.value}%
               </span>
-              <span className="text-xs text-slate-400">{trend.label}</span>
+              <span className="text-xs text-slate-500">{trend.label}</span>
             </div>
           ) : subtitle ? (
             <p className="text-xs text-slate-500 mt-1 truncate">{subtitle}</p>

@@ -275,7 +275,7 @@ export default function TasksPage() {
                   <div className="mb-2 flex items-center gap-2">
                     <h3
                       className={`text-sm font-semibold uppercase tracking-wide ${
-                        group === 'Overdue' ? 'text-red-600' : 'text-slate-500'
+                        group === 'Overdue' ? 'text-red-700' : 'text-slate-500'
                       }`}
                     >
                       {group}
@@ -331,7 +331,7 @@ function EmptyState() {
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed bg-white py-16 text-center dark:bg-slate-900">
       <CheckSquare className="mb-3 h-10 w-10 text-slate-300" />
       <p className="text-base font-medium text-slate-600">No tasks found</p>
-      <p className="mt-1 text-sm text-slate-400">
+      <p className="mt-1 text-sm text-slate-500">
         Click &quot;Add Task&quot; to create a new task.
       </p>
     </div>

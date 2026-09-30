@@ -10,6 +10,8 @@
   --color-navy-deep: #0E182E;
   --color-gold: #A8741F;
   --color-gold-bright: #D9A441;
+  /* gold for small text: 6.8:1 on white (plain gold is 4.05:1, fine for icons and the logo only) */
+  --color-gold-deep: #7A5415;
   --color-cream: #FAF7F0;
   --color-brand-slate: #4A5468;
 

@@ -68,7 +68,7 @@ const WHY_DEMO_POINTS = [
 const inputClass =
   "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#14213D]/25 focus:border-[#14213D] transition-colors";
 
-const errorClass = "mt-1 text-xs text-red-600";
+const errorClass = "mt-1 text-xs text-red-700";
 
 // ── Contact Form ──────────────────────────────────────────────────────────────
 
@@ -150,7 +150,7 @@ function ContactForm() {
     return (
       <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
         <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-5">
-          <CheckCircle2 className="w-7 h-7 text-green-600" strokeWidth={2} />
+          <CheckCircle2 className="w-7 h-7 text-green-700" strokeWidth={2} />
         </div>
         <h3 className="text-xl font-bold text-slate-900 mb-2">
           Message received!
@@ -379,7 +379,7 @@ function CallbackForm() {
   if (submitState === "success") {
     return (
       <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
-        <CheckCircle2 className="w-8 h-8 text-green-600 mx-auto mb-3" strokeWidth={2} />
+        <CheckCircle2 className="w-8 h-8 text-green-700 mx-auto mb-3" strokeWidth={2} />
         <p className="text-sm font-semibold text-slate-800">
           Callback request received!
         </p>
@@ -508,7 +508,7 @@ export default function ContactPage() {
           <h1 className="font-brand text-3xl sm:text-4xl font-normal text-slate-900 mb-4">
             Get in touch
           </h1>
-          <p className="text-lg text-slate-500 leading-relaxed">
+          <p className="text-lg text-slate-600 leading-relaxed">
             Have a question, want to book a demo, or just want to know more
             about NyayVakil? We are here to help. Reach out through any channel
             that suits you.
@@ -549,7 +549,7 @@ export default function ContactPage() {
                     </p>
                     <Link
                       href="/demo"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-blue-100 transition-colors"
+                      className="inline-flex pointer-coarse:min-h-11 items-center gap-1.5 text-xs font-semibold text-white hover:text-blue-100 transition-colors"
                     >
                       Schedule now
                       <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -577,11 +577,11 @@ export default function ContactPage() {
                     </h3>
                     <a
                       href="mailto:info@nyayvakil.in"
-                      className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
+                      className="text-sm text-slate-500 hover:text-slate-800 transition-colors pointer-coarse:inline-block pointer-coarse:py-2.5"
                     >
                       info@nyayvakil.in
                     </a>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       We respond within 24–48 hours
                     </p>
                   </div>
@@ -608,7 +608,7 @@ export default function ContactPage() {
                     <p className="text-sm text-slate-500">
                       Mon – Sat, 9 AM – 7 PM IST
                     </p>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       Closed on Sundays and national holidays
                     </p>
                   </div>

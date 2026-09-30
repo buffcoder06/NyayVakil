@@ -131,9 +131,9 @@ function FaqItem({
       >
         <span className="text-sm font-semibold text-slate-800">{question}</span>
         {open ? (
-          <ChevronUp className="w-4 h-4 text-slate-500 shrink-0" />
+          <ChevronUp className="w-4 h-4 text-slate-600 shrink-0" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+          <ChevronDown className="w-4 h-4 text-slate-600 shrink-0" />
         )}
       </button>
       {open && (
@@ -253,7 +253,7 @@ export default function DemoPage() {
   const inputClass =
     "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#14213D]/25 focus:border-[#14213D] transition-colors";
 
-  const errorClass = "mt-1 text-xs text-red-600";
+  const errorClass = "mt-1 text-xs text-red-700";
 
   return (
     <div className="bg-white">
@@ -278,7 +278,7 @@ export default function DemoPage() {
           <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 mb-4">
             See NyayVakil in action
           </h1>
-          <p className="text-lg text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto">
             Try it yourself free — sign-up takes two minutes — or let our team
             walk you through it personally.
           </p>
@@ -323,7 +323,7 @@ export default function DemoPage() {
               <h2 className="text-xl font-bold text-slate-900 mb-2">
                 Try it yourself — free
               </h2>
-              <p className="text-sm text-slate-500 leading-relaxed mb-5">
+              <p className="text-sm text-slate-600 leading-relaxed mb-5">
                 Create your chamber in two minutes and use every feature with your
                 own cases. Free during early access, no credit card.
               </p>
@@ -343,7 +343,7 @@ export default function DemoPage() {
                 >
                   Create free account →
                 </Link>
-                <p className="mt-3 text-xs text-slate-400 flex items-center gap-1.5">
+                <p className="mt-3 text-xs text-slate-600 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 shrink-0" strokeWidth={2} />
                   Takes about 2 minutes
                 </p>
@@ -410,7 +410,7 @@ export default function DemoPage() {
             <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
               What you will see in the demo
             </h2>
-            <p className="text-slate-500 max-w-xl mx-auto text-sm">
+            <p className="text-slate-600 max-w-xl mx-auto text-sm">
               The demo covers the core features that advocates use every day to
               manage their practice.
             </p>
@@ -435,7 +435,7 @@ export default function DemoPage() {
                 <h3 className="text-sm font-semibold text-slate-900 mb-1.5">
                   {title}
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {description}
                 </p>
               </div>
@@ -451,7 +451,7 @@ export default function DemoPage() {
             <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
               Book a live demo
             </h2>
-            <p className="text-slate-500 text-sm max-w-md mx-auto">
+            <p className="text-slate-600 text-sm max-w-md mx-auto">
               Fill in the form below and our team will reach out to confirm your
               slot within 24 hours.
             </p>
@@ -461,7 +461,7 @@ export default function DemoPage() {
             <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
               <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-5">
                 <CheckCircle2
-                  className="w-7 h-7 text-green-600"
+                  className="w-7 h-7 text-green-700"
                   strokeWidth={2}
                 />
               </div>
@@ -471,7 +471,7 @@ export default function DemoPage() {
               <p className="text-sm text-slate-600 mb-1">
                 We will contact you within 24 hours to confirm.
               </p>
-              <p className="text-xs font-mono text-slate-500 mb-7">
+              <p className="text-xs font-mono text-slate-600 mb-7">
                 Reference: {referenceNumber}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -717,7 +717,7 @@ export default function DemoPage() {
                 )}
               </button>
 
-              <p className="text-center text-xs text-slate-400">
+              <p className="text-center text-xs text-slate-600">
                 Our team will contact you within 24 hours to confirm.
               </p>
             </form>
@@ -745,7 +745,7 @@ export default function DemoPage() {
         style={{ backgroundColor: "#f0f4f8" }}
       >
         <div className="max-w-xl mx-auto px-4 sm:px-6">
-          <p className="text-slate-500 text-sm mb-4">
+          <p className="text-slate-600 text-sm mb-4">
             Just want to explore on your own?
           </p>
           <Link
@@ -756,7 +756,7 @@ export default function DemoPage() {
             Launch Demo Workspace →
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </Link>
-          <p className="mt-3 text-xs text-slate-400">
+          <p className="mt-3 text-xs text-slate-600">
             No account needed &middot; Sample data pre-loaded &middot; Resets
             automatically
           </p>

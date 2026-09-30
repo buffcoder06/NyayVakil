@@ -144,7 +144,7 @@ export default function HearingsPage() {
   const renderHearingGroups = (list: Hearing[]) => {
     if (list.length === 0) {
       return (
-        <div className="flex flex-col items-center py-16 text-slate-400">
+        <div className="flex flex-col items-center py-16 text-slate-500">
           <CalendarDays className="h-12 w-12 mb-3 opacity-40" />
           <p className="text-sm font-medium">No hearings found</p>
           <p className="text-xs mt-1">Schedule a hearing to see it here.</p>
@@ -166,7 +166,7 @@ export default function HearingsPage() {
                 <span
                   className={cn(
                     "text-sm font-semibold",
-                    isToday ? "text-amber-600" : "text-slate-600 dark:text-slate-300"
+                    isToday ? "text-amber-700" : "text-slate-600 dark:text-slate-300"
                   )}
                 >
                   {isToday ? "Today — " : ""}
@@ -281,7 +281,7 @@ export default function HearingsPage() {
         {/* Date navigation */}
         {viewMode === "list" && (
           <div className="flex items-center gap-1">
-            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => navigateDate(-1)}>
+            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => navigateDate(-1)} aria-label="Previous">
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <Button
@@ -292,7 +292,7 @@ export default function HearingsPage() {
             >
               Today
             </Button>
-            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => navigateDate(1)}>
+            <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => navigateDate(1)} aria-label="Next">
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
@@ -302,7 +302,7 @@ export default function HearingsPage() {
 
         {/* Filters */}
         <Select value={filterCourt} onValueChange={(v) => v !== null && setFilterCourt(v)}>
-          <SelectTrigger className="w-40 h-8 text-xs">
+          <SelectTrigger aria-label="Filter by court" className="w-40 h-8 text-xs">
             <SelectValue placeholder="All Courts" />
           </SelectTrigger>
           <SelectContent>
@@ -316,7 +316,7 @@ export default function HearingsPage() {
         </Select>
 
         <Select value={filterAssigned} onValueChange={(v) => v !== null && setFilterAssigned(v)}>
-          <SelectTrigger className="w-40 h-8 text-xs">
+          <SelectTrigger aria-label="Filter by person" className="w-40 h-8 text-xs">
             <SelectValue placeholder="All Persons" />
           </SelectTrigger>
           <SelectContent>
@@ -330,7 +330,7 @@ export default function HearingsPage() {
         </Select>
 
         <Select value={filterStatus} onValueChange={(v) => v !== null && setFilterStatus(v)}>
-          <SelectTrigger className="w-36 h-8 text-xs">
+          <SelectTrigger aria-label="Filter by status" className="w-36 h-8 text-xs">
             <SelectValue placeholder="All Statuses" />
           </SelectTrigger>
           <SelectContent>

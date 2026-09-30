@@ -188,12 +188,12 @@ export default function ProfilePage() {
               <p className="text-sm text-slate-500 mt-0.5">{user?.email}</p>
               {user?.chamberName && (
                 <p className="text-sm text-slate-600 mt-0.5 flex items-center gap-1.5">
-                  <Building2 className="h-3.5 w-3.5 text-slate-400" />
+                  <Building2 className="h-3.5 w-3.5 text-slate-500" />
                   {user.chamberName}
                 </p>
               )}
               {user?.barCouncilNumber && (
-                <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
                   <Shield className="h-3 w-3" />
                   Bar Council No: {user.barCouncilNumber}
                 </p>
@@ -237,7 +237,7 @@ export default function ProfilePage() {
                           <FormLabel>Full Name</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="Adv. Rajesh Sharma" {...field} />
                             </div>
                           </FormControl>
@@ -253,7 +253,7 @@ export default function ProfilePage() {
                           <FormLabel>Email Address</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="advocate@chambers.in" {...field} />
                             </div>
                           </FormControl>
@@ -269,7 +269,7 @@ export default function ProfilePage() {
                           <FormLabel>Mobile Number</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="9876543210" {...field} />
                             </div>
                           </FormControl>
@@ -285,7 +285,7 @@ export default function ProfilePage() {
                           <FormLabel>Bar Council Number</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="MAH/1234/2015" {...field} />
                             </div>
                           </FormControl>
@@ -301,7 +301,7 @@ export default function ProfilePage() {
                           <FormLabel>Chamber / Firm Name</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="Sharma & Associates" {...field} />
                             </div>
                           </FormControl>
@@ -317,7 +317,7 @@ export default function ProfilePage() {
                           <FormLabel>Specialization</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                              <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                               <Input className="pl-9" placeholder="Criminal, Civil, Family" {...field} />
                             </div>
                           </FormControl>
@@ -471,7 +471,7 @@ export default function ProfilePage() {
                   <p className="text-sm font-medium text-slate-900">User ID</p>
                   <p className="text-xs text-slate-500">Your unique identifier</p>
                 </div>
-                <span className="text-xs font-mono text-slate-400">{user?.id}</span>
+                <span className="text-xs font-mono text-slate-500">{user?.id}</span>
               </div>
             </CardContent>
           </Card>

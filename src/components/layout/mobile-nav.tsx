@@ -152,7 +152,7 @@ export default function MobileNav() {
                 href={tab.href}
                 className={cn(
                   "flex-1 flex flex-col items-center justify-center gap-1 pt-2 pb-1 relative transition-colors",
-                  isActive ? "text-[#14213D]" : "text-slate-400 hover:text-slate-600"
+                  isActive ? "text-[#14213D]" : "text-slate-500 hover:text-slate-600"
                 )}
                 aria-current={isActive ? "page" : undefined}
               >
@@ -167,7 +167,7 @@ export default function MobileNav() {
                 <span
                   className={cn(
                     "text-[12px] font-medium leading-none",
-                    isActive ? "text-[#14213D]" : "text-slate-400"
+                    isActive ? "text-[#14213D]" : "text-slate-500"
                   )}
                 >
                   {tab.label}
@@ -183,7 +183,7 @@ export default function MobileNav() {
               "flex-1 flex flex-col items-center justify-center gap-1 pt-2 pb-1 relative transition-colors",
               isMoreActive || moreOpen
                 ? "text-[#14213D]"
-                : "text-slate-400 hover:text-slate-600"
+                : "text-slate-500 hover:text-slate-600"
             )}
             aria-label="More navigation options"
           >
@@ -200,7 +200,7 @@ export default function MobileNav() {
             <span
               className={cn(
                 "text-[12px] font-medium leading-none",
-                isMoreActive || moreOpen ? "text-[#14213D]" : "text-slate-400"
+                isMoreActive || moreOpen ? "text-[#14213D]" : "text-slate-500"
               )}
             >
               More

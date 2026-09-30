@@ -102,7 +102,7 @@ export function OnboardingChecklist({
           <button
             onClick={handleDismiss}
             aria-label="Dismiss onboarding checklist"
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -160,7 +160,7 @@ export function OnboardingChecklist({
                     <span
                       className={`block text-sm font-medium leading-tight ${
                         isCompleted
-                          ? "line-through text-slate-400 dark:text-slate-500"
+                          ? "line-through text-slate-500 dark:text-slate-500"
                           : "text-slate-800 dark:text-slate-100"
                       }`}
                     >

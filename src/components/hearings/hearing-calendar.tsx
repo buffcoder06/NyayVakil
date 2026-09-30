@@ -121,7 +121,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
               {DAYS.map((d) => (
                 <div
                   key={d}
-                  className="text-center text-xs font-medium text-slate-400 py-1"
+                  className="text-center text-xs font-medium text-slate-500 py-1"
                 >
                   {d}
                 </div>
@@ -170,7 +170,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
                           />
                         ))}
                         {dayHearings.length > 3 && (
-                          <span className="text-[12px] text-slate-400 font-medium">
+                          <span className="text-[12px] text-slate-500 font-medium">
                             +{dayHearings.length - 3}
                           </span>
                         )}
@@ -208,12 +208,12 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
           </CardHeader>
           <CardContent>
             {!selectedDate && (
-              <p className="text-sm text-slate-400 text-center py-8">
+              <p className="text-sm text-slate-500 text-center py-8">
                 Click a day with hearings to view details.
               </p>
             )}
             {selectedDate && selectedHearings.length === 0 && (
-              <p className="text-sm text-slate-400 text-center py-8">
+              <p className="text-sm text-slate-500 text-center py-8">
                 No hearings on this date.
               </p>
             )}
@@ -237,7 +237,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
                   <p className="text-xs text-slate-500">{h.clientName}</p>
                   <p className="text-xs text-slate-500">{h.courtName}{h.time ? ` · ${formatTime(h.time)}` : ""}</p>
                   {h.purpose && (
-                    <p className="text-xs text-slate-400">{h.purpose}</p>
+                    <p className="text-xs text-slate-500">{h.purpose}</p>
                   )}
                 </div>
               ))}

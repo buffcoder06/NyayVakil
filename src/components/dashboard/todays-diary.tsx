@@ -56,7 +56,7 @@ export function TodaysDiary({ hearings, today }: TodaysDiaryProps) {
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
               No hearings scheduled for today
             </p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
               Add a hearing to see it here
             </p>
           </div>
@@ -107,7 +107,7 @@ export function TodaysDiary({ hearings, today }: TodaysDiaryProps) {
       <CardFooter className="border-t pt-3">
         <Link
           href="/hearings"
-          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium pointer-coarse:min-h-11 text-navy hover:text-gold-deep dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           Open court diary
           <ArrowRight className="h-3.5 w-3.5" />

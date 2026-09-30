@@ -81,7 +81,7 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
             <p className="text-sm text-slate-500 dark:text-slate-400">
               No tasks due today
             </p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
               You're all caught up!
             </p>
           </div>
@@ -116,7 +116,7 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
                         htmlFor={`task-${task.id}`}
                         className={`text-sm font-medium cursor-pointer ${
                           isCompleted
-                            ? "line-through text-slate-400"
+                            ? "line-through text-slate-500"
                             : "text-slate-900 dark:text-slate-100"
                         }`}
                       >
@@ -140,12 +140,12 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
                         {task.assignedTo}
                       </span>
                       {task.matterTitle && (
-                        <span className="text-xs text-slate-400 dark:text-slate-500 truncate">
+                        <span className="text-xs text-slate-500 dark:text-slate-500 truncate">
                           {truncateText(task.matterTitle, 25)}
                         </span>
                       )}
                       {overdue && !isCompleted && (
-                        <span className="text-xs font-medium text-red-600 dark:text-red-400">
+                        <span className="text-xs font-medium text-red-700 dark:text-red-400">
                           Overdue
                         </span>
                       )}
@@ -161,7 +161,7 @@ export function TasksWidget({ tasks: initialTasks }: TasksWidgetProps) {
       <CardFooter className="border-t pt-3">
         <Link
           href="/tasks"
-          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium pointer-coarse:min-h-11 text-navy hover:text-gold-deep dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           View all tasks
           <ArrowRight className="h-3.5 w-3.5" />

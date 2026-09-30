@@ -142,13 +142,13 @@ function AddExpenseDialog({
         <div className="space-y-4 py-2">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label>Date *</Label>
-              <Input type="date" className="mt-1" value={date} onChange={(e) => setDate(e.target.value)} />
+              <Label htmlFor="f-date">Date *</Label>
+              <Input id="f-date" type="date" className="mt-1" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div>
               <Label>Expense Type *</Label>
               <Select value={expenseType} onValueChange={(v) => v !== null && setExpenseType(v)}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Expense Type" className="mt-1"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Object.entries(expenseTypeLabel).map(([k, v]) => (
                     <SelectItem key={k} value={k}>{v}</SelectItem>
@@ -158,23 +158,23 @@ function AddExpenseDialog({
             </div>
           </div>
           <div>
-            <Label>Description *</Label>
-            <Input className="mt-1" placeholder="Brief description" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <Label htmlFor="f-description">Description *</Label>
+            <Input id="f-description" className="mt-1" placeholder="Brief description" value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label>Amount (₹) *</Label>
-              <Input type="number" min={0} className="mt-1" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} />
+              <Label htmlFor="f-amount">Amount (₹) *</Label>
+              <Input id="f-amount" type="number" min={0} className="mt-1" placeholder="0" value={amount} onChange={(e) => setAmount(e.target.value)} />
             </div>
             <div>
-              <Label>Paid By</Label>
-              <Input className="mt-1" placeholder="Office / Advocate" value={paidBy} onChange={(e) => setPaidBy(e.target.value)} />
+              <Label htmlFor="f-paid-by">Paid By</Label>
+              <Input id="f-paid-by" className="mt-1" placeholder="Office / Advocate" value={paidBy} onChange={(e) => setPaidBy(e.target.value)} />
             </div>
           </div>
           <div>
             <Label>Linked Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
+              <SelectTrigger aria-label="Linked Case" className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -192,8 +192,8 @@ function AddExpenseDialog({
             <Label htmlFor="recoverable" className="cursor-pointer">Recoverable from Client</Label>
           </div>
           <div>
-            <Label>Notes</Label>
-            <Textarea className="mt-1 resize-none" rows={2} placeholder="Optional notes…" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Label htmlFor="f-notes">Notes</Label>
+            <Textarea id="f-notes" className="mt-1 resize-none" rows={2} placeholder="Optional notes…" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
         </div>
         <DialogFooter>
@@ -225,7 +225,7 @@ function ExpenseRowMobile({ expense, matterTitle, onToggleRecovered, busy = fals
                 {expenseTypeLabel[expense.expenseType]}
               </Badge>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               {new Date(expense.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
               {matterTitle !== "—" && ` · ${matterTitle}`}
               {` · ${expense.paidBy}`}
@@ -357,18 +357,18 @@ export default function ExpensesPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5 flex-wrap">
         <div className="relative flex-1 min-w-48">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
           <Input className="pl-9" placeholder="Search expenses…" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <Select value={typeFilter} onValueChange={(v) => v !== null && setTypeFilter(v)}>
-          <SelectTrigger className="w-full sm:w-44"><SelectValue placeholder="Expense Type" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by type" className="w-full sm:w-44"><SelectValue placeholder="Expense Type" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             {Object.entries(expenseTypeLabel).map(([k, v]) => <SelectItem key={k} value={k}>{v}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select value={matterFilter} onValueChange={(v) => v !== null && setMatterFilter(v)}>
-          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
+          <SelectTrigger aria-label="Filter by case" className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Cases</SelectItem>
             {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -378,7 +378,7 @@ export default function ExpensesPage() {
 
       {/* Count */}
       {!loading && (
-        <p className="text-xs text-slate-400 mb-3">
+        <p className="text-xs text-slate-500 mb-3">
           Showing {filtered.length} expenses · Total: {fmt(filtered.reduce((a, e) => a + e.amount, 0))}
         </p>
       )}
@@ -387,7 +387,7 @@ export default function ExpensesPage() {
       {loading ? (
         <div className="space-y-2">{Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-12 rounded-lg" />)}</div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center py-20 text-slate-400">
+        <div className="flex flex-col items-center py-20 text-slate-500">
           <Receipt className="h-12 w-12 mb-3 opacity-30" />
           <p className="text-base font-medium">No expenses found</p>
           <p className="text-sm mt-1">Add your first expense to get started.</p>
@@ -429,7 +429,7 @@ export default function ExpensesPage() {
                     </TableCell>
                     <TableCell className="font-medium text-slate-900 max-w-xs">
                       <div className="truncate">{expense.description}</div>
-                      {expense.notes && <p className="text-xs text-slate-400 truncate">{expense.notes}</p>}
+                      {expense.notes && <p className="text-xs text-slate-500 truncate">{expense.notes}</p>}
                     </TableCell>
                     <TableCell>
                       <Badge className={cn("text-xs", expenseTypeColor[expense.expenseType])}>
@@ -461,7 +461,7 @@ export default function ExpensesPage() {
                           {expense.isRecovered ? "Recovered" : "Recoverable"}
                         </button>
                       ) : (
-                        <span className="text-xs text-slate-400">Internal</span>
+                        <span className="text-xs text-slate-500">Internal</span>
                       )}
                     </TableCell>
                   </TableRow>

@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import {
   Eye,
   EyeOff,
-  Scale,
   Loader2,
   Info,
 } from "lucide-react";
@@ -127,15 +126,6 @@ export default function SignupPage() {
   return (
     <Card className="w-full shadow-lg border-0 bg-white">
       <CardHeader className="text-center pb-2">
-        {/* Logo */}
-        <div className="flex items-center justify-center gap-2.5 mb-4">
-          <div className="w-9 h-9 bg-[#1e3a5f] rounded-lg flex items-center justify-center shadow-sm">
-            <Scale className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-bold text-[#1e3a5f] tracking-tight">
-            NyayVakil
-          </span>
-        </div>
 
         <CardTitle className="text-2xl font-bold text-slate-900">
           Create your account
@@ -149,7 +139,7 @@ export default function SignupPage() {
         <form method="post" onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
           {/* Signup always creates a new firm with this person as its advocate/owner */}
           <div className="flex items-start gap-2.5 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
-            <Info className="w-4 h-4 mt-0.5 shrink-0 text-[#1e3a5f]" />
+            <Info className="w-4 h-4 mt-0.5 shrink-0 text-[#14213D]" />
             <p>
               This creates a new chamber account with you as the advocate. Juniors and clerks
               join an existing chamber when the advocate invites them.
@@ -347,14 +337,14 @@ export default function SignupPage() {
                     id="acceptTerms"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded border-slate-300 text-[#1e3a5f] accent-[#1e3a5f] cursor-pointer shrink-0"
+                    className="mt-0.5 w-4 h-4 rounded border-slate-300 text-[#14213D] accent-[#14213D] cursor-pointer shrink-0"
                     aria-invalid={!!errors.acceptTerms}
                   />
                   <span className="text-sm text-slate-600 leading-snug group-hover:text-slate-800 transition-colors select-none">
                     I agree to the{" "}
                     <Link
                       href="/terms"
-                      className="text-[#1e3a5f] hover:underline font-medium"
+                      className="text-[#14213D] hover:underline font-medium"
                       target="_blank"
                     >
                       Terms of Service
@@ -362,7 +352,7 @@ export default function SignupPage() {
                     and{" "}
                     <Link
                       href="/privacy"
-                      className="text-[#1e3a5f] hover:underline font-medium"
+                      className="text-[#14213D] hover:underline font-medium"
                       target="_blank"
                     >
                       Privacy Policy
@@ -380,7 +370,7 @@ export default function SignupPage() {
           <Button
             type="submit"
             disabled={isLoading || !hydrated}
-            className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg transition-colors"
+            className="w-full h-10 bg-[#14213D] hover:bg-[#0E182E] text-white font-medium rounded-lg transition-colors"
           >
             {isLoading ? (
               <>
@@ -399,7 +389,7 @@ export default function SignupPage() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-[#1e3a5f] font-semibold hover:underline"
+            className="text-[#14213D] font-semibold hover:underline"
           >
             Log in
           </Link>

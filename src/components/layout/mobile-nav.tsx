@@ -98,7 +98,7 @@ function MoreDrawer({
                   className={cn(
                     "flex flex-col items-center gap-2 p-4 rounded-2xl text-center transition-colors",
                     isActive
-                      ? "bg-[#1e3a5f] text-white"
+                      ? "bg-[#14213D] text-white"
                       : "bg-slate-50 text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -152,13 +152,13 @@ export default function MobileNav() {
                 href={tab.href}
                 className={cn(
                   "flex-1 flex flex-col items-center justify-center gap-1 pt-2 pb-1 relative transition-colors",
-                  isActive ? "text-[#1e3a5f]" : "text-slate-400 hover:text-slate-600"
+                  isActive ? "text-[#14213D]" : "text-slate-400 hover:text-slate-600"
                 )}
                 aria-current={isActive ? "page" : undefined}
               >
                 {/* Active indicator pill */}
                 {isActive && (
-                  <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#1e3a5f] rounded-full" />
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#14213D] rounded-full" />
                 )}
                 <Icon
                   className={cn("h-5 w-5 transition-all", isActive && "scale-110")}
@@ -167,7 +167,7 @@ export default function MobileNav() {
                 <span
                   className={cn(
                     "text-[10px] font-medium leading-none",
-                    isActive ? "text-[#1e3a5f]" : "text-slate-400"
+                    isActive ? "text-[#14213D]" : "text-slate-400"
                   )}
                 >
                   {tab.label}
@@ -182,13 +182,13 @@ export default function MobileNav() {
             className={cn(
               "flex-1 flex flex-col items-center justify-center gap-1 pt-2 pb-1 relative transition-colors",
               isMoreActive || moreOpen
-                ? "text-[#1e3a5f]"
+                ? "text-[#14213D]"
                 : "text-slate-400 hover:text-slate-600"
             )}
             aria-label="More navigation options"
           >
             {(isMoreActive || moreOpen) && (
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#1e3a5f] rounded-full" />
+              <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#14213D] rounded-full" />
             )}
             <MoreHorizontal
               className={cn(
@@ -200,7 +200,7 @@ export default function MobileNav() {
             <span
               className={cn(
                 "text-[10px] font-medium leading-none",
-                isMoreActive || moreOpen ? "text-[#1e3a5f]" : "text-slate-400"
+                isMoreActive || moreOpen ? "text-[#14213D]" : "text-slate-400"
               )}
             >
               More

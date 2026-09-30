@@ -97,7 +97,7 @@ export function NavigationProgress() {
       aria-valuenow={progress}
     >
       <div
-        className="h-full bg-[#1e3a5f] shadow-[0_0_8px_rgba(30,58,95,0.6)] transition-[width] duration-300 ease-out dark:bg-sky-400"
+        className="h-full bg-[#14213D] shadow-[0_0_8px_rgba(20,33,61,0.6)] transition-[width] duration-300 ease-out dark:bg-sky-400"
         style={{ width: `${progress}%` }}
       />
     </div>

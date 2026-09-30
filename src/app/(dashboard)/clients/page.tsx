@@ -63,8 +63,8 @@ function ClientCard({ client }: { client: Client }) {
       <CardContent className="p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3 flex-1 min-w-0">
-            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#1e3a5f]/10 transition-colors">
-              <Icon className="h-5 w-5 text-slate-500 group-hover:text-[#1e3a5f] transition-colors" />
+            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#14213D]/10 transition-colors">
+              <Icon className="h-5 w-5 text-slate-500 group-hover:text-[#14213D] transition-colors" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
@@ -120,7 +120,7 @@ function ClientCard({ client }: { client: Client }) {
             <Button
               variant="outline"
               size="sm"
-              className="shrink-0 gap-1 text-xs group-hover:bg-[#1e3a5f] group-hover:text-white group-hover:border-[#1e3a5f] transition-all"
+              className="shrink-0 gap-1 text-xs group-hover:bg-[#14213D] group-hover:text-white group-hover:border-[#14213D] transition-all"
             >
               View
               <ArrowRight className="h-3 w-3" />
@@ -205,7 +205,7 @@ export default function ClientsPage() {
         description="Manage your clients and their matters."
         actions={
           <Link href="/clients/new">
-            <Button className="gap-2 bg-[#1e3a5f] hover:bg-[#162d4a]">
+            <Button className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
               <Plus className="h-4 w-4" />
               Add Client
             </Button>
@@ -292,7 +292,7 @@ export default function ClientsPage() {
           </p>
           {!search && typeFilter === "all" && (
             <Link href="/clients/new" className="mt-4">
-              <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+              <Button size="sm" className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
                 <Plus className="h-4 w-4" />
                 Add Client
               </Button>

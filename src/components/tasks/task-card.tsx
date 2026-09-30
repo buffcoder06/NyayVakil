@@ -137,7 +137,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
               <Briefcase className="h-3.5 w-3.5 text-slate-400" />
               <Link
                 href={task.matterId ? `/matters/${task.matterId}` : '#'}
-                className="font-medium text-navy-700 hover:underline dark:text-blue-400"
+                className="font-medium text-navy hover:underline dark:text-blue-400"
               >
                 {task.matterTitle}
               </Link>

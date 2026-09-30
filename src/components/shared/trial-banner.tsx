@@ -72,7 +72,7 @@ function DemoBanner() {
           <Link
             href="/signup"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
-            style={{ backgroundColor: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D" }}
           >
             <Zap className="h-3.5 w-3.5" aria-hidden="true" />
             Start Free Trial
@@ -146,7 +146,7 @@ function TrialModeBanner({
           <Link
             href="/pricing"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            style={{ backgroundColor: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D" }}
           >
             <Zap className="h-3.5 w-3.5" aria-hidden="true" />
             Upgrade Now

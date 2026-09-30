@@ -17,8 +17,8 @@ export default function ForgotPasswordPage() {
     <div className="w-full">
       <Card className="w-full shadow-lg border-0 bg-white">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#1e3a5f]/10">
-            <KeyRound className="h-6 w-6 text-[#1e3a5f]" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold-bright/15">
+            <KeyRound className="h-6 w-6 text-gold" />
           </div>
           <CardTitle className="text-2xl font-bold text-slate-900">Forgot your password?</CardTitle>
           <CardDescription className="text-slate-500 mt-1">
@@ -28,14 +28,14 @@ export default function ForgotPasswordPage() {
 
         <CardContent className="pt-4 space-y-4">
           <div className="flex gap-3 rounded-lg border border-slate-200 p-4">
-            <Mail className="h-5 w-5 shrink-0 text-[#1e3a5f] mt-0.5" />
+            <Mail className="h-5 w-5 shrink-0 text-[#14213D] mt-0.5" />
             <div className="text-sm text-slate-600">
               <p className="font-medium text-slate-900">Chamber owner (advocate)</p>
               <p className="mt-1">
                 Email{" "}
                 <a
                   href={`mailto:${APP_SUPPORT_EMAIL}?subject=${subject}&body=${body}`}
-                  className="font-medium text-[#1e3a5f] hover:underline"
+                  className="font-medium text-[#14213D] hover:underline"
                 >
                   {APP_SUPPORT_EMAIL}
                 </a>{" "}
@@ -46,7 +46,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           <div className="flex gap-3 rounded-lg border border-slate-200 p-4">
-            <Users className="h-5 w-5 shrink-0 text-[#1e3a5f] mt-0.5" />
+            <Users className="h-5 w-5 shrink-0 text-[#14213D] mt-0.5" />
             <div className="text-sm text-slate-600">
               <p className="font-medium text-slate-900">Junior, clerk or admin</p>
               <p className="mt-1">Ask the advocate who runs your chamber to contact us for a reset.</p>
@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
 
           <Link
             href="/login"
-            className="flex items-center justify-center gap-1.5 text-sm font-medium text-[#1e3a5f] hover:underline"
+            className="flex items-center justify-center gap-1.5 text-sm font-medium text-[#14213D] hover:underline"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to sign in

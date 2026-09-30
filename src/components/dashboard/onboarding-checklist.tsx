@@ -86,7 +86,7 @@ export function OnboardingChecklist({
   return (
     <Card className="border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
       {/* Navy blue accent strip */}
-      <div className="h-1 w-full" style={{ backgroundColor: "#1e3a5f" }} />
+      <div className="h-1 w-full" style={{ backgroundColor: "#14213D" }} />
 
       <CardHeader className="pb-3 pt-4">
         <div className="flex items-start justify-between gap-3">
@@ -116,7 +116,7 @@ export function OnboardingChecklist({
             </span>
             <span
               className="text-xs font-semibold"
-              style={{ color: "#1e3a5f" }}
+              style={{ color: "#14213D" }}
             >
               {completedCount} of {totalCount} completed
             </span>
@@ -126,7 +126,7 @@ export function OnboardingChecklist({
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${progressPercent}%`,
-                backgroundColor: "#1e3a5f",
+                backgroundColor: "#14213D",
               }}
             />
           </div>
@@ -151,7 +151,7 @@ export function OnboardingChecklist({
                   {isCompleted ? (
                     <CheckCircle2
                       className="h-5 w-5 shrink-0 mt-0.5"
-                      style={{ color: "#1e3a5f" }}
+                      style={{ color: "#14213D" }}
                     />
                   ) : (
                     <Circle className="h-5 w-5 shrink-0 mt-0.5 text-slate-300 dark:text-slate-600" />

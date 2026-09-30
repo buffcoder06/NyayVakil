@@ -97,7 +97,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span
       className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide mb-4 uppercase"
-      style={{ backgroundColor: "#1e3a5f15", color: "#1e3a5f" }}
+      style={{ backgroundColor: "#14213D15", color: "#14213D" }}
     >
       {children}
     </span>
@@ -115,9 +115,9 @@ function FeaturePill({
     <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors">
       <div
         className="flex items-center justify-center w-7 h-7 rounded-lg shrink-0 mt-0.5"
-        style={{ backgroundColor: "#1e3a5f18" }}
+        style={{ backgroundColor: "#14213D18" }}
       >
-        <Icon className="w-3.5 h-3.5 text-[#1e3a5f]" strokeWidth={2} />
+        <Icon className="w-3.5 h-3.5 text-[#14213D]" strokeWidth={2} />
       </div>
       <span className="text-sm text-slate-700 leading-snug">{label}</span>
     </div>
@@ -179,7 +179,7 @@ function DiaryMock() {
         </div>
         <span
           className="text-xs font-semibold px-2.5 py-1 rounded-full"
-          style={{ backgroundColor: "#eff6ff", color: "#1e3a5f" }}
+          style={{ backgroundColor: "#eff6ff", color: "#14213D" }}
         >
           3 hearings
         </span>
@@ -191,7 +191,7 @@ function DiaryMock() {
             className="flex gap-3 p-3 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors"
           >
             <div className="text-center shrink-0">
-              <p className="text-xs font-bold" style={{ color: "#1e3a5f" }}>{e.time}</p>
+              <p className="text-xs font-bold" style={{ color: "#14213D" }}>{e.time}</p>
             </div>
             <div>
               <p className="text-xs font-semibold text-slate-800">{e.matter}</p>
@@ -254,7 +254,7 @@ function ClientProfileMock() {
       <div className="flex items-center gap-3">
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0"
-          style={{ backgroundColor: "#1e3a5f" }}
+          style={{ backgroundColor: "#14213D" }}
         >
           RS
         </div>
@@ -286,7 +286,7 @@ function ClientProfileMock() {
         <p className="text-xs font-medium text-slate-500 mb-1.5">Linked matters</p>
         {["Sharma v. Corp", "Sharma Prop. Dispute", "PF Claim – 2025"].map((m) => (
           <div key={m} className="flex items-center gap-1.5 text-xs text-slate-600 py-1 border-b border-slate-100 last:border-0">
-            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#1e3a5f" }} />
+            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#14213D" }} />
             {m}
           </div>
         ))}
@@ -323,7 +323,7 @@ function DocumentVaultMock() {
             </div>
             <span
               className="text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0"
-              style={{ backgroundColor: "#eff6ff", color: "#1e3a5f" }}
+              style={{ backgroundColor: "#eff6ff", color: "#14213D" }}
             >
               {d.tag}
             </span>
@@ -350,7 +350,7 @@ function TaskBoardMock() {
           <div className="flex items-center gap-2">
             <div
               className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white shrink-0"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               {t.assignee.charAt(0)}
             </div>
@@ -390,7 +390,7 @@ function RemindersMock() {
       <p className="text-sm font-bold text-slate-800">Scheduled Reminders</p>
       {reminders.map((r) => (
         <div key={r.matter} className="flex items-start gap-3 p-3 rounded-xl border border-slate-100">
-          <Bell className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#1e3a5f" }} />
+          <Bell className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#14213D" }} />
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-slate-800">{r.matter}</p>
             <p className="text-[10px] text-slate-400">{r.type} reminder · {r.time}</p>
@@ -431,7 +431,7 @@ function ReportsMock() {
             <div className="w-full flex items-end gap-0.5">
               <div
                 className="flex-1 rounded-t"
-                style={{ height: `${b.income}%`, backgroundColor: "#1e3a5f" }}
+                style={{ height: `${b.income}%`, backgroundColor: "#14213D" }}
               />
               <div
                 className="flex-1 rounded-t"
@@ -444,7 +444,7 @@ function ReportsMock() {
       </div>
       <div className="flex items-center gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#1e3a5f" }} />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#14213D" }} />
           Income
         </div>
         <div className="flex items-center gap-1.5">
@@ -456,7 +456,7 @@ function ReportsMock() {
         {[
           { label: "Net income", val: "₹2.1L", color: "#065f46" },
           { label: "Outstanding", val: "₹68K", color: "#b45309" },
-          { label: "Tasks done", val: "34", color: "#1e3a5f" },
+          { label: "Tasks done", val: "34", color: "#14213D" },
         ].map(({ label, val, color }) => (
           <div key={label} className="bg-slate-50 rounded-xl p-2">
             <p className="text-slate-400 mb-0.5">{label}</p>
@@ -534,7 +534,7 @@ export default function FeaturesPage() {
         <div className="max-w-3xl mx-auto">
           <span
             className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide mb-4 uppercase"
-            style={{ backgroundColor: "#1e3a5f15", color: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D15", color: "#14213D" }}
           >
             Features
           </span>
@@ -549,7 +549,7 @@ export default function FeaturesPage() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               Start Free Trial
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -748,7 +748,7 @@ export default function FeaturesPage() {
                   <th className="px-5 py-4 text-left font-semibold text-slate-700 w-1/3">
                     Area
                   </th>
-                  <th className="px-5 py-4 text-left font-semibold" style={{ color: "#1e3a5f" }}>
+                  <th className="px-5 py-4 text-left font-semibold" style={{ color: "#14213D" }}>
                     <div className="flex items-center gap-2">
                       <Check className="w-4 h-4 shrink-0" strokeWidth={2.5} />
                       With NyayVakil
@@ -776,7 +776,7 @@ export default function FeaturesPage() {
                       <div className="flex items-start gap-2">
                         <Check
                           className="w-4 h-4 mt-0.5 shrink-0"
-                          style={{ color: "#1e3a5f" }}
+                          style={{ color: "#14213D" }}
                           strokeWidth={2.5}
                         />
                         {row.with}
@@ -799,7 +799,7 @@ export default function FeaturesPage() {
       {/* ── Final CTA ────────────────────────────────────────────────────── */}
       <section
         className="py-20 px-4 sm:px-6 lg:px-8 text-center"
-        style={{ backgroundColor: "#1e3a5f" }}
+        style={{ backgroundColor: "#14213D" }}
       >
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
@@ -813,7 +813,7 @@ export default function FeaturesPage() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-white transition-all hover:bg-slate-100 active:scale-[0.98]"
-              style={{ color: "#1e3a5f" }}
+              style={{ color: "#14213D" }}
             >
               Start Free Trial
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

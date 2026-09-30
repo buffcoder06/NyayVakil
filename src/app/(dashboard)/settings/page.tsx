@@ -45,7 +45,7 @@ const MOCK_TEMPLATES = [
 ];
 
 const roleColor: Record<string, string> = {
-  advocate: "bg-[#1e3a5f] text-white",
+  advocate: "bg-[#14213D] text-white",
   junior: "bg-blue-100 text-blue-800",
   clerk: "bg-teal-100 text-teal-800",
   admin: "bg-slate-100 text-slate-700",
@@ -99,8 +99,8 @@ function OfficeProfileTab() {
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-xl bg-[#1e3a5f]/10 flex items-center justify-center border-2 border-dashed border-[#1e3a5f]/30">
-              <Building2 className="h-8 w-8 text-[#1e3a5f]/50" />
+            <div className="w-20 h-20 rounded-xl bg-[#14213D]/10 flex items-center justify-center border-2 border-dashed border-[#14213D]/30">
+              <Building2 className="h-8 w-8 text-[#14213D]/50" />
             </div>
             <div>
               <Button variant="outline" size="sm" className="gap-2" onClick={() => toast.info("Logo upload — coming soon.")}>
@@ -176,7 +176,7 @@ function OfficeProfileTab() {
         </CardContent>
       </Card>
 
-      <Button onClick={handleSave} disabled={saving} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+      <Button onClick={handleSave} disabled={saving} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
         {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
         {saving ? "Saving…" : "Save Changes"}
       </Button>

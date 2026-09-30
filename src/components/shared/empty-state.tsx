@@ -157,7 +157,7 @@ function ActionButton({
       onClick={action.onClick}
       className={cn(
         !isSecondary &&
-          "bg-[#1e3a5f] hover:bg-[#162d4a] text-white"
+          "bg-[#14213D] hover:bg-[#0E182E] text-white"
       )}
     >
       {Icon && <Icon className="h-4 w-4 mr-2" />}

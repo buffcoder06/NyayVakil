@@ -31,7 +31,7 @@ function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
     >
       <Link
         href="/dashboard"
-        className="flex items-center hover:text-[#1e3a5f] transition-colors"
+        className="flex items-center hover:text-[#14213D] transition-colors"
         aria-label="Dashboard"
       >
         <Home className="h-3 w-3" />
@@ -43,7 +43,7 @@ function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
           {item.href && i < items.length - 1 ? (
             <Link
               href={item.href}
-              className="hover:text-[#1e3a5f] transition-colors font-medium"
+              className="hover:text-[#14213D] transition-colors font-medium"
             >
               {item.label}
             </Link>
@@ -52,7 +52,7 @@ function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
               className={cn(
                 i === items.length - 1
                   ? "text-slate-700 font-semibold"
-                  : "hover:text-[#1e3a5f] transition-colors font-medium"
+                  : "hover:text-[#14213D] transition-colors font-medium"
               )}
             >
               {item.label}

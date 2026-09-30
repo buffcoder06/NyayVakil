@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { startNavigationProgress } from "@/components/shared/navigation-progress";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/brand/logo";
 import { useAppStore } from "@/lib/store/app-store";
 import { useAuthStore } from "@/lib/store/auth-store";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,6 @@ import {
 import {
   Menu,
   Bell,
-  Scale,
   User,
   Settings,
   LogOut,
@@ -190,7 +190,7 @@ function UserDropdown() {
       >
         <Avatar className="h-8 w-8">
           <AvatarImage src={user?.avatar} alt={user?.name} />
-          <AvatarFallback className="bg-[#1e3a5f] text-white text-xs font-semibold">
+          <AvatarFallback className="bg-[#14213D] text-white text-xs font-semibold">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -260,11 +260,8 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-[#1e3a5f] rounded-lg flex items-center justify-center">
-            <Scale className="h-4 w-4 text-white" strokeWidth={2.5} />
-          </div>
-          <span className="text-base font-bold text-[#1e3a5f] tracking-tight">NyayVakil</span>
+        <Link href="/dashboard" aria-label="NyayVakil dashboard">
+          <Logo tone="light" size="xs" />
         </Link>
       </div>
 
@@ -282,7 +279,7 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
                     <>
                       <Link
                         href={crumb.href}
-                        className="hover:text-[#1e3a5f] transition-colors"
+                        className="hover:text-[#14213D] transition-colors"
                       >
                         <CrumbLabel crumb={crumb} />
                       </Link>

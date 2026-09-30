@@ -95,8 +95,8 @@ function SectionHeader({ icon: Icon, title, description }: {
 }) {
   return (
     <div className="flex items-center gap-3 mb-5">
-      <div className="h-8 w-8 rounded-lg bg-[#1e3a5f]/10 flex items-center justify-center flex-shrink-0">
-        <Icon className="h-4 w-4 text-[#1e3a5f]" />
+      <div className="h-8 w-8 rounded-lg bg-[#14213D]/10 flex items-center justify-center flex-shrink-0">
+        <Icon className="h-4 w-4 text-[#14213D]" />
       </div>
       <div>
         <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
@@ -238,7 +238,7 @@ export default function NewMatterPage() {
               form="matter-form"
               disabled={submitting}
               size="sm"
-              className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-1.5"
+              className="bg-[#14213D] hover:bg-[#0E182E] gap-1.5"
             >
               {submitting ? (
                 <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Saving…</>
@@ -341,7 +341,7 @@ export default function NewMatterPage() {
                       className={cn(
                         "px-4 py-1.5 rounded-full text-xs font-medium border transition-all",
                         status === opt.value
-                          ? "bg-[#1e3a5f] text-white border-[#1e3a5f]"
+                          ? "bg-[#14213D] text-white border-[#14213D]"
                           : "bg-slate-50 text-slate-600 border-slate-200 hover:border-slate-300"
                       )}
                     >
@@ -563,7 +563,7 @@ export default function NewMatterPage() {
               <Button
                 type="submit"
                 disabled={submitting}
-                className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2 min-w-[130px]"
+                className="bg-[#14213D] hover:bg-[#0E182E] gap-2 min-w-[130px]"
               >
                 {submitting ? (
                   <><Loader2 className="h-4 w-4 animate-spin" /> Saving…</>

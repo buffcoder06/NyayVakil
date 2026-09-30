@@ -115,7 +115,7 @@ function HelpAccordion({ items }: { items: FaqItem[] }) {
             <button
               type="button"
               onClick={() => toggle(index)}
-              className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1e3a5f] focus-visible:ring-inset"
+              className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#14213D] focus-visible:ring-inset"
               aria-expanded={isOpen}
             >
               <span className="text-sm font-medium text-slate-800 pr-4">
@@ -149,7 +149,7 @@ export default function HelpPage() {
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-3 mb-2">
-          <div className="h-10 w-10 rounded-xl bg-[#1e3a5f] flex items-center justify-center">
+          <div className="h-10 w-10 rounded-xl bg-[#14213D] flex items-center justify-center">
             <HelpCircle className="h-5 w-5 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Help &amp; Support</h1>
@@ -162,7 +162,7 @@ export default function HelpPage() {
       {/* ── Section 1: Getting Started ── */}
       <section>
         <div className="flex items-center gap-2 mb-5">
-          <BookOpen className="h-5 w-5 text-[#1e3a5f]" />
+          <BookOpen className="h-5 w-5 text-[#14213D]" />
           <h2 className="text-lg font-semibold text-slate-900">Getting Started</h2>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -173,8 +173,8 @@ export default function HelpPage() {
                 key={card.title}
                 className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="h-10 w-10 rounded-lg bg-[#1e3a5f]/10 flex items-center justify-center mb-4">
-                  <Icon className="h-5 w-5 text-[#1e3a5f]" />
+                <div className="h-10 w-10 rounded-lg bg-[#14213D]/10 flex items-center justify-center mb-4">
+                  <Icon className="h-5 w-5 text-[#14213D]" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900 mb-2">
                   {card.title}
@@ -191,7 +191,7 @@ export default function HelpPage() {
       {/* ── Section 2: Common Tasks (FAQ Accordion) ── */}
       <section>
         <div className="flex items-center gap-2 mb-5">
-          <HelpCircle className="h-5 w-5 text-[#1e3a5f]" />
+          <HelpCircle className="h-5 w-5 text-[#14213D]" />
           <h2 className="text-lg font-semibold text-slate-900">Common Tasks</h2>
         </div>
         <HelpAccordion items={FAQ_ITEMS} />
@@ -200,22 +200,22 @@ export default function HelpPage() {
       {/* ── Section 3: Contact Support ── */}
       <section>
         <div className="flex items-center gap-2 mb-5">
-          <MessageCircle className="h-5 w-5 text-[#1e3a5f]" />
+          <MessageCircle className="h-5 w-5 text-[#14213D]" />
           <h2 className="text-lg font-semibold text-slate-900">Contact Support</h2>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             {/* Email */}
             <div className="flex flex-col items-start gap-2 p-6">
-              <div className="h-9 w-9 rounded-lg bg-[#1e3a5f]/10 flex items-center justify-center">
-                <Mail className="h-4 w-4 text-[#1e3a5f]" />
+              <div className="h-9 w-9 rounded-lg bg-[#14213D]/10 flex items-center justify-center">
+                <Mail className="h-4 w-4 text-[#14213D]" />
               </div>
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                 Email
               </p>
               <a
                 href="mailto:support@nyayvakil.in"
-                className="text-sm font-semibold text-[#1e3a5f] hover:underline"
+                className="text-sm font-semibold text-[#14213D] hover:underline"
               >
                 support@nyayvakil.in
               </a>
@@ -223,8 +223,8 @@ export default function HelpPage() {
 
             {/* WhatsApp */}
             <div className="flex flex-col items-start gap-2 p-6">
-              <div className="h-9 w-9 rounded-lg bg-[#1e3a5f]/10 flex items-center justify-center">
-                <MessageCircle className="h-4 w-4 text-[#1e3a5f]" />
+              <div className="h-9 w-9 rounded-lg bg-[#14213D]/10 flex items-center justify-center">
+                <MessageCircle className="h-4 w-4 text-[#14213D]" />
               </div>
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                 WhatsApp
@@ -233,7 +233,7 @@ export default function HelpPage() {
                 href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-semibold text-[#1e3a5f] hover:underline"
+                className="text-sm font-semibold text-[#14213D] hover:underline"
               >
                 +91 98765 43210
               </a>
@@ -241,8 +241,8 @@ export default function HelpPage() {
 
             {/* Response Time */}
             <div className="flex flex-col items-start gap-2 p-6">
-              <div className="h-9 w-9 rounded-lg bg-[#1e3a5f]/10 flex items-center justify-center">
-                <Clock className="h-4 w-4 text-[#1e3a5f]" />
+              <div className="h-9 w-9 rounded-lg bg-[#14213D]/10 flex items-center justify-center">
+                <Clock className="h-4 w-4 text-[#14213D]" />
               </div>
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                 Response Time
@@ -254,13 +254,13 @@ export default function HelpPage() {
           </div>
 
           {/* Book a Demo CTA */}
-          <div className="bg-[#1e3a5f]/5 border-t border-slate-200 px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
+          <div className="bg-[#14213D]/5 border-t border-slate-200 px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
             <p className="text-sm text-slate-600">
               Want a guided walkthrough of NyayVakil?
             </p>
             <Link
               href="/demo"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1e3a5f] hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#14213D] hover:underline"
             >
               Book a Demo
               <ExternalLink className="h-3.5 w-3.5" />

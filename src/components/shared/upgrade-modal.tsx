@@ -179,7 +179,7 @@ function PlanCard({
     <div
       className={`relative flex flex-col rounded-xl border p-5 transition-shadow ${
         plan.highlighted
-          ? "border-[#1e3a5f] shadow-md"
+          ? "border-[#14213D] shadow-md"
           : "border-slate-200 hover:border-slate-300 hover:shadow-sm"
       }`}
     >
@@ -187,7 +187,7 @@ function PlanCard({
       {plan.highlighted && (
         <div
           className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-semibold text-white"
-          style={{ backgroundColor: "#1e3a5f" }}
+          style={{ backgroundColor: "#14213D" }}
         >
           <Star className="h-3 w-3 fill-current" aria-hidden="true" />
           Recommended
@@ -205,7 +205,7 @@ function PlanCard({
                   : "bg-slate-100 text-slate-600"
               }`}
               style={
-                plan.highlighted ? { backgroundColor: "#1e3a5f" } : undefined
+                plan.highlighted ? { backgroundColor: "#14213D" } : undefined
               }
             >
               <Icon className="h-4 w-4" aria-hidden="true" />
@@ -251,12 +251,12 @@ function PlanCard({
       <button
         type="button"
         onClick={() => onUpgrade(plan)}
-        className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1e3a5f] ${
+        className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#14213D] ${
           plan.highlighted
             ? "text-white hover:opacity-90"
             : "bg-slate-900 text-white hover:bg-slate-800"
         }`}
-        style={plan.highlighted ? { backgroundColor: "#1e3a5f" } : undefined}
+        style={plan.highlighted ? { backgroundColor: "#14213D" } : undefined}
       >
         Upgrade to {plan.name}
       </button>
@@ -353,7 +353,7 @@ export default function UpgradeModal({
             <div className="flex items-center gap-3 mb-2">
               <div
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-white shrink-0"
-                style={{ backgroundColor: "#1e3a5f" }}
+                style={{ backgroundColor: "#14213D" }}
               >
                 <Zap className="h-5 w-5" aria-hidden="true" />
               </div>
@@ -388,7 +388,7 @@ export default function UpgradeModal({
 
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1e3a5f] hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#14213D] hover:underline"
               onClick={onClose}
             >
               View all plans &amp; compare features →

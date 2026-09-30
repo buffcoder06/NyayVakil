@@ -104,7 +104,7 @@ function FeatureCheckItem({ text }: { text: string }) {
     <li className="flex items-start gap-2.5 text-sm text-slate-600">
       <CheckCircle2
         className="w-4 h-4 mt-0.5 shrink-0"
-        style={{ color: "#1e3a5f" }}
+        style={{ color: "#14213D" }}
         strokeWidth={2}
       />
       {text}
@@ -234,7 +234,7 @@ export default function DemoPage() {
   };
 
   const inputClass =
-    "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]/25 focus:border-[#1e3a5f] transition-colors";
+    "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#14213D]/25 focus:border-[#14213D] transition-colors";
 
   const errorClass = "mt-1 text-xs text-red-600";
 
@@ -249,9 +249,9 @@ export default function DemoPage() {
           <div
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 border"
             style={{
-              backgroundColor: "#1e3a5f10",
-              borderColor: "#1e3a5f30",
-              color: "#1e3a5f",
+              backgroundColor: "#14213D10",
+              borderColor: "#14213D30",
+              color: "#14213D",
             }}
           >
             <Play className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -270,7 +270,7 @@ export default function DemoPage() {
             <Link
               href="/login?demo=true"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               <Play className="w-4 h-4" strokeWidth={2.5} />
               Try Interactive Demo
@@ -294,11 +294,11 @@ export default function DemoPage() {
             <div className="rounded-2xl border border-slate-200 p-7 flex flex-col">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                style={{ backgroundColor: "#1e3a5f12" }}
+                style={{ backgroundColor: "#14213D12" }}
               >
                 <Play
                   className="w-5 h-5"
-                  style={{ color: "#1e3a5f" }}
+                  style={{ color: "#14213D" }}
                   strokeWidth={2.5}
                 />
               </div>
@@ -322,7 +322,7 @@ export default function DemoPage() {
                 <Link
                   href="/login?demo=true"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-                  style={{ backgroundColor: "#1e3a5f" }}
+                  style={{ backgroundColor: "#14213D" }}
                 >
                   Launch Demo →
                 </Link>
@@ -336,7 +336,7 @@ export default function DemoPage() {
             {/* Card B – Live Walkthrough */}
             <div
               className="rounded-2xl border p-7 flex flex-col"
-              style={{ backgroundColor: "#1e3a5f", borderColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D", borderColor: "#14213D" }}
             >
               <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/15 mb-5">
                 <Calendar
@@ -376,7 +376,7 @@ export default function DemoPage() {
               <div className="mt-auto">
                 <button
                   onClick={scrollToForm}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-[#1e3a5f] bg-white transition-all hover:bg-blue-50 active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-[#14213D] bg-white transition-all hover:bg-blue-50 active:scale-[0.98]"
                 >
                   Schedule a Demo →
                 </button>
@@ -407,11 +407,11 @@ export default function DemoPage() {
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#1e3a5f10" }}
+                  style={{ backgroundColor: "#14213D10" }}
                 >
                   <Icon
                     className="w-5 h-5"
-                    style={{ color: "#1e3a5f" }}
+                    style={{ color: "#14213D" }}
                     strokeWidth={2}
                   />
                 </div>
@@ -467,7 +467,7 @@ export default function DemoPage() {
                 <Link
                   href="/login?demo=true"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                  style={{ backgroundColor: "#1e3a5f" }}
+                  style={{ backgroundColor: "#14213D" }}
                 >
                   Try the Demo Now
                   <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -685,7 +685,7 @@ export default function DemoPage() {
                 type="submit"
                 disabled={submitState === "loading"}
                 className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-                style={{ backgroundColor: "#1e3a5f" }}
+                style={{ backgroundColor: "#14213D" }}
               >
                 {submitState === "loading" ? (
                   <>
@@ -734,7 +734,7 @@ export default function DemoPage() {
           <Link
             href="/login?demo=true"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ backgroundColor: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D" }}
           >
             Launch Demo Workspace →
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

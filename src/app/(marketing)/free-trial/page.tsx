@@ -161,7 +161,7 @@ export default function FreeTrialPage() {
           <div className="space-y-3">
             <Link
               href="/login"
-              className="block w-full bg-[#1e3a5f] hover:bg-[#162d4a] text-white text-sm font-medium py-3 rounded-xl transition-colors text-center"
+              className="block w-full bg-[#14213D] hover:bg-[#0E182E] text-white text-sm font-medium py-3 rounded-xl transition-colors text-center"
             >
               Go to Login
             </Link>
@@ -176,7 +176,7 @@ export default function FreeTrialPage() {
             Questions? Write to{" "}
             <a
               href="mailto:hello@nyayvakil.in"
-              className="text-[#1e3a5f] hover:underline"
+              className="text-[#14213D] hover:underline"
             >
               hello@nyayvakil.in
             </a>
@@ -194,14 +194,14 @@ export default function FreeTrialPage() {
       <div className="bg-white border-b border-slate-100 px-4 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-[#1e3a5f] rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#14213D] rounded-lg flex items-center justify-center">
               <Scale className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-[#1e3a5f] text-lg">NyayVakil</span>
+            <span className="font-bold text-[#14213D] text-lg">NyayVakil</span>
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#1e3a5f] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#14213D] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to website
@@ -231,7 +231,7 @@ export default function FreeTrialPage() {
                 ))}
               </div>
 
-              <div className="bg-[#1e3a5f] rounded-2xl p-6 text-white">
+              <div className="bg-[#14213D] rounded-2xl p-6 text-white">
                 <p className="text-sm font-semibold text-white/80 mb-1">
                   Trial Plan Includes
                 </p>
@@ -273,7 +273,7 @@ export default function FreeTrialPage() {
                     className={`w-full h-10 px-3 rounded-lg border text-sm outline-none transition-colors ${
                       errors.name
                         ? "border-red-400 focus:border-red-500"
-                        : "border-slate-200 focus:border-[#1e3a5f]"
+                        : "border-slate-200 focus:border-[#14213D]"
                     }`}
                   />
                   {errors.name && (
@@ -296,7 +296,7 @@ export default function FreeTrialPage() {
                       className={`w-full h-10 px-3 rounded-lg border text-sm outline-none transition-colors ${
                         errors.mobile
                           ? "border-red-400 focus:border-red-500"
-                          : "border-slate-200 focus:border-[#1e3a5f]"
+                          : "border-slate-200 focus:border-[#14213D]"
                       }`}
                     />
                     {errors.mobile && (
@@ -318,7 +318,7 @@ export default function FreeTrialPage() {
                       className={`w-full h-10 px-3 rounded-lg border text-sm outline-none transition-colors ${
                         errors.email
                           ? "border-red-400 focus:border-red-500"
-                          : "border-slate-200 focus:border-[#1e3a5f]"
+                          : "border-slate-200 focus:border-[#14213D]"
                       }`}
                     />
                     {errors.email && (
@@ -343,7 +343,7 @@ export default function FreeTrialPage() {
                     value={form.firmName}
                     onChange={handleChange}
                     placeholder="Your chamber or firm name"
-                    className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#1e3a5f] text-sm outline-none transition-colors"
+                    className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#14213D] text-sm outline-none transition-colors"
                   />
                 </div>
 
@@ -360,7 +360,7 @@ export default function FreeTrialPage() {
                       className={`w-full h-10 px-3 rounded-lg border text-sm outline-none transition-colors bg-white ${
                         errors.city
                           ? "border-red-400"
-                          : "border-slate-200 focus:border-[#1e3a5f]"
+                          : "border-slate-200 focus:border-[#14213D]"
                       }`}
                     >
                       <option value="">Select city</option>
@@ -382,7 +382,7 @@ export default function FreeTrialPage() {
                       name="practiceType"
                       value={form.practiceType}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#1e3a5f] text-sm outline-none transition-colors bg-white"
+                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#14213D] text-sm outline-none transition-colors bg-white"
                     >
                       {PRACTICE_TYPES.map((p) => (
                         <option key={p} value={p}>
@@ -403,7 +403,7 @@ export default function FreeTrialPage() {
                       name="role"
                       value={form.role}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#1e3a5f] text-sm outline-none transition-colors bg-white"
+                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#14213D] text-sm outline-none transition-colors bg-white"
                     >
                       {ROLES.map((r) => (
                         <option key={r.value} value={r.value}>
@@ -420,7 +420,7 @@ export default function FreeTrialPage() {
                       name="userCount"
                       value={form.userCount}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#1e3a5f] text-sm outline-none transition-colors bg-white"
+                      className="w-full h-10 px-3 rounded-lg border border-slate-200 focus:border-[#14213D] text-sm outline-none transition-colors bg-white"
                     >
                       {TEAM_SIZES.map((s) => (
                         <option key={s} value={s}>
@@ -435,7 +435,7 @@ export default function FreeTrialPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#1e3a5f] hover:bg-[#162d4a] disabled:opacity-70 text-white font-medium py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2 mt-2"
+                  className="w-full bg-[#14213D] hover:bg-[#0E182E] disabled:opacity-70 text-white font-medium py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2 mt-2"
                 >
                   {isSubmitting ? (
                     <>
@@ -452,13 +452,13 @@ export default function FreeTrialPage() {
 
                 <p className="text-xs text-slate-400 text-center">
                   By signing up, you agree to our{" "}
-                  <Link href="/terms" className="text-[#1e3a5f] hover:underline">
+                  <Link href="/terms" className="text-[#14213D] hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/privacy"
-                    className="text-[#1e3a5f] hover:underline"
+                    className="text-[#14213D] hover:underline"
                   >
                     Privacy Policy
                   </Link>
@@ -473,7 +473,7 @@ export default function FreeTrialPage() {
                 Not ready to sign up?{" "}
                 <Link
                   href="/login"
-                  className="text-[#1e3a5f] font-medium hover:underline"
+                  className="text-[#14213D] font-medium hover:underline"
                 >
                   Try the interactive demo instead →
                 </Link>

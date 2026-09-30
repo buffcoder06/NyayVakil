@@ -187,7 +187,7 @@ export default function ClientDetailPage() {
             </Button>
           </Link>
           <Link href={`/clients/${id}/edit`}>
-            <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-1.5">
+            <Button size="sm" className="bg-[#14213D] hover:bg-[#0E182E] gap-1.5">
               <Edit className="h-4 w-4" />
               Edit Client
             </Button>
@@ -497,8 +497,8 @@ export default function ClientDetailPage() {
                 return (
                   <div key={entry.id} className="flex gap-3">
                     <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 rounded-full bg-[#1e3a5f]/10 flex items-center justify-center shrink-0">
-                        <Icon className="h-4 w-4 text-[#1e3a5f]" />
+                      <div className="w-8 h-8 rounded-full bg-[#14213D]/10 flex items-center justify-center shrink-0">
+                        <Icon className="h-4 w-4 text-[#14213D]" />
                       </div>
                       {idx < timeline.length - 1 && (
                         <div className="w-0.5 flex-1 bg-slate-100 my-1" />

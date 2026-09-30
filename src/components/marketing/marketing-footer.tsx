@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Scale } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 
 // ── Social icon SVGs (inline, no external deps) ──────────────────────────────
 
@@ -106,15 +106,7 @@ export default function MarketingFooter() {
               className="inline-flex items-center gap-2.5 group"
               aria-label="NyayVakil – Home"
             >
-              <div
-                className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0 ring-1 ring-white/10"
-                style={{ backgroundColor: "#1e3a5f" }}
-              >
-                <Scale className="w-5 h-5 text-white" strokeWidth={2} />
-              </div>
-              <span className="text-lg font-bold text-white tracking-tight">
-                NyayVakil
-              </span>
+              <Logo tone="dark" size="sm" />
             </Link>
 
             <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-xs">

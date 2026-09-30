@@ -166,7 +166,7 @@ export function IncomeExpenseChart() {
             <Bar
               dataKey="income"
               name="Income"
-              fill="#1e3a5f"
+              fill="#14213D"
               radius={[4, 4, 0, 0]}
               maxBarSize={40}
             />

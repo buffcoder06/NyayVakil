@@ -167,12 +167,12 @@ export default function ProfilePage() {
             <div className="relative">
               <Avatar className="h-20 w-20">
                 <AvatarImage src={user?.avatar} alt={user?.name} />
-                <AvatarFallback className="bg-[#1e3a5f] text-white text-2xl font-semibold">
+                <AvatarFallback className="bg-[#14213D] text-white text-2xl font-semibold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
               <button
-                className="absolute bottom-0 right-0 h-7 w-7 rounded-full bg-white border border-slate-200 shadow flex items-center justify-center text-slate-600 hover:text-[#1e3a5f] transition-colors"
+                className="absolute bottom-0 right-0 h-7 w-7 rounded-full bg-white border border-slate-200 shadow flex items-center justify-center text-slate-600 hover:text-[#14213D] transition-colors"
                 title="Change photo"
               >
                 <Upload className="h-3.5 w-3.5" />
@@ -181,7 +181,7 @@ export default function ProfilePage() {
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-xl font-bold text-slate-900">{user?.name ?? "User"}</h2>
-                <Badge className="bg-[#1e3a5f]/10 text-[#1e3a5f] border-[#1e3a5f]/20 text-xs">
+                <Badge className="bg-[#14213D]/10 text-[#14213D] border-[#14213D]/20 text-xs">
                   {ROLE_LABELS[user?.role ?? "advocate"]}
                 </Badge>
               </div>
@@ -221,7 +221,7 @@ export default function ProfilePage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
-                <Edit2 className="h-4 w-4 text-[#1e3a5f]" />
+                <Edit2 className="h-4 w-4 text-[#14213D]" />
                 Edit Profile
               </CardTitle>
             </CardHeader>
@@ -343,7 +343,7 @@ export default function ProfilePage() {
                   <Separator />
 
                   <div className="flex justify-end">
-                    <Button type="submit" disabled={savingProfile} className="bg-[#1e3a5f] hover:bg-[#16304f]">
+                    <Button type="submit" disabled={savingProfile} className="bg-[#14213D] hover:bg-[#16304f]">
                       {savingProfile ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -368,7 +368,7 @@ export default function ProfilePage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
-                <Lock className="h-4 w-4 text-[#1e3a5f]" />
+                <Lock className="h-4 w-4 text-[#14213D]" />
                 Change Password
               </CardTitle>
             </CardHeader>
@@ -414,7 +414,7 @@ export default function ProfilePage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={savingPassword} className="bg-[#1e3a5f] hover:bg-[#16304f]">
+                  <Button type="submit" disabled={savingPassword} className="bg-[#14213D] hover:bg-[#16304f]">
                     {savingPassword ? (
                       <>
                         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -435,7 +435,7 @@ export default function ProfilePage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
-                <Shield className="h-4 w-4 text-[#1e3a5f]" />
+                <Shield className="h-4 w-4 text-[#14213D]" />
                 Account Info
               </CardTitle>
             </CardHeader>
@@ -445,7 +445,7 @@ export default function ProfilePage() {
                   <p className="text-sm font-medium text-slate-900">Role</p>
                   <p className="text-xs text-slate-500">Your access level in the system</p>
                 </div>
-                <Badge className="bg-[#1e3a5f]/10 text-[#1e3a5f] border-[#1e3a5f]/20">
+                <Badge className="bg-[#14213D]/10 text-[#14213D] border-[#14213D]/20">
                   {ROLE_LABELS[user?.role ?? "advocate"]}
                 </Badge>
               </div>

@@ -244,7 +244,7 @@ export default function FaqPage() {
               <div className="flex items-center gap-3 mb-6">
                 <div
                   className="w-1.5 h-6 rounded-full"
-                  style={{ backgroundColor: "#1e3a5f" }}
+                  style={{ backgroundColor: "#14213D" }}
                   aria-hidden="true"
                 />
                 <h2 className="text-xl font-bold text-slate-900">{label}</h2>
@@ -282,7 +282,7 @@ export default function FaqPage() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               Contact Us
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

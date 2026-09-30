@@ -159,7 +159,7 @@ function ReminderCard({
                 <div className="flex gap-1.5">
                   <Button
                     size="sm"
-                    className="h-7 text-xs bg-[#1e3a5f] hover:bg-[#162d4a] gap-1"
+                    className="h-7 text-xs bg-[#14213D] hover:bg-[#0E182E] gap-1"
                     onClick={() => onMarkSent(reminder.id)}
                     disabled={busy}
                   >
@@ -323,7 +323,7 @@ function CreateReminderDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             Create Reminder
           </Button>
@@ -436,7 +436,7 @@ export default function RemindersPage() {
         title="Reminders"
         description="Send and track client communication and follow-up reminders."
         actions={
-          <Button onClick={() => { setPrefillMessage(""); setPrefillType("general"); setCreateOpen(true); }} className="gap-2 bg-[#1e3a5f] hover:bg-[#162d4a]">
+          <Button onClick={() => { setPrefillMessage(""); setPrefillType("general"); setCreateOpen(true); }} className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
             <Plus className="h-4 w-4" />
             Create Reminder
           </Button>
@@ -482,11 +482,11 @@ export default function RemindersPage() {
               return (
                 <button
                   key={t.id}
-                  className="flex flex-col items-center gap-2 p-3 rounded-xl border border-slate-200 hover:border-[#1e3a5f]/40 hover:bg-[#1e3a5f]/5 transition-all text-center group"
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl border border-slate-200 hover:border-[#14213D]/40 hover:bg-[#14213D]/5 transition-all text-center group"
                   onClick={() => openWithTemplate(t)}
                 >
                   <Icon className={cn("h-5 w-5", conf.color)} />
-                  <span className="text-xs font-medium text-slate-700 group-hover:text-[#1e3a5f] transition-colors">
+                  <span className="text-xs font-medium text-slate-700 group-hover:text-[#14213D] transition-colors">
                     {t.name}
                   </span>
                 </button>

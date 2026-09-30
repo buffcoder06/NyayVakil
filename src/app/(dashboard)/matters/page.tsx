@@ -124,7 +124,7 @@ function MatterCard({ matter, clientName }: { matter: Matter; clientName: string
             <Button
               variant="outline"
               size="sm"
-              className="shrink-0 gap-1 text-xs group-hover:bg-[#1e3a5f] group-hover:text-white group-hover:border-[#1e3a5f] transition-all"
+              className="shrink-0 gap-1 text-xs group-hover:bg-[#14213D] group-hover:text-white group-hover:border-[#14213D] transition-all"
             >
               View
               <ArrowRight className="h-3 w-3" />
@@ -208,7 +208,7 @@ export default function MattersPage() {
         description="Manage all cases and legal matters."
         actions={
           <Link href="/matters/new">
-            <Button className="gap-2 bg-[#1e3a5f] hover:bg-[#162d4a]">
+            <Button className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
               <Plus className="h-4 w-4" />
               Add Matter
             </Button>
@@ -286,7 +286,7 @@ export default function MattersPage() {
           </p>
           {!search && statusFilter === "all" && priorityFilter === "all" && caseTypeFilter === "all" && (
             <Link href="/matters/new" className="mt-4">
-              <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+              <Button size="sm" className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
                 <Plus className="h-4 w-4" /> Add Matter
               </Button>
             </Link>

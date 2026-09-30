@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Logo, LogoMark } from "@/components/brand/logo";
 import { useAppStore } from "@/lib/store/app-store";
 import { useAuthStore } from "@/lib/store/auth-store";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,6 @@ import {
   Settings,
   LogOut,
   ChevronLeft,
-  Scale,
   HelpCircle,
 } from "lucide-react";
 
@@ -93,21 +93,21 @@ function NavItemLink({
       className={cn(
         "relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 group",
         isActive
-          ? "bg-white text-[#1e3a5f] shadow-sm"
+          ? "bg-white text-[#14213D] shadow-sm"
           : "text-white/70 hover:bg-white/10 hover:text-white",
         collapsed && "justify-center px-2"
       )}
     >
       {/* Active left accent bar */}
       {isActive && (
-        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-[#1e3a5f] rounded-full" />
+        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-gold-bright rounded-full" />
       )}
 
       <Icon
         className={cn(
           "shrink-0 transition-colors",
           collapsed ? "h-5 w-5" : "h-4.5 w-4.5",
-          isActive ? "text-[#1e3a5f]" : "text-white/60 group-hover:text-white"
+          isActive ? "text-[#14213D]" : "text-white/60 group-hover:text-white"
         )}
         strokeWidth={isActive ? 2.5 : 2}
       />
@@ -234,7 +234,7 @@ export default function Sidebar() {
     <TooltipProvider delay={0}>
       <aside
         className={cn(
-          "flex flex-col bg-[#1e3a5f] h-full transition-all duration-300 ease-in-out",
+          "flex flex-col bg-[#14213D] h-full transition-all duration-300 ease-in-out",
           collapsed ? "w-16" : "w-64"
         )}
       >
@@ -246,20 +246,15 @@ export default function Sidebar() {
           )}
         >
           {!collapsed && (
-            <Link href="/dashboard" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-white/15 rounded-lg flex items-center justify-center shrink-0">
-                <Scale className="h-4.5 w-4.5 text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-lg font-bold text-white tracking-tight">
-                NyayVakil
-              </span>
+            <Link href="/dashboard" aria-label="NyayVakil dashboard">
+              <Logo tone="dark" size="sm" />
             </Link>
           )}
 
           {collapsed && (
-            <div className="w-8 h-8 bg-white/15 rounded-lg flex items-center justify-center">
-              <Scale className="h-4.5 w-4.5 text-white" strokeWidth={2.5} />
-            </div>
+            <Link href="/dashboard" aria-label="NyayVakil dashboard">
+              <LogoMark tone="dark" size="sm" />
+            </Link>
           )}
 
           {!collapsed && (

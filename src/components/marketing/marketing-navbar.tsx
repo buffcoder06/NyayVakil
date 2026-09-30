@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Logo } from "@/components/brand/logo";
 import { usePathname } from "next/navigation";
-import { Scale, Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -62,23 +63,7 @@ export default function MarketingNavbar() {
               className="flex items-center gap-2.5 group shrink-0"
               aria-label="NyayVakil – Home"
             >
-              <div
-                className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0"
-                style={{ backgroundColor: "#1e3a5f" }}
-              >
-                <Scale className="w-5 h-5 text-white" strokeWidth={2} />
-              </div>
-              <div className="leading-none">
-                <span
-                  className="block text-base font-bold tracking-tight"
-                  style={{ color: "#1e3a5f" }}
-                >
-                  NyayVakil
-                </span>
-                <span className="block text-[10px] font-medium text-slate-500 tracking-wide uppercase">
-                  Legal Practice Manager
-                </span>
-              </div>
+              <Logo tone="light" size="sm" tagline />
             </Link>
 
             {/* Desktop Nav */}
@@ -92,15 +77,15 @@ export default function MarketingNavbar() {
                     className={cn(
                       "relative px-3.5 py-1.5 rounded-md text-sm font-medium transition-colors duration-150",
                       isActive
-                        ? "text-[#1e3a5f] bg-[#1e3a5f]/8"
-                        : "text-slate-600 hover:text-[#1e3a5f] hover:bg-[#1e3a5f]/6"
+                        ? "text-[#14213D] bg-[#14213D]/8"
+                        : "text-slate-600 hover:text-[#14213D] hover:bg-[#14213D]/6"
                     )}
                   >
                     {label}
                     {isActive && (
                       <span
                         className="absolute bottom-0.5 inset-x-3.5 h-0.5 rounded-full"
-                        style={{ backgroundColor: "#1e3a5f" }}
+                        style={{ backgroundColor: "#14213D" }}
                       />
                     )}
                   </Link>
@@ -114,7 +99,7 @@ export default function MarketingNavbar() {
                 href="/login"
                 className={cn(
                   "inline-flex items-center px-4 py-1.5 rounded-lg text-sm font-medium border transition-colors duration-150",
-                  "border-[#1e3a5f]/40 text-[#1e3a5f] hover:border-[#1e3a5f] hover:bg-[#1e3a5f]/6"
+                  "border-[#14213D]/40 text-[#14213D] hover:border-[#14213D] hover:bg-[#14213D]/6"
                 )}
               >
                 Login
@@ -125,7 +110,7 @@ export default function MarketingNavbar() {
                   "inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium text-white transition-all duration-150",
                   "hover:opacity-90 active:scale-[0.98]"
                 )}
-                style={{ backgroundColor: "#1e3a5f" }}
+                style={{ backgroundColor: "#14213D" }}
               >
                 Start Free Trial
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -137,7 +122,7 @@ export default function MarketingNavbar() {
               onClick={() => setMobileOpen((v) => !v)}
               className={cn(
                 "md:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors",
-                "text-slate-600 hover:text-[#1e3a5f] hover:bg-[#1e3a5f]/8"
+                "text-slate-600 hover:text-[#14213D] hover:bg-[#14213D]/8"
               )}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
@@ -181,15 +166,7 @@ export default function MarketingNavbar() {
             className="flex items-center gap-2.5"
             onClick={() => setMobileOpen(false)}
           >
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0"
-              style={{ backgroundColor: "#1e3a5f" }}
-            >
-              <Scale className="w-4 h-4 text-white" strokeWidth={2} />
-            </div>
-            <span className="text-sm font-bold" style={{ color: "#1e3a5f" }}>
-              NyayVakil
-            </span>
+            <Logo tone="light" size="xs" />
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
@@ -212,8 +189,8 @@ export default function MarketingNavbar() {
                 className={cn(
                   "flex items-center px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
                   isActive
-                    ? "bg-[#1e3a5f] text-white"
-                    : "text-slate-700 hover:bg-[#1e3a5f]/8 hover:text-[#1e3a5f]"
+                    ? "bg-[#14213D] text-white"
+                    : "text-slate-700 hover:bg-[#14213D]/8 hover:text-[#14213D]"
                 )}
               >
                 {label}
@@ -229,7 +206,7 @@ export default function MarketingNavbar() {
             onClick={() => setMobileOpen(false)}
             className={cn(
               "flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors duration-150",
-              "border-[#1e3a5f]/40 text-[#1e3a5f] hover:border-[#1e3a5f] hover:bg-[#1e3a5f]/6"
+              "border-[#14213D]/40 text-[#14213D] hover:border-[#14213D] hover:bg-[#14213D]/6"
             )}
           >
             Login to Dashboard
@@ -238,7 +215,7 @@ export default function MarketingNavbar() {
             href="/contact"
             onClick={() => setMobileOpen(false)}
             className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-sm font-medium text-white transition-all hover:opacity-90"
-            style={{ backgroundColor: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D" }}
           >
             Start Free Trial
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

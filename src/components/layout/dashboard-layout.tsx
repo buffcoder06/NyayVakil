@@ -41,7 +41,7 @@ function MobileFAB() {
   return (
     <Link
       href="/matters/new"
-      className="fixed bottom-20 right-4 z-30 lg:hidden h-14 w-14 rounded-full bg-[#1e3a5f] hover:bg-[#162d4a] text-white shadow-lg shadow-[#1e3a5f]/30 inline-flex items-center justify-center"
+      className="fixed bottom-20 right-4 z-30 lg:hidden h-14 w-14 rounded-full bg-[#14213D] hover:bg-[#0E182E] text-white shadow-lg shadow-[#14213D]/30 inline-flex items-center justify-center"
       aria-label="Add a new case"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >

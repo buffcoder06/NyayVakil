@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/brand/logo";
 import {
   Briefcase,
   CalendarDays,
@@ -29,26 +30,25 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2">
-            <Scale className="h-6 w-6 text-[#1e3a5f]" />
-            <span className="text-xl font-bold text-[#1e3a5f]">NyayVakil</span>
+            <Logo tone="light" size="sm" />
           </div>
           <nav className="hidden items-center gap-8 md:flex">
-            <Link href="/features" className="text-sm text-slate-600 hover:text-[#1e3a5f]">Features</Link>
-            <Link href="/pricing" className="text-sm text-slate-600 hover:text-[#1e3a5f]">Pricing</Link>
-            <Link href="/demo" className="text-sm text-slate-600 hover:text-[#1e3a5f]">Demo</Link>
-            <Link href="/faq" className="text-sm text-slate-600 hover:text-[#1e3a5f]">FAQ</Link>
-            <Link href="/contact" className="text-sm text-slate-600 hover:text-[#1e3a5f]">Contact</Link>
+            <Link href="/features" className="text-sm text-slate-600 hover:text-[#14213D]">Features</Link>
+            <Link href="/pricing" className="text-sm text-slate-600 hover:text-[#14213D]">Pricing</Link>
+            <Link href="/demo" className="text-sm text-slate-600 hover:text-[#14213D]">Demo</Link>
+            <Link href="/faq" className="text-sm text-slate-600 hover:text-[#14213D]">FAQ</Link>
+            <Link href="/contact" className="text-sm text-slate-600 hover:text-[#14213D]">Contact</Link>
           </nav>
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="hidden text-sm font-medium text-slate-600 hover:text-[#1e3a5f] md:block"
+              className="hidden text-sm font-medium text-slate-600 hover:text-[#14213D] md:block"
             >
               Sign In
             </Link>
             <Link
               href="/free-trial"
-              className="rounded-lg bg-[#1e3a5f] px-4 py-2 text-sm font-semibold text-white hover:bg-[#162d4a] transition-colors"
+              className="rounded-lg bg-[#14213D] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0E182E] transition-colors"
             >
               Start Free Trial
             </Link>
@@ -62,12 +62,12 @@ export default function HomePage() {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full opacity-10"
-          style={{ background: "#1e3a5f" }}
+          style={{ background: "#14213D" }}
         />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute right-16 top-8 h-64 w-64 rounded-full opacity-5"
-          style={{ background: "#1e3a5f" }}
+          style={{ background: "#14213D" }}
         />
 
         <div className="relative mx-auto max-w-4xl text-center">
@@ -76,14 +76,14 @@ export default function HomePage() {
             Now in early access — join 500+ advocates
           </div>
 
-          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-[#1e3a5f] sm:text-5xl lg:text-6xl">
+          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-[#14213D] sm:text-5xl lg:text-6xl">
             Your Legal Practice,{" "}
             <span className="relative">
               <span className="relative z-10">Organised.</span>
               <span
                 aria-hidden="true"
                 className="absolute bottom-1 left-0 -z-0 h-3 w-full opacity-20 rounded"
-                style={{ background: "#1e3a5f" }}
+                style={{ background: "#14213D" }}
               />
             </span>
           </h1>
@@ -95,13 +95,13 @@ export default function HomePage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/free-trial"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#1e3a5f] px-8 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-[#162d4a] transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#14213D] px-8 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-[#0E182E] transition-colors"
             >
               Start Free Trial <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact?type=demo"
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-[#1e3a5f] px-8 py-3.5 text-base font-semibold text-[#1e3a5f] hover:bg-slate-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-[#14213D] px-8 py-3.5 text-base font-semibold text-[#14213D] hover:bg-slate-50 transition-colors"
             >
               Book a Demo
             </Link>
@@ -136,7 +136,7 @@ export default function HomePage() {
                 ].map((stat) => (
                   <div key={stat.label} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                     <p className="text-xs text-slate-400">{stat.label}</p>
-                    <p className="mt-1 text-2xl font-bold text-[#1e3a5f]">{stat.value}</p>
+                    <p className="mt-1 text-2xl font-bold text-[#14213D]">{stat.value}</p>
                   </div>
                 ))}
               </div>
@@ -146,7 +146,7 @@ export default function HomePage() {
                 <div className="col-span-2 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                   <div className="mb-3 flex items-center justify-between">
                     <p className="text-sm font-semibold text-slate-700">Today's Court Diary</p>
-                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-[#1e3a5f]">Delhi HC</span>
+                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-[#14213D]">Delhi HC</span>
                   </div>
                   {[
                     { time: "10:30 AM", matter: "Sharma v. State of Delhi", court: "Court No. 4" },
@@ -154,7 +154,7 @@ export default function HomePage() {
                     { time: "02:15 PM", matter: "Gupta & Sons v. HDFC", court: "Court No. 7" },
                   ].map((h) => (
                     <div key={h.time} className="flex items-center gap-3 border-t border-slate-100 py-2.5">
-                      <span className="w-16 shrink-0 text-xs font-medium text-[#1e3a5f]">{h.time}</span>
+                      <span className="w-16 shrink-0 text-xs font-medium text-[#14213D]">{h.time}</span>
                       <div className="flex-1">
                         <p className="text-xs font-semibold text-slate-700">{h.matter}</p>
                         <p className="text-xs text-slate-400">{h.court}</p>
@@ -205,7 +205,7 @@ export default function HomePage() {
                 key={item.label}
                 className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-8 text-center"
               >
-                <p className="text-3xl font-extrabold text-[#1e3a5f]">{item.stat}</p>
+                <p className="text-3xl font-extrabold text-[#14213D]">{item.stat}</p>
                 <p className="mt-1 text-sm font-medium text-slate-500">{item.label}</p>
               </div>
             ))}
@@ -217,7 +217,7 @@ export default function HomePage() {
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               Built for how Indian lawyers actually work
             </h2>
             <p className="mt-3 text-slate-500">
@@ -254,7 +254,7 @@ export default function HomePage() {
                 </div>
                 {/* Arrow indicator */}
                 <div className="flex items-center justify-center py-3">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1e3a5f] text-white text-xs">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#14213D] text-white text-xs">
                     ↓
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export default function HomePage() {
       <section id="features" className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               Everything your practice needs
             </h2>
             <p className="mt-3 text-slate-500">
@@ -318,7 +318,7 @@ export default function HomePage() {
                 key={feature.title}
                 className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#1e3a5f]/10 text-[#1e3a5f] group-hover:bg-[#1e3a5f] group-hover:text-white transition-colors">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#14213D]/10 text-[#14213D] group-hover:bg-[#14213D] group-hover:text-white transition-colors">
                   {feature.icon}
                 </div>
                 <h3 className="mb-2 text-base font-semibold text-slate-800">{feature.title}</h3>
@@ -333,7 +333,7 @@ export default function HomePage() {
       <section id="who-its-for" className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               Whether you are a solo advocate or running a small firm
             </h2>
             <p className="mt-3 text-slate-500">
@@ -366,12 +366,12 @@ export default function HomePage() {
                 key={card.title}
                 className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
               >
-                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1e3a5f] text-white">
+                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14213D] text-white">
                   {card.icon}
                 </div>
-                <h3 className="mb-3 text-xl font-bold text-[#1e3a5f]">{card.title}</h3>
+                <h3 className="mb-3 text-xl font-bold text-[#14213D]">{card.title}</h3>
                 <p className="mb-5 text-sm leading-relaxed text-slate-600">{card.desc}</p>
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-[#1e3a5f]">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-[#14213D]">
                   <CheckCircle className="h-3.5 w-3.5" />
                   {card.highlight}
                 </div>
@@ -387,11 +387,11 @@ export default function HomePage() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             {/* Text */}
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-[#1e3a5f]">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-[#14213D]">
                 <CalendarDays className="h-3.5 w-3.5" />
                 Court Diary
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+              <h2 className="mb-6 text-3xl font-bold text-[#14213D] sm:text-4xl">
                 Never miss a hearing date
               </h2>
               <ul className="space-y-4">
@@ -403,7 +403,7 @@ export default function HomePage() {
                   { icon: <Bell className="h-5 w-5" />, text: "Send hearing reminders to clients via WhatsApp" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-3">
-                    <span className="mt-0.5 shrink-0 text-[#1e3a5f]">{item.icon}</span>
+                    <span className="mt-0.5 shrink-0 text-[#14213D]">{item.icon}</span>
                     <span className="text-slate-600">{item.text}</span>
                   </li>
                 ))}
@@ -414,7 +414,7 @@ export default function HomePage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-sm font-semibold text-slate-700">March 2026 — Court Diary</p>
-                <span className="rounded-full bg-[#1e3a5f]/10 px-2.5 py-0.5 text-xs font-medium text-[#1e3a5f]">6 hearings</span>
+                <span className="rounded-full bg-[#14213D]/10 px-2.5 py-0.5 text-xs font-medium text-[#14213D]">6 hearings</span>
               </div>
               {[
                 { date: "Mon, 21 Mar", matter: "Sharma v. State", court: "Delhi HC — Court 4", status: "Scheduled", color: "bg-blue-100 text-blue-700" },
@@ -425,7 +425,7 @@ export default function HomePage() {
               ].map((h, i) => (
                 <div key={i} className="flex items-center gap-3 border-t border-slate-100 py-3">
                   <div className="w-24 shrink-0">
-                    <p className="text-xs font-medium text-[#1e3a5f]">{h.date}</p>
+                    <p className="text-xs font-medium text-[#14213D]">{h.date}</p>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="truncate text-xs font-semibold text-slate-700">{h.matter}</p>
@@ -469,11 +469,11 @@ export default function HomePage() {
                 <div key={c.name} className="mb-3">
                   <div className="mb-1 flex justify-between text-xs">
                     <span className="text-slate-600">{c.name}</span>
-                    <span className="font-semibold text-[#1e3a5f]">{c.amount}</span>
+                    <span className="font-semibold text-[#14213D]">{c.amount}</span>
                   </div>
                   <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
                     <div
-                      className="h-2 rounded-full bg-[#1e3a5f]"
+                      className="h-2 rounded-full bg-[#14213D]"
                       style={{ width: c.pct }}
                     />
                   </div>
@@ -483,11 +483,11 @@ export default function HomePage() {
 
             {/* Text */}
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-[#1e3a5f]">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-[#14213D]">
                 <CreditCard className="h-3.5 w-3.5" />
                 Fee Tracking
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+              <h2 className="mb-6 text-3xl font-bold text-[#14213D] sm:text-4xl">
                 Know exactly what you are owed
               </h2>
               <ul className="space-y-4">
@@ -498,7 +498,7 @@ export default function HomePage() {
                   { icon: <Users className="h-5 w-5" />, text: "Client-wise outstanding balance at a glance" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-3">
-                    <span className="mt-0.5 shrink-0 text-[#1e3a5f]">{item.icon}</span>
+                    <span className="mt-0.5 shrink-0 text-[#14213D]">{item.icon}</span>
                     <span className="text-slate-600">{item.text}</span>
                   </li>
                 ))}
@@ -512,7 +512,7 @@ export default function HomePage() {
       <section className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               What changes when you use NyayVakil
             </h2>
             <p className="mt-3 text-slate-500">
@@ -557,7 +557,7 @@ export default function HomePage() {
                 key={benefit.title}
                 className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-6"
               >
-                <div className="mt-0.5 shrink-0 rounded-xl bg-[#1e3a5f] p-2.5 text-white">
+                <div className="mt-0.5 shrink-0 rounded-xl bg-[#14213D] p-2.5 text-white">
                   {benefit.icon}
                 </div>
                 <div>
@@ -574,7 +574,7 @@ export default function HomePage() {
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-4 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               What advocates are saying
             </h2>
           </div>
@@ -632,7 +632,7 @@ export default function HomePage() {
       <section id="pricing" className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-4 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               Simple, transparent pricing
             </h2>
           </div>
@@ -671,7 +671,7 @@ export default function HomePage() {
                 key={p.plan}
                 className={`relative rounded-2xl border p-8 shadow-sm ${
                   p.highlighted
-                    ? "border-[#1e3a5f] bg-[#1e3a5f] text-white"
+                    ? "border-[#14213D] bg-[#14213D] text-white"
                     : "border-slate-200 bg-white text-slate-800"
                 }`}
               >
@@ -702,8 +702,8 @@ export default function HomePage() {
                   href="/free-trial"
                   className={`block rounded-xl py-3 text-center text-sm font-semibold transition-colors ${
                     p.highlighted
-                      ? "bg-white text-[#1e3a5f] hover:bg-slate-100"
-                      : "bg-[#1e3a5f] text-white hover:bg-[#162d4a]"
+                      ? "bg-white text-[#14213D] hover:bg-slate-100"
+                      : "bg-[#14213D] text-white hover:bg-[#0E182E]"
                   }`}
                 >
                   Get Started
@@ -715,7 +715,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[#1e3a5f] hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline"
             >
               View Full Pricing <ArrowRight className="h-4 w-4" />
             </Link>
@@ -727,7 +727,7 @@ export default function HomePage() {
       <section id="faq" className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-[#1e3a5f] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
               Frequently asked questions
             </h2>
           </div>
@@ -757,7 +757,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[#1e3a5f] hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213D] hover:underline"
             >
               See all FAQs <ArrowRight className="h-4 w-4" />
             </Link>
@@ -766,7 +766,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Section 12: Final CTA Banner ── */}
-      <section className="px-6 py-20" style={{ backgroundColor: "#1e3a5f" }}>
+      <section className="px-6 py-20" style={{ backgroundColor: "#14213D" }}>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl">
             Ready to organise your practice?
@@ -777,7 +777,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/free-trial"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-[#1e3a5f] hover:bg-slate-100 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-[#14213D] hover:bg-slate-100 transition-colors"
             >
               Start Free Trial <ArrowRight className="h-4 w-4" />
             </Link>
@@ -799,17 +799,16 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="flex items-center gap-2">
-              <Scale className="h-5 w-5 text-[#1e3a5f]" />
-              <span className="font-bold text-[#1e3a5f]">NyayVakil</span>
+              <Logo tone="light" size="xs" />
               <span className="text-sm text-slate-400">— Legal Practice Management</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
-              <Link href="/features" className="hover:text-[#1e3a5f]">Features</Link>
-              <Link href="/pricing" className="hover:text-[#1e3a5f]">Pricing</Link>
-              <Link href="/faq" className="hover:text-[#1e3a5f]">FAQ</Link>
-              <Link href="/contact" className="hover:text-[#1e3a5f]">Contact</Link>
-              <Link href="/privacy" className="hover:text-[#1e3a5f]">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#1e3a5f]">Terms</Link>
+              <Link href="/features" className="hover:text-[#14213D]">Features</Link>
+              <Link href="/pricing" className="hover:text-[#14213D]">Pricing</Link>
+              <Link href="/faq" className="hover:text-[#14213D]">FAQ</Link>
+              <Link href="/contact" className="hover:text-[#14213D]">Contact</Link>
+              <Link href="/privacy" className="hover:text-[#14213D]">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#14213D]">Terms</Link>
             </div>
           </div>
           <div className="mt-6 border-t border-slate-100 pt-6 text-center text-xs text-slate-400">

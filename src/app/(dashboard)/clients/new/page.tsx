@@ -299,7 +299,7 @@ export default function NewClientPage() {
           <Button
             type="submit"
             disabled={submitting}
-            className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2"
+            className="bg-[#14213D] hover:bg-[#0E182E] gap-2"
           >
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             {submitting ? "Adding Client…" : "Add Client"}

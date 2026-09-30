@@ -128,7 +128,7 @@ export default function NewFeePage() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-base flex items-center gap-2">
-            <IndianRupee className="h-4 w-4 text-[#1e3a5f]" />
+            <IndianRupee className="h-4 w-4 text-[#14213D]" />
             Fee Details
           </CardTitle>
         </CardHeader>
@@ -260,7 +260,7 @@ export default function NewFeePage() {
                 <Link href="/fees">
                   <Button type="button" variant="outline">Cancel</Button>
                 </Link>
-                <Button type="submit" disabled={saving} className="bg-[#1e3a5f] hover:bg-[#16304f]">
+                <Button type="submit" disabled={saving} className="bg-[#14213D] hover:bg-[#16304f]">
                   {saving ? (
                     <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</>
                   ) : (

@@ -79,8 +79,8 @@ function DocumentCard({ doc, matterTitle }: { doc: Document; matterTitle: string
     <Card className="hover:shadow-md transition-all duration-200 border-slate-200 hover:border-slate-300 group cursor-pointer">
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#1e3a5f]/10 transition-colors">
-            <Icon className="h-5 w-5 text-slate-500 group-hover:text-[#1e3a5f] transition-colors" />
+          <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#14213D]/10 transition-colors">
+            <Icon className="h-5 w-5 text-slate-500 group-hover:text-[#14213D] transition-colors" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm text-slate-900 truncate">{doc.name}</p>
@@ -214,7 +214,7 @@ function UploadDocumentDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             Add Document
           </Button>
@@ -278,7 +278,7 @@ export default function DocumentsPage() {
         title="Documents"
         description="Organize and manage all legal documents securely."
         actions={
-          <Button onClick={() => setUploadOpen(true)} className="gap-2 bg-[#1e3a5f] hover:bg-[#162d4a]">
+          <Button onClick={() => setUploadOpen(true)} className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
             <Plus className="h-4 w-4" />
             Upload Document
           </Button>
@@ -343,7 +343,7 @@ export default function DocumentsPage() {
           <FileText className="h-12 w-12 mb-3 opacity-30" />
           <p className="text-base font-medium">No documents found</p>
           <p className="text-sm mt-1">Upload your first document to get started.</p>
-          <Button size="sm" className="mt-4 bg-[#1e3a5f] hover:bg-[#162d4a] gap-2" onClick={() => setUploadOpen(true)}>
+          <Button size="sm" className="mt-4 bg-[#14213D] hover:bg-[#0E182E] gap-2" onClick={() => setUploadOpen(true)}>
             <Upload className="h-4 w-4" /> Upload Document
           </Button>
         </div>

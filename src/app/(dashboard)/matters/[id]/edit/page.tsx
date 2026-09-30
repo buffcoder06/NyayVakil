@@ -281,7 +281,7 @@ export default function EditMatterPage() {
         </Card>
 
         <div className="flex items-center gap-3 pb-8">
-          <Button type="submit" disabled={submitting} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+          <Button type="submit" disabled={submitting} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             {submitting ? "Saving…" : "Save Changes"}
           </Button>

@@ -35,7 +35,7 @@ const fmt = (n: number) =>
     maximumFractionDigits: 0,
   }).format(n);
 
-const COLORS = ["#1e3a5f", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+const COLORS = ["#14213D", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -52,7 +52,7 @@ function SectionCard({ title, children, className }: { title: string; children: 
   );
 }
 
-function BarRow({ label, value, max, color = "bg-[#1e3a5f]" }: { label: string; value: number; max: number; color?: string }) {
+function BarRow({ label, value, max, color = "bg-[#14213D]" }: { label: string; value: number; max: number; color?: string }) {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div className="flex items-center gap-3 py-1.5">
@@ -320,7 +320,7 @@ export default function ReportsPage() {
                     contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
                   />
                   <Legend />
-                  <Bar dataKey="collected" name="Collected" fill="#1e3a5f" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="collected" name="Collected" fill="#14213D" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="expenses" name="Expenses" fill="#f59e0b" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>

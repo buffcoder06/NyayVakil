@@ -64,7 +64,7 @@ const WHY_DEMO_POINTS = [
 // ── Shared input class ────────────────────────────────────────────────────────
 
 const inputClass =
-  "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]/25 focus:border-[#1e3a5f] transition-colors";
+  "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#14213D]/25 focus:border-[#14213D] transition-colors";
 
 const errorClass = "mt-1 text-xs text-red-600";
 
@@ -285,7 +285,7 @@ function ContactForm() {
         type="submit"
         disabled={submitState === "loading"}
         className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-        style={{ backgroundColor: "#1e3a5f" }}
+        style={{ backgroundColor: "#14213D" }}
       >
         {submitState === "loading" ? (
           <>
@@ -456,7 +456,7 @@ function CallbackForm() {
         type="submit"
         disabled={submitState === "loading"}
         className="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-        style={{ backgroundColor: "#1e3a5f" }}
+        style={{ backgroundColor: "#14213D" }}
       >
         {submitState === "loading" ? (
           <>
@@ -513,7 +513,7 @@ export default function ContactPage() {
               {/* Book a Demo */}
               <div
                 className="rounded-xl border p-5 text-white"
-                style={{ backgroundColor: "#1e3a5f" }}
+                style={{ backgroundColor: "#14213D" }}
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
@@ -543,11 +543,11 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3.5">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#1e3a5f10" }}
+                    style={{ backgroundColor: "#14213D10" }}
                   >
                     <MessageSquare
                       className="w-4.5 h-4.5"
-                      style={{ color: "#1e3a5f" }}
+                      style={{ color: "#14213D" }}
                       strokeWidth={2}
                     />
                   </div>
@@ -575,11 +575,11 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3.5">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#1e3a5f10" }}
+                    style={{ backgroundColor: "#14213D10" }}
                   >
                     <Mail
                       className="w-4.5 h-4.5"
-                      style={{ color: "#1e3a5f" }}
+                      style={{ color: "#14213D" }}
                       strokeWidth={2}
                     />
                   </div>
@@ -605,11 +605,11 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3.5">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#1e3a5f10" }}
+                    style={{ backgroundColor: "#14213D10" }}
                   >
                     <Phone
                       className="w-4.5 h-4.5"
-                      style={{ color: "#1e3a5f" }}
+                      style={{ color: "#14213D" }}
                       strokeWidth={2}
                     />
                   </div>
@@ -635,11 +635,11 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3.5">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#1e3a5f10" }}
+                    style={{ backgroundColor: "#14213D10" }}
                   >
                     <Clock
                       className="w-4.5 h-4.5"
-                      style={{ color: "#1e3a5f" }}
+                      style={{ color: "#14213D" }}
                       strokeWidth={2}
                     />
                   </div>
@@ -668,11 +668,11 @@ export default function ContactPage() {
             <div className="flex items-center gap-3 mb-6">
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                style={{ backgroundColor: "#1e3a5f12" }}
+                style={{ backgroundColor: "#14213D12" }}
               >
                 <Phone
                   className="w-5 h-5"
-                  style={{ color: "#1e3a5f" }}
+                  style={{ color: "#14213D" }}
                   strokeWidth={2}
                 />
               </div>
@@ -711,7 +711,7 @@ export default function ContactPage() {
               >
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold text-white mt-0.5"
-                  style={{ backgroundColor: "#1e3a5f" }}
+                  style={{ backgroundColor: "#14213D" }}
                 >
                   {idx + 1}
                 </div>
@@ -731,7 +731,7 @@ export default function ContactPage() {
             <Link
               href="/demo"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               Book a Demo
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

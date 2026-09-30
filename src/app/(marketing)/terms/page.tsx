@@ -31,7 +31,7 @@ function SectionHeading({
     >
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-        style={{ backgroundColor: "#1e3a5f" }}
+        style={{ backgroundColor: "#14213D" }}
         aria-hidden="true"
       >
         {number}
@@ -63,7 +63,7 @@ export default function TermsPage() {
   return (
     <div className="bg-white">
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
-      <div style={{ backgroundColor: "#1e3a5f" }} className="py-14 px-4">
+      <div style={{ backgroundColor: "#14213D" }} className="py-14 px-4">
         <div className="max-w-3xl mx-auto">
           <p className="text-sm font-medium text-blue-200 uppercase tracking-widest mb-3">
             Legal
@@ -130,7 +130,7 @@ export default function TermsPage() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className="flex items-baseline gap-2 hover:text-[#1e3a5f] transition-colors"
+                  className="flex items-baseline gap-2 hover:text-[#14213D] transition-colors"
                 >
                   <span className="text-xs text-slate-400 tabular-nums w-5 shrink-0">
                     {i + 1}.
@@ -166,7 +166,7 @@ export default function TermsPage() {
           <p>
             By using {companyName}, you agree to be bound by these Terms and
             our{" "}
-            <Link href="/privacy" className="text-[#1e3a5f] underline hover:opacity-80">
+            <Link href="/privacy" className="text-[#14213D] underline hover:opacity-80">
               Privacy Policy
             </Link>
             . If you are using the Service on behalf of a law firm or
@@ -289,7 +289,7 @@ export default function TermsPage() {
               Notify us immediately at{" "}
               <a
                 href={`mailto:${contactEmail}`}
-                className="text-[#1e3a5f] underline hover:opacity-80"
+                className="text-[#14213D] underline hover:opacity-80"
               >
                 {contactEmail}
               </a>{" "}
@@ -330,7 +330,7 @@ export default function TermsPage() {
             available on a monthly or yearly basis. Yearly plans may be offered
             at a discounted rate. Plan details, features, and current pricing
             are listed on our{" "}
-            <Link href="/pricing" className="text-[#1e3a5f] underline hover:opacity-80">
+            <Link href="/pricing" className="text-[#14213D] underline hover:opacity-80">
               Pricing page
             </Link>
             .
@@ -376,7 +376,7 @@ export default function TermsPage() {
           <p>
             Your privacy is important to us. By using the Service, you agree to
             the collection and use of your information as described in our{" "}
-            <Link href="/privacy" className="text-[#1e3a5f] underline hover:opacity-80">
+            <Link href="/privacy" className="text-[#14213D] underline hover:opacity-80">
               Privacy Policy
             </Link>
             , which is incorporated into these Terms by reference.
@@ -668,7 +668,7 @@ export default function TermsPage() {
               <strong>Email:</strong>{" "}
               <a
                 href={`mailto:${contactEmail}`}
-                className="text-[#1e3a5f] underline hover:opacity-80"
+                className="text-[#14213D] underline hover:opacity-80"
               >
                 {contactEmail}
               </a>
@@ -681,7 +681,7 @@ export default function TermsPage() {
               to be designated as per IT Rules 2011] —{" "}
               <a
                 href="mailto:grievance@nyayvakil.in"
-                className="text-[#1e3a5f] underline hover:opacity-80"
+                className="text-[#14213D] underline hover:opacity-80"
               >
                 grievance@nyayvakil.in
               </a>
@@ -735,7 +735,7 @@ export default function TermsPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/privacy"
-              className="text-[#1e3a5f] hover:underline font-medium"
+              className="text-[#14213D] hover:underline font-medium"
             >
               Privacy Policy
             </Link>

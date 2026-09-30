@@ -250,12 +250,12 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
       className={[
         "relative flex flex-col rounded-2xl p-6 transition-shadow",
         plan.recommended
-          ? "border-2 shadow-xl shadow-[#1e3a5f]/10"
+          ? "border-2 shadow-xl shadow-[#14213D]/10"
           : "border border-slate-200 shadow-sm hover:shadow-md",
       ].join(" ")}
       style={
         plan.recommended
-          ? { borderColor: "#1e3a5f", background: "#fff" }
+          ? { borderColor: "#14213D", background: "#fff" }
           : {}
       }
     >
@@ -264,7 +264,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
           <span
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-white shadow-sm"
-            style={{ backgroundColor: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D" }}
           >
             <Zap className="w-3 h-3" />
             {plan.badge}
@@ -276,7 +276,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
       <div className="mb-4">
         <h3
           className="text-lg font-bold"
-          style={{ color: plan.recommended ? "#1e3a5f" : "#0f172a" }}
+          style={{ color: plan.recommended ? "#14213D" : "#0f172a" }}
         >
           {plan.name}
         </h3>
@@ -294,7 +294,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
           <div>
             <div className="flex items-end gap-1">
               <span className="text-sm font-medium text-slate-500 mb-1">₹</span>
-              <span className="text-4xl font-bold" style={{ color: "#1e3a5f" }}>
+              <span className="text-4xl font-bold" style={{ color: "#14213D" }}>
                 {price?.toLocaleString("en-IN")}
               </span>
               <span className="text-sm text-slate-500 mb-1">/month</span>
@@ -335,7 +335,7 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
           <li key={feature} className="flex items-start gap-2 text-sm text-slate-700">
             <Check
               className="w-4 h-4 mt-0.5 shrink-0"
-              style={{ color: "#1e3a5f" }}
+              style={{ color: "#14213D" }}
               strokeWidth={2.5}
             />
             <span>{feature}</span>
@@ -360,8 +360,8 @@ function PlanCard({ plan, isYearly }: { plan: PricingPlan; isYearly: boolean }) 
         ].join(" ")}
         style={
           plan.recommended
-            ? { backgroundColor: "#1e3a5f" }
-            : { borderColor: "#1e3a5f", color: "#1e3a5f" }
+            ? { backgroundColor: "#14213D" }
+            : { borderColor: "#14213D", color: "#14213D" }
         }
       >
         {plan.contactSales ? <Phone className="w-4 h-4" /> : null}
@@ -376,7 +376,7 @@ function ComparisonCell({ value }: { value: boolean }) {
   if (value) {
     return (
       <td className="px-4 py-3 text-center">
-        <Check className="w-4 h-4 mx-auto" style={{ color: "#1e3a5f" }} strokeWidth={2.5} />
+        <Check className="w-4 h-4 mx-auto" style={{ color: "#14213D" }} strokeWidth={2.5} />
       </td>
     );
   }
@@ -425,7 +425,7 @@ export default function PricingPage() {
         <div className="max-w-3xl mx-auto">
           <span
             className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide mb-4 uppercase"
-            style={{ backgroundColor: "#1e3a5f15", color: "#1e3a5f" }}
+            style={{ backgroundColor: "#14213D15", color: "#14213D" }}
           >
             Pricing
           </span>
@@ -458,7 +458,7 @@ export default function PricingPage() {
               "relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
             ].join(" ")}
             style={{
-              backgroundColor: isYearly ? "#1e3a5f" : "#cbd5e1",
+              backgroundColor: isYearly ? "#14213D" : "#cbd5e1",
             }}
           >
             <span
@@ -527,11 +527,11 @@ export default function PricingPage() {
                   <th
                     key={plan.id}
                     className="px-4 py-4 text-center font-semibold"
-                    style={{ color: plan.recommended ? "#1e3a5f" : "#334155" }}
+                    style={{ color: plan.recommended ? "#14213D" : "#334155" }}
                   >
                     {plan.name}
                     {plan.recommended && (
-                      <span className="block text-xs font-normal mt-0.5" style={{ color: "#1e3a5f" }}>
+                      <span className="block text-xs font-normal mt-0.5" style={{ color: "#14213D" }}>
                         Most Popular
                       </span>
                     )}
@@ -601,7 +601,7 @@ export default function PricingPage() {
             <Link
               href="/demo"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               Book a Demo
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -609,7 +609,7 @@ export default function PricingPage() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
-              style={{ borderColor: "#1e3a5f", color: "#1e3a5f" }}
+              style={{ borderColor: "#14213D", color: "#14213D" }}
             >
               <Phone className="w-4 h-4" />
               Contact Us

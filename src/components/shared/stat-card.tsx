@@ -41,10 +41,10 @@ const COLOR_CONFIG: Record<
   { bg: string; text: string; icon: string; ring: string }
 > = {
   navy: {
-    bg: "bg-[#1e3a5f]/10",
-    text: "text-[#1e3a5f]",
-    icon: "text-[#1e3a5f]",
-    ring: "ring-[#1e3a5f]/20",
+    bg: "bg-[#14213D]/10",
+    text: "text-[#14213D]",
+    icon: "text-[#14213D]",
+    ring: "ring-[#14213D]/20",
   },
   blue: {
     bg: "bg-blue-50",

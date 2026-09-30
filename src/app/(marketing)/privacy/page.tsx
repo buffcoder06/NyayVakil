@@ -31,7 +31,7 @@ function SectionHeading({
     >
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-        style={{ backgroundColor: "#1e3a5f" }}
+        style={{ backgroundColor: "#14213D" }}
         aria-hidden="true"
       >
         {number}
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
   return (
     <div className="bg-white">
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
-      <div style={{ backgroundColor: "#1e3a5f" }} className="py-14 px-4">
+      <div style={{ backgroundColor: "#14213D" }} className="py-14 px-4">
         <div className="max-w-3xl mx-auto">
           <p className="text-sm font-medium text-blue-200 uppercase tracking-widest mb-3">
             Legal
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className="flex items-baseline gap-2 hover:text-[#1e3a5f] transition-colors"
+                  className="flex items-baseline gap-2 hover:text-[#14213D] transition-colors"
                 >
                   <span className="text-xs text-slate-400 tabular-nums w-5 shrink-0">
                     {i + 1}.
@@ -548,7 +548,7 @@ export default function PrivacyPage() {
             To exercise any of these rights, please contact us at{" "}
             <a
               href={`mailto:${contactEmail}`}
-              className="text-[#1e3a5f] underline hover:opacity-80"
+              className="text-[#14213D] underline hover:opacity-80"
             >
               {contactEmail}
             </a>
@@ -574,7 +574,7 @@ export default function PrivacyPage() {
             from a minor, please contact us immediately at{" "}
             <a
               href={`mailto:${contactEmail}`}
-              className="text-[#1e3a5f] underline hover:opacity-80"
+              className="text-[#14213D] underline hover:opacity-80"
             >
               {contactEmail}
             </a>
@@ -625,7 +625,7 @@ export default function PrivacyPage() {
               <strong>Privacy / Data Protection Enquiries:</strong>{" "}
               <a
                 href={`mailto:${contactEmail}`}
-                className="text-[#1e3a5f] underline hover:opacity-80"
+                className="text-[#14213D] underline hover:opacity-80"
               >
                 {contactEmail}
               </a>
@@ -635,7 +635,7 @@ export default function PrivacyPage() {
               per IT Rules 2011]{" "}
               <a
                 href="mailto:grievance@nyayvakil.in"
-                className="text-[#1e3a5f] underline hover:opacity-80"
+                className="text-[#14213D] underline hover:opacity-80"
               >
                 grievance@nyayvakil.in
               </a>
@@ -666,7 +666,7 @@ export default function PrivacyPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/terms"
-              className="text-[#1e3a5f] hover:underline font-medium"
+              className="text-[#14213D] hover:underline font-medium"
             >
               Terms of Service
             </Link>

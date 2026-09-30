@@ -222,7 +222,7 @@ function AddFeeDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             Add Fee
           </Button>
@@ -347,7 +347,7 @@ function LogPaymentDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-2">
+          <Button onClick={handleSubmit} disabled={submitting} className="bg-[#14213D] hover:bg-[#0E182E] gap-2">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             Log Payment
           </Button>
@@ -457,7 +457,7 @@ export default function FeesPage() {
               <IndianRupee className="h-4 w-4" />
               Log Payment
             </Button>
-            <Button onClick={() => setAddFeeOpen(true)} className="gap-2 bg-[#1e3a5f] hover:bg-[#162d4a]">
+            <Button onClick={() => setAddFeeOpen(true)} className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
               <Plus className="h-4 w-4" />
               Add Fee Entry
             </Button>

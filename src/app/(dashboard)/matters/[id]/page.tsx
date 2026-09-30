@@ -260,7 +260,7 @@ export default function MatterDetailPage() {
               </span>
             )}
             {client && (
-              <Link href={`/clients/${client.id}`} className="flex items-center gap-1 hover:text-[#1e3a5f] transition-colors">
+              <Link href={`/clients/${client.id}`} className="flex items-center gap-1 hover:text-[#14213D] transition-colors">
                 <User className="h-3.5 w-3.5" />
                 {client.name}
               </Link>
@@ -276,7 +276,7 @@ export default function MatterDetailPage() {
           </Link>
           <Button
             size="sm"
-            className="bg-[#1e3a5f] hover:bg-[#162d4a] gap-1.5"
+            className="bg-[#14213D] hover:bg-[#0E182E] gap-1.5"
             onClick={openHearingDialog}
           >
             <Plus className="h-4 w-4" />
@@ -644,8 +644,8 @@ export default function MatterDetailPage() {
               {timeline.map((entry, idx) => (
                 <div key={entry.id} className="flex gap-3">
                   <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#1e3a5f]/10 flex items-center justify-center shrink-0">
-                      <Activity className="h-4 w-4 text-[#1e3a5f]" />
+                    <div className="w-8 h-8 rounded-full bg-[#14213D]/10 flex items-center justify-center shrink-0">
+                      <Activity className="h-4 w-4 text-[#14213D]" />
                     </div>
                     {idx < timeline.length - 1 && <div className="w-0.5 flex-1 bg-slate-100 my-1" />}
                   </div>

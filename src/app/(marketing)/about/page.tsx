@@ -45,11 +45,11 @@ function ValueCard({
     <div className="rounded-xl border border-slate-200 p-6">
       <div
         className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
-        style={{ backgroundColor: "#1e3a5f12" }}
+        style={{ backgroundColor: "#14213D12" }}
       >
         <Icon
           className="w-5 h-5"
-          style={{ color: "#1e3a5f" }}
+          style={{ color: "#14213D" }}
           strokeWidth={2}
         />
       </div>
@@ -88,7 +88,7 @@ export default function AboutPage() {
           <div className="flex items-center gap-3 mb-8">
             <div
               className="w-1.5 h-6 rounded-full"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
               aria-hidden="true"
             />
             <h2 className="text-2xl font-bold text-slate-900">
@@ -129,7 +129,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Our mission ───────────────────────────────────────────────────── */}
-      <section className="py-14" style={{ backgroundColor: "#1e3a5f" }}>
+      <section className="py-14" style={{ backgroundColor: "#14213D" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold text-blue-200 uppercase tracking-widest mb-4">
             Our Mission
@@ -173,7 +173,7 @@ export default function AboutPage() {
           <div className="flex items-center gap-3 mb-8">
             <div
               className="w-1.5 h-6 rounded-full"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
               aria-hidden="true"
             />
             <h2 className="text-2xl font-bold text-slate-900">The team</h2>
@@ -218,7 +218,7 @@ export default function AboutPage() {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
-              style={{ backgroundColor: "#1e3a5f" }}
+              style={{ backgroundColor: "#14213D" }}
             >
               Get in Touch
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
-import { Eye, EyeOff, Scale, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,12 +57,6 @@ export default function LoginPage() {
     <div className="w-full">
       <Card className="w-full shadow-lg border-0 bg-white">
         <CardHeader className="text-center pb-2">
-          <div className="flex items-center justify-center gap-2.5 mb-4">
-            <div className="w-9 h-9 bg-[#1e3a5f] rounded-lg flex items-center justify-center shadow-sm">
-              <Scale className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-[#1e3a5f] tracking-tight">NyayVakil</span>
-          </div>
           <CardTitle className="text-2xl font-bold text-slate-900">Welcome back</CardTitle>
           <CardDescription className="text-slate-500 mt-1">
             Sign in to your legal practice account
@@ -87,7 +81,7 @@ export default function LoginPage() {
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
-                <Link href="/forgot-password" className="text-xs font-medium text-[#1e3a5f] hover:underline">
+                <Link href="/forgot-password" className="text-xs font-medium text-[#14213D] hover:underline">
                   Forgot password?
                 </Link>
               </div>
@@ -114,7 +108,7 @@ export default function LoginPage() {
             <Button
               type="submit"
               disabled={isLoading || !hydrated}
-              className="w-full h-10 bg-[#1e3a5f] hover:bg-[#162d4a] text-white font-medium rounded-lg"
+              className="w-full h-10 bg-[#14213D] hover:bg-[#0E182E] text-white font-medium rounded-lg"
             >
               {isLoading ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Signing in...</>
@@ -125,7 +119,7 @@ export default function LoginPage() {
           </form>
           <p className="mt-5 text-center text-sm text-slate-500">
             New to NyayVakil?{" "}
-            <Link href="/signup" className="font-medium text-[#1e3a5f] hover:underline">
+            <Link href="/signup" className="font-medium text-[#14213D] hover:underline">
               Create an account
             </Link>
           </p>

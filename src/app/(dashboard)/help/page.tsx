@@ -214,10 +214,10 @@ export default function HelpPage() {
                 Email
               </p>
               <a
-                href="mailto:support@nyayvakil.in"
+                href="mailto:info@nyayvakil.in"
                 className="text-sm font-semibold text-[#14213D] hover:underline"
               >
-                support@nyayvakil.in
+                info@nyayvakil.in
               </a>
             </div>
 

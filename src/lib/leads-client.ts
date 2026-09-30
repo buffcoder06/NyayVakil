@@ -22,7 +22,7 @@ export async function submitLead(payload: LeadPayload): Promise<string> {
   });
   const json = await res.json().catch(() => null);
   if (!res.ok || !json?.success) {
-    throw new Error(json?.message ?? "Could not send your request. Please try again or email support@nyayvakil.in.");
+    throw new Error(json?.message ?? "Could not send your request. Please try again or email info@nyayvakil.in.");
   }
   return json.data.reference as string;
 }

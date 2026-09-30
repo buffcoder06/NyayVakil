@@ -576,10 +576,10 @@ export default function ContactPage() {
                       Email
                     </h3>
                     <a
-                      href="mailto:hello@nyayvakil.in"
+                      href="mailto:info@nyayvakil.in"
                       className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
                     >
-                      hello@nyayvakil.in
+                      info@nyayvakil.in
                     </a>
                     <p className="text-xs text-slate-400 mt-0.5">
                       We respond within 24–48 hours

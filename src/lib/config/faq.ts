@@ -329,7 +329,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "onboarding-support-channels",
     question: "How can I reach the support team?",
     answer:
-      "You can reach us via email at support@nyayvakil.in, through the in-app live chat (available on all plans), or by phone (available on the Firm and Enterprise plans). " +
+      "You can reach us via email at info@nyayvakil.in, through the in-app live chat (available on all plans), or by phone (available on the Firm and Enterprise plans). " +
       "Our support team is available Monday to Saturday, 9 AM to 7 PM IST. " +
       "Email support response times depend on your plan: 48 hours for Starter, 24 hours for Chamber, and 8 hours for Firm.",
     category: "onboarding",

@@ -124,7 +124,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
         question:
           "What happens to my data if I cancel my subscription?",
         answer:
-          "Your data is yours. You can download your reports as CSV at any time, and if you ever want your full data exported or your account deleted, email support@nyayvakil.in and we'll take care of it.",
+          "Your data is yours. You can download your reports as CSV at any time, and if you ever want your full data exported or your account deleted, email info@nyayvakil.in and we'll take care of it.",
       },
     ],
   },
@@ -162,7 +162,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "What support options are available?",
         answer:
-          "During early access, email support@nyayvakil.in and we'll get back to you — usually within one business day. Priority and phone support are planned for paid plans.",
+          "During early access, email info@nyayvakil.in and we'll get back to you — usually within one business day. Priority and phone support are planned for paid plans.",
       },
       {
         question:

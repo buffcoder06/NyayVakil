@@ -55,7 +55,7 @@ function Prose({ children }: { children: React.ReactNode }) {
 
 export default function PrivacyPage() {
   const effectiveDate = "1 April 2025";
-  const contactEmail = "privacy@nyayvakil.in";
+  const contactEmail = "info@nyayvakil.in";
 
   return (
     <div className="bg-white">
@@ -634,10 +634,10 @@ export default function PrivacyPage() {
               <strong>Grievance Officer:</strong> [Name — to be designated as
               per IT Rules 2011]{" "}
               <a
-                href="mailto:grievance@nyayvakil.in"
+                href="mailto:info@nyayvakil.in"
                 className="text-[#14213D] underline hover:opacity-80"
               >
-                grievance@nyayvakil.in
+                info@nyayvakil.in
               </a>
             </p>
             <p>

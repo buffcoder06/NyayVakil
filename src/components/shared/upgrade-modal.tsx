@@ -379,7 +379,7 @@ export default function UpgradeModal({
           {/* Footer actions */}
           <div className="px-6 pb-6 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100 pt-4">
             <a
-              href="mailto:sales@nyayvakil.in"
+              href="mailto:info@nyayvakil.in"
               className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
             >
               <PhoneCall className="h-4 w-4" aria-hidden="true" />

@@ -10,7 +10,7 @@ import type { CourtLevel, ExpenseType, DocumentCategory, UserRole } from '@/type
 export const APP_NAME = 'NyayVakil' as const;
 export const APP_TAGLINE = 'Smart Legal Practice Management' as const;
 export const APP_VERSION = '1.0.0' as const;
-export const APP_SUPPORT_EMAIL = 'support@nyayvakil.in' as const;
+export const APP_SUPPORT_EMAIL = 'info@nyayvakil.in' as const;
 export const APP_WEBSITE = 'https://nyayvakil.in' as const;
 
 // ─────────────────────────────────────────────────────────────────────────────

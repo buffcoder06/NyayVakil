@@ -511,12 +511,12 @@ export default function FeesPage() {
           <TabsList className="mb-4 flex-wrap">
             <TabsTrigger value="all">
               All
-              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">{feesByStatus.all.length}</Badge>
+              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">{feesByStatus.all.length}</Badge>
             </TabsTrigger>
             <TabsTrigger value="overdue">
               Overdue
               {feesByStatus.overdue.length > 0 && (
-                <Badge className="ml-1.5 h-4 px-1 text-[10px] bg-red-100 text-red-700">{feesByStatus.overdue.length}</Badge>
+                <Badge className="ml-1.5 h-4 px-1 text-[12px] bg-red-100 text-red-700">{feesByStatus.overdue.length}</Badge>
               )}
             </TabsTrigger>
             <TabsTrigger value="partially_paid">Partially Paid</TabsTrigger>

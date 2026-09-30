@@ -275,7 +275,7 @@ export default function Sidebar() {
             <div key={idx}>
               {/* Only show group label when expanded and title is non-empty */}
               {!collapsed && group.title && (
-                <p className="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                <p className="mb-1.5 px-2 text-[12px] font-semibold uppercase tracking-widest text-white/30">
                   {group.title}
                 </p>
               )}

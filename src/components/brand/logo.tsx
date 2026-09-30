@@ -84,7 +84,7 @@ export function Logo({
           <span
             className={cn(
               "font-semibold uppercase tracking-[0.22em] leading-none",
-              size === "xl" ? "text-sm" : "text-[10px]",
+              size === "xl" ? "text-sm" : "text-[12px]",
               tone === "light" ? "text-brand-slate" : "text-cream/70"
             )}
           >

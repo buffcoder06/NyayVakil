@@ -502,10 +502,10 @@ export default function RemindersPage() {
       ) : (
         <Tabs defaultValue="all">
           <TabsList className="mb-4 flex-wrap">
-            <TabsTrigger value="all">All <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">{byType.all.length}</Badge></TabsTrigger>
+            <TabsTrigger value="all">All <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">{byType.all.length}</Badge></TabsTrigger>
             <TabsTrigger value="pending">
               Pending
-              {byType.pending.length > 0 && <Badge className="ml-1.5 h-4 px-1 text-[10px] bg-amber-100 text-amber-700">{byType.pending.length}</Badge>}
+              {byType.pending.length > 0 && <Badge className="ml-1.5 h-4 px-1 text-[12px] bg-amber-100 text-amber-700">{byType.pending.length}</Badge>}
             </TabsTrigger>
             <TabsTrigger value="sent">Sent</TabsTrigger>
             <TabsTrigger value="hearing">Hearing</TabsTrigger>

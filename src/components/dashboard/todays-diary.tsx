@@ -36,7 +36,7 @@ interface TodaysDiaryProps {
 
 export function TodaysDiary({ hearings, today }: TodaysDiaryProps) {
   return (
-    <Card className="shadow-sm h-full flex flex-col">
+    <Card className="shadow-sm flex flex-col">
       <CardHeader className="border-b pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">

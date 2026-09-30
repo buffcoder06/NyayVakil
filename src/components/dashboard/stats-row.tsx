@@ -36,13 +36,13 @@ function StatCard({
         highlight ? "ring-2 ring-gold-bright/70" : ""
       }`}
     >
-      <CardContent className="pt-5 pb-5">
+      <CardContent className="py-4 sm:py-5">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide truncate">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide sm:truncate">
               {title}
             </p>
-            <p className="mt-1.5 text-3xl font-bold text-navy dark:text-slate-100 tabular-nums">
+            <p className="mt-1.5 text-2xl sm:text-3xl font-bold text-navy dark:text-slate-100 tabular-nums">
               {value}
             </p>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -50,7 +50,7 @@ function StatCard({
             </p>
           </div>
           <div
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${iconBg}`}
+            className={`hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl sm:flex ${iconBg}`}
           >
             <span className={iconColor}>{icon}</span>
           </div>
@@ -119,7 +119,7 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {cards.map((card) => (
         <StatCard key={card.title} {...card} />
       ))}

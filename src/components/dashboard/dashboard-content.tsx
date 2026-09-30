@@ -24,34 +24,37 @@ export default async function DashboardContent() {
   const todaysHearings = hearings.filter((h) => h.date === today);
 
   return (
-    <div className="space-y-6">
+    // On phones today's diary comes first (order-*); from lg the DOM order applies
+    <div className="flex flex-col gap-6">
       {/* Onboarding checklist — ticks come from real data; hides itself once all steps are done */}
       <OnboardingChecklist completedItemIds={onboardingDone} />
 
-      {/* Row 1 — Quick Actions (full width, prominent) */}
-      <QuickActions />
+      {/* Quick Actions — a compact scrolling row on phones */}
+      <div className="order-2 lg:order-none">
+        <QuickActions />
+      </div>
 
-      {/* Row 2 — Stats (4 key numbers) */}
-      <StatsRow stats={stats} todayHearingsCount={todaysHearings.length} />
+      {/* Stats (4 key numbers) */}
+      <div className="order-3 lg:order-none">
+        <StatsRow stats={stats} todayHearingsCount={todaysHearings.length} />
+      </div>
 
-      {/* Row 3 — Today's Court Diary (3/5) + Pending Fees summary (2/5) */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-        <div className="lg:col-span-3">
+      {/* Hearings — today, then the rest of the week (3/5) + Pending Fees (2/5) */}
+      <div className="order-1 grid grid-cols-1 items-start gap-4 lg:order-none lg:grid-cols-5">
+        <div className="flex flex-col gap-4 lg:col-span-3">
           <TodaysDiary hearings={todaysHearings} today={today} />
+          <UpcomingHearingsWidget hearings={hearings} />
         </div>
         <div className="lg:col-span-2">
           <PendingFeesWidget fees={fees} />
         </div>
       </div>
 
-      {/* Row 4 — My Tasks (1/2) + Recent Cases (1/2) */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      {/* My Tasks (1/2) + Recent Cases (1/2) */}
+      <div className="order-4 grid grid-cols-1 gap-4 lg:order-none lg:grid-cols-2">
         <TasksWidget tasks={tasks} />
         <RecentMattersWidget matters={matters} clients={clients} />
       </div>
-
-      {/* Row 5 — Upcoming hearings this week (full width) */}
-      <UpcomingHearingsWidget hearings={hearings} />
     </div>
   );
 }

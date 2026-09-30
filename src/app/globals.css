@@ -12,6 +12,11 @@
   --color-gold-bright: #D9A441;
   --color-cream: #FAF7F0;
   --color-brand-slate: #4A5468;
+
+  /* Readability: many of our users read on phones in court. The smallest text step is
+     13px (Tailwind's default is 12px); nothing in the app goes below 12px. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.125 / 0.8125);
 }
 
 @theme inline {

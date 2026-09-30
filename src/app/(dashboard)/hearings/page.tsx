@@ -359,7 +359,7 @@ export default function HearingsPage() {
             <TabsTrigger value="today">
               Today
               {todayHearings.length > 0 && (
-                <Badge className="ml-1.5 h-4 px-1 text-[10px]" variant="secondary">
+                <Badge className="ml-1.5 h-4 px-1 text-[12px]" variant="secondary">
                   {todayHearings.length}
                 </Badge>
               )}
@@ -367,7 +367,7 @@ export default function HearingsPage() {
             <TabsTrigger value="upcoming">
               Upcoming
               {upcomingHearings.length > 0 && (
-                <Badge className="ml-1.5 h-4 px-1 text-[10px]" variant="secondary">
+                <Badge className="ml-1.5 h-4 px-1 text-[12px]" variant="secondary">
                   {upcomingHearings.length}
                 </Badge>
               )}
@@ -375,7 +375,7 @@ export default function HearingsPage() {
             <TabsTrigger value="missed">
               Missed
               {missedHearings.length > 0 && (
-                <Badge className="ml-1.5 h-4 px-1 text-[10px] bg-red-100 text-red-700">
+                <Badge className="ml-1.5 h-4 px-1 text-[12px] bg-red-100 text-red-700">
                   {missedHearings.length}
                 </Badge>
               )}

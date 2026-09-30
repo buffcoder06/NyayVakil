@@ -102,7 +102,7 @@ export default function MarketingNavbar() {
                   "border-[#14213D]/40 text-[#14213D] hover:border-[#14213D] hover:bg-[#14213D]/6"
                 )}
               >
-                Login
+                Sign In
               </Link>
               <Link
                 href="/contact"
@@ -209,7 +209,7 @@ export default function MarketingNavbar() {
               "border-[#14213D]/40 text-[#14213D] hover:border-[#14213D] hover:bg-[#14213D]/6"
             )}
           >
-            Login to Dashboard
+            Sign In
           </Link>
           <Link
             href="/contact"

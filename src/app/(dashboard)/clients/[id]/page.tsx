@@ -217,7 +217,7 @@ export default function ClientDetailPage() {
           <TabsTrigger value="matters">
             Cases
             {matters.length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">
+              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">
                 {matters.length}
               </Badge>
             )}

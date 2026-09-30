@@ -148,7 +148,7 @@ export function TaskCard({ task, onComplete, onEdit, onDelete }: TaskCardProps) 
             <span className="flex items-center gap-1">
               <User className="h-3.5 w-3.5 text-slate-400" />
               <Avatar className="h-5 w-5">
-                <AvatarFallback className="text-[10px] bg-slate-200">
+                <AvatarFallback className="text-[12px] bg-slate-200">
                   {getInitials(task.assignedTo)}
                 </AvatarFallback>
               </Avatar>

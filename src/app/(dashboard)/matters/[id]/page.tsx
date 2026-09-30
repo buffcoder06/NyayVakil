@@ -310,21 +310,21 @@ export default function MatterDetailPage() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="hearings">
             Hearings
-            {hearings.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">{hearings.length}</Badge>}
+            {hearings.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">{hearings.length}</Badge>}
           </TabsTrigger>
           <TabsTrigger value="fees">Fees</TabsTrigger>
           <TabsTrigger value="expenses">
             Expenses
-            {expenses.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">{expenses.length}</Badge>}
+            {expenses.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">{expenses.length}</Badge>}
           </TabsTrigger>
           <TabsTrigger value="documents">
             Documents
-            {documents.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">{documents.length}</Badge>}
+            {documents.length > 0 && <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">{documents.length}</Badge>}
           </TabsTrigger>
           <TabsTrigger value="tasks">
             Tasks
             {tasks.filter((t) => t.status !== "completed").length > 0 && (
-              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">
+              <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[12px]">
                 {tasks.filter((t) => t.status !== "completed").length}
               </Badge>
             )}

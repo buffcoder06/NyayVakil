@@ -196,7 +196,7 @@ function DiaryMock() {
             <div>
               <p className="text-xs font-semibold text-slate-800">{e.matter}</p>
               <p className="text-xs text-slate-500">{e.court}</p>
-              <span className="text-[10px] text-slate-400">{e.purpose}</span>
+              <span className="text-[12px] text-slate-400">{e.purpose}</span>
             </div>
           </div>
         ))}
@@ -319,10 +319,10 @@ function DocumentVaultMock() {
             <FileText className="w-4 h-4 text-slate-400 shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-slate-700 truncate">{d.name}</p>
-              <p className="text-[10px] text-slate-400">{d.size}</p>
+              <p className="text-[12px] text-slate-400">{d.size}</p>
             </div>
             <span
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0"
+              className="text-[12px] font-semibold px-2 py-0.5 rounded-full shrink-0"
               style={{ backgroundColor: "#eff6ff", color: "#14213D" }}
             >
               {d.tag}
@@ -349,14 +349,14 @@ function TaskBoardMock() {
           <p className="text-xs font-semibold text-slate-800">{t.title}</p>
           <div className="flex items-center gap-2">
             <div
-              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white shrink-0"
+              className="w-5 h-5 rounded-full flex items-center justify-center text-[12px] font-bold text-white shrink-0"
               style={{ backgroundColor: "#14213D" }}
             >
               {t.assignee.charAt(0)}
             </div>
             <span className="text-xs text-slate-500">{t.assignee}</span>
             <span
-              className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full"
+              className="ml-auto text-[12px] font-semibold px-2 py-0.5 rounded-full"
               style={{ backgroundColor: t.color, color: t.textColor }}
             >
               {t.priority}
@@ -393,14 +393,14 @@ function RemindersMock() {
           <Bell className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#14213D" }} />
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-slate-800">{r.matter}</p>
-            <p className="text-[10px] text-slate-400">{r.type} reminder · {r.time}</p>
+            <p className="text-[12px] text-slate-400">{r.type} reminder · {r.time}</p>
           </div>
           <div className="flex items-center gap-1 shrink-0">
             {channelIcon[r.channel]}
           </div>
         </div>
       ))}
-      <div className="grid grid-cols-3 gap-1.5 pt-1 text-center text-[10px] text-slate-500">
+      <div className="grid grid-cols-3 gap-1.5 pt-1 text-center text-[12px] text-slate-500">
         {["WhatsApp", "SMS", "Email"].map((c) => (
           <div key={c} className="bg-slate-50 rounded-lg py-1.5 font-medium">{c}</div>
         ))}
@@ -438,7 +438,7 @@ function ReportsMock() {
                 style={{ height: `${b.expense}%`, backgroundColor: "#94a3b8" }}
               />
             </div>
-            <span className="text-[9px] text-slate-400">{b.month}</span>
+            <span className="text-[12px] text-slate-400">{b.month}</span>
           </div>
         ))}
       </div>

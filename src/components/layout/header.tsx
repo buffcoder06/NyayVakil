@@ -49,14 +49,15 @@ const ROUTE_TITLES: Record<string, string> = {
   "/help": "Help & Support",
 };
 
-function getPageTitle(pathname: string): string {
-  // Exact match first
-  if (ROUTE_TITLES[pathname]) return ROUTE_TITLES[pathname];
-  // Match parent route
-  for (const [route, title] of Object.entries(ROUTE_TITLES)) {
-    if (pathname.startsWith(route + "/")) return title;
-  }
-  return "NyayVakil";
+/** e.g. "Wednesday, 30 September 2026" in Indian time */
+function todayLabel(): string {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
 }
 
 interface Crumb {
@@ -158,7 +159,7 @@ function NotificationsBell() {
     >
       <Bell className="h-4.5 w-4.5" />
       {count > 0 && (
-        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white leading-none">
+        <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[12px] font-bold text-white leading-none">
           {count > 9 ? "9+" : count}
         </span>
       )}
@@ -244,7 +245,6 @@ interface HeaderProps {
 export default function Header({ onMobileMenuOpen }: HeaderProps) {
   const pathname = usePathname();
   const sidebarCollapsed = useAppStore((s) => s.sidebarCollapsed);
-  const pageTitle = getPageTitle(pathname);
   const breadcrumbs = useMemo(() => getBreadcrumb(pathname), [pathname]);
 
   return (
@@ -268,7 +268,10 @@ export default function Header({ onMobileMenuOpen }: HeaderProps) {
       {/* Desktop: Page title & breadcrumb */}
       <div className="hidden lg:flex flex-col justify-center flex-1 min-w-0">
         {breadcrumbs.length <= 1 ? (
-          <h1 className="text-lg font-semibold text-slate-900 truncate">{pageTitle}</h1>
+          // The page itself shows its title; the top bar shows today's date instead of repeating it
+          <p className="text-sm font-medium text-slate-500 truncate" suppressHydrationWarning>
+            {todayLabel()}
+          </p>
         ) : (
           <>
             {/* Breadcrumb */}

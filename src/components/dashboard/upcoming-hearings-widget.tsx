@@ -53,18 +53,19 @@ export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps
   const filtered = hearings
     .filter(
       (h) =>
-        h.status === "upcoming" && h.date >= today && h.date <= sevenDaysLater
+        // today's hearings are in the diary card just above
+        h.status === "upcoming" && h.date > today && h.date <= sevenDaysLater
     )
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(0, 5);
 
   return (
-    <Card className="shadow-sm h-full flex flex-col">
+    <Card className="shadow-sm flex flex-col">
       <CardHeader className="border-b pb-4">
         <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">
           <CalendarDays className="h-4 w-4 text-gold" />
-          Upcoming Hearings
-          <span className="ml-auto text-xs font-normal text-slate-400">
+          Coming Up
+          <span className="ml-auto text-xs font-normal text-slate-500">
             Next 7 days
           </span>
         </CardTitle>
@@ -75,7 +76,7 @@ export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <CalendarDays className="h-9 w-9 text-slate-300 dark:text-slate-600 mb-2" />
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              No upcoming hearings in the next 7 days
+              No other hearings in the next 7 days
             </p>
           </div>
         ) : (

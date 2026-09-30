@@ -232,7 +232,7 @@ export function StatusBadge({
       className={cn(
         "font-semibold border",
         size === "sm"
-          ? "text-[10px] px-1.5 py-0 h-5"
+          ? "text-[12px] px-1.5 py-0 h-5"
           : "text-xs px-2 py-0.5",
         config.className,
         className

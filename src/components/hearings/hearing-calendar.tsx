@@ -170,7 +170,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
                           />
                         ))}
                         {dayHearings.length > 3 && (
-                          <span className="text-[9px] text-slate-400 font-medium">
+                          <span className="text-[12px] text-slate-400 font-medium">
                             +{dayHearings.length - 3}
                           </span>
                         )}
@@ -229,7 +229,7 @@ export function HearingCalendar({ hearings }: HearingCalendarProps) {
                     </span>
                     <Badge
                       variant="outline"
-                      className={cn("text-[10px] shrink-0 border", getStatusColor(h.status))}
+                      className={cn("text-[12px] shrink-0 border", getStatusColor(h.status))}
                     >
                       {titleCase(h.status)}
                     </Badge>

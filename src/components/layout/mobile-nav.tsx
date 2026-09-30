@@ -166,7 +166,7 @@ export default function MobileNav() {
                 />
                 <span
                   className={cn(
-                    "text-[10px] font-medium leading-none",
+                    "text-[12px] font-medium leading-none",
                     isActive ? "text-[#14213D]" : "text-slate-400"
                   )}
                 >
@@ -199,7 +199,7 @@ export default function MobileNav() {
             />
             <span
               className={cn(
-                "text-[10px] font-medium leading-none",
+                "text-[12px] font-medium leading-none",
                 isMoreActive || moreOpen ? "text-[#14213D]" : "text-slate-400"
               )}
             >

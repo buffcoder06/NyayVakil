@@ -102,12 +102,12 @@ export function AddHearingDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!matterId || !date) {
-      toast.error("Matter and date are required.");
+      toast.error("Case and date are required.");
       return;
     }
     const matter = matters.find((m) => m.id === matterId);
     if (!matter) {
-      toast.error("Please select a valid matter.");
+      toast.error("Please select a valid case.");
       return;
     }
 
@@ -146,19 +146,19 @@ export function AddHearingDialog({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Matter select */}
           <div className="space-y-1.5">
-            <Label htmlFor="matter-search">Matter *</Label>
+            <Label htmlFor="matter-search">Case *</Label>
             {!matterId ? (
               <div className="space-y-1.5">
                 <Input
                   id="matter-search"
-                  placeholder="Search matter..."
+                  placeholder="Search case..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 {search && (
                   <div className="max-h-40 overflow-y-auto rounded-md border bg-white dark:bg-slate-800 shadow-sm">
                     {filteredMatters.length === 0 ? (
-                      <p className="px-3 py-2 text-sm text-slate-500">No matters found.</p>
+                      <p className="px-3 py-2 text-sm text-slate-500">No cases found.</p>
                     ) : (
                       filteredMatters.slice(0, 8).map((m) => (
                         <button

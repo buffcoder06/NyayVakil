@@ -31,7 +31,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 
 const schema = z.object({
-  matterId: z.string().min(1, "Select a matter"),
+  matterId: z.string().min(1, "Select a case"),
   clientId: z.string().min(1, "Select a client"),
   description: z.string().min(2, "Description is required"),
   totalAmount: z.string().min(1, "Amount is required"),
@@ -121,7 +121,7 @@ export default function NewFeePage() {
         </Link>
         <div>
           <h1 className="text-2xl font-bold text-slate-900">New Fee Entry</h1>
-          <p className="text-sm text-slate-500">Add a fee agreement for a matter</p>
+          <p className="text-sm text-slate-500">Add a fee agreement for a case</p>
         </div>
       </div>
 
@@ -142,10 +142,10 @@ export default function NewFeePage() {
                 name="matterId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Matter *</FormLabel>
+                    <FormLabel>Case *</FormLabel>
                     <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a matter…" />
+                        <SelectValue placeholder="Select a case…" />
                       </SelectTrigger>
                       <SelectContent>
                         {matters.map((m) => (
@@ -170,7 +170,7 @@ export default function NewFeePage() {
                     {/* Always the matter's client — the server derives it from the matter */}
                     <Select value={field.value} onValueChange={(v) => v !== null && field.onChange(v)} disabled>
                       <SelectTrigger>
-                        <SelectValue placeholder="Filled in from the matter" />
+                        <SelectValue placeholder="Filled in from the case" />
                       </SelectTrigger>
                       <SelectContent>
                         {clients.map((c) => (

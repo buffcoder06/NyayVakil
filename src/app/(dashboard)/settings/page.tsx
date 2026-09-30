@@ -37,11 +37,11 @@ const MOCK_CASE_TYPES = [
 ];
 
 const MOCK_TEMPLATES = [
-  { id: "t1", name: "Hearing Reminder", type: "hearing", template: "Dear [Client], your next hearing in matter [Matter] is scheduled on [Date] at [Court]." },
+  { id: "t1", name: "Hearing Reminder", type: "hearing", template: "Dear [Client], your next hearing in case [Matter] is scheduled on [Date] at [Court]." },
   { id: "t2", name: "Payment Reminder", type: "payment", template: "Dear [Client], your professional fee of ₹[Amount] is pending. Kindly make the payment at your earliest." },
-  { id: "t3", name: "Document Request", type: "document", template: "Dear [Client], please share the following documents: [Documents] for your matter [Matter]." },
-  { id: "t4", name: "Follow-up", type: "follow_up", template: "Dear [Client], following up on matter [Matter]. Please contact us to discuss the current status." },
-  { id: "t5", name: "Matter Update", type: "general", template: "Dear [Client], we would like to update you on the status of your matter [Matter]." },
+  { id: "t3", name: "Document Request", type: "document", template: "Dear [Client], please share the following documents: [Documents] for your case [Matter]." },
+  { id: "t4", name: "Follow-up", type: "follow_up", template: "Dear [Client], following up on case [Matter]. Please contact us to discuss the current status." },
+  { id: "t5", name: "Case Update", type: "general", template: "Dear [Client], we would like to update you on the status of your case [Matter]." },
 ];
 
 const roleColor: Record<string, string> = {
@@ -377,7 +377,7 @@ export default function SettingsPage() {
   return (
     <div>
       <PageHeader
-        title="Settings"
+        title="Office Settings"
         description="Configure your practice preferences and workspace."
       />
 

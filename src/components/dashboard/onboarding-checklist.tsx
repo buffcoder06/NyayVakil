@@ -26,7 +26,7 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
     id: "create_case",
     label: "Create your first case",
     href: "/matters/new",
-    description: "Register a matter in court",
+    description: "Register a case in court",
   },
   {
     id: "add_hearing",

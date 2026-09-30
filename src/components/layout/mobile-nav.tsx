@@ -11,10 +11,10 @@ import {
   LayoutDashboard,
   FolderOpen,
   CalendarDays,
-  DollarSign,
+  IndianRupee,
   MoreHorizontal,
   Users,
-  Receipt,
+  ReceiptIndianRupee,
   FileText,
   CheckSquare,
   Bell,
@@ -38,15 +38,15 @@ interface TabItem {
 const MAIN_TABS: TabItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "Cases",     href: "/matters",   icon: FolderOpen      },
-  { label: "Hearings",  href: "/hearings",  icon: CalendarDays    },
-  { label: "Fees",      href: "/fees",      icon: DollarSign      },
+  { label: "Diary",     href: "/hearings",  icon: CalendarDays    },
+  { label: "Fees",      href: "/fees",      icon: IndianRupee      },
 ];
 
 const MORE_ITEMS: TabItem[] = [
   { label: "Clients",         href: "/clients",   icon: Users       },
   { label: "Tasks",           href: "/tasks",     icon: CheckSquare },
   { label: "Documents",       href: "/documents", icon: FileText    },
-  { label: "Expenses",        href: "/expenses",  icon: Receipt     },
+  { label: "Expenses",        href: "/expenses",  icon: ReceiptIndianRupee },
   { label: "Reminders",       href: "/reminders", icon: Bell        },
   { label: "Reports",         href: "/reports",   icon: BarChart3   },
   { label: "Help",            href: "/help",      icon: HelpCircle  },

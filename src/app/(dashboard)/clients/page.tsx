@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -132,27 +133,6 @@ function ClientCard({ client }: { client: Client }) {
   );
 }
 
-function StatCard({
-  label,
-  value,
-  icon: Icon,
-  color,
-}: {
-  label: string;
-  value: number;
-  icon: React.ElementType;
-  color: string;
-}) {
-  return (
-    <div className={cn("rounded-xl border p-4 flex items-center gap-3", color)}>
-      <Icon className="h-7 w-7 opacity-60 shrink-0" />
-      <div>
-        <p className="text-2xl font-bold leading-none">{value}</p>
-        <p className="text-xs mt-1 font-medium opacity-75">{label}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function ClientsPage() {
   const [clients, setClients] = useState<Client[]>([]);
@@ -202,7 +182,7 @@ export default function ClientsPage() {
     <div>
       <PageHeader
         title="Clients"
-        description="Manage your clients and their matters."
+        description="Manage your clients and their cases."
         actions={
           <Link href="/clients/new">
             <Button className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
@@ -222,29 +202,25 @@ export default function ClientsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <StatCard
+          <SummaryStat
             label="Total Clients"
             value={stats.total}
             icon={Users}
-            color="bg-slate-50 text-slate-700 border-slate-200"
           />
-          <StatCard
+          <SummaryStat
             label="Active"
             value={stats.active}
             icon={UserCircle}
-            color="bg-emerald-50 text-emerald-700 border-emerald-200"
           />
-          <StatCard
+          <SummaryStat
             label="Companies / Orgs"
             value={stats.companies}
             icon={Building2}
-            color="bg-violet-50 text-violet-700 border-violet-200"
           />
-          <StatCard
+          <SummaryStat
             label="Individuals"
             value={stats.individuals}
             icon={UserCircle}
-            color="bg-blue-50 text-blue-700 border-blue-200"
           />
         </div>
       )}

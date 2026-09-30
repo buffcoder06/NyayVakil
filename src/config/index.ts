@@ -160,12 +160,12 @@ export const USER_ROLES: Array<{ value: UserRole; label: string; description: st
   {
     value: 'junior',
     label: 'Junior Advocate',
-    description: 'Can manage matters, hearings, and tasks. Limited billing access.',
+    description: 'Can manage cases, hearings, and tasks. Limited billing access.',
   },
   {
     value: 'clerk',
     label: 'Clerk',
-    description: 'Can manage documents, tasks, and reminders. Read-only on matters.',
+    description: 'Can manage documents, tasks, and reminders. Read-only on cases.',
   },
   {
     value: 'admin',
@@ -375,7 +375,7 @@ export const API_CONFIG = {
 
 export const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard', icon: 'layout-dashboard' },
-  { id: 'matters', label: 'Matters', href: '/matters', icon: 'briefcase' },
+  { id: 'matters', label: 'Cases', href: '/matters', icon: 'briefcase' },
   { id: 'hearings', label: 'Hearings', href: '/hearings', icon: 'calendar' },
   { id: 'clients', label: 'Clients', href: '/clients', icon: 'users' },
   { id: 'fees', label: 'Fees & Payments', href: '/fees', icon: 'indian-rupee' },

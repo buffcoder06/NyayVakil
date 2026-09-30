@@ -65,7 +65,7 @@ export default function PrivacyPage() {
           <p className="text-sm font-medium text-blue-200 uppercase tracking-widest mb-3">
             Legal
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white">
+          <h1 className="font-brand text-3xl sm:text-4xl font-normal text-white">
             Privacy Policy
           </h1>
           <p className="mt-3 text-blue-200 text-sm">

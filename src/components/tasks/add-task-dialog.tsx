@@ -110,7 +110,7 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, 
         setMatters(matterPage.data);
         setTeamMembers(team.map((u) => ({ id: u.id, name: u.name })));
       })
-      .catch(() => toast.error('Failed to load matters and team members.'));
+      .catch(() => toast.error('Failed to load cases and team members.'));
   }, [open]);
 
   async function onSubmit(values: TaskFormValues) {
@@ -192,11 +192,11 @@ export function AddTaskDialog({ open, onOpenChange, onSuccess, defaultMatterId, 
                 name="matterId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Matter (Optional)</FormLabel>
+                    <FormLabel>Case (Optional)</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select matter" />
+                          <SelectValue placeholder="Select case" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="max-h-60">

@@ -44,6 +44,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/http";
 import { todayIST } from "@/lib/dates";
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -171,9 +172,9 @@ function AddExpenseDialog({
             </div>
           </div>
           <div>
-            <Label>Linked Matter</Label>
+            <Label>Linked Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select matter (optional)" /></SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -330,7 +331,7 @@ export default function ExpensesPage() {
     <div>
       <PageHeader
         title="Expenses"
-        description="Track office and matter-related expenses."
+        description="Track office and case-related expenses."
         actions={
           <Button onClick={() => setAddOpen(true)} className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
             <Plus className="h-4 w-4" />
@@ -346,22 +347,10 @@ export default function ExpensesPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <div className="rounded-xl border p-4 bg-slate-50">
-            <p className="text-xs text-slate-500 mb-1">Total Expenses</p>
-            <p className="text-xl font-bold text-slate-800">{fmt(stats.total)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-blue-50">
-            <p className="text-xs text-blue-600 mb-1">Recoverable</p>
-            <p className="text-xl font-bold text-blue-800">{fmt(stats.recoverable)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-emerald-50">
-            <p className="text-xs text-emerald-600 mb-1">Recovered</p>
-            <p className="text-xl font-bold text-emerald-800">{fmt(stats.recovered)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-amber-50">
-            <p className="text-xs text-amber-600 mb-1">Outstanding Recoverable</p>
-            <p className="text-xl font-bold text-amber-800">{fmt(stats.outstandingRecoverable)}</p>
-          </div>
+          <SummaryStat label="Total Expenses" value={fmt(stats.total)} />
+          <SummaryStat label="Recoverable" value={fmt(stats.recoverable)} />
+          <SummaryStat label="Recovered" value={fmt(stats.recovered)} tone="positive" />
+          <SummaryStat label="Outstanding Recoverable" value={fmt(stats.outstandingRecoverable)} />
         </div>
       )}
 
@@ -379,9 +368,9 @@ export default function ExpensesPage() {
           </SelectContent>
         </Select>
         <Select value={matterFilter} onValueChange={(v) => v !== null && setMatterFilter(v)}>
-          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Matters" /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Matters</SelectItem>
+            <SelectItem value="all">All Cases</SelectItem>
             {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
           </SelectContent>
         </Select>
@@ -426,7 +415,7 @@ export default function ExpensesPage() {
                   <TableHead>Date</TableHead>
                   <TableHead>Description</TableHead>
                   <TableHead>Type</TableHead>
-                  <TableHead>Matter</TableHead>
+                  <TableHead>Case</TableHead>
                   <TableHead>Paid By</TableHead>
                   <TableHead className="text-right">Amount</TableHead>
                   <TableHead>Status</TableHead>

@@ -104,7 +104,7 @@ export default function EditMatterPage() {
           notes: m.notes || "",
         });
       } catch {
-        toast.error("Failed to load matter.");
+        toast.error("Failed to load case.");
       } finally {
         setLoading(false);
       }
@@ -142,11 +142,11 @@ export default function EditMatterPage() {
         }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
-      toast.success("Matter updated successfully.");
+      toast.success("Case updated successfully.");
       startNavigationProgress();
       router.push(`/matters/${id}`);
     } catch {
-      toast.error("Failed to update matter.");
+      toast.error("Failed to update case.");
     } finally {
       setSubmitting(false);
     }
@@ -159,18 +159,18 @@ export default function EditMatterPage() {
       <div className="mb-4">
         <Link href={`/matters/${id}`} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
           <ArrowLeft className="h-4 w-4" />
-          Back to Matter
+          Back to Case
         </Link>
       </div>
 
-      <PageHeader title="Edit Matter" description="Update case details." />
+      <PageHeader title="Edit Case" description="Update case details." />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-4xl">
         <Card>
           <CardHeader className="pb-4"><CardTitle className="text-base text-slate-700">Basic Information</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <Label>Matter Title *</Label>
+              <Label>Case Title *</Label>
               <Input className="mt-1" {...register("matterTitle")} />
               <FieldError message={errors.matterTitle?.message} />
             </div>

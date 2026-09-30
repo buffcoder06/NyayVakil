@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 const docCategoryLabel: Record<string, string> = {
   vakalatnama: "Vakalatnama",
@@ -186,7 +187,7 @@ function UploadDocumentDialog({
           </div>
           <div>
             <Label>Document Name *</Label>
-            <Input className="mt-1" placeholder="e.g. Vakalatnama - Agarwal Matter" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input className="mt-1" placeholder="e.g. Vakalatnama - Agarwal Case" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
             <Label>Category *</Label>
@@ -198,9 +199,9 @@ function UploadDocumentDialog({
             </Select>
           </div>
           <div>
-            <Label>Linked Matter</Label>
+            <Label>Linked Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select matter (optional)" /></SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
@@ -292,22 +293,10 @@ export default function DocumentsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <div className="rounded-xl border p-4 bg-slate-50">
-            <p className="text-2xl font-bold text-slate-800">{stats.total}</p>
-            <p className="text-xs text-slate-500 mt-1">Total Documents</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-blue-50">
-            <p className="text-2xl font-bold text-blue-800">{stats.vakalatnama}</p>
-            <p className="text-xs text-blue-600 mt-1">Vakalatnamas</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-red-50">
-            <p className="text-2xl font-bold text-red-800">{stats.court_order}</p>
-            <p className="text-xs text-red-600 mt-1">Court Orders</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-violet-50">
-            <p className="text-2xl font-bold text-violet-800">{stats.other}</p>
-            <p className="text-xs text-violet-600 mt-1">Other Documents</p>
-          </div>
+          <SummaryStat label="Total Documents" value={stats.total} />
+          <SummaryStat label="Vakalatnamas" value={stats.vakalatnama} />
+          <SummaryStat label="Court Orders" value={stats.court_order} />
+          <SummaryStat label="Other Documents" value={stats.other} />
         </div>
       )}
 
@@ -325,9 +314,9 @@ export default function DocumentsPage() {
           </SelectContent>
         </Select>
         <Select value={matterFilter} onValueChange={(v) => v !== null && setMatterFilter(v)}>
-          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Matters" /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="All Cases" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Matters</SelectItem>
+            <SelectItem value="all">All Cases</SelectItem>
             {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
           </SelectContent>
         </Select>

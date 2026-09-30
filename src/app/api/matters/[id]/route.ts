@@ -6,7 +6,7 @@ type Params = { id: string };
 
 export const GET = withAuth<Params>(async ({ session, params }) => {
   const matter = await getMatterById(session.firmId, params.id);
-  if (!matter) throw notFound("Matter");
+  if (!matter) throw notFound("Case");
   return matter;
 });
 

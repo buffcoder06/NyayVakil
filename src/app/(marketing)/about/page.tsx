@@ -20,7 +20,7 @@ const VALUES = [
     icon: Zap,
     title: "Speed",
     description:
-      "Court deadlines do not wait. You should be able to check a hearing date, record a fee, or pull up a client's matter in a few taps — not navigate through menus and loading screens. Speed is not a nice-to-have; it is a core requirement.",
+      "Court deadlines do not wait. You should be able to check a hearing date, record a fee, or pull up a client's case in a few taps — not navigate through menus and loading screens. Speed is not a nice-to-have; it is a core requirement.",
   },
   {
     icon: Globe,
@@ -70,7 +70,7 @@ export default function AboutPage() {
         style={{ backgroundColor: "#f0f4f8" }}
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-5">
+          <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 mb-5">
             About NyayVakil
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
@@ -91,7 +91,7 @@ export default function AboutPage() {
               style={{ backgroundColor: "#14213D" }}
               aria-hidden="true"
             />
-            <h2 className="text-2xl font-bold text-slate-900">
+            <h2 className="font-brand text-2xl font-normal text-slate-900">
               Why we built this
             </h2>
           </div>
@@ -100,7 +100,7 @@ export default function AboutPage() {
             <p>
               Talk to most practising advocates in India and you will find the
               same picture: a physical diary for hearings, a notebook or
-              register for client matters, a separate ledger or Excel sheet for
+              register for client cases, a separate ledger or Excel sheet for
               fee collection, and WhatsApp groups for coordinating with clerks
               and juniors. Some of this works — until it does not. A missed
               hearing date, a fee entry that was never recorded, a document that
@@ -112,14 +112,14 @@ export default function AboutPage() {
               General-purpose software — CRMs, spreadsheets, calendar apps — can
               be jury-rigged to handle some of this, but they do not understand
               the structure of Indian legal practice. They do not know the
-              difference between a matter number and a diary number, they cannot
+              difference between a case number and a diary number, they cannot
               track next dates the way a court diary needs to, and they are not
               built around how Indian advocates think about their work.
             </p>
             <p>
               We built NyayVakil because this gap is real and the people who work
               within it deserve better. Indian advocates — whether they are
-              handling criminal matters at a district court or civil litigation at
+              handling criminal cases at a district court or civil litigation at
               a High Court — are serious professionals managing complex work with
               significant consequences. The software they use should match that
               seriousness.
@@ -150,7 +150,7 @@ export default function AboutPage() {
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+            <h2 className="font-brand text-2xl font-normal text-slate-900 mb-3">
               What we believe
             </h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto">
@@ -176,7 +176,7 @@ export default function AboutPage() {
               style={{ backgroundColor: "#14213D" }}
               aria-hidden="true"
             />
-            <h2 className="text-2xl font-bold text-slate-900">The team</h2>
+            <h2 className="font-brand text-2xl font-normal text-slate-900">The team</h2>
           </div>
 
           <div className="bg-white rounded-2xl border border-slate-200 p-8">

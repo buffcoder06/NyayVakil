@@ -71,22 +71,22 @@ const COMPARISON_ROWS = [
   },
   {
     feature: "Fee tracking",
-    with: "Per-matter fee agreements, received vs pending, overdue alerts, payment history",
+    with: "Per-case fee agreements, received vs pending, overdue alerts, payment history",
     without: "Rough notes or separate spreadsheets — prone to errors",
   },
   {
     feature: "Client records",
-    with: "Unified client profile with linked matters, outstanding balance, and activity history",
+    with: "Unified client profile with linked cases, outstanding balance, and activity history",
     without: "Scattered across files, registers, and WhatsApp messages",
   },
   {
     feature: "Document storage",
-    with: "Categorised vault with tagging, search, and client/matter linking",
+    with: "Categorised vault with tagging, search, and client/case linking",
     without: "Physical files or unorganised hard drive folders",
   },
   {
     feature: "Team coordination",
-    with: "Task assignment to junior/clerk, due dates, priority, shared matter visibility",
+    with: "Task assignment to junior/clerk, due dates, priority, shared case visibility",
     without: "Verbal instructions, forgotten tasks, no accountability",
   },
 ];
@@ -130,7 +130,7 @@ function MatterCardMock() {
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-5 space-y-4 w-full max-w-sm mx-auto">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Matter</span>
+        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Case</span>
         <span
           className="text-xs font-semibold px-2 py-0.5 rounded-full"
           style={{ backgroundColor: "#d1fae5", color: "#065f46" }}
@@ -272,7 +272,7 @@ function ClientProfileMock() {
       <div className="grid grid-cols-2 gap-2 text-xs">
         {[
           { label: "Phone", val: "+91 98765 43210" },
-          { label: "Matters", val: "3 active" },
+          { label: "Cases", val: "3 active" },
           { label: "Total fees", val: "₹1,20,000" },
           { label: "Member since", val: "Jan 2024" },
         ].map(({ label, val }) => (
@@ -283,7 +283,7 @@ function ClientProfileMock() {
         ))}
       </div>
       <div>
-        <p className="text-xs font-medium text-slate-500 mb-1.5">Linked matters</p>
+        <p className="text-xs font-medium text-slate-500 mb-1.5">Linked cases</p>
         {["Sharma v. Corp", "Sharma Prop. Dispute", "PF Claim – 2025"].map((m) => (
           <div key={m} className="flex items-center gap-1.5 text-xs text-slate-600 py-1 border-b border-slate-100 last:border-0">
             <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#14213D" }} />
@@ -505,7 +505,7 @@ function FeatureSection({
           {/* Content */}
           <div>
             <SectionLabel>{label}</SectionLabel>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+            <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-4 leading-tight">
               {title}
             </h2>
             <p className="text-slate-600 leading-relaxed mb-8">{description}</p>
@@ -538,7 +538,7 @@ export default function FeaturesPage() {
           >
             Features
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-5">
+          <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 leading-tight mb-5">
             Everything your legal practice needs
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed mb-8">
@@ -587,17 +587,17 @@ export default function FeaturesPage() {
       {/* ── Case & Matter Management ─────────────────────────────────────── */}
       <FeatureSection
         id="case-management"
-        label="Case & Matter Management"
+        label="Case Management"
         title="Every case, perfectly organised"
-        description="Create and manage matters with all the details you need — CNR numbers, court levels, case types, parties, and fee agreements. Track every stage of a matter from first instruction to final disposal."
+        description="Create and manage cases with all the details you need — CNR numbers, court levels, case types, parties, and fee agreements. Track every stage of a case from first instruction to final disposal."
         features={[
-          { icon: Hash, label: "Matter creation with CNR number" },
+          { icon: Hash, label: "Case creation with CNR number" },
           { icon: Layers, label: "Case type categorisation" },
           { icon: Building2, label: "Court level tracking" },
           { icon: Briefcase, label: "Case status — active / pending / disposed" },
           { icon: Flag, label: "Priority flags" },
           { icon: UserRound, label: "Opposite party and advocate details" },
-          { icon: Handshake, label: "Fee agreement linked to matter" },
+          { icon: Handshake, label: "Fee agreement linked to case" },
           { icon: History, label: "Case timeline (coming soon)" },
         ]}
         visual={<MatterCardMock />}
@@ -608,14 +608,14 @@ export default function FeaturesPage() {
         id="hearing-diary"
         label="Court Diary & Hearings"
         title="Never miss a hearing date"
-        description="Your entire court diary in one place. View hearings by date, log adjournments, track appearance status, and link each hearing to the relevant matter and client — no more missed dates."
+        description="Your entire court diary in one place. View hearings by date, log adjournments, track appearance status, and link each hearing to the relevant case and client — no more missed dates."
         features={[
           { icon: CalendarDays, label: "Calendar-style hearing management" },
           { icon: CalendarCheck, label: "Date-wise diary view" },
           { icon: RotateCcw, label: "Adjournment tracking" },
           { icon: ListTodo, label: "Hearing purpose tracking" },
           { icon: Eye, label: "Appearance status logging" },
-          { icon: LinkIcon, label: "Matter and client linked to each hearing" },
+          { icon: LinkIcon, label: "Case and client linked to each hearing" },
         ]}
         visual={<DiaryMock />}
         reversed
@@ -626,9 +626,9 @@ export default function FeaturesPage() {
         id="fee-tracking"
         label="Fee & Payment Tracking"
         title="Know exactly who owes you what"
-        description="Set the total fee agreed per matter and track every payment received. Get instant visibility into outstanding balances, overdue fees and full payment history — case by case and client by client."
+        description="Set the total fee agreed per case and track every payment received. Get instant visibility into outstanding balances, overdue fees and full payment history — case by case and client by client."
         features={[
-          { icon: IndianRupee, label: "Total fee agreed per matter" },
+          { icon: IndianRupee, label: "Total fee agreed per case" },
           { icon: Wallet, label: "Received vs pending breakdown" },
           { icon: AlertCircle, label: "Overdue fees flagged automatically" },
           { icon: CreditCard, label: "Payment method tracking (cash, UPI, bank, cheque)" },
@@ -647,7 +647,7 @@ export default function FeaturesPage() {
         features={[
           { icon: UserRound, label: "Individual and company clients" },
           { icon: Phone, label: "Contact details and notes" },
-          { icon: LinkIcon, label: "Linked matters per client" },
+          { icon: LinkIcon, label: "Linked cases per client" },
           { icon: IndianRupee, label: "Outstanding balance at a glance" },
           { icon: History, label: "Activity history (coming soon)" },
           { icon: Building2, label: "Company and entity support" },
@@ -667,7 +667,7 @@ export default function FeaturesPage() {
           { icon: Tag, label: "Categories — vakalatnama, affidavit, petitions" },
           { icon: FolderOpen, label: "File uploads (coming soon)" },
           { icon: Search, label: "Search by name and category" },
-          { icon: LinkIcon, label: "Linked to client and matter" },
+          { icon: LinkIcon, label: "Linked to client and case" },
           { icon: Shield, label: "Secure and private" },
         ]}
         visual={<DocumentVaultMock />}
@@ -717,7 +717,7 @@ export default function FeaturesPage() {
         description="Monthly collections vs expenses, case status breakdowns, outstanding fees by client and task progress — with every report downloadable as CSV for Excel."
         features={[
           { icon: TrendingUp, label: "Monthly income vs expenses chart" },
-          { icon: PieChart, label: "Matter status breakdown" },
+          { icon: PieChart, label: "Case status breakdown" },
           { icon: Wallet, label: "Outstanding receivables overview" },
           { icon: Users, label: "Task progress" },
           { icon: BarChart3, label: "CSV export for Excel" },
@@ -732,7 +732,7 @@ export default function FeaturesPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionLabel>Why NyayVakil</SectionLabel>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+            <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
               NyayVakil vs manual methods
             </h2>
             <p className="text-slate-600 max-w-xl mx-auto">
@@ -802,7 +802,7 @@ export default function FeaturesPage() {
         style={{ backgroundColor: "#14213D" }}
       >
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+          <h2 className="font-brand text-2xl sm:text-3xl font-normal text-white mb-4">
             Ready to modernise your practice?
           </h2>
           <p className="text-slate-300 mb-8 text-base leading-relaxed">

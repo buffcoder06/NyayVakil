@@ -33,30 +33,10 @@ import { formatDate, groupBy } from "@/lib/utils/index";
 import { cn } from "@/lib/utils";
 import { addDays, todayIST } from "@/lib/dates";
 import { apiFetch } from "@/lib/http";
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 type ViewMode = "list" | "calendar";
 
-function StatCard({
-  label,
-  value,
-  icon: Icon,
-  color,
-}: {
-  label: string;
-  value: number;
-  icon: React.ElementType;
-  color: string;
-}) {
-  return (
-    <div className={cn("rounded-xl border p-4 flex items-center gap-3", color)}>
-      <Icon className="h-8 w-8 opacity-70 shrink-0" />
-      <div>
-        <p className="text-2xl font-bold leading-none">{value}</p>
-        <p className="text-xs mt-1 font-medium opacity-80">{label}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function HearingsPage() {
   const [hearings, setHearings] = useState<Hearing[]>([]);
@@ -244,29 +224,26 @@ export default function HearingsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <StatCard
+          <SummaryStat
             label="Today"
             value={stats.today}
             icon={Calendar}
-            color="bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800"
           />
-          <StatCard
+          <SummaryStat
             label="This Week"
             value={stats.thisWeek}
             icon={CalendarDays}
-            color="bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800"
           />
-          <StatCard
+          <SummaryStat
             label="Overdue / Missed"
             value={stats.overdue}
             icon={AlertCircle}
-            color="bg-red-50 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800"
+            tone="alert"
           />
-          <StatCard
+          <SummaryStat
             label="This Month"
             value={stats.thisMonth}
             icon={CalendarCheck}
-            color="bg-green-50 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800"
           />
         </div>
       )}

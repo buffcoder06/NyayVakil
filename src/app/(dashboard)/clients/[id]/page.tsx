@@ -215,7 +215,7 @@ export default function ClientDetailPage() {
         <TabsList className="mb-5 flex-wrap">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="matters">
-            Matters
+            Cases
             {matters.length > 0 && (
               <Badge variant="secondary" className="ml-1.5 h-4 px-1 text-[10px]">
                 {matters.length}
@@ -321,7 +321,7 @@ export default function ClientDetailPage() {
                 )}
                 <Separator />
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Active Matters</span>
+                  <span className="text-slate-500">Active Cases</span>
                   <span className="font-medium">{client.linkedMatterIds.length}</span>
                 </div>
                 <div className="flex justify-between">
@@ -356,10 +356,10 @@ export default function ClientDetailPage() {
           {matters.length === 0 ? (
             <div className="flex flex-col items-center py-16 text-slate-400">
               <Briefcase className="h-10 w-10 mb-3 opacity-30" />
-              <p className="text-sm font-medium">No matters linked to this client</p>
+              <p className="text-sm font-medium">No cases linked to this client</p>
               <Link href="/matters/new" className="mt-3">
                 <Button size="sm" variant="outline">
-                  Add Matter
+                  Add Case
                 </Button>
               </Link>
             </div>

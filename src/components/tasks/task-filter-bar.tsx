@@ -110,10 +110,10 @@ export function TaskFilterBar({ filters, onChange, teamMembers = [], matters = [
           onValueChange={(val) => val !== null && onChange({ ...filters, matterId: val })}
         >
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Matter" />
+            <SelectValue placeholder="Case" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Matters</SelectItem>
+            <SelectItem value="all">All Cases</SelectItem>
             {matters.map((m) => (
               <SelectItem key={m.id} value={m.id}>
                 {m.matterTitle}

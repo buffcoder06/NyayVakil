@@ -33,7 +33,7 @@ function StatCard({
   return (
     <Card
       className={`shadow-sm hover:shadow-md transition-shadow duration-200 ${
-        highlight ? "ring-2 ring-indigo-400 dark:ring-indigo-600" : ""
+        highlight ? "ring-2 ring-gold-bright/70" : ""
       }`}
     >
       <CardContent className="pt-5 pb-5">
@@ -42,7 +42,7 @@ function StatCard({
             <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide truncate">
               {title}
             </p>
-            <p className="mt-1.5 text-3xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">
+            <p className="mt-1.5 text-3xl font-bold text-navy dark:text-slate-100 tabular-nums">
               {value}
             </p>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -77,8 +77,8 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
           ? "No court today"
           : `${stats.upcomingHearings} more this week`,
       icon: <CalendarDays className="h-5 w-5" />,
-      iconBg: "bg-indigo-100 dark:bg-indigo-900/40",
-      iconColor: "text-indigo-600 dark:text-indigo-400",
+      iconBg: "bg-gold-bright/15 dark:bg-gold-bright/20",
+      iconColor: "text-gold dark:text-gold-bright",
       highlight: todayHearingsCount > 0,
     },
     {
@@ -86,8 +86,8 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
       value: stats.totalActiveMatters,
       subtitle: "Across all courts",
       icon: <Briefcase className="h-5 w-5" />,
-      iconBg: "bg-blue-100 dark:bg-blue-900/40",
-      iconColor: "text-blue-600 dark:text-blue-400",
+      iconBg: "bg-gold-bright/15 dark:bg-gold-bright/20",
+      iconColor: "text-gold dark:text-gold-bright",
     },
     {
       title: "Pending Fees",
@@ -98,16 +98,23 @@ export function StatsRow({ stats, todayHearingsCount }: StatsRowProps) {
           ? `${stats.overduePayments} overdue entries`
           : "All payments on track",
       icon: <IndianRupee className="h-5 w-5" />,
-      iconBg: "bg-red-100 dark:bg-red-900/40",
-      iconColor: "text-red-600 dark:text-red-400",
+      // red only carries meaning when something is actually overdue
+      iconBg:
+        stats.overduePayments > 0
+          ? "bg-red-100 dark:bg-red-900/40"
+          : "bg-gold-bright/15 dark:bg-gold-bright/20",
+      iconColor:
+        stats.overduePayments > 0
+          ? "text-red-600 dark:text-red-400"
+          : "text-gold dark:text-gold-bright",
     },
     {
       title: "Tasks Due Today",
       value: tasksDueToday,
       subtitle: tasksDueToday === 0 ? "All caught up!" : "Due today or overdue",
       icon: <ClipboardList className="h-5 w-5" />,
-      iconBg: "bg-orange-100 dark:bg-orange-900/40",
-      iconColor: "text-orange-600 dark:text-orange-400",
+      iconBg: "bg-gold-bright/15 dark:bg-gold-bright/20",
+      iconColor: "text-gold dark:text-gold-bright",
     },
   ];
 

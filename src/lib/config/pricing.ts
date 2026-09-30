@@ -53,7 +53,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     storage: 1,
     features: [
       "1 user seat",
-      "Up to 50 active matters",
+      "Up to 50 active cases",
       "1 GB document storage",
       "Court hearing diary with reminders",
       "Basic client records",
@@ -89,7 +89,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     storage: 10,
     features: [
       "Up to 5 user seats",
-      "Up to 500 active matters",
+      "Up to 500 active cases",
       "10 GB document storage",
       "Court hearing diary with reminders",
       "Full client & opposing-party records",
@@ -99,7 +99,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Team collaboration & notes",
       "Advanced reports (fees, hearings, tasks)",
       "Bulk document upload & tagging",
-      "Custom matter fields",
+      "Custom case fields",
       "Priority email support (24-hour SLA)",
       "Onboarding call included",
     ],
@@ -126,7 +126,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     storage: 50,
     features: [
       "Up to 20 user seats",
-      "Unlimited active matters",
+      "Unlimited active cases",
       "50 GB document storage",
       "Court hearing diary with reminders",
       "Full client, opposing-party & counsel records",
@@ -136,7 +136,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Team collaboration, notes & activity log",
       "Full analytics dashboard",
       "Bulk document upload, tagging & search",
-      "Custom matter & client fields",
+      "Custom case & client fields",
       "Role-based access control",
       "Audit trail",
       "Priority phone & email support (8-hour SLA)",
@@ -164,7 +164,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     storage: null,
     features: [
       "Unlimited user seats",
-      "Unlimited active matters",
+      "Unlimited active cases",
       "Negotiated storage (on-cloud or on-premise)",
       "All Firm plan features",
       "Custom workflow automation",
@@ -224,7 +224,7 @@ export const FEATURE_COMPARISON: ComparisonCategory[] = [
         enterprise: "Unlimited",
       },
       {
-        label: "Active matters",
+        label: "Active cases",
         starter: "50",
         chamber: "500",
         firm: "Unlimited",
@@ -240,10 +240,10 @@ export const FEATURE_COMPARISON: ComparisonCategory[] = [
     ],
   },
   {
-    category: "Case & Matter Management",
+    category: "Case Management",
     features: [
       {
-        label: "Matter creation & tracking",
+        label: "Case creation & tracking",
         starter: true,
         chamber: true,
         firm: true,
@@ -257,14 +257,14 @@ export const FEATURE_COMPARISON: ComparisonCategory[] = [
         enterprise: "Full",
       },
       {
-        label: "Custom matter fields",
+        label: "Custom case fields",
         starter: false,
         chamber: true,
         firm: true,
         enterprise: true,
       },
       {
-        label: "Unlimited matters",
+        label: "Unlimited cases",
         starter: false,
         chamber: false,
         firm: true,
@@ -525,9 +525,9 @@ export const PRICING_FAQ: PricingFaqItem[] = [
       "Absolutely. You can upgrade your plan at any time and the difference is prorated. Downgrades take effect at the start of the next billing cycle.",
   },
   {
-    question: "What happens when I exceed my matter or storage limit?",
+    question: "What happens when I exceed my case or storage limit?",
     answer:
-      "You will receive an in-app notification before you reach your limit. You can upgrade your plan at any point or archive closed matters to free up space. We will not delete your data without notice.",
+      "You will receive an in-app notification before you reach your limit. You can upgrade your plan at any point or archive closed cases to free up space. We will not delete your data without notice.",
   },
   {
     question: "Do you offer a discount for bar associations or legal aid organisations?",

@@ -53,13 +53,13 @@ const PLANS: Plan[] = [
     price: 799,
     priceSuffix: "/mo",
     users: "1 user",
-    matters: "50 matters",
+    matters: "50 cases",
     tagline: "Perfect for solo practitioners",
     icon: Scale,
     highlighted: false,
     features: [
       "1 user seat",
-      "Up to 50 active matters",
+      "Up to 50 active cases",
       "Client & hearing management",
       "Fee & expense tracking",
       "Email support",
@@ -71,13 +71,13 @@ const PLANS: Plan[] = [
     price: 2499,
     priceSuffix: "/mo",
     users: "5 users",
-    matters: "500 matters",
+    matters: "500 cases",
     tagline: "Ideal for small chambers & groups",
     icon: Building2,
     highlighted: true,
     features: [
       "5 user seats",
-      "Up to 500 active matters",
+      "Up to 500 active cases",
       "Team task assignment",
       "Document storage (10 GB)",
       "WhatsApp & SMS reminders",
@@ -90,13 +90,13 @@ const PLANS: Plan[] = [
     price: 6999,
     priceSuffix: "/mo",
     users: "20 users",
-    matters: "Unlimited matters",
+    matters: "Unlimited cases",
     tagline: "For established law firms",
     icon: Zap,
     highlighted: false,
     features: [
       "20 user seats",
-      "Unlimited active matters",
+      "Unlimited active cases",
       "Unlimited document storage",
       "Advanced reports & analytics",
       "Dedicated account manager",
@@ -113,9 +113,9 @@ function getTriggerContent(trigger: UpgradeTrigger) {
   switch (trigger) {
     case "matter_limit":
       return {
-        title: "Matter limit reached",
+        title: "Case limit reached",
         description:
-          "You have reached the maximum number of active matters allowed on your current plan. Upgrade to add more matters and keep your practice running without interruption.",
+          "You have reached the maximum number of active cases allowed on your current plan. Upgrade to add more cases and keep your practice running without interruption.",
       };
     case "user_limit":
       return {
@@ -140,7 +140,7 @@ function getTriggerContent(trigger: UpgradeTrigger) {
       return {
         title: "Upgrade your plan",
         description:
-          "Unlock more features, more matters, and more team members. Choose the plan that best fits your legal practice.",
+          "Unlock more features, more cases, and more team members. Choose the plan that best fits your legal practice.",
       };
   }
 }

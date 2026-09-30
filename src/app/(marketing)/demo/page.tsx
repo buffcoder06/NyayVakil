@@ -45,7 +45,7 @@ const DEMO_FEATURES = [
     icon: Briefcase,
     title: "Case Management",
     description:
-      "Track all your matters with client details, court names, filing dates, and case status — all in one place.",
+      "Track all your cases with client details, court names, filing dates, and case status — all in one place.",
   },
   {
     icon: BookOpen,
@@ -63,7 +63,7 @@ const DEMO_FEATURES = [
     icon: Users,
     title: "Client Records",
     description:
-      "Maintain clean client profiles with contact information, matter history, and communication logs.",
+      "Maintain clean client profiles with contact information, case history, and communication logs.",
   },
   {
     icon: FolderOpen,
@@ -275,7 +275,7 @@ export default function DemoPage() {
             See it before you commit
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+          <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 mb-4">
             See NyayVakil in action
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
@@ -407,7 +407,7 @@ export default function DemoPage() {
       <section className="py-16" style={{ backgroundColor: "#f8fafc" }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+            <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
               What you will see in the demo
             </h2>
             <p className="text-slate-500 max-w-xl mx-auto text-sm">
@@ -448,7 +448,7 @@ export default function DemoPage() {
       <section className="py-16 bg-white" ref={formRef} id="book-demo">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+            <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
               Book a live demo
             </h2>
             <p className="text-slate-500 text-sm max-w-md mx-auto">
@@ -728,7 +728,7 @@ export default function DemoPage() {
       {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section className="py-16" style={{ backgroundColor: "#f8fafc" }}>
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
+          <h2 className="font-brand text-2xl font-normal text-slate-900 mb-8 text-center">
             Frequently asked questions
           </h2>
           <div className="space-y-3">

@@ -68,7 +68,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "What is NyayVakil and who is it built for?",
     answer:
       "NyayVakil is a cloud-based legal practice management platform designed specifically for Indian advocates, chambers, and law firms. " +
-      "It helps legal professionals manage their matters, court diaries, clients, fees, documents, and tasks in one organised workspace. " +
+      "It helps legal professionals manage their cases, court diaries, clients, fees, documents, and tasks in one organised workspace. " +
       "Whether you are a solo advocate or part of a 20-member firm, NyayVakil scales to fit the way you work.",
     category: "general",
   },
@@ -76,7 +76,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "general-solo-advocate",
     question: "Is NyayVakil useful for a solo advocate with a small practice?",
     answer:
-      "Yes, NyayVakil was designed with the solo advocate in mind. The Starter plan (₹799/month) gives you a full court diary, matter tracking, client records, and fee management — everything you need to keep your practice organised without the overhead of complex enterprise software. " +
+      "Yes, NyayVakil was designed with the solo advocate in mind. The Starter plan (₹799/month) gives you a full court diary, case tracking, client records, and fee management — everything you need to keep your practice organised without the overhead of complex enterprise software. " +
       "Many solo advocates tell us that simply having all their hearing dates and client information in one place saves them several hours every week.",
     category: "general",
   },
@@ -84,9 +84,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "general-chambers",
     question: "Can an advocate's chamber with juniors and clerks use NyayVakil?",
     answer:
-      "Absolutely. The Chamber plan supports up to 5 users, so your juniors and clerks can log hearing updates, add notes, and track tasks under their respective matters. " +
+      "Absolutely. The Chamber plan supports up to 5 users, so your juniors and clerks can log hearing updates, add notes, and track tasks under their respective cases. " +
       "Role-based visibility ensures that each team member sees only what is relevant to their work. " +
-      "The senior advocate retains full oversight of all matters and financials.",
+      "The senior advocate retains full oversight of all cases and financials.",
     category: "general",
   },
   {
@@ -111,8 +111,8 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "general-practice-types",
     question: "Which courts and practice areas does NyayVakil support?",
     answer:
-      "NyayVakil is practice-area agnostic and works for civil, criminal, family, corporate, consumer, labour, and tax matters across all levels of courts — from subordinate civil courts to the Supreme Court of India. " +
-      "You can customise matter types and fields to match the specific nomenclature and workflows of your practice area.",
+      "NyayVakil is practice-area agnostic and works for civil, criminal, family, corporate, consumer, labour, and tax cases across all levels of courts — from subordinate civil courts to the Supreme Court of India. " +
+      "You can customise case types and fields to match the specific nomenclature and workflows of your practice area.",
     category: "general",
   },
 
@@ -122,7 +122,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "features-hearing-diary",
     question: "How does the court hearing diary work?",
     answer:
-      "The hearing diary lets you log every upcoming date for each matter along with the court, bench, and purpose of the hearing. " +
+      "The hearing diary lets you log every upcoming date for each case along with the court, bench, and purpose of the hearing. " +
       "You can view your schedule by day, week, or month, and export it to Google Calendar or any ICS-compatible calendar app. " +
       "Automated SMS and email reminders are sent to you (and optionally to your client) before each hearing date.",
     category: "features",
@@ -133,14 +133,14 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer:
       "NyayVakil sends hearing reminders via SMS and email by default, with WhatsApp reminders available on the Chamber and Firm plans. " +
       "You can configure how far in advance the reminder is sent — 24 hours, 48 hours, or a custom lead time. " +
-      "Task due-date reminders and fee-follow-up nudges can also be configured for each matter.",
+      "Task due-date reminders and fee-follow-up nudges can also be configured for each case.",
     category: "features",
   },
   {
     id: "features-fee-tracking",
-    question: "Can I track fees and expenses against each matter?",
+    question: "Can I track fees and expenses against each case?",
     answer:
-      "Yes. Each matter has a dedicated finance section where you can record retainer fees, appearance fees, drafting charges, court fees paid, and any out-of-pocket expenses. " +
+      "Yes. Each case has a dedicated finance section where you can record retainer fees, appearance fees, drafting charges, court fees paid, and any out-of-pocket expenses. " +
       "The Chamber and Firm plans also let you generate client invoices and mark payments as received, so you always know your outstanding receivables. " +
       "Summary financial reports can be exported as PDF or Excel for your accounts.",
     category: "features",
@@ -149,16 +149,16 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "features-documents",
     question: "How does document management work?",
     answer:
-      "You can upload and attach documents — vakalatnama, plaints, written statements, orders, judgements — directly to the relevant matter. " +
+      "You can upload and attach documents — vakalatnama, plaints, written statements, orders, judgements — directly to the relevant case. " +
       "Documents are stored in encrypted cloud storage and can be accessed from any device. " +
       "The Firm plan adds full-text search across all uploaded documents, making it easy to find a specific order or clause.",
     category: "features",
   },
   {
     id: "features-tasks",
-    question: "Can I create and assign tasks related to a matter?",
+    question: "Can I create and assign tasks related to a case?",
     answer:
-      "Yes. NyayVakil includes a task module where you can create action items linked to a specific matter, set a due date, and assign them to any member of your team. " +
+      "Yes. NyayVakil includes a task module where you can create action items linked to a specific case, set a due date, and assign them to any member of your team. " +
       "Tasks can be marked as pending, in-progress, or completed, and you receive a reminder when a task is approaching its due date. " +
       "This is particularly useful for tracking research, drafting, filing, and follow-up actions.",
     category: "features",
@@ -167,7 +167,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "features-client-records",
     question: "What information can I store for each client?",
     answer:
-      "Each client profile stores contact details, address, identification references, communication history, and a list of all linked matters. " +
+      "Each client profile stores contact details, address, identification references, communication history, and a list of all linked cases. " +
       "You can also store details of opposing parties, their advocates, and counsel on the other side — useful for conflict-of-interest checks. " +
       "All client data is tied to your account and is not visible to other NyayVakil users.",
     category: "features",
@@ -176,8 +176,8 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "features-expenses",
     question: "Can I track my own office expenses separately from client expenses?",
     answer:
-      "Yes. NyayVakil distinguishes between client-billable expenses (charged to a specific matter) and internal office expenses (overhead costs). " +
-      "You can log court filing fees, stamp duties, travel expenses, and printing costs against the relevant matter for billing purposes. " +
+      "Yes. NyayVakil distinguishes between client-billable expenses (charged to a specific case) and internal office expenses (overhead costs). " +
+      "You can log court filing fees, stamp duties, travel expenses, and printing costs against the relevant case for billing purposes. " +
       "Office-level expenses such as rent, subscriptions, and staff salaries can be tracked in a separate expense register.",
     category: "features",
   },
@@ -185,9 +185,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "features-reports",
     question: "What kind of reports and insights does NyayVakil provide?",
     answer:
-      "The Chamber and Firm plans include an analytics dashboard showing matter status distribution, upcoming hearings, pending fees, task completion rates, and monthly billing summaries. " +
-      "You can generate and export matter-wise fee reports, client-wise activity reports, and court-wise hearing logs. " +
-      "These reports help you identify which clients or matters consume the most time versus what they contribute to revenue.",
+      "The Chamber and Firm plans include an analytics dashboard showing case status distribution, upcoming hearings, pending fees, task completion rates, and monthly billing summaries. " +
+      "You can generate and export case-wise fee reports, client-wise activity reports, and court-wise hearing logs. " +
+      "These reports help you identify which clients or cases consume the most time versus what they contribute to revenue.",
     category: "features",
   },
 
@@ -197,9 +197,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "pricing-plan-difference",
     question: "What is the main difference between the Starter, Chamber, and Firm plans?",
     answer:
-      "The Starter plan is designed for a single advocate managing up to 50 matters independently. " +
-      "The Chamber plan adds team collaboration for up to 5 users, a higher matter limit of 500, invoicing, and WhatsApp reminders — ideal for a senior advocate working with juniors or clerks. " +
-      "The Firm plan supports up to 20 users, unlimited matters, role-based access, audit trails, and advanced analytics for established law offices.",
+      "The Starter plan is designed for a single advocate managing up to 50 cases independently. " +
+      "The Chamber plan adds team collaboration for up to 5 users, a higher case limit of 500, invoicing, and WhatsApp reminders — ideal for a senior advocate working with juniors or clerks. " +
+      "The Firm plan supports up to 20 users, unlimited cases, role-based access, audit trails, and advanced analytics for established law offices.",
     category: "pricing",
   },
   {
@@ -272,7 +272,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "technical-data-migration",
     question: "Can I import my existing data into NyayVakil?",
     answer:
-      "Yes. NyayVakil supports bulk import of client and matter records via structured CSV/Excel templates that you can download from within the app. " +
+      "Yes. NyayVakil supports bulk import of client and case records via structured CSV/Excel templates that you can download from within the app. " +
       "Documents can be uploaded in bulk using our batch upload tool. " +
       "Enterprise customers are provided dedicated data migration assistance to help move data from existing systems or spreadsheets.",
     category: "technical",
@@ -282,7 +282,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "Does NyayVakil require a constant internet connection?",
     answer:
       "Yes, NyayVakil is a cloud-based platform and requires an active internet connection to use. " +
-      "However, all pages load quickly even on a standard 4G mobile connection, so you can access your matter details and hearing diary from court premises. " +
+      "However, all pages load quickly even on a standard 4G mobile connection, so you can access your case details and hearing diary from court premises. " +
       "Offline functionality is planned as a future enhancement.",
     category: "technical",
   },
@@ -299,7 +299,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "technical-data-export",
     question: "Can I export my data if I decide to leave NyayVakil?",
     answer:
-      "Yes. You own your data and can export all your matter records, client information, and financial data as CSV/Excel files at any time. " +
+      "Yes. You own your data and can export all your case records, client information, and financial data as CSV/Excel files at any time. " +
       "Documents can be downloaded individually or as a bulk ZIP archive. " +
       "We believe in giving you full control over your data without lock-in.",
     category: "technical",
@@ -311,7 +311,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "onboarding-setup-time",
     question: "How long does it take to set up NyayVakil?",
     answer:
-      "Most advocates are up and running within 30 minutes. Creating your account, setting up your profile, and adding your first few matters takes under an hour even for those who are not very familiar with technology. " +
+      "Most advocates are up and running within 30 minutes. Creating your account, setting up your profile, and adding your first few cases takes under an hour even for those who are not very familiar with technology. " +
       "For chambers and firms importing existing data, a typical setup takes one to two business days with the help of our onboarding team. " +
       "We provide step-by-step guides, video tutorials, and live support to help you get started.",
     category: "onboarding",

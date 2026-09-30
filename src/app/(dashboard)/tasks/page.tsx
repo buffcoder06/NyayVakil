@@ -25,14 +25,15 @@ import { todayIST } from '@/lib/dates';
 import { useAuthStore } from '@/lib/store/auth-store';
 import { isOverdue, getDaysUntil } from '@/lib/utils';
 import { toast } from 'sonner';
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 type ViewTab = 'my_tasks' | 'team_tasks' | 'overdue' | 'completed';
 
 interface StatCard {
   label: string;
   value: number;
-  icon: React.ReactNode;
-  color: string;
+  icon: React.ElementType;
+  tone?: 'alert';
 }
 
 function groupTasksByDue(tasks: Task[]): Record<string, Task[]> {
@@ -125,26 +126,23 @@ export default function TasksPage() {
     {
       label: 'Pending',
       value: pending,
-      icon: <ListTodo className="h-5 w-5" />,
-      color: 'text-yellow-600 bg-yellow-50',
+      icon: ListTodo,
     },
     {
       label: 'In Progress',
       value: inProgress,
-      icon: <Clock className="h-5 w-5" />,
-      color: 'text-blue-600 bg-blue-50',
+      icon: Clock,
     },
     {
       label: 'Overdue',
       value: overdue,
-      icon: <AlertTriangle className="h-5 w-5" />,
-      color: 'text-red-600 bg-red-50',
+      icon: AlertTriangle,
+      tone: 'alert',
     },
     {
       label: 'Completed Today',
       value: completedToday,
-      icon: <CheckCircle className="h-5 w-5" />,
-      color: 'text-green-600 bg-green-50',
+      icon: CheckCircle,
     },
   ];
 
@@ -211,16 +209,7 @@ export default function TasksPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {stats.map((s) => (
-          <div
-            key={s.label}
-            className="flex items-center gap-3 rounded-lg border bg-white p-4 shadow-sm dark:bg-slate-900"
-          >
-            <div className={`rounded-lg p-2 ${s.color}`}>{s.icon}</div>
-            <div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{s.value}</p>
-              <p className="text-xs text-slate-500">{s.label}</p>
-            </div>
-          </div>
+          <SummaryStat key={s.label} label={s.label} value={s.value} icon={s.icon} tone={s.tone} />
         ))}
       </div>
 

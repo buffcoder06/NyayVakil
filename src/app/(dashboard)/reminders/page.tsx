@@ -72,7 +72,7 @@ const REMINDER_TEMPLATES = [
     id: "t1",
     name: "Hearing Reminder",
     type: "hearing" as const,
-    template: "Dear [Client], your next hearing in matter [Matter] is scheduled on [Date] at [Court]. Please be available. — [Advocate]",
+    template: "Dear [Client], your next hearing in case [Matter] is scheduled on [Date] at [Court]. Please be available. — [Advocate]",
   },
   {
     id: "t2",
@@ -84,19 +84,19 @@ const REMINDER_TEMPLATES = [
     id: "t3",
     name: "Document Request",
     type: "document" as const,
-    template: "Dear [Client], please share the following documents at the earliest: [Documents]. These are required for your matter [Matter]. — [Advocate]",
+    template: "Dear [Client], please share the following documents at the earliest: [Documents]. These are required for your case [Matter]. — [Advocate]",
   },
   {
     id: "t4",
     name: "Follow-up",
     type: "follow_up" as const,
-    template: "Dear [Client], following up on your matter [Matter]. Please contact our office to discuss the current status. — [Advocate]",
+    template: "Dear [Client], following up on your case [Matter]. Please contact our office to discuss the current status. — [Advocate]",
   },
   {
     id: "t5",
-    name: "Matter Update",
+    name: "Case Update",
     type: "general" as const,
-    template: "Dear [Client], we would like to update you on the status of your matter [Matter]. Please call our office at your convenience. — [Advocate]",
+    template: "Dear [Client], we would like to update you on the status of your case [Matter]. Please call our office at your convenience. — [Advocate]",
   },
 ];
 
@@ -303,9 +303,9 @@ function CreateReminderDialog({
             </Select>
           </div>
           <div>
-            <Label>Matter</Label>
+            <Label>Case</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select matter (optional)" /></SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case (optional)" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">None</SelectItem>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}

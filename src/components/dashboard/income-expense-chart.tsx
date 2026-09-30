@@ -110,7 +110,7 @@ export function IncomeExpenseChart() {
       <CardHeader className="border-b pb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">
-            <TrendingUp className="h-4 w-4 text-emerald-500" />
+            <TrendingUp className="h-4 w-4 text-gold" />
             Monthly Income vs Expense
           </CardTitle>
           <div className="flex items-center gap-4 text-xs">
@@ -162,6 +162,7 @@ export function IncomeExpenseChart() {
               iconType="square"
               iconSize={10}
               wrapperStyle={{ fontSize: "12px", paddingTop: "12px" }}
+              formatter={(value: string) => <span style={{ color: "#475569" }}>{value}</span>}
             />
             <Bar
               dataKey="income"
@@ -173,7 +174,7 @@ export function IncomeExpenseChart() {
             <Bar
               dataKey="expense"
               name="Expense"
-              fill="#f87171"
+              fill="#D9A441"
               radius={[4, 4, 0, 0]}
               maxBarSize={40}
             />

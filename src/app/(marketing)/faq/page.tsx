@@ -24,7 +24,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Who is NyayVakil for?",
         answer:
-          "NyayVakil is built for Indian legal professionals — solo advocates, advocates with juniors and clerks, small law firms, and in-house legal departments. If you are managing matters, hearings, clients, and fees in India, NyayVakil is designed for you. Our plans are priced for practices of all sizes.",
+          "NyayVakil is built for Indian legal professionals — solo advocates, advocates with juniors and clerks, small law firms, and in-house legal departments. If you are managing cases, hearings, clients, and fees in India, NyayVakil is designed for you. Our plans are priced for practices of all sizes.",
       },
       {
         question: "Is it suitable for a solo advocate?",
@@ -44,7 +44,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Can I use NyayVakil just for maintaining a hearing diary?",
         answer:
-          "Yes. You can use the hearing diary feature independently without setting up the full matter workflow. Many advocates start with just the diary and gradually adopt other features like fee tracking and client records as they get comfortable with the product.",
+          "Yes. You can use the hearing diary feature independently without setting up the full case workflow. Many advocates start with just the diary and gradually adopt other features like fee tracking and client records as they get comfortable with the product.",
       },
       {
         question:
@@ -71,7 +71,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Does it handle expenses like court fees and travel?",
         answer:
-          "Yes. You can record expenses against matters — court fees, stamp duty, travel, miscellaneous costs — and mark whether they have been reimbursed by the client or not. This keeps your matter-level accounts clean and helps at billing time.",
+          "Yes. You can record expenses against cases — court fees, stamp duty, travel, miscellaneous costs — and mark whether they have been reimbursed by the client or not. This keeps your case-level accounts clean and helps at billing time.",
       },
       {
         question:
@@ -135,7 +135,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Does NyayVakil work on mobile?",
         answer:
-          "Yes. NyayVakil is fully mobile responsive and works well on smartphones and tablets. Whether you are in court, at a client meeting, or travelling, you can check your hearing diary, update matter notes, and record fee payments from your phone browser without needing to install a separate app.",
+          "Yes. NyayVakil is fully mobile responsive and works well on smartphones and tablets. Whether you are in court, at a client meeting, or travelling, you can check your hearing diary, update case notes, and record fee payments from your phone browser without needing to install a separate app.",
       },
       {
         question: "Do I need a constant internet connection?",
@@ -211,7 +211,7 @@ export default function FaqPage() {
         style={{ backgroundColor: "#f0f4f8" }}
       >
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+          <h1 className="font-brand text-3xl sm:text-4xl font-normal text-slate-900 mb-4">
             Frequently Asked Questions
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed">

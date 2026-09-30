@@ -38,6 +38,8 @@ import {
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { todayIST } from "@/lib/dates";
+import { SummaryStat } from "@/components/shared/summary-stat";
+import { Handshake, Wallet, Hourglass, AlertCircle as AlertCircleIcon } from "lucide-react";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -195,9 +197,9 @@ function AddFeeDialog({
         </DialogHeader>
         <div className="space-y-4 py-2">
           <div>
-            <Label>Matter *</Label>
+            <Label>Case *</Label>
             <Select value={matterId} onValueChange={(v) => v !== null && setMatterId(v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Select matter" /></SelectTrigger>
+              <SelectTrigger className="mt-1"><SelectValue placeholder="Select case" /></SelectTrigger>
               <SelectContent>
                 {matters.map((m) => <SelectItem key={m.id} value={m.id}>{m.matterTitle}</SelectItem>)}
               </SelectContent>
@@ -205,7 +207,7 @@ function AddFeeDialog({
           </div>
           <div>
             <Label>Description *</Label>
-            <Input className="mt-1" placeholder="e.g. Professional fee for civil matter" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <Input className="mt-1" placeholder="e.g. Professional fee for civil case" value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
           <div>
             <Label>Total Amount (₹) *</Label>
@@ -437,7 +439,7 @@ export default function FeesPage() {
           <FeeCard
             key={fee.id}
             fee={fee}
-            matterTitle={matterMap[fee.matterId] || "Unknown Matter"}
+            matterTitle={matterMap[fee.matterId] || "Unknown Case"}
             clientName={clientMap[fee.clientId] || "Unknown Client"}
             onLogPayment={handleLogPayment}
           />
@@ -449,7 +451,7 @@ export default function FeesPage() {
   return (
     <div>
       <PageHeader
-        title="Fee Management"
+        title="Fees"
         description="Track professional fees, payments, and outstanding amounts."
         actions={
           <div className="flex gap-2">
@@ -472,22 +474,10 @@ export default function FeesPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <div className="rounded-xl border p-4 bg-slate-50">
-            <p className="text-xs text-slate-500 mb-1">Total Agreed</p>
-            <p className="text-xl font-bold text-slate-800">{fmt(stats.totalAgreed)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-emerald-50">
-            <p className="text-xs text-emerald-600 mb-1">Total Collected</p>
-            <p className="text-xl font-bold text-emerald-800">{fmt(stats.totalCollected)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-amber-50">
-            <p className="text-xs text-amber-600 mb-1">Total Pending</p>
-            <p className="text-xl font-bold text-amber-800">{fmt(stats.totalPending)}</p>
-          </div>
-          <div className="rounded-xl border p-4 bg-red-50">
-            <p className="text-xs text-red-600 mb-1">Overdue Entries</p>
-            <p className="text-xl font-bold text-red-800">{stats.overdueCount}</p>
-          </div>
+          <SummaryStat label="Total Agreed" value={fmt(stats.totalAgreed)} icon={Handshake} />
+          <SummaryStat label="Total Collected" value={fmt(stats.totalCollected)} icon={Wallet} tone="positive" />
+          <SummaryStat label="Total Pending" value={fmt(stats.totalPending)} icon={Hourglass} />
+          <SummaryStat label="Overdue Entries" value={stats.overdueCount} icon={AlertCircleIcon} tone="alert" />
         </div>
       )}
 

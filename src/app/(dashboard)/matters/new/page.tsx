@@ -54,7 +54,7 @@ const COURTS = [
 ];
 
 const schema = z.object({
-  matterTitle: z.string().min(3, "Matter title must be at least 3 characters"),
+  matterTitle: z.string().min(3, "Case title must be at least 3 characters"),
   clientId: z.string().min(1, "Please select a client"),
   caseType: z.string().min(1, "Please select a case type"),
   courtName: z.string().min(1, "Please select a court"),
@@ -203,11 +203,11 @@ export default function NewMatterPage() {
         }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message);
-      toast.success("Matter created successfully!");
+      toast.success("Case created successfully!");
       startNavigationProgress();
       router.push(`/matters/${res.data.id}`);
     } catch {
-      toast.error("Failed to create matter. Please try again.");
+      toast.error("Failed to create case. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -224,10 +224,10 @@ export default function NewMatterPage() {
               className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
-              Matters
+              Cases
             </Link>
             <ChevronRight className="hidden sm:block h-4 w-4 text-slate-300" />
-            <span className="hidden sm:inline text-sm font-medium text-slate-800">New Matter</span>
+            <span className="hidden sm:inline text-sm font-medium text-slate-800">New Case</span>
           </div>
           <div className="flex items-center gap-2">
             <Link href="/matters">
@@ -243,7 +243,7 @@ export default function NewMatterPage() {
               {submitting ? (
                 <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Saving…</>
               ) : (
-                <><FileText className="h-3.5 w-3.5" /> Create Matter</>
+                <><FileText className="h-3.5 w-3.5" /> Create Case</>
               )}
             </Button>
           </div>
@@ -253,7 +253,7 @@ export default function NewMatterPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Page Title */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Add New Matter</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Add New Case</h1>
           <p className="text-sm text-slate-500 mt-1">Fill in the case details below. Fields marked with <span className="text-red-400">*</span> are required.</p>
         </div>
 
@@ -268,7 +268,7 @@ export default function NewMatterPage() {
             />
             <div className="grid grid-cols-1 gap-5">
               <div>
-                <FieldLabel required>Matter Title</FieldLabel>
+                <FieldLabel required>Case Title</FieldLabel>
                 <Input
                   placeholder="e.g. Agarwal vs Sharma – Property Dispute"
                   className={cn("mt-1.5 h-10", errors.matterTitle && "border-red-300 focus-visible:ring-red-300")}
@@ -469,7 +469,7 @@ export default function NewMatterPage() {
               </div>
               <div>
                 <FieldLabel>Police Station</FieldLabel>
-                <Input placeholder="For criminal matters only" className="mt-1.5 h-10" {...register("policeStation")} />
+                <Input placeholder="For criminal cases only" className="mt-1.5 h-10" {...register("policeStation")} />
               </div>
             </div>
           </div>
@@ -479,7 +479,7 @@ export default function NewMatterPage() {
             <SectionHeader
               icon={UserCheck}
               title="Team Assignment"
-              description="Assign this matter to team members"
+              description="Assign this case to team members"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
@@ -518,7 +518,7 @@ export default function NewMatterPage() {
             <SectionHeader
               icon={IndianRupee}
               title="Financial"
-              description="Fee agreement for this matter"
+              description="Fee agreement for this case"
             />
             <div className="max-w-xs">
               <FieldLabel>Total Fee Agreed (₹)</FieldLabel>
@@ -568,7 +568,7 @@ export default function NewMatterPage() {
                 {submitting ? (
                   <><Loader2 className="h-4 w-4 animate-spin" /> Saving…</>
                 ) : (
-                  <><FileText className="h-4 w-4" /> Create Matter</>
+                  <><FileText className="h-4 w-4" /> Create Case</>
                 )}
               </Button>
             </div>

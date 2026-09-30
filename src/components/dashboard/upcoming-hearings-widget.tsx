@@ -62,7 +62,7 @@ export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps
     <Card className="shadow-sm h-full flex flex-col">
       <CardHeader className="border-b pb-4">
         <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">
-          <CalendarDays className="h-4 w-4 text-blue-500" />
+          <CalendarDays className="h-4 w-4 text-gold" />
           Upcoming Hearings
           <span className="ml-auto text-xs font-normal text-slate-400">
             Next 7 days
@@ -133,9 +133,9 @@ export function UpcomingHearingsWidget({ hearings }: UpcomingHearingsWidgetProps
       <CardFooter className="border-t pt-3">
         <Link
           href="/hearings"
-          className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
-          View all hearings
+          Open court diary
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </CardFooter>

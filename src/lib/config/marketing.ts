@@ -82,7 +82,7 @@ export const TESTIMONIALS: Testimonial[] = [
     title: "Senior Advocate, Delhi High Court",
     city: "New Delhi",
     quote:
-      "Running a chamber with three juniors used to mean constant follow-up to know the status of each matter. " +
+      "Running a chamber with three juniors used to mean constant follow-up to know the status of each case. " +
       "NyayVakil gives me a single dashboard where I can see what every junior is working on without interrupting their day. " +
       "The fee tracking and invoicing have also made our billing process much more professional.",
     avatarInitials: "RS",
@@ -95,7 +95,7 @@ export const TESTIMONIALS: Testimonial[] = [
     city: "Mumbai",
     quote:
       "I was sceptical about moving from paper registers to software, but the onboarding team walked me through every step patiently. " +
-      "Within a week I had all my active matters entered and now I genuinely wonder how I managed without it. " +
+      "Within a week I had all my active cases entered and now I genuinely wonder how I managed without it. " +
       "The WhatsApp reminders to clients have been especially well received.",
     avatarInitials: "SP",
     stars: 5,
@@ -106,7 +106,7 @@ export const TESTIMONIALS: Testimonial[] = [
     title: "Advocate, City Civil Court",
     city: "Hyderabad",
     quote:
-      "As a solo advocate handling over 80 matters across the civil court and consumer forum, keeping track of dates was becoming unmanageable. " +
+      "As a solo advocate handling over 80 cases across the civil court and consumer forum, keeping track of dates was becoming unmanageable. " +
       "NyayVakil's hearing diary has completely sorted that problem. " +
       "The mobile-friendly interface means I can check tomorrow's cause list from inside the court corridor.",
     avatarInitials: "MI",
@@ -118,9 +118,9 @@ export const TESTIMONIALS: Testimonial[] = [
     title: "Advocate, Madras High Court",
     city: "Chennai",
     quote:
-      "What I appreciate most is that the platform understands Indian legal practice — the terminology, the court structure, the way matters are tracked. " +
+      "What I appreciate most is that the platform understands Indian legal practice — the terminology, the court structure, the way cases are tracked. " +
       "It is not a generic project management tool dressed up for lawyers. " +
-      "The document vault is particularly useful for attaching certified copies of orders directly to the matter.",
+      "The document vault is particularly useful for attaching certified copies of orders directly to the case.",
     avatarInitials: "KK",
     stars: 5,
     isPlaceholder: true,
@@ -150,7 +150,7 @@ export const TRUST_STATS: TrustStat[] = [
     icon: "users",
   },
   {
-    label: "Matters Tracked",
+    label: "Cases Tracked",
     value: "12,000+",
     icon: "folder",
   },
@@ -175,7 +175,7 @@ export const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: "briefcase",
     title: "Case Management",
     description:
-      "Create and organise matters by court, client, and practice area. Track status, key dates, and all related parties from one structured view.",
+      "Create and organise cases by court, client, and practice area. Track status, key dates, and all related parties from one structured view.",
   },
   {
     icon: "calendar",
@@ -187,25 +187,25 @@ export const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: "indian-rupee",
     title: "Fee Tracking",
     description:
-      "Record retainer fees, appearance fees, and expenses against each matter. Generate client invoices and track outstanding payments with ease.",
+      "Record retainer fees, appearance fees, and expenses against each case. Generate client invoices and track outstanding payments with ease.",
   },
   {
     icon: "users",
     title: "Client Records",
     description:
-      "Maintain comprehensive client profiles including contact details, matter history, and communication logs. Ideal for conflict-of-interest checks.",
+      "Maintain comprehensive client profiles including contact details, case history, and communication logs. Ideal for conflict-of-interest checks.",
   },
   {
     icon: "file-text",
     title: "Document Vault",
     description:
-      "Attach plaints, orders, vakalatnamas, and written statements directly to the relevant matter. Access them securely from any device, anytime.",
+      "Attach plaints, orders, vakalatnamas, and written statements directly to the relevant case. Access them securely from any device, anytime.",
   },
   {
     icon: "check-circle",
     title: "Task Management",
     description:
-      "Create research, drafting, filing, and follow-up tasks linked to specific matters. Assign them to juniors or clerks and track completion.",
+      "Create research, drafting, filing, and follow-up tasks linked to specific cases. Assign them to juniors or clerks and track completion.",
   },
   {
     icon: "bell",
@@ -217,7 +217,7 @@ export const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: "bar-chart-2",
     title: "Reports & Insights",
     description:
-      "Get a clear picture of your practice: pending matters, billing summaries, court-wise hearing counts, and team productivity — all exportable.",
+      "Get a clear picture of your practice: pending cases, billing summaries, court-wise hearing counts, and team productivity — all exportable.",
   },
 ];
 
@@ -232,19 +232,19 @@ export const ROI_POINTS: RoiPoint[] = [
   },
   {
     problem: "Chasing clients for fees with no clear record of what was billed",
-    solution: "Matter-wise fee register with invoicing and payment tracking",
+    solution: "Case-wise fee register with invoicing and payment tracking",
   },
   {
     problem: "Searching through physical files and WhatsApp groups for documents",
-    solution: "Organised document vault attached to each matter, searchable from any device",
+    solution: "Organised document vault attached to each case, searchable from any device",
   },
   {
     problem: "No visibility into what juniors are working on or what is pending",
     solution: "Shared task board with assignment, due dates, and status tracking",
   },
   {
-    problem: "No way to quickly check the history of a client or matter before a call",
-    solution: "Complete client and matter timeline accessible in under 10 seconds",
+    problem: "No way to quickly check the history of a client or case before a call",
+    solution: "Complete client and case timeline accessible in under 10 seconds",
   },
   {
     problem: "Month-end guesswork about how much the practice actually earned",

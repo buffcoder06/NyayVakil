@@ -505,7 +505,7 @@ export default function ContactPage() {
         style={{ backgroundColor: "#f0f4f8" }}
       >
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+          <h1 className="font-brand text-3xl sm:text-4xl font-normal text-slate-900 mb-4">
             Get in touch
           </h1>
           <p className="text-lg text-slate-500 leading-relaxed">
@@ -652,7 +652,7 @@ export default function ContactPage() {
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+            <h2 className="font-brand text-2xl font-normal text-slate-900 mb-3">
               Why book a demo?
             </h2>
             <p className="text-slate-500 text-sm max-w-md mx-auto">

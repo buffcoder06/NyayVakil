@@ -76,7 +76,7 @@ export default function HomePage() {
             Now in early access · Free for Indian advocates
           </div>
 
-          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-[#14213D] sm:text-5xl lg:text-6xl">
+          <h1 className="font-brand mb-6 text-4xl font-normal leading-tight text-[#14213D] sm:text-5xl lg:text-6xl">
             Your Legal Practice,{" "}
             <span className="relative">
               <span className="relative z-10">Organised.</span>
@@ -151,7 +151,7 @@ export default function HomePage() {
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               Built for how Indian lawyers actually work
             </h2>
             <p className="mt-3 text-slate-500">
@@ -175,7 +175,7 @@ export default function HomePage() {
               },
               {
                 problem: "WhatsApp messages for case updates",
-                solution: "Structured client and matter records",
+                solution: "Structured client and case records",
                 problemIcon: "💬",
                 solutionIcon: "📁",
               },
@@ -207,7 +207,7 @@ export default function HomePage() {
       <section id="features" className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               Everything your practice needs
             </h2>
             <p className="mt-3 text-slate-500">
@@ -219,7 +219,7 @@ export default function HomePage() {
             {[
               {
                 icon: <Briefcase className="h-6 w-6" />,
-                title: "Case & Matter Management",
+                title: "Case Management",
                 desc: "Track every case, CNR number, court, status, and timeline in one structured workspace.",
               },
               {
@@ -230,7 +230,7 @@ export default function HomePage() {
               {
                 icon: <CreditCard className="h-6 w-6" />,
                 title: "Fee & Payment Tracking",
-                desc: "Know exactly what is due, received, and overdue — broken down by matter and client.",
+                desc: "Know exactly what is due, received, and overdue — broken down by case and client.",
               },
               {
                 icon: <Users className="h-6 w-6" />,
@@ -267,7 +267,7 @@ export default function HomePage() {
       <section id="who-its-for" className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               Whether you are a solo advocate or running a small firm
             </h2>
             <p className="mt-3 text-slate-500">
@@ -325,14 +325,14 @@ export default function HomePage() {
                 <CalendarDays className="h-3.5 w-3.5" />
                 Court Diary
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-[#14213D] sm:text-4xl">
+              <h2 className="font-brand mb-6 text-3xl font-normal text-[#14213D] sm:text-4xl">
                 Never miss a hearing date
               </h2>
               <ul className="space-y-4">
                 {[
                   { icon: <CalendarDays className="h-5 w-5" />, text: "Court diary organised by date — see every hearing at a glance" },
                   { icon: <ArrowRight className="h-5 w-5" />, text: "Adjournment tracking with next hearing date automatically saved" },
-                  { icon: <FileText className="h-5 w-5" />, text: "Matter and client linked to each hearing for instant context" },
+                  { icon: <FileText className="h-5 w-5" />, text: "Case and client linked to each hearing for instant context" },
                   { icon: <CheckCircle className="h-5 w-5" />, text: "Mark hearings attended, adjourned or missed in one tap" },
                   { icon: <Bell className="h-5 w-5" />, text: "Prepare client reminders — automatic WhatsApp & SMS sending coming soon" },
                 ].map((item) => (
@@ -373,14 +373,14 @@ export default function HomePage() {
                 <CreditCard className="h-3.5 w-3.5" />
                 Fee Tracking
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-[#14213D] sm:text-4xl">
+              <h2 className="font-brand mb-6 text-3xl font-normal text-[#14213D] sm:text-4xl">
                 Know exactly what you are owed
               </h2>
               <ul className="space-y-4">
                 {[
                   { icon: <TrendingUp className="h-5 w-5" />, text: "Total fee agreed vs received vs pending — always up to date" },
                   { icon: <Bell className="h-5 w-5" />, text: "Overdue fees flagged automatically so nothing slips through the cracks" },
-                  { icon: <FileText className="h-5 w-5" />, text: "Complete payment history broken down by matter" },
+                  { icon: <FileText className="h-5 w-5" />, text: "Complete payment history broken down by case" },
                   { icon: <Users className="h-5 w-5" />, text: "Client-wise outstanding balance at a glance" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-3">
@@ -398,7 +398,7 @@ export default function HomePage() {
       <section className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               What changes when you use NyayVakil
             </h2>
             <p className="mt-3 text-slate-500">
@@ -436,7 +436,7 @@ export default function HomePage() {
               {
                 icon: <Smartphone className="h-6 w-6" />,
                 title: "Access from phone or desktop",
-                desc: "Check your diary, update a matter, or review fees from court or from home.",
+                desc: "Check your diary, update a case, or review fees from court or from home.",
               },
             ].map((benefit) => (
               <div
@@ -462,7 +462,7 @@ export default function HomePage() {
           <span className="inline-flex items-center gap-2 rounded-full bg-gold-bright/15 px-3 py-1 text-xs font-semibold text-gold">
             Early access
           </span>
-          <h2 className="mt-4 text-3xl font-bold text-[#14213D] sm:text-4xl">Built with advocates, for advocates</h2>
+          <h2 className="font-brand mt-4 text-3xl font-normal text-[#14213D] sm:text-4xl">Built with advocates, for advocates</h2>
           <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-slate-600">
             NyayVakil is in early access. We&apos;re working closely with our first advocates to shape every
             feature around real court practice. Join free today and tell us what your chamber needs next —
@@ -483,7 +483,7 @@ export default function HomePage() {
       <section id="pricing" className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-4 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               Simple, transparent pricing
             </h2>
           </div>
@@ -498,7 +498,7 @@ export default function HomePage() {
                 price: "₹799",
                 period: "/month",
                 desc: "Perfect for solo advocates managing their own practice.",
-                features: ["1 user", "Unlimited matters", "Court diary", "Fee tracking", "Document register"],
+                features: ["1 user", "Unlimited cases", "Court diary", "Fee tracking", "Document register"],
                 highlighted: false,
               },
               {
@@ -578,7 +578,7 @@ export default function HomePage() {
       <section id="faq" className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-[#14213D] sm:text-4xl">
+            <h2 className="font-brand text-3xl font-normal text-[#14213D] sm:text-4xl">
               Frequently asked questions
             </h2>
           </div>
@@ -591,7 +591,7 @@ export default function HomePage() {
               },
               {
                 q: "Can I use this for hearing diary only?",
-                a: "Yes. You can start by using just the court diary feature and add other features as you get comfortable. There is no obligation to use everything at once. Many advocates start with the diary and gradually bring in fee tracking and matter management over the first few weeks.",
+                a: "Yes. You can start by using just the court diary feature and add other features as you get comfortable. There is no obligation to use everything at once. Many advocates start with the diary and gradually bring in fee tracking and case management over the first few weeks.",
               },
               {
                 q: "Is NyayVakil free?",
@@ -619,7 +619,7 @@ export default function HomePage() {
       {/* ── Section 12: Final CTA Banner ── */}
       <section className="px-6 py-20" style={{ backgroundColor: "#14213D" }}>
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl">
+          <h2 className="font-brand mb-4 text-3xl font-normal text-white sm:text-4xl">
             Ready to organise your practice?
           </h2>
           <p className="mb-10 text-lg text-blue-200">

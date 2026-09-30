@@ -48,7 +48,7 @@ const GETTING_STARTED_CARDS = [
     icon: CalendarDays,
     title: "Set up your hearing diary",
     description:
-      "Hearings are linked to cases. Open any case and use the Hearings tab, or go to Hearings from the sidebar. Each hearing has a date, court, purpose, and next date. You can also set reminders for any hearing.",
+      "Hearings are linked to cases. Open any case and use the Hearings tab, or go to Court Diary from the sidebar. Each hearing has a date, court, purpose, and next date. You can also set reminders for any hearing.",
   },
 ];
 
@@ -66,7 +66,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How do I add a hearing?",
     answer:
-      "Go to Hearings from the sidebar or from inside any case. Click 'Add Hearing'. Select the case, court, date, and purpose.",
+      "Go to Court Diary from the sidebar or from inside any case. Click 'Add Hearing'. Select the case, court, date, and purpose.",
   },
   {
     question: "Can I assign tasks to my junior or clerk?",

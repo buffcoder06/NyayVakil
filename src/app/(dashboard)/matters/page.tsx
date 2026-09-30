@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { SummaryStat } from "@/components/shared/summary-stat";
+import { Briefcase, Clock, Flag, Archive } from "lucide-react";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -136,16 +138,6 @@ function MatterCard({ matter, clientName }: { matter: Matter; clientName: string
   );
 }
 
-function StatCard({
-  label, value, className,
-}: { label: string; value: number; className: string }) {
-  return (
-    <div className={cn("rounded-xl border p-4", className)}>
-      <p className="text-2xl font-bold leading-none">{value}</p>
-      <p className="text-xs mt-1 font-medium opacity-75">{label}</p>
-    </div>
-  );
-}
 
 export default function MattersPage() {
   const [matters, setMatters] = useState<Matter[]>([]);
@@ -166,7 +158,7 @@ export default function MattersPage() {
         setMatters(mRes.data?.data ?? []);
         setClients(cRes.data?.data ?? []);
       } catch {
-        toast.error("Failed to load matters.");
+        toast.error("Failed to load cases.");
       } finally {
         setLoading(false);
       }
@@ -204,13 +196,13 @@ export default function MattersPage() {
   return (
     <div>
       <PageHeader
-        title="Matters"
-        description="Manage all cases and legal matters."
+        title="Cases"
+        description="Manage all your cases."
         actions={
           <Link href="/matters/new">
             <Button className="gap-2 bg-[#14213D] hover:bg-[#0E182E]">
               <Plus className="h-4 w-4" />
-              Add Matter
+              Add Case
             </Button>
           </Link>
         }
@@ -223,10 +215,10 @@ export default function MattersPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          <StatCard label="Active Matters" value={stats.active} className="bg-emerald-50 text-emerald-700 border-emerald-200" />
-          <StatCard label="Pending" value={stats.pending} className="bg-amber-50 text-amber-700 border-amber-200" />
-          <StatCard label="High Priority" value={stats.highPriority} className="bg-red-50 text-red-700 border-red-200" />
-          <StatCard label="Disposed" value={stats.disposed} className="bg-slate-50 text-slate-600 border-slate-200" />
+          <SummaryStat label="Active Cases" value={stats.active} icon={Briefcase} />
+          <SummaryStat label="Pending" value={stats.pending} icon={Clock} />
+          <SummaryStat label="High Priority" value={stats.highPriority} icon={Flag} tone="alert" />
+          <SummaryStat label="Disposed" value={stats.disposed} icon={Archive} />
         </div>
       )}
 
@@ -236,7 +228,7 @@ export default function MattersPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <Input
             className="pl-9"
-            placeholder="Search matter, case no., court, client…"
+            placeholder="Search case title, case no., court, client…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -278,11 +270,11 @@ export default function MattersPage() {
       ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center py-20 text-slate-400">
           <Scale className="h-12 w-12 mb-3 opacity-30" />
-          <p className="text-base font-medium">No matters found</p>
+          <p className="text-base font-medium">No cases found</p>
           <p className="text-sm mt-1">
             {search || statusFilter !== "all" || priorityFilter !== "all" || caseTypeFilter !== "all"
               ? "Try adjusting your filters."
-              : "Add your first matter to get started."}
+              : "Add your first case to get started."}
           </p>
           {!search && statusFilter === "all" && priorityFilter === "all" && caseTypeFilter === "all" && (
             <Link href="/matters/new" className="mt-4">

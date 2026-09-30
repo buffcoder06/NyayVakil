@@ -52,10 +52,10 @@ const PLANS: PricingPlan[] = [
     badge: null,
     forWho: "Solo advocates",
     users: "1 user",
-    matters: "50 matters",
+    matters: "50 cases",
     storage: "1 GB file storage (coming soon)",
     features: [
-      "Case & matter tracking",
+      "Case tracking",
       "Court diary (hearing dates)",
       "Fee entries and tracking",
       "Client records (unlimited)",
@@ -83,7 +83,7 @@ const PLANS: PricingPlan[] = [
     badge: "Most Popular",
     forWho: "Advocate + junior/clerk",
     users: "5 users",
-    matters: "500 matters",
+    matters: "500 cases",
     storage: "10 GB file storage (coming soon)",
     features: [
       "Everything in Starter",
@@ -111,7 +111,7 @@ const PLANS: PricingPlan[] = [
     badge: null,
     forWho: "Small law firms",
     users: "20 users",
-    matters: "Unlimited matters",
+    matters: "Unlimited cases",
     storage: "50 GB file storage (coming soon)",
     features: [
       "Everything in Chamber",
@@ -172,7 +172,7 @@ const COMPARISON_ROWS: ComparisonRow[] = [
   {
     category: "Core Features",
     features: [
-      { name: "Case & matter tracking", starter: true, chamber: true, firm: true, enterprise: true },
+      { name: "Case tracking", starter: true, chamber: true, firm: true, enterprise: true },
       { name: "Court diary / hearing dates", starter: true, chamber: true, firm: true, enterprise: true },
       { name: "Fee entries & tracking", starter: true, chamber: true, firm: true, enterprise: true },
       { name: "Client records (unlimited)", starter: true, chamber: true, firm: true, enterprise: true },
@@ -427,7 +427,7 @@ export default function PricingPage() {
           >
             Pricing
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-4">
+          <h1 className="font-brand text-3xl sm:text-4xl lg:text-5xl font-normal text-slate-900 leading-tight mb-4">
             Simple, transparent pricing
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
@@ -507,7 +507,7 @@ export default function PricingPage() {
       {/* ── Feature Comparison Table (desktop only) ───────────────────── */}
       <section className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-slate-900">Compare plans in detail</h2>
+          <h2 className="font-brand text-2xl font-normal text-slate-900">Compare plans in detail</h2>
           <p className="text-slate-500 mt-2 text-sm">
             See exactly what's included in each plan
           </p>
@@ -569,7 +569,7 @@ export default function PricingPage() {
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       <section className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-slate-900">Frequently asked questions</h2>
+          <h2 className="font-brand text-2xl font-normal text-slate-900">Frequently asked questions</h2>
           <p className="text-slate-500 mt-2 text-sm">
             Everything you need to know about our pricing
           </p>
@@ -588,7 +588,7 @@ export default function PricingPage() {
         style={{ backgroundColor: "#f8fafc" }}
       >
         <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+          <h2 className="font-brand text-2xl sm:text-3xl font-normal text-slate-900 mb-3">
             Not sure which plan?
           </h2>
           <p className="text-slate-600 mb-8 text-base">

@@ -27,7 +27,7 @@ export async function requireMatter(firmId: string, id: string, tx: Tx = db) {
     where: { id, firmId },
     select: { id: true, clientId: true, matterTitle: true },
   });
-  if (!matter) throw new ApiError(400, "Selected matter was not found.");
+  if (!matter) throw new ApiError(400, "Selected case was not found.");
   return matter;
 }
 

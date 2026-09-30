@@ -42,7 +42,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
       <CardHeader className="border-b pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">
-            <IndianRupee className="h-4 w-4 text-red-500" />
+            <IndianRupee className="h-4 w-4 text-gold" />
             Pending Fees
           </CardTitle>
           <span className="text-xs font-semibold text-red-600 dark:text-red-400">
@@ -142,7 +142,7 @@ export function PendingFeesWidget({ fees }: PendingFeesWidgetProps) {
       <CardFooter className="border-t pt-3">
         <Link
           href="/fees"
-          className="flex items-center gap-1 text-xs font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
+          className="flex items-center gap-1 text-xs font-medium text-navy hover:text-gold dark:text-gold-bright dark:hover:text-gold-bright/80 transition-colors"
         >
           View all fees
           <ArrowRight className="h-3.5 w-3.5" />

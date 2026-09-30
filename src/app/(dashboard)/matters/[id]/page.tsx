@@ -174,7 +174,7 @@ export default function MatterDetailPage() {
         setTasks(tRes.data ?? []);
         setTimeline([]);
       } catch {
-        toast.error("Failed to load matter details.");
+        toast.error("Failed to load case details.");
       } finally {
         setLoading(false);
       }
@@ -196,9 +196,9 @@ export default function MatterDetailPage() {
     return (
       <div className="flex flex-col items-center py-20 text-slate-400">
         <AlertCircle className="h-12 w-12 mb-3" />
-        <p>Matter not found.</p>
+        <p>Case not found.</p>
         <Link href="/matters" className="mt-4">
-          <Button variant="outline" size="sm">Back to Matters</Button>
+          <Button variant="outline" size="sm">Back to Cases</Button>
         </Link>
       </div>
     );
@@ -229,7 +229,7 @@ export default function MatterDetailPage() {
       <div className="mb-4">
         <Link href="/matters" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
           <ArrowLeft className="h-4 w-4" />
-          Back to Matters
+          Back to Cases
         </Link>
       </div>
 

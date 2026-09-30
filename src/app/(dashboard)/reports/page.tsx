@@ -27,6 +27,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { addDays, todayIST } from "@/lib/dates";
 import { titleCase } from "@/lib/utils/index";
+import { SummaryStat } from "@/components/shared/summary-stat";
 
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-IN", {
@@ -35,7 +36,8 @@ const fmt = (n: number) =>
     maximumFractionDigits: 0,
   }).format(n);
 
-const COLORS = ["#14213D", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+// Brand palette: navy and gold first, then muted tints that stay distinguishable
+const COLORS = ["#14213D", "#D9A441", "#5B6B8C", "#A8741F", "#94A3B8", "#E9CF94"];
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -106,19 +108,19 @@ export default function ReportsPage() {
     const matterTitle = (id?: string) => matters.find((m) => m.id === id)?.matterTitle ?? "";
     if (tab === "financial") {
       downloadCsv(`nyayvakil-fees-${stamp}.csv`,
-        ["Matter", "Client", "Description", "Total (INR)", "Received (INR)", "Pending (INR)", "Due date", "Status"],
+        ["Case", "Client", "Description", "Total (INR)", "Received (INR)", "Pending (INR)", "Due date", "Status"],
         fees.map((f) => [f.matterTitle ?? matterTitle(f.matterId), f.clientName ?? clientName(f.clientId), f.description, f.totalAmount, f.receivedAmount, f.pendingAmount, f.dueDate ?? "", titleCase(f.status)]));
     } else if (tab === "matters") {
       downloadCsv(`nyayvakil-matters-${stamp}.csv`,
-        ["Matter", "Case number", "CNR", "Client", "Court", "Case type", "Status", "Priority", "Filing date", "Next hearing", "Fee agreed (INR)", "Fee paid (INR)", "Expenses (INR)"],
+        ["Case", "Case number", "CNR", "Client", "Court", "Case type", "Status", "Priority", "Filing date", "Next hearing", "Fee agreed (INR)", "Fee paid (INR)", "Expenses (INR)"],
         matters.map((m) => [m.matterTitle, m.caseNumber ?? "", m.cnrNumber ?? "", m.clientName ?? clientName(m.clientId), m.courtName, m.caseType, titleCase(m.status), titleCase(m.priority), m.filingDate ?? "", m.nextHearingDate ?? "", m.totalFeeAgreed, m.totalFeePaid, m.totalExpenses]));
     } else if (tab === "hearings") {
       downloadCsv(`nyayvakil-hearings-${stamp}.csv`,
-        ["Date", "Time", "Matter", "Client", "Court", "Purpose", "Assigned to", "Status"],
+        ["Date", "Time", "Case", "Client", "Court", "Purpose", "Assigned to", "Status"],
         [...hearings].sort((a, b) => a.date.localeCompare(b.date)).map((h) => [h.date, h.time ?? "", h.matterTitle, h.clientName, h.courtName, h.purpose ?? "", h.assignedTo ?? "", titleCase(h.status)]));
     } else {
       downloadCsv(`nyayvakil-tasks-${stamp}.csv`,
-        ["Task", "Matter", "Assigned to", "Due date", "Priority", "Status", "Completed at"],
+        ["Task", "Case", "Assigned to", "Due date", "Priority", "Status", "Completed at"],
         tasks.map((t) => [t.title, t.matterTitle ?? "", t.assignedTo, t.dueDate ?? "", titleCase(t.priority), titleCase(t.status), t.completedAt ? new Date(t.completedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : ""]));
     }
     toast.success("Report downloaded.");
@@ -274,7 +276,7 @@ export default function ReportsPage() {
             <BarChart3 className="h-4 w-4" /> Financial
           </TabsTrigger>
           <TabsTrigger value="matters" className="gap-1.5">
-            <TrendingUp className="h-4 w-4" /> Matters
+            <TrendingUp className="h-4 w-4" /> Cases
           </TabsTrigger>
           <TabsTrigger value="hearings" className="gap-1.5">
             <Calendar className="h-4 w-4" /> Hearings
@@ -288,22 +290,10 @@ export default function ReportsPage() {
         <TabsContent value="financial" className="space-y-5">
           {/* Summary */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="rounded-xl border p-4 bg-slate-50">
-              <p className="text-xs text-slate-500 mb-1">Total Agreed</p>
-              <p className="text-xl font-bold text-slate-800">{fmt(financialStats.totalAgreed)}</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-emerald-50">
-              <p className="text-xs text-emerald-600 mb-1">Total Collected</p>
-              <p className="text-xl font-bold text-emerald-800">{fmt(financialStats.totalCollected)}</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-amber-50">
-              <p className="text-xs text-amber-600 mb-1">Total Pending</p>
-              <p className="text-xl font-bold text-amber-800">{fmt(financialStats.totalPending)}</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-blue-50">
-              <p className="text-xs text-blue-600 mb-1">Recovery Rate</p>
-              <p className="text-xl font-bold text-blue-800">{financialStats.recoveryRate.toFixed(0)}%</p>
-            </div>
+            <SummaryStat label="Total Agreed" value={fmt(financialStats.totalAgreed)} />
+            <SummaryStat label="Total Collected" value={fmt(financialStats.totalCollected)} tone="positive" />
+            <SummaryStat label="Total Pending" value={fmt(financialStats.totalPending)} />
+            <SummaryStat label="Recovery Rate" value={`${financialStats.recoveryRate.toFixed(0)}%`} />
           </div>
 
           {/* Monthly Chart */}
@@ -319,9 +309,9 @@ export default function ReportsPage() {
                     formatter={(value) => [fmt(Number(value)), ""]}
                     contentStyle={{ borderRadius: 8, border: "1px solid #e2e8f0", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
                   />
-                  <Legend />
+                  <Legend formatter={(value: string) => <span style={{ color: "#475569" }}>{value}</span>} />
                   <Bar dataKey="collected" name="Collected" fill="#14213D" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="expenses" name="Expenses" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="expenses" name="Expenses" fill="#D9A441" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -371,7 +361,7 @@ export default function ReportsPage() {
         <TabsContent value="matters" className="space-y-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {/* Status Pie Chart */}
-            <SectionCard title="Matter Status Distribution">
+            <SectionCard title="Case Status Distribution">
               <div className="h-56">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -389,7 +379,7 @@ export default function ReportsPage() {
             </SectionCard>
 
             {/* Type Distribution */}
-            <SectionCard title="Matter Type Distribution">
+            <SectionCard title="Case Type Distribution">
               <div className="space-y-1">
                 {matterTypeDist.map((t) => (
                   <BarRow
@@ -405,22 +395,10 @@ export default function ReportsPage() {
 
           {/* Summary Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="rounded-xl border p-4 bg-emerald-50">
-              <p className="text-xl font-bold text-emerald-800">{matters.filter((m) => m.status === "active").length}</p>
-              <p className="text-xs text-emerald-600 mt-1">Active Matters</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-amber-50">
-              <p className="text-xl font-bold text-amber-800">{matters.filter((m) => m.priority === "high").length}</p>
-              <p className="text-xs text-amber-600 mt-1">High Priority</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-red-50">
-              <p className="text-xl font-bold text-red-800">{matters.filter((m) => m.nextHearingDate && new Date(m.nextHearingDate) < new Date()).length}</p>
-              <p className="text-xs text-red-600 mt-1">Overdue Hearings</p>
-            </div>
-            <div className="rounded-xl border p-4 bg-slate-50">
-              <p className="text-xl font-bold text-slate-800">{matters.filter((m) => m.status === "disposed").length}</p>
-              <p className="text-xs text-slate-500 mt-1">Disposed</p>
-            </div>
+            <SummaryStat label="Active Cases" value={matters.filter((m) => m.status === "active").length} />
+            <SummaryStat label="High Priority" value={matters.filter((m) => m.priority === "high").length} />
+            <SummaryStat label="Overdue Hearings" value={matters.filter((m) => m.nextHearingDate && m.nextHearingDate < todayIST()).length} tone="alert" />
+            <SummaryStat label="Disposed" value={matters.filter((m) => m.status === "disposed").length} />
           </div>
         </TabsContent>
 
@@ -428,16 +406,13 @@ export default function ReportsPage() {
         <TabsContent value="hearings" className="space-y-5">
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
             {[
-              { label: "Upcoming", count: hearingStats.upcoming, color: "bg-blue-50 text-blue-800" },
-              { label: "Attended", count: hearingStats.attended, color: "bg-emerald-50 text-emerald-800" },
-              { label: "Adjourned", count: hearingStats.adjourned, color: "bg-amber-50 text-amber-800" },
-              { label: "Completed", count: hearingStats.completed, color: "bg-slate-50 text-slate-700" },
-              { label: "Missed", count: hearingStats.missed, color: "bg-red-50 text-red-800" },
+              { label: "Upcoming", count: hearingStats.upcoming },
+              { label: "Attended", count: hearingStats.attended },
+              { label: "Adjourned", count: hearingStats.adjourned },
+              { label: "Completed", count: hearingStats.completed },
+              { label: "Missed", count: hearingStats.missed, tone: "alert" as const },
             ].map((s) => (
-              <div key={s.label} className={cn("rounded-xl border p-4", s.color)}>
-                <p className="text-2xl font-bold">{s.count}</p>
-                <p className="text-xs font-medium mt-1 opacity-80">{s.label}</p>
-              </div>
+              <SummaryStat key={s.label} label={s.label} value={s.count} tone={s.tone} />
             ))}
           </div>
 
@@ -508,19 +483,10 @@ export default function ReportsPage() {
                 <span>{taskStats.total} total</span>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              <div className="text-center p-3 bg-amber-50 rounded-lg">
-                <p className="text-xl font-bold text-amber-800">{taskStats.pending}</p>
-                <p className="text-xs text-amber-600 mt-0.5">Pending</p>
-              </div>
-              <div className="text-center p-3 bg-emerald-50 rounded-lg">
-                <p className="text-xl font-bold text-emerald-800">{taskStats.completed}</p>
-                <p className="text-xs text-emerald-600 mt-0.5">Completed</p>
-              </div>
-              <div className="text-center p-3 bg-red-50 rounded-lg">
-                <p className="text-xl font-bold text-red-800">{taskStats.overdue.length}</p>
-                <p className="text-xs text-red-600 mt-0.5">Overdue</p>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+              <SummaryStat label="Pending" value={taskStats.pending} />
+              <SummaryStat label="Completed" value={taskStats.completed} />
+              <SummaryStat label="Overdue" value={taskStats.overdue.length} tone="alert" />
             </div>
           </SectionCard>
 
